@@ -12,17 +12,17 @@
         <title>Signin Template for Bootstrap</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo $assetDirectory; ?>/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $assetDirectory; ?>css/bootstrap.min.css" rel="stylesheet">
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <link href="<?php echo $assetDirectory; ?>/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+        <link href="<?php echo $assetDirectory; ?>css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <!--link href="<?php echo $assetDirectory; ?>signin.css" rel="stylesheet"-->
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="<?php echo $assetDirectory; ?>/js/ie-emulation-modes-warning.js"></script>
+        <script src="<?php echo $assetDirectory; ?>js/ie-emulation-modes-warning.js"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -35,12 +35,18 @@
 
         <div class="container">
 
-            <?php echo $body; ?>
+            <div class="row" style="margin-top: 10px;margin-bottom:10px;">
+                <div class="col-md-4 col-md-offset-4">
+                    
+                    <?php echo $body; ?>
+                    
+                </div>
+            </div>
 
         </div> <!-- /container -->
 
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="<?php echo $assetDirectory; ?>/js/ie10-viewport-bug-workaround.js"></script>
+        <script src="<?php echo $assetDirectory; ?>js/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>
