@@ -63,9 +63,49 @@ class User_model extends CI_Model {
     public function create() {
         $now = date('Y-m-d h:i:s');
         $user = R::dispense('user');
+        $user->username = 'ksawic';
         $user->first_name = 'Kevin';
         $user->last_name = 'Sawicke';
         $user->email_address = 'kevin@rinconmountaintech.com';
+        $user->pin = password_hash('987654', PASSWORD_DEFAULT);
+        $user->active = 1;
+        $user->role = 'admin';
+        $user->created = $now;
+        $user->modified = $now;
+        $user_id = R::store($user);
+        
+        $now = date('Y-m-d h:i:s');
+        $user = R::dispense('user');
+        $user->username = 'npjohnson';
+        $user->first_name = 'Neil';
+        $user->last_name = 'Johnson';
+        $user->email_address = 'npjohnson@komatsuna.com';
+        $user->pin = password_hash('987654', PASSWORD_DEFAULT);
+        $user->active = 1;
+        $user->role = 'admin';
+        $user->created = $now;
+        $user->modified = $now;
+        $user_id = R::store($user);
+        
+        $now = date('Y-m-d h:i:s');
+        $user = R::dispense('user');
+        $user->username = 'jleonetti';
+        $user->first_name = 'John';
+        $user->last_name = 'Leonetti';
+        $user->email_address = 'jleonetti@komatsuna.com';
+        $user->pin = password_hash('987654', PASSWORD_DEFAULT);
+        $user->active = 1;
+        $user->role = 'admin';
+        $user->created = $now;
+        $user->modified = $now;
+        $user_id = R::store($user);
+        
+        $now = date('Y-m-d h:i:s');
+        $user = R::dispense('user');
+        $user->username = 'bwjohnson';
+        $user->first_name = 'Bret';
+        $user->last_name = 'Johnson';
+        $user->email_address = 'bwjohnson@komatsuna.com';
         $user->pin = password_hash('987654', PASSWORD_DEFAULT);
         $user->active = 1;
         $user->role = 'admin';
