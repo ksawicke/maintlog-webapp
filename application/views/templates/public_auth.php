@@ -15,7 +15,7 @@
         <link href="<?php echo $assetDirectory; ?>css/bootstrap.min.css" rel="stylesheet">
         
         <!-- Komatsu NA custom CSS -->
-        <link href="<?php echo $assetDirectoryCustom; ?>css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet">
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <link href="<?php echo $assetDirectory; ?>css/ie10-viewport-bug-workaround.css" rel="stylesheet">

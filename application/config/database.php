@@ -70,15 +70,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
+$active_group = ($_SERVER['HTTP_HOST']=='test.rinconmountaintech.com' ? 'development' : '');
 $query_builder = TRUE;
 
-$db['default'] = array(
+$db['development'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
+	'username' => 'rincon_komatsuna',
+	'password' => '2A-xPeoQNNdd',
+	'database' => 'rincon_komatsunalog',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

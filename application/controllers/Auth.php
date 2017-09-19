@@ -55,11 +55,7 @@ class Auth extends CI_Controller {
      */
     public function check() {
         $found = $this->User_model->findCountByUsername($this->input->post('username'));
-        $authObject = $this->User_model->getAuthObject($this->input->post('username'), $this->input->post('password'));
-        
-//        echo '<pre>';
-//        var_dump($authObject);
-//        exit();
+        $authObject = $this->User_model->getAuthObject($this->input->post('username'), $this->input->post('pin'));
         
         if($authObject->authenticated) {
             $this->createUserSession($authObject->user);

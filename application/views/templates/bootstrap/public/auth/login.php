@@ -1,13 +1,25 @@
-<form class="form-signin">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+<?php if(array_key_exists('alert_danger', $flashdata)) { ?>
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+    <?php echo $flashdata['alert_danger']; ?>
+</div>
+<?php } ?>
+
+<?php if(array_key_exists('alert_success', $flashdata)) { ?>
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4><i class="icon fa fa-check"></i> Success!</h4>
+    <?php echo $flashdata['alert_success']; ?>
+</div>
+<?php } ?>
+
+<form action="<?php echo base_url(); ?>auth/check" method="post">
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+    
+    <label for="pin" class="sr-only">PIN</label>
+    <input type="password" id="pin" name="pin" class="form-control" placeholder="PIN" required>
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
 </form>

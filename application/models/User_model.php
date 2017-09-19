@@ -13,16 +13,43 @@ class User_model extends CI_Model {
     }
     
     /**
+     * Finds a count of user by username
+     * 
+     * @param type $username
+     * @return object
+     */
+    public function findCountByUsername($username) {
+        $count = R::count('user', ' username = :username AND active = 1 ', [':username' => $username]);
+        
+        return $count;
+    }
+    
+    /**
+     * Finds a user by username
+     * 
+     * @param type $username
+     * @return object
+     */
+    public function findByUsername($username) {
+        $user = R::findOne('user', ' username = :username AND active = 1 ', [':username' => $username]);
+        
+        return $user;
+    }
+    
+    /**
      * Returns an object to validate user authentication
      * 
+     * $param type $username
      * @param type $pin
      * @return boolean
      */
-    public function getAuthObject($pin) {
+    public function getAuthObject($username, $pin) {
         $authObject = new stdClass();
         $authObject->authenticated = false;
         
-        if(password_verify($password, $user->pin)) {
+        $user = $this->findByUsername($username);
+        
+        if(!is_null($user) && password_verify($pin, $user->pin)) {
             $authObject->authenticated = true;
             $authObject->user = $user;
         }
