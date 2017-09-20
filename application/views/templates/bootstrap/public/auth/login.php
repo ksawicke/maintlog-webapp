@@ -20,11 +20,11 @@
 <?php } ?>
 
 <form action="<?php echo base_url(); ?>auth/check" method="post">
-    <div class="form-group col-md-12 col-md-12 nopadding">
+    <!--div class="form-group col-md-12 col-md-12 nopadding">
         <label for="username" class="control-label">Username</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
         <p></p>
-    </div>
+    </div-->
     
     <div class="form-group col-md-12 col-md-12 nopadding">
         <label for="pin" class="control-label">PIN</label>

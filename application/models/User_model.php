@@ -37,19 +37,37 @@ class User_model extends CI_Model {
     }
     
     /**
+     * Finds a user by PIN
+     * 
+     * @param type $pin
+     * @return object
+     */
+    public function findByPin($pin) {
+        $users = R::findAll('user', ' active = 1 ');
+        
+        foreach($users as $user) {
+            if(password_verify($pin, $user->pin)) {
+                return $user;
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
      * Returns an object to validate user authentication
      * 
      * $param type $username
      * @param type $pin
      * @return boolean
      */
-    public function getAuthObject($username, $pin) {
+    public function getAuthObject($pin) {
         $authObject = new stdClass();
         $authObject->authenticated = false;
         
-        $user = $this->findByUsername($username);
+        $user = $this->findByPin($pin);
         
-        if(!is_null($user) && password_verify($pin, $user->pin)) {
+        if(!is_null($user)) {
             $authObject->authenticated = true;
             $authObject->user = $user;
         }
@@ -67,7 +85,7 @@ class User_model extends CI_Model {
         $user->first_name = 'Kevin';
         $user->last_name = 'Sawicke';
         $user->email_address = 'kevin@rinconmountaintech.com';
-        $user->pin = password_hash('987654', PASSWORD_DEFAULT);
+        $user->pin = password_hash('999999', PASSWORD_DEFAULT);
         $user->active = 1;
         $user->role = 'admin';
         $user->created = $now;
@@ -93,7 +111,7 @@ class User_model extends CI_Model {
         $user->first_name = 'John';
         $user->last_name = 'Leonetti';
         $user->email_address = 'jleonetti@komatsuna.com';
-        $user->pin = password_hash('987654', PASSWORD_DEFAULT);
+        $user->pin = password_hash('876543', PASSWORD_DEFAULT);
         $user->active = 1;
         $user->role = 'admin';
         $user->created = $now;
@@ -106,7 +124,7 @@ class User_model extends CI_Model {
         $user->first_name = 'Bret';
         $user->last_name = 'Johnson';
         $user->email_address = 'bwjohnson@komatsuna.com';
-        $user->pin = password_hash('987654', PASSWORD_DEFAULT);
+        $user->pin = password_hash('765432', PASSWORD_DEFAULT);
         $user->active = 1;
         $user->role = 'admin';
         $user->created = $now;

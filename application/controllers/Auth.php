@@ -54,8 +54,7 @@ class Auth extends CI_Controller {
      * Check credentials passed from login form.
      */
     public function check() {
-        $found = $this->User_model->findCountByUsername($this->input->post('username'));
-        $authObject = $this->User_model->getAuthObject($this->input->post('username'), $this->input->post('pin'));
+        $authObject = $this->User_model->getAuthObject($this->input->post('pin'));
         
         if($authObject->authenticated) {
             $this->createUserSession($authObject->user);
@@ -75,7 +74,7 @@ class Auth extends CI_Controller {
         }
 //        die("dsalfihadlads");
         
-        $this->session->set_flashdata('alert_danger', 'Username and/or password incorrect. Please try again.');
+        $this->session->set_flashdata('alert_danger', 'Invalid PIN. Please try again.');
         redirect('/auth/index', 'refresh');
     }
     
