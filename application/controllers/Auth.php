@@ -59,15 +59,15 @@ class Auth extends CI_Controller {
         if($authObject->authenticated) {
             $this->createUserSession($authObject->user);
             
-            switch($authObject->user->role) {
-            case 'admin':
-                $redirectTo = '/projects/index';
-                break;
-            
-            case 'developer':
-                $redirectTo = '/projects/index'; /* TODO: CHANGE TO PROJECTS */
-                break;
-            }
+//            switch($authObject->user->role) {
+//                case 'admin':
+                    $redirectTo = '/app/index';
+//                    break;
+//
+//                case 'developer':
+//                    $redirectTo = '/auth/index';
+//                    break;
+//            }
             
             $this->session->set_flashdata('alert_success', 'You have logged in successfully.');
             redirect($redirectTo, 'refresh');
@@ -81,6 +81,7 @@ class Auth extends CI_Controller {
     public function logout() {
         $this->destroyUserSession();
         
+        $this->session->set_flashdata('alert_success', 'You have been logged out.');
         redirect('/auth/index', 'refresh');
     }
     

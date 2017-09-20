@@ -2,6 +2,7 @@ body {
     font-family: 'PT Sans Caption';
     font-size: 15px;
     margin: 0px;
+    color: #22252A;
 }
 
 .nopadding {
@@ -11,4 +12,33 @@ body {
 
 .form-aftermargin {
     margin-bottom:10px;
+}
+
+#sidebar-wrapper {
+    background-color: #C9C9CA; /** Komatsu Gloria Blue **/
+}
+
+#sidebar-wrapper > ul > li {
+    background: #C9C9CA;
+}
+#sidebar-wrapper > ul > li:hover {
+    background: #EAB03D;
+}
+#sidebar-wrapper > ul > li:hover a {
+    color: #0E1271;
+}
+#sidebar-wrapper > ul > li a {
+    color: #0E1271;
+    font-weight: 700;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+}
+
+.glyphicon-menu-hamburger {
+    color: #0E1271;
+    font-size: 26px;
+    margin-top: 6px;
+    margin-left: -12px;
 }
