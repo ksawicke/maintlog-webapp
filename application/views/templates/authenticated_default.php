@@ -94,9 +94,13 @@
             </div>
         </div>
         <!-- /#page-content-wrapper -->
-
+        <footer class="footer">
+            <div class="container" style="padding-left:35px;padding-top:15px;">
+                <p>Copyright &copy; <?php echo date("Y"); ?> Komatsu NA. All Rights Reserved.</p>
+            </div>
+        </footer>
     </div>
-    <!-- /#wrapper --> 
+    <!-- /#wrapper -->
       
     <?php /****
     <!-- Fixed navbar -->
