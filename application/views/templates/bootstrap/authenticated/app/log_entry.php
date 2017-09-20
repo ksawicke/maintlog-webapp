@@ -49,9 +49,18 @@
     </div>
     
     <div class="group">
-        <label for="value4" class="control-label">Value 4</label>
-        <input type="text" id="value4" name="value4" class="form-control" />
+        <div class="form-group col-xs-8 col-md-8">
+            <label for="entered_by" class="control-label">Entry Selection</label>
+            <select id="entered_by" name="entered_by" class="form-control">
+                <option value="">Select one:</option>
+                <option value="smr_update">SMR update</option>
+                <option value="pm_service">PM service</option>
+                <option value="component">Component</option>
+                <option value="service_reminder">Service reminder</option>
+            </select>
+        </div>
     </div>
+    
     <div class="group">
         <label for="value5" class="control-label">Value 5</label>
         <input type="text" id="value5" name="value5" class="form-control" />
