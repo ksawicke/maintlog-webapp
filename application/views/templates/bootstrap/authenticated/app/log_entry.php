@@ -3,7 +3,12 @@
     <div class="group">
         <div class="form-group col-xs-8 col-md-8">
             <label for="date_entered" class="control-label">Date Entered</label>
-            <input type="text" id="date_entered" name="date_entered" class="form-control" value="<?php echo date("m/d/Y"); ?>">
+            <div class="input-group date">
+                <div class="input-group-addon">
+                   <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control" id="date_entered" name="date_entered" class="form-control" value="<?php echo date("m/d/Y"); ?>">
+             </div>
         </div>
     </div>
     
@@ -107,6 +112,11 @@ function handleClick() {
         alert('Submitting'); // Add code to submit your form
     }
 }
+
+$('#date_entered').datepicker({
+    autoclose: true,
+    dateFormat: 'mm/dd/yyyy'
+});
 
 //$(document).ready(function () {
 //    var q = 1,

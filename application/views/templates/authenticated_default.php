@@ -14,8 +14,10 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo $assetDirectory; ?>css/bootstrap.min.css" rel="stylesheet">
 
+    <?php /***
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--link href="<?php echo $assetDirectory; ?>css/ie10-viewport-bug-workaround.css" rel="stylesheet"-->
+    ***/ ?>
 
     <!-- Custom Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Libre+Franklin:400,100,100italic,200,200italic,300,300italic,400italic,500,600,500italic,600italic,700,700italic,800,900,800italic,900italic' rel='stylesheet' type='text/css'>
@@ -25,6 +27,8 @@
     <!-- Custom styles for this template -->
     <link href="<?php echo $assetDirectoryCustom; ?>simplesidebar/css/simple-sidebar.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -33,8 +37,10 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="<?php echo $assetDirectoryCustom; ?>js/jquery.min.js"></script>
+    <script src="<?php echo $assetDirectoryCustom; ?>js/jquery-ui.min.js"></script>
+    <script src="<?php echo $assetDirectoryCustom; ?>js/bootstrap-datepicker.min.js"></script>
+    <?php /***<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>***/?>
   </head>
 
   <body>
@@ -124,8 +130,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     
     <script src="<?php echo $assetDirectory; ?>js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--script src="<?php echo $assetDirectory; ?>js/ie10-viewport-bug-workaround.js"></script-->
+    <?php /***<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--script src="<?php echo $assetDirectory; ?>js/ie10-viewport-bug-workaround.js"></script-->***/ ?>
     
     <!-- Menu Toggle Script -->
     <script>
