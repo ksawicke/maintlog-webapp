@@ -17,9 +17,10 @@
             <label for="entered_by" class="control-label">Entered By</label>
             <select id="entered_by" name="entered_by" class="form-control">
                 <option value="">Select one:</option>
-                <option value="124566">Doe, John</option>
-                <option value="124512">Johnson, Neil</option>
-                <option value="622141">Smith, Joe</option>
+                <option value="124566"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
+                <option value="622141"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
+                <option value="124512"<?php echo ($_SESSION['first_name']=='John' && $_SESSION['last_name']=='Leonetti' ? ' selected' : ''); ?>>Leonetti, John</option>
+                <option value="333333"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>
             </select>
         
             <label for="serviced_by" class="control-label">Serviced By</label>
@@ -44,11 +45,12 @@
             </select>
         
             <label for="equipment" class="control-label">Equipment</label>
-            <select id="equipment" name="equipment" class="form-control">
-                <option value="1000">Unit 1000 | Manufacturer Model 100</option>
+            <select id="equipment" name="equipment" class="form-control" disabled>
+                <option value="" selected>Select one:</option>
+                <!--option value="1000">Unit 1000 | Manufacturer Model 100</option>
                 <option value="1002">Unit 1002 | Manufacturer Model 600</option>
                 <option value="1004">Unit 1004 | Manufacturer Model 400</option>
-                <option value="1006">Unit 1006 | Manufacturer Model 300</option>
+                <option value="1006">Unit 1006 | Manufacturer Model 300</option-->
             </select>
         </div>
     </div>
@@ -116,6 +118,14 @@ function handleClick() {
 $('#date_entered').datepicker({
     autoclose: true,
     dateFormat: 'mm/dd/yyyy'
+});
+
+$('#equipment_type').on('change', function() {
+    console.log('equipment_type changed');
+    $("#equipment").prop('disabled', false);
+    $('#equipment').append('<option value="foo" selected="selected">Foo</option>');
+    $('#equipment').append('<option value="foo2" selected="selected">Foo 2</option>');
+    $('#equipment').append('<option value="foo3" selected="selected">Foo 3</option>');
 });
 
 //$(document).ready(function () {
