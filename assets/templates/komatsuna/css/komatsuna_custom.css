@@ -15,7 +15,7 @@ body {
 }
 
 #sidebar-wrapper {
-    background-color: #C9C9CA; /** Komatsu Gloria Blue **/
+    background-color: #C9C9CA;
 }
 
 #sidebar-wrapper > ul > li {
@@ -24,12 +24,13 @@ body {
 #sidebar-wrapper > ul > li:hover {
     background: #EAB03D;
 }
+
+#sidebar-wrapper > ul > li a {
+    color: #0E1271; /** Komatsu Gloria Blue **/
+    font-weight: 700;
+}
 #sidebar-wrapper > ul > li:hover a {
     color: #0E1271;
-}
-#sidebar-wrapper > ul > li a {
-    color: #0E1271;
-    font-weight: 700;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,4 +46,13 @@ h1, h2, h3, h4, h5, h6 {
 
 #wrapper {
     margin-left: -10px;
+}
+
+.btn-primary {
+    background-color: #0E1271;
+    color: #fff;
+}
+.btn-primary:hover {
+    background: #EAB03D;
+    color: #0E1271;
 }
