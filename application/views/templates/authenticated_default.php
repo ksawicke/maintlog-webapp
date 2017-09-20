@@ -47,6 +47,7 @@
                         Start Bootstrap
                     </a>
                 </li-->
+                <li>Welcome, <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.</li>
                 <li>
                     <a href="#">Home</a>
                 </li>
