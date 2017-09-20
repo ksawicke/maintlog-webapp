@@ -54,7 +54,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/log_entry', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -72,7 +72,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/employees', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -90,7 +90,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -108,7 +108,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -126,7 +126,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

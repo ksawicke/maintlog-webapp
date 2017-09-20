@@ -47,22 +47,22 @@
                     </a>
                 </li-->
                 <li>
-                    <a href="#">Home</a>
+                    <a href="<?php echo base_url(); ?>app/log_entry">Home</a>
                 </li>
                 <li>
-                    <a href="#">Enter Service Log</a>
+                    <a href="<?php echo base_url(); ?>app/log_entry">Enter Service Log</a>
                 </li>
                 <li>
-                    <a href="#">Edit Employees</a>
+                    <a href="<?php echo base_url(); ?>app/employees">Edit Employees</a>
                 </li>
                 <li>
-                    <a href="#">Edit Users</a>
+                    <a href="<?php echo base_url(); ?>app/users">Edit Users</a>
                 </li>
                 <li>
-                    <a href="#">Edit Equipment</a>
+                    <a href="<?php echo base_url(); ?>app/equipment">Edit Equipment</a>
                 </li>
                 <li>
-                    <a href="#">Reporting</a>
+                    <a href="<?php echo base_url(); ?>app/reporting">Reporting</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>auth/logout">Log Out</a>
