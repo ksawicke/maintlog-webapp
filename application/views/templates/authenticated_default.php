@@ -46,7 +46,6 @@
                         Start Bootstrap
                     </a>
                 </li-->
-                <li>Welcome, <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.</li>
                 <li>
                     <a href="#">Home</a>
                 </li>
@@ -76,7 +75,8 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
+                        
                         <a href="#" id="menu-toggle" class="btn btn-sm">
                             <span class="glyphicon glyphicon-menu-hamburger"></span>
                         </a>
@@ -84,9 +84,24 @@
                         <img src="<?php echo $assetDirectoryCustom; ?>img/025_Gloria_blue_nega_r.jpg">
                         <h5>Maintenance Log Application</h5>
                         
+                    </div>
+                    <div class="col-lg-4">
+                        
+                        Logged in as <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        
+                        
                         <p>&nbsp;</p>
                         
-                        <?php echo $body; ?>
+                        <div class="col-md-4 col-md-offset-4">
+
+                            <?php echo $body; ?>
+
+                        </div>
                     </div>
                 </div>
             </div>
