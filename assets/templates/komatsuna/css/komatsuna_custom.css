@@ -1,5 +1,14 @@
-body{
+body {
     font-family: 'PT Sans Caption';
     font-size: 15px;
     margin: 0px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.form-aftermargin {
+    margin-bottom:10px;
 }

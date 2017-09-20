@@ -20,15 +20,20 @@
 <?php } ?>
 
 <form action="<?php echo base_url(); ?>auth/check" method="post">
-    <p>
-        <label for="username" class="sr-only">Username</label>
+    <div class="form-group col-md-12 col-md-12 nopadding">
+        <label for="username" class="control-label">Username</label>
         <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
-    </p>
+        <p></p>
+    </div>
     
-    <p>
-        <label for="pin" class="sr-only">PIN</label>
+    <div class="form-group col-md-12 col-md-12 nopadding">
+        <label for="pin" class="control-label">PIN</label>
         <input type="password" id="pin" name="pin" class="form-control" placeholder="PIN" required>
-    </p>
+        <p></p>
+    </div>
     
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+    <div class="form-group col-md-12 col-md-12 nopadding">
+        <p></p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+    </div>
 </form>
