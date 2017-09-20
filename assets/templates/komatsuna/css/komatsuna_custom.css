@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll; /** Always show vertical scrollbar **/
+}
+
 body {
     font-family: 'PT Sans Caption';
     font-size: 15px;
@@ -55,4 +59,8 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary:hover {
     background: #EAB03D;
     color: #0E1271;
+}
+
+.control-label {
+    margin-top:10px;
 }
