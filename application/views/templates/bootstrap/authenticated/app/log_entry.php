@@ -196,7 +196,43 @@
     
     
     <!-- COMPONENT CHANGE SUBFLOW -->
+    <div class="group">
+        <div class="form-group">
+            <label for="component" class="control-label">Component</label>
+            <select id="component" name="component" class="form-control">
+                <option value="">Select one:</option>
+                <option value="engine">Engine</option>
+                <option value="final_drive">Final drive</option>
+                <option value="suspension">Suspension</option>
+                <option value="software">Software</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+    </div>
     
+    <div class="group">
+        <div class="form-group">
+            <label for="component" class="control-label">Component Info</label>
+            <select id="component" name="component" class="form-control">
+                <option value="">Select one:</option>
+                <option value="serial_no">Serial #</option>
+                <option value="revision_no">Revision #</option>
+                <option value="part_no">Part #</option>
+                <option value="campaign_no">Campaign #</option>
+                <option value="none">None</option>
+            </select>
+            
+            <label for="data_entry" class="control-label">Data Entry</label>
+            <input type="text" class="form-control" id="data_entry" name="data_entry">
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            <label for="notes" class="control-label">Notes</label>
+            <input type="text" class="form-control" id="notes" name="notes" class="form-control" value="">
+        </div>
+    </div>
     <!-- COMPONENT CHANGE SUBFLOW -->
     
     
