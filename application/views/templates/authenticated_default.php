@@ -86,12 +86,19 @@
                 <div class="row">
                     <div class="col-lg-8">
                         
-                        <a href="#" id="menu-toggle" class="btn btn-sm">
-                            <span class="glyphicon glyphicon-menu-hamburger"></span>
-                        </a>
-                        
-                        <img src="<?php echo $assetDirectoryCustom; ?>img/025_Gloria_blue_nega_r.jpg">
-                        <h5>Maintenance Log Application</h5>
+                        <table>
+                            <tr>
+                                <td>
+                                    <a href="#" id="menu-toggle" class="btn btn-sm">
+                                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <img src="<?php echo $assetDirectoryCustom; ?>img/025_Gloria_blue_nega_r.jpg">
+                                    <h5>Maintenance Log Application</h5>
+                                </td>
+                            </tr>
+                        </table>
                         
                     </div>
                     <div class="col-lg-4">
