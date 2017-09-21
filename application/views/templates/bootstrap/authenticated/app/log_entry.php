@@ -1,7 +1,7 @@
 <form id="serviceLog" action="#">
     
     <div class="group">
-        <div class="form-group col-xs-8 col-md-8">
+        <div class="form-group">
             <label for="date_entered" class="control-label">Date Entered</label>
             <div class="input-group date">
                 <div class="input-group-addon">
@@ -13,7 +13,7 @@
     </div>
     
     <div class="group">
-        <div class="form-group col-xs-8 col-md-8">
+        <div class="form-group">
             <label for="entered_by" class="control-label">Entered By</label>
             <select id="entered_by" name="entered_by" class="form-control">
                 <option value="">Select one:</option>
@@ -34,7 +34,7 @@
     </div>
     
     <div class="group">
-        <div class="form-group col-xs-8 col-md-8">
+        <div class="form-group">
             <label for="equipment_type" class="control-label">Equipment Type</label>
             <select id="equipment_type" name="equipment_type" class="form-control">
                 <option value="">Select one:</option>
@@ -56,7 +56,7 @@
     </div>
     
     <div class="group">
-        <div class="form-group col-xs-8 col-md-8">
+        <div class="form-group">
             <label for="entered_by" class="control-label">Entry Selection</label>
             <select id="entered_by" name="entered_by" class="form-control">
                 <option value="">Select one:</option>
@@ -68,22 +68,9 @@
         </div>
     </div>
     
-    <div class="group">
-        <label for="value5" class="control-label">Value 5</label>
-        <input type="text" id="value5" name="value5" class="form-control" />
-    </div>
-    <div class="group">
-        <label for="value6" class="control-label">Value 6</label>
-        <input type="text" id="value6" name="value6" class="form-control" />
-    </div>
-    <div class="group">
-        <label for="value7" class="control-label">Value 7 (last one)</label>
-        <input type="text" id="value7" name="value7" class="form-control" />
-    </div>
-    <br style="clear:both;" />
     <div>
-        <div class="form-group col-xs-4 col-md-4">
-            <button id="btnNext" type="submit">Next</button>
+        <div class="form-group">
+            <button id="btnNext" type="submit">Next &raquo;</button>
         </div>
     </div>
 </form>
@@ -107,7 +94,8 @@ function handleClick() {
         $('#serviceLog div.group:nth-child(' + q + ')').hide();
         $('#serviceLog div.group:nth-child(' + (q + 1) + ')').show();
         if (q == (qMax - 1)) {
-            $('#btnNext').html('Submit Answers');
+            $('#btnNext').html('Submit');
+            $('#btnNext').prop('disabled', true);
         }
         q++;
     } else {

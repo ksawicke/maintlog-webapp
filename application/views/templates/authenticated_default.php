@@ -100,6 +100,16 @@
                         
                     </div>
                 </div>
+                
+                <div class="row app-content-wrapper">
+                    <div class="col-md-4 col-md-offset-4">
+                        
+                        <?php echo $body; ?>
+                        
+                    </div>
+                </div>
+                
+                <?php /***
                 <div class="row">
                     <div class="col-lg-12">
                         
@@ -113,6 +123,8 @@
                         </div>
                     </div>
                 </div>
+                ***/ ?>
+                
             </div>
         </div>
         <!-- /#page-content-wrapper -->

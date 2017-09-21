@@ -1,3 +1,11 @@
+/**
+ * Komatsu NA Maintenance Log
+ * Application custom CSS
+ *
+ * Author: Kevin Sawicke <kevin@rinconmountaintech.com>
+ *
+ * #0E1271 - Komatsu Gloria Blue
+ */
 html {
     overflow-y: scroll; /** Always show vertical scrollbar **/
 }
@@ -7,6 +15,21 @@ body {
     font-size: 15px;
     margin: 0px;
     color: #22252A;
+}
+
+.app-content-wrapper {
+    margin-top:35px;
+}
+
+#btnNext {
+    background-color: #0E1271;
+    border-color: #0E1271;
+    color: #fff;
+}
+#btnNext:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .nopadding {
