@@ -68,6 +68,7 @@
         </div>
     </div>
     
+    <!-- SMR UPDATE SUBFLOW -->
     <div class="group">
         <div class="form-group">
             
@@ -108,6 +109,102 @@
             <input type="text" class="form-control" id="smr_miles" name="smr_miles" class="form-control" value="">
         </div>
     </div>
+    <!-- /SMR UPDATE SUBFLOW -->
+    
+    
+    
+    <!-- PM SERVICE SUBFLOW -->
+    <div class="group">
+        <div class="form-group">
+            <label for="pm_type" class="control-label">PM Type</label>
+            <select id="pm_type" name="pm_type" class="form-control">
+                <option value="">Select one:</option>
+                <option value="smr_based">SMR based</option>
+                <option value="mileage_based">Mileage based</option>
+                <option value="time_based">Time based</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            <label for="smr" class="control-label">SMR</label>
+            <select id="smr" name="smr" class="form-control">
+                <option value="">Select one:</option>
+                <option value="250">250</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+                <option value="1500">1500</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            SERVICE REMINDER<br /><br />
+            <label for="pm_type" class="control-label">PM Type</label>
+            <select id="pm_type" name="pm_type" class="form-control">
+                <option value="">Select one:</option>
+                <option value="smr_based">SMR Based</option>
+                <option value="mileage_based">Mileage Based</option>
+                <option value="time_based">Time Based</option>
+            </select>
+            
+            <label for="smr_due" class="control-label">SMR Due</label>
+            <input type="text" class="form-control" id="smr_due" name="smr_due" class="form-control" value="">
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            <label for="notes" class="control-label">Notes</label>
+            <input type="text" class="form-control" id="notes" name="notes" class="form-control" value="">
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="pm_type" class="control-label">REMINDER RECIPIENTS</label>
+                    <input type="text" id="pm_type" name="pm_type" class="form-control" value="email1@email.com,email2@email2.com">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label for="rminder_quantity" class="control-label">&nbsp;</label>
+                    <input type="text" id="rminder_quantity" name="rminder_quantity">
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <label for="reminder_units" class="control-label">&nbsp;</label>
+                    <select id="reminder_units" name="reminder_units" class="form-control">
+                        <option value="" selected>Select one:</option>
+                        <option value="smr">SMR</option>
+                        <option value="miles">Miles</option>
+                        <option value="days">Days</option>
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- PM SERVICE SUBFLOW -->
+    
+    
+    
+    <!-- COMPONENT CHANGE SUBFLOW -->
+    
+    <!-- COMPONENT CHANGE SUBFLOW -->
+    
+    
+    
+    <!-- SERVICE REMINDER SUBFLOW -->
+    
+    <!-- SERVICE REMINDER SUBFLOW -->
+    
     
     <div>
         <div class="form-group">
