@@ -61,10 +61,51 @@
             <select id="entered_by" name="entered_by" class="form-control">
                 <option value="">Select one:</option>
                 <option value="smr_update">SMR update</option>
-                <option value="pm_service">PM service</option>
+                <!--option value="pm_service">PM service</option>
                 <option value="component">Component</option>
-                <option value="service_reminder">Service reminder</option>
+                <option value="service_reminder">Service reminder</option-->
             </select>
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="fluid_type" class="control-label">Fluid Type</label>
+                    <select id="fluid_type" name="fluid_type" class="form-control">
+                        <option value="">Select one:</option>
+                        <option value="22252525">Diesel - On Highway</option>
+                        <option value="2352">Diesel - Off</option>
+                        <option value="43435352">Gasoline</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label for="quantity" class="control-label">Quantity</label>
+                    <input type="text" id="quantity" name="quantity">
+                </div>
+
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <label for="units" class="control-label">&nbsp;</label>
+                    <select id="units" name="units" class="form-control">
+                        <option value="" selected>Select one:</option>
+                        <option value="gal">Gallons (gal)</option>
+                        <option value="L">Liters (L)</option>
+                    </select>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    
+    <div class="group">
+        <div class="form-group">
+            <label for="smr_miles" class="control-label">SMR / Miles</label>
+            <input type="text" class="form-control" id="smr_miles" name="smr_miles" class="form-control" value="">
         </div>
     </div>
     
