@@ -1,6 +1,6 @@
 <form id="serviceLog" action="#">
     
-    <div class="group">
+    <div class="group mainFlow">
         <div class="form-group">
             <label for="date_entered" class="control-label">Date Entered</label>
             <div class="input-group date">
@@ -12,7 +12,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group mainFlow">
         <div class="form-group">
             <label for="entered_by" class="control-label">Entered By</label>
             <select id="entered_by" name="entered_by" class="form-control">
@@ -33,7 +33,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group mainFlow">
         <div class="form-group">
             <label for="equipment_type" class="control-label">Equipment Type</label>
             <select id="equipment_type" name="equipment_type" class="form-control">
@@ -55,7 +55,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group mainFlow">
         <div class="form-group">
             <label for="entered_by" class="control-label">Entry Selection</label>
             <select id="entered_by" name="entered_by" class="form-control">
@@ -69,7 +69,7 @@
     </div>
     
     <!-- SMR UPDATE SUBFLOW -->
-    <div class="group">
+    <div class="group smrUpdateSubflow">
         <div class="form-group">
             
             <div class="row">
@@ -103,7 +103,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group smrUpdateSubflow">
         <div class="form-group">
             <label for="smr_miles" class="control-label">SMR / Miles</label>
             <input type="text" class="form-control" id="smr_miles" name="smr_miles" class="form-control" value="">
@@ -114,7 +114,7 @@
     
     
     <!-- PM SERVICE SUBFLOW -->
-    <div class="group">
+    <div class="group pmServiceSubflow">
         <div class="form-group">
             <label for="pm_type" class="control-label">PM Type</label>
             <select id="pm_type" name="pm_type" class="form-control">
@@ -126,7 +126,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group pmServiceSubflow">
         <div class="form-group">
             <label for="smr" class="control-label">SMR</label>
             <select id="smr" name="smr" class="form-control">
@@ -139,7 +139,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group pmServiceSubflow">
         <div class="form-group">
             SERVICE REMINDER<br /><br />
             <label for="pm_type" class="control-label">PM Type</label>
@@ -155,14 +155,14 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group pmServiceSubflow">
         <div class="form-group">
             <label for="notes" class="control-label">Notes</label>
             <input type="text" class="form-control" id="notes" name="notes" class="form-control" value="">
         </div>
     </div>
     
-    <div class="group">
+    <div class="group pmServiceSubflow">
         <div class="form-group">
             
             <div class="row">
@@ -196,7 +196,7 @@
     
     
     <!-- COMPONENT CHANGE SUBFLOW -->
-    <div class="group">
+    <div class="group componentChangeSubflow">
         <div class="form-group">
             <label for="component" class="control-label">Component</label>
             <select id="component" name="component" class="form-control">
@@ -210,7 +210,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group componentChangeSubflow">
         <div class="form-group">
             <label for="component" class="control-label">Component Info</label>
             <select id="component" name="component" class="form-control">
@@ -227,7 +227,7 @@
         </div>
     </div>
     
-    <div class="group">
+    <div class="group componentChangeSubflow">
         <div class="form-group">
             <label for="notes" class="control-label">Notes</label>
             <input type="text" class="form-control" id="notes" name="notes" class="form-control" value="">
@@ -242,19 +242,81 @@
     <!-- SERVICE REMINDER SUBFLOW -->
     
     
-    <div>
+    <div class="lastCall">
         <div class="form-group">
+            <button id="btnGoBack" type="submit">&laquo; Go Back</button>
             <button id="btnNext" type="submit">Next &raquo;</button>
         </div>
     </div>
+    
+    <div class="group reviewScreen">
+        
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            Please review your entries before submitting.
+        </div>
+        
+        <strong>Field name</strong>
+        <ul>
+            <li>Response</li>
+        </ul>
+        
+        <strong>Field name</strong>
+        <ul>
+            <li>Response</li>
+        </ul>
+        
+        <strong>Field name</strong>
+        <ul>
+            <li>Response</li>
+        </ul>
+        
+        <strong>Field name</strong>
+        <ul>
+            <li>Response</li>
+        </ul>
+        
+        <strong>Field name</strong>
+        <ul>
+            <li>Response</li>
+        </ul>
+        
+        <button id="btnGoBack2" type="submit">&laquo; Go Back</button>
+        <button id="btnSubmit" type="submit">Submit</button>
+    </div>
+    
 </form>
 
 <script>
-var q = 1,
-    qMax = 0;
+var groupCount = 1,
+    mainFlowGroupCount = 1,
+    smrUpdateSubflowGroupCount = 1,
+    pmServiceSubflowGroupCount = 1,
+    componentChangeSubflowGroupCount = 1,
+    subFlowCount = 1,
+    mainFlowCount = 0,
+    smrUpdateSubflowCount = 0,
+    pmServiceSubflowCount = 0,
+    componentChangeSubflowCount = 0,
+    groupCountMax = 0,
+    showReviewNext = false;
 
 $(function () {
-    qMax = $('#serviceLog div.group').length;
+    mainFlowGroupCount = $('#serviceLog div.mainFlow').length;
+    smrUpdateSubflowGroupCount = $('#serviceLog div.smrUpdateSubflow').length;
+    pmServiceSubflowGroupCount = $('#serviceLog div.pmServiceSubflow').length;
+    componentChangeSubflowGroupCount = $('#serviceLog div.componentChangeSubflow').length;
+    groupCountMax = $('#serviceLog div.group').length;
+    
+    console.log("groupCount: " + groupCount);
+    console.log("mainFlowCount: " + mainFlowCount);
+    console.log("smrUpdateSubflowCount: " + smrUpdateSubflowCount);
+    console.log("pmServiceSubflowCount: " + pmServiceSubflowCount);
+    console.log("componentChangeSubflowCount: " + componentChangeSubflowCount);
+    
+    $("#serviceLog div.reviewScreen").hide();
+    $("#btnGoBack").hide();
     $('#serviceLog div.group').hide();
     $('#serviceLog div.group:nth-child(1)').show();
     $('#btnNext').on('click', function (event) {
@@ -264,17 +326,87 @@ $(function () {
 });
 
 function handleClick() {
-    if (q < qMax) {
-        $('#serviceLog div.group:nth-child(' + q + ')').hide();
-        $('#serviceLog div.group:nth-child(' + (q + 1) + ')').show();
-        if (q == (qMax - 1)) {
-            $('#btnNext').html('Submit');
-            $('#btnNext').prop('disabled', true);
+//    if (groupCount < groupCountMax) {
+    if(!showReviewNext) {
+        var lastElement = $('#serviceLog div.group:nth-child(' + groupCount + ')'),
+            nextElement = $('#serviceLog div.group:nth-child(' + (groupCount + 1) + ')');
+            
+        lastElement.hide();
+        nextElement.show();
+        
+        if(nextElement.hasClass('mainFlow')) {
+            console.log("Element is within MAIN FLOW");
+            console.log("mainFlowGroupCount: " + mainFlowGroupCount);
         }
-        q++;
+        
+        if(nextElement.hasClass('smrUpdateSubflow')) {
+            console.log("==========================");
+            smrUpdateSubflowCount++;
+            console.log("Element is within SMR UPDATE SUB FLOW");
+            console.log("smrUpdateSubflowCount: " + smrUpdateSubflowCount);
+            console.log("smrUpdateSubflowGroupCount: " + smrUpdateSubflowGroupCount);
+            subFlowCount++;
+            
+            if(smrUpdateSubflowCount == smrUpdateSubflowGroupCount) {
+                changeNextButtonToReview();
+                showReviewNext = true;
+            }
+        }
+        
+        if(nextElement.hasClass('pmServiceSubflow')) {
+            console.log("==========================");
+            pmServiceSubflowCount++;
+            console.log("Element is within COMPONENT CHANGE SUBFLOW");
+            console.log("pmServiceSubflowCount: " + pmServiceSubflowCount);
+            console.log("pmServiceSubflowGroupCount: " + pmServiceSubflowGroupCount);
+            subFlowCount++;
+            
+            if(pmServiceSubflowCount == pmServiceSubflowGroupCount) {
+                changeNextButtonToReview();
+                showReviewNext = true;
+            }
+        }
+        
+        if(nextElement.hasClass('componentChangeSubflow')) {
+            console.log("==========================");
+            componentChangeSubflowCount++;
+            console.log("Element is within MAIN FLOW");
+            console.log("componentChangeSubflowCount: " + componentChangeSubflowCount);
+            console.log("componentChangeSubflowGroupCount: " + componentChangeSubflowGroupCount);
+            subFlowCount++;
+            
+            if(componentChangeSubflowCount == componentChangeSubflowGroupCount) {
+                changeNextButtonToReview();
+                showReviewNext = true;
+            }
+        }
+        
+//        console.log("subFlowCount: " + subFlowCount);
+        
+//        if (groupCount == (groupCountMax - 1)) {
+//            $('#btnNext').html('Submit');
+//            $('#btnNext').prop('disabled', true);
+//        }
+        groupCount++;
     } else {
-        alert('Submitting'); // Add code to submit your form
+        showReviewScreen();
+//        alert('Submitting'); // Add code to submit your form
     }
+}
+
+function changeNextButtonToReview() {
+//    $("#btnGoBack").show();
+    $('#btnNext').html('Review &raquo;');
+//    $('#btnNext').prop('disabled', true);
+}
+
+function showReviewScreen() {
+    $('#serviceLog div.mainFlow').hide();
+    $('#serviceLog div.smrUpdateSubflow').hide();
+    $('#serviceLog div.pmServiceSubflow').hide();
+    $('#serviceLog div.componentChangeSubflow').hide();
+    $('#serviceLog div.lastCall').hide();
+    $("#serviceLog div.reviewScreen").show();
 }
 
 $('#date_entered').datepicker({
