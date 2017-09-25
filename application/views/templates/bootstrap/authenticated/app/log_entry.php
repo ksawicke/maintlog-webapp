@@ -251,10 +251,8 @@
     
     <div class="group reviewScreen">
         
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-            Please review your entries before submitting.
+        <div class="alert alert-warning" role="alert">
+            <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Please review your entries before submitting.</h4>        
         </div>
         
         <strong>Field name</strong>
