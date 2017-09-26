@@ -57,13 +57,13 @@
     
     <div class="group mainFlow">
         <div class="form-group">
-            <label for="entered_by" class="control-label">Entry Selection</label>
-            <select id="entered_by" name="entered_by" class="form-control">
+            <label for="subflow" class="control-label">Entry Selection</label>
+            <select id="subflow" name="subflow" class="form-control">
                 <option value="">Select one:</option>
-                <option value="smr_update">SMR update</option>
-                <!--option value="pm_service">PM service</option>
-                <option value="component">Component</option>
-                <option value="service_reminder">Service reminder</option-->
+                <option value="sus">SMR update</option>
+                <option value="pss">PM service</option>
+                <option value="ccs">Component Change</option>
+                <!--option value="service_reminder">Service reminder</option-->
             </select>
         </div>
     </div>
@@ -74,8 +74,8 @@
             
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <label for="fluid_type" class="control-label">Fluid Type</label>
-                    <select id="fluid_type" name="fluid_type" class="form-control">
+                    <label for="sus_fluid_type" class="control-label">Fluid Type</label>
+                    <select id="sus_fluid_type" name="fluid_type" class="form-control">
                         <option value="">Select one:</option>
                         <option value="22252525">Diesel - On Highway</option>
                         <option value="2352">Diesel - Off</option>
@@ -86,13 +86,13 @@
             
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <label for="quantity" class="control-label">Quantity</label>
-                    <input type="text" id="quantity" name="quantity">
+                    <label for="sus_quantity" class="control-label">Quantity</label>
+                    <input type="text" id="sus_quantity" name="sus_quantity">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
-                    <label for="units" class="control-label">&nbsp;</label>
-                    <select id="units" name="units" class="form-control">
+                    <label for="sus_units" class="control-label">&nbsp;</label>
+                    <select id="sus_units" name="sus_units" class="form-control">
                         <option value="" selected>Select one:</option>
                         <option value="gal">Gallons (gal)</option>
                         <option value="L">Liters (L)</option>
@@ -105,8 +105,8 @@
     
     <div class="group smrUpdateSubflow">
         <div class="form-group">
-            <label for="smr_miles" class="control-label">SMR / Miles</label>
-            <input type="text" class="form-control" id="smr_miles" name="smr_miles" class="form-control" value="">
+            <label for="sus_miles" class="control-label">SMR / Miles</label>
+            <input type="text" class="form-control" id="sus_miles" name="sus_miles" class="form-control" value="">
         </div>
     </div>
     <!-- /SMR UPDATE SUBFLOW -->
@@ -116,8 +116,8 @@
     <!-- PM SERVICE SUBFLOW -->
     <div class="group pmServiceSubflow">
         <div class="form-group">
-            <label for="pm_type" class="control-label">PM Type</label>
-            <select id="pm_type" name="pm_type" class="form-control">
+            <label for="pss_pm_type" class="control-label">PM Type</label>
+            <select id="pss_pm_type" name="pss_pm_type" class="form-control">
                 <option value="">Select one:</option>
                 <option value="smr_based">SMR based</option>
                 <option value="mileage_based">Mileage based</option>
@@ -128,8 +128,8 @@
     
     <div class="group pmServiceSubflow">
         <div class="form-group">
-            <label for="smr" class="control-label">SMR</label>
-            <select id="smr" name="smr" class="form-control">
+            <label for="pss_smr" class="control-label">SMR</label>
+            <select id="pss_smr" name="pss_smr" class="form-control">
                 <option value="">Select one:</option>
                 <option value="250">250</option>
                 <option value="500">500</option>
@@ -142,23 +142,23 @@
     <div class="group pmServiceSubflow">
         <div class="form-group">
             SERVICE REMINDER<br /><br />
-            <label for="pm_type" class="control-label">PM Type</label>
-            <select id="pm_type" name="pm_type" class="form-control">
+            <label for="pss_reminder_pm_type" class="control-label">PM Type</label>
+            <select id="pss_reminder_pm_type" name="pss_reminder_pm_type" class="form-control">
                 <option value="">Select one:</option>
                 <option value="smr_based">SMR Based</option>
                 <option value="mileage_based">Mileage Based</option>
                 <option value="time_based">Time Based</option>
             </select>
             
-            <label for="smr_due" class="control-label">SMR Due</label>
-            <input type="text" class="form-control" id="smr_due" name="smr_due" class="form-control" value="">
+            <label for="pss_smr_due" class="control-label">SMR Due</label>
+            <input type="text" class="form-control" id="pss_smr_due" name="pss_smr_due" class="form-control" value="">
         </div>
     </div>
     
     <div class="group pmServiceSubflow">
         <div class="form-group">
-            <label for="notes" class="control-label">Notes</label>
-            <input type="text" class="form-control" id="notes" name="notes" class="form-control" value="">
+            <label for="pss_notes" class="control-label">Notes</label>
+            <input type="text" class="form-control" id="pss_notes" name="pss_notes" class="form-control" value="">
         </div>
     </div>
     
@@ -167,20 +167,20 @@
             
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <label for="pm_type" class="control-label">REMINDER RECIPIENTS</label>
-                    <input type="text" id="pm_type" name="pm_type" class="form-control" value="email1@email.com,email2@email2.com">
+                    <label for="pss_reminder_recipients" class="control-label">REMINDER RECIPIENTS</label>
+                    <input type="text" id="pss_reminder_recipients" name="pss_reminder_recipients" class="form-control" value="email1@email.com,email2@email2.com">
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <label for="rminder_quantity" class="control-label">&nbsp;</label>
-                    <input type="text" id="rminder_quantity" name="rminder_quantity">
+                    <label for="pss_reminder_quantity" class="control-label">&nbsp;</label>
+                    <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
-                    <label for="reminder_units" class="control-label">&nbsp;</label>
-                    <select id="reminder_units" name="reminder_units" class="form-control">
+                    <label for="pss_reminder_units" class="control-label">&nbsp;</label>
+                    <select id="pss_reminder_units" name="pss_reminder_units" class="form-control">
                         <option value="" selected>Select one:</option>
                         <option value="smr">SMR</option>
                         <option value="miles">Miles</option>
@@ -198,8 +198,8 @@
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="group componentChangeSubflow">
         <div class="form-group">
-            <label for="component" class="control-label">Component</label>
-            <select id="component" name="component" class="form-control">
+            <label for="ccs_component" class="control-label">Component</label>
+            <select id="ccs_component" name="ccs_component" class="form-control">
                 <option value="">Select one:</option>
                 <option value="engine">Engine</option>
                 <option value="final_drive">Final drive</option>
@@ -212,8 +212,8 @@
     
     <div class="group componentChangeSubflow">
         <div class="form-group">
-            <label for="component" class="control-label">Component Info</label>
-            <select id="component" name="component" class="form-control">
+            <label for="ccs_component_info" class="control-label">Component Info</label>
+            <select id="ccs_component_info" name="ccs_component_info" class="form-control">
                 <option value="">Select one:</option>
                 <option value="serial_no">Serial #</option>
                 <option value="revision_no">Revision #</option>
@@ -222,15 +222,15 @@
                 <option value="none">None</option>
             </select>
             
-            <label for="data_entry" class="control-label">Data Entry</label>
-            <input type="text" class="form-control" id="data_entry" name="data_entry">
+            <label for="ccs_data_entry" class="control-label">Data Entry</label>
+            <input type="text" class="form-control" id="ccs_data_entry" name="ccs_data_entry">
         </div>
     </div>
     
     <div class="group componentChangeSubflow">
         <div class="form-group">
-            <label for="notes" class="control-label">Notes</label>
-            <input type="text" class="form-control" id="notes" name="notes" class="form-control" value="">
+            <label for="ccs_notes" class="control-label">Notes</label>
+            <input type="text" class="form-control" id="ccs_notes" name="ccs_notes" class="form-control" value="">
         </div>
     </div>
     <!-- COMPONENT CHANGE SUBFLOW -->
@@ -254,6 +254,8 @@
         <div class="alert alert-warning" role="alert">
             <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Please review your entries before submitting.</h4>        
         </div>
+        
+        
         
         <strong>Field name</strong>
         <ul>
@@ -293,11 +295,12 @@ var groupCount = 1,
     pmServiceSubflowGroupCount = 1,
     componentChangeSubflowGroupCount = 1,
     subFlowCount = 1,
-    mainFlowCount = 0,
-    smrUpdateSubflowCount = 0,
-    pmServiceSubflowCount = 0,
-    componentChangeSubflowCount = 0,
+    mainFlowCount = 1,
+    smrUpdateSubflowCount = 1,
+    pmServiceSubflowCount = 1,
+    componentChangeSubflowCount = 1,
     groupCountMax = 0,
+    subflowChosen = '',
     showReviewNext = false;
 
 $(function () {
@@ -306,6 +309,7 @@ $(function () {
     pmServiceSubflowGroupCount = $('#serviceLog div.pmServiceSubflow').length;
     componentChangeSubflowGroupCount = $('#serviceLog div.componentChangeSubflow').length;
     groupCountMax = $('#serviceLog div.group').length;
+    subflowChosen = $("#subflow").val();
     
     console.log("groupCount: " + groupCount);
     console.log("mainFlowCount: " + mainFlowCount);
@@ -321,20 +325,55 @@ $(function () {
         event.preventDefault();
         handleClick();
     });
+    
+    $('#subflow').on('change', function (event) {
+        event.preventDefault();
+        if($(this).val()!='') {
+            $('#btnNext').prop('disabled', false);
+            subflowChosen = $("#subflow").val();
+        }
+    });
 });
 
 function handleClick() {
-//    if (groupCount < groupCountMax) {
+//    subflowChosen = $("#subflow").val();
+    console.log('subflowChosen: ' + subflowChosen);
+
     if(!showReviewNext) {
-        var lastElement = $('#serviceLog div.group:nth-child(' + groupCount + ')'),
-            nextElement = $('#serviceLog div.group:nth-child(' + (groupCount + 1) + ')');
-            
+        if(subflowChosen == '') {
+            console.log(">>> " + groupCount);
+            var lastElement = $('#serviceLog div.group:nth-child(' + groupCount + ')'),
+                nextElement = $('#serviceLog div.group:nth-child(' + (groupCount + 1) + ')');
+        }
+        if(subflowChosen == 'sus') {
+            console.log(">>> " + smrUpdateSubflowCount);
+            var lastElement = $('#serviceLog div.smrUpdateSubflow:nth-child(' + smrUpdateSubflowCount + ')'),
+                nextElement = $('#serviceLog div.smrUpdateSubflow:nth-child(' + (smrUpdateSubflowCount + 1) + ')');
+        }
+        if(subflowChosen == 'pss') {
+            console.log(">>> " + pmServiceSubflowCount);
+            var lastElement = $('#serviceLog div.pmServiceSubflow:nth-child(' + pmServiceSubflowCount + ')'),
+                nextElement = $('#serviceLog div.pmServiceSubflow:nth-child(' + (pmServiceSubflowCount + 1) + ')');
+        }
+        if(subflowChosen == 'ccs') {
+            console.log(">>> " + componentChangeSubflowCount);
+            var lastElement = $('#serviceLog div.componentChangeSubflow:nth-child(' + componentChangeSubflowCount + ')'),
+                nextElement = $('#serviceLog div.componentChangeSubflow:nth-child(' + (componentChangeSubflowCount + 1) + ')');
+        }
+        
+        console.log(nextElement);
+                    
         lastElement.hide();
         nextElement.show();
         
         if(nextElement.hasClass('mainFlow')) {
             console.log("Element is within MAIN FLOW");
             console.log("mainFlowGroupCount: " + mainFlowGroupCount);
+            mainFlowCount++;
+            
+            if(mainFlowCount === 4) {
+                $('#btnNext').prop('disabled', true);
+            }
         }
         
         if(nextElement.hasClass('smrUpdateSubflow')) {
@@ -345,10 +384,12 @@ function handleClick() {
             console.log("smrUpdateSubflowGroupCount: " + smrUpdateSubflowGroupCount);
             subFlowCount++;
             
-            if(smrUpdateSubflowCount == smrUpdateSubflowGroupCount) {
+            if(smrUpdateSubflowCount === smrUpdateSubflowGroupCount) {
                 changeNextButtonToReview();
                 showReviewNext = true;
             }
+            
+            subflowChosen = 'smrUpdateSubflow';
         }
         
         if(nextElement.hasClass('pmServiceSubflow')) {
@@ -359,10 +400,12 @@ function handleClick() {
             console.log("pmServiceSubflowGroupCount: " + pmServiceSubflowGroupCount);
             subFlowCount++;
             
-            if(pmServiceSubflowCount == pmServiceSubflowGroupCount) {
+            if(pmServiceSubflowCount === pmServiceSubflowGroupCount) {
                 changeNextButtonToReview();
                 showReviewNext = true;
             }
+            
+            subflowChosen = 'pmServiceSubflow';
         }
         
         if(nextElement.hasClass('componentChangeSubflow')) {
@@ -373,10 +416,12 @@ function handleClick() {
             console.log("componentChangeSubflowGroupCount: " + componentChangeSubflowGroupCount);
             subFlowCount++;
             
-            if(componentChangeSubflowCount == componentChangeSubflowGroupCount) {
+            if(componentChangeSubflowCount === componentChangeSubflowGroupCount) {
                 changeNextButtonToReview();
                 showReviewNext = true;
             }
+            
+            subflowChosen = 'componentChangeSubflow';
         }
         
 //        console.log("subFlowCount: " + subFlowCount);
@@ -405,6 +450,49 @@ function showReviewScreen() {
     $('#serviceLog div.componentChangeSubflow').hide();
     $('#serviceLog div.lastCall').hide();
     $("#serviceLog div.reviewScreen").show();
+    
+    reviewScreenData = getReviewScreenData();
+    
+    $.each( reviewScreenData, function( key, value ) {
+        console.log( key + ": " + value );
+    });
+}
+
+function getReviewScreenData() {
+    var reviewScreenData = {
+        date_entered: $("#date_entered").val(),
+        entered_by: $("#entered_by").val(),
+        serviced_by: $("#serviced_by").val(),
+        equipment_type: $("#equipment_type").val(),
+        subflow: $("#subflow").val()
+    };
+    
+    if(subflowChosen === 'smrUpdateSubflow') {
+        reviewScreenData.sus_fluid_type = $("#sus_fluid_type").val();
+        reviewScreenData.sus_quantity = $("#sus_quantity").val();
+        reviewScreenData.sus_units = $("#sus_units").val();
+        reviewScreenData.sus_miles = $("#sus_miles").val();
+    }
+    
+    if(subflowChosen === 'pmServiceSubflow') {
+        reviewScreenData.pss_pm_type = $("#pss_pm_type").val();
+        reviewScreenData.pss_smr = $("#pss_smr").val();
+        reviewScreenData.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
+        reviewScreenData.pss_smr_due = $("#pss_smr_due").val();
+        reviewScreenData.pss_notes = $("#pss_notes").val();
+        reviewScreenData.pss_reminder_recipients = $("#pss_reminder_recipients").val();
+        reviewScreenData.pss_reminder_quantity = $("#pss_reminder_quantity").val();
+        reviewScreenData.pss_reminder_units = $("#pss_reminder_units").val();
+    }
+    
+    if(subflowChosen === 'componentChangeSubflow') {
+        reviewScreenData.ccs_component = $("#ccs_component").val();
+        reviewScreenData.ccs_component_info = $("#ccs_component_info").val();
+        reviewScreenData.ccs_data_entry = $("#ccs_data_entry").val();
+        reviewScreenData.ccs_notes = $("#ccs_notes").val();  
+    }
+    
+    return reviewScreenData;
 }
 
 $('#date_entered').datepicker({
