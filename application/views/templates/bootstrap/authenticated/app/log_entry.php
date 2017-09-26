@@ -7,7 +7,7 @@
                 <div class="input-group-addon">
                    <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control" id="date_entered" name="date_entered" class="form-control" value="<?php echo date("m/d/Y"); ?>">
+                <input type="text" class="form-control input-lg" id="date_entered" name="date_entered" value="<?php echo date("m/d/Y"); ?>">
              </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
     <div class="group mainFlow">
         <div class="form-group">
             <label for="entered_by" class="control-label">Entered By</label>
-            <select id="entered_by" name="entered_by" class="form-control">
+            <select id="entered_by" name="entered_by" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="124566"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
                 <option value="622141"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
@@ -24,7 +24,7 @@
             </select>
         
             <label for="serviced_by" class="control-label">Serviced By</label>
-            <select id="serviced_by" name="serviced_by" class="form-control" multiple>
+            <select id="serviced_by" name="serviced_by" class="form-control input-lg" multiple>
                 <option value="124566">Doe, John</option>
                 <option value="124512">Johnson, Neil</option>
                 <option value="622141">Smith, Joe</option>
@@ -36,7 +36,7 @@
     <div class="group mainFlow">
         <div class="form-group">
             <label for="equipment_type" class="control-label">Equipment Type</label>
-            <select id="equipment_type" name="equipment_type" class="form-control">
+            <select id="equipment_type" name="equipment_type" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="22252525">Loader</option>
                 <option value="2352">Forklift</option>
@@ -45,7 +45,7 @@
             </select>
         
             <label for="equipment" class="control-label">Equipment</label>
-            <select id="equipment" name="equipment" class="form-control" disabled>
+            <select id="equipment" name="equipment" class="form-control input-lg" disabled>
                 <option value="" selected>Select one:</option>
                 <!--option value="1000">Unit 1000 | Manufacturer Model 100</option>
                 <option value="1002">Unit 1002 | Manufacturer Model 600</option>
@@ -58,7 +58,7 @@
     <div class="group mainFlow">
         <div class="form-group">
             <label for="subflow" class="control-label">Entry Selection</label>
-            <select id="subflow" name="subflow" class="form-control">
+            <select id="subflow" name="subflow" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="sus">SMR update</option>
                 <option value="pss">PM service</option>
@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <label for="sus_fluid_type" class="control-label">Fluid Type</label>
-                    <select id="sus_fluid_type" name="fluid_type" class="form-control">
+                    <select id="sus_fluid_type" name="fluid_type" class="form-control input-lg">
                         <option value="">Select one:</option>
                         <option value="22252525">Diesel - On Highway</option>
                         <option value="2352">Diesel - Off</option>
@@ -87,12 +87,12 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
                     <label for="sus_quantity" class="control-label">Quantity</label>
-                    <input type="text" id="sus_quantity" name="sus_quantity">
+                    <input type="text" id="sus_quantity" name="sus_quantity" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
                     <label for="sus_units" class="control-label">&nbsp;</label>
-                    <select id="sus_units" name="sus_units" class="form-control">
+                    <select id="sus_units" name="sus_units" class="form-control input-lg">
                         <option value="" selected>Select one:</option>
                         <option value="gal">Gallons (gal)</option>
                         <option value="L">Liters (L)</option>
@@ -106,7 +106,7 @@
     <div class="group smrUpdateSubflow" data-sus-step="2">
         <div class="form-group">
             <label for="sus_miles" class="control-label">SMR / Miles</label>
-            <input type="text" class="form-control" id="sus_miles" name="sus_miles" class="form-control" value="">
+            <input type="text" class="form-control input-lg" id="sus_miles" name="sus_miles" value="">
         </div>
     </div>
     <!-- /SMR UPDATE SUBFLOW -->
@@ -117,7 +117,7 @@
     <div class="group pmServiceSubflow" data-pss-step="1">
         <div class="form-group">
             <label for="pss_pm_type" class="control-label">PM Type</label>
-            <select id="pss_pm_type" name="pss_pm_type" class="form-control">
+            <select id="pss_pm_type" name="pss_pm_type" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="smr_based">SMR based</option>
                 <option value="mileage_based">Mileage based</option>
@@ -129,7 +129,7 @@
     <div class="group pmServiceSubflow" data-pss-step="2">
         <div class="form-group">
             <label for="pss_smr" class="control-label">SMR</label>
-            <select id="pss_smr" name="pss_smr" class="form-control">
+            <select id="pss_smr" name="pss_smr" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="250">250</option>
                 <option value="500">500</option>
@@ -143,7 +143,7 @@
         <div class="form-group">
             SERVICE REMINDER<br /><br />
             <label for="pss_reminder_pm_type" class="control-label">PM Type</label>
-            <select id="pss_reminder_pm_type" name="pss_reminder_pm_type" class="form-control">
+            <select id="pss_reminder_pm_type" name="pss_reminder_pm_type" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="smr_based">SMR Based</option>
                 <option value="mileage_based">Mileage Based</option>
@@ -151,14 +151,14 @@
             </select>
             
             <label for="pss_smr_due" class="control-label">SMR Due</label>
-            <input type="text" class="form-control" id="pss_smr_due" name="pss_smr_due" class="form-control" value="">
+            <input type="text" class="form-control input-lg" id="pss_smr_due" name="pss_smr_due" value="">
         </div>
     </div>
     
     <div class="group pmServiceSubflow" data-pss-step="4">
         <div class="form-group">
             <label for="pss_notes" class="control-label">Notes</label>
-            <input type="text" class="form-control" id="pss_notes" name="pss_notes" class="form-control" value="">
+            <input type="text" class="form-control input-lg" id="pss_notes" name="pss_notes" value="">
         </div>
     </div>
     
@@ -168,19 +168,19 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <label for="pss_reminder_recipients" class="control-label">REMINDER RECIPIENTS</label>
-                    <input type="text" id="pss_reminder_recipients" name="pss_reminder_recipients" class="form-control" value="email1@email.com,email2@email2.com">
+                    <input type="text" id="pss_reminder_recipients" name="pss_reminder_recipients" class="form-control input-lg" value="email1@email.com,email2@email2.com">
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
                     <label for="pss_reminder_quantity" class="control-label">&nbsp;</label>
-                    <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity">
+                    <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
                     <label for="pss_reminder_units" class="control-label">&nbsp;</label>
-                    <select id="pss_reminder_units" name="pss_reminder_units" class="form-control">
+                    <select id="pss_reminder_units" name="pss_reminder_units" class="form-control input-lg">
                         <option value="" selected>Select one:</option>
                         <option value="smr">SMR</option>
                         <option value="miles">Miles</option>
@@ -199,7 +199,7 @@
     <div class="group componentChangeSubflow" data-ccs-step="1">
         <div class="form-group">
             <label for="ccs_component" class="control-label">Component</label>
-            <select id="ccs_component" name="ccs_component" class="form-control">
+            <select id="ccs_component" name="ccs_component" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="engine">Engine</option>
                 <option value="final_drive">Final drive</option>
@@ -213,7 +213,7 @@
     <div class="group componentChangeSubflow" data-ccs-step="2">
         <div class="form-group">
             <label for="ccs_component_info" class="control-label">Component Info</label>
-            <select id="ccs_component_info" name="ccs_component_info" class="form-control">
+            <select id="ccs_component_info" name="ccs_component_info" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="serial_no">Serial #</option>
                 <option value="revision_no">Revision #</option>
@@ -223,14 +223,14 @@
             </select>
             
             <label for="ccs_data_entry" class="control-label">Data Entry</label>
-            <input type="text" class="form-control" id="ccs_data_entry" name="ccs_data_entry">
+            <input type="text" class="form-control input-lg" id="ccs_data_entry" name="ccs_data_entry">
         </div>
     </div>
     
     <div class="group componentChangeSubflow" data-ccs-step="3">
         <div class="form-group">
             <label for="ccs_notes" class="control-label">Notes</label>
-            <input type="text" class="form-control" id="ccs_notes" name="ccs_notes" class="form-control" value="">
+            <input type="text" class="form-control input-lg" id="ccs_notes" name="ccs_notes" value="">
         </div>
     </div>
     <!-- COMPONENT CHANGE SUBFLOW -->
