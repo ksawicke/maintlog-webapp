@@ -1,28 +1,26 @@
-<a href="#addEquipmentType"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment Type</button></a><br /><br />
-
-<table id="equipmentTypeList" class="table table-bordered table-striped">
+<table id="pmTypeChoiceList" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Equipment Type</th>
+            <th>PM Type</th>
+            <th>Choice List</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>All Truck Support Equipment</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td>SMR Based</td>
+            <td>250&nbsp;&nbsp;500&nbsp;&nbsp;1,000&nbsp;&nbsp;1,500</td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button></td>
         </tr>
         <tr>
-            <td>Loader</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td>Mileage Based</td>
+            <td>10,000&nbsp;&nbsp;50,000&nbsp;&nbsp;10,0000&nbsp;&nbsp;15,0000</td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button></td>
         </tr>
         <tr>
-            <td>Fork Lift</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
-        </tr>
-        <tr>
-            <td>Light Vehicle</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td>Time Based (days)</td>
+            <td>1&nbsp;&nbsp;3&nbsp;&nbsp;9&nbsp;&nbsp;30</td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
         <tr>
@@ -41,7 +39,7 @@
 <script>
   //var $ = jQuery;
   $(document).ready(function() {
-    $('#equipmentTypeList').DataTable();
+    $('#pmTypeChoiceList').DataTable();
 //    $('#example2').DataTable({
 //      'paging'      : true,
 //      'lengthChange': false,

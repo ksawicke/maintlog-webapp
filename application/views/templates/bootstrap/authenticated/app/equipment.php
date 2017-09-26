@@ -14,25 +14,25 @@
             <td>6516513</td>
             <td>Manuf One</td>
             <td>12409124FFF</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
             <td>98746</td>
             <td>Manuf One</td>
             <td>1000NN</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
             <td>65412</td>
             <td>Manuf Two</td>
             <td>144-204</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
             <td>98998</td>
             <td>Manuf One</td>
             <td>KUBWA</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
         <tr>

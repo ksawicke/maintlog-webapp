@@ -79,6 +79,12 @@
                     <a href="<?php echo base_url(); ?>app/equipmentTypes">Edit Equipment Types</a>
                 </li>
                 <li>
+                    <a href="<?php echo base_url(); ?>app/fluidTypes">Edit Fluid Types</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url(); ?>app/pmTypeChoices">Edit PM Type Choices</a>
+                </li>
+                <li>
                     <a href="<?php echo base_url(); ?>app/reporting">Reporting</a>
                 </li>
                 <li>
