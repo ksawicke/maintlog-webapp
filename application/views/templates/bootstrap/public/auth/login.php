@@ -27,13 +27,13 @@
     </div-->
     
     <div class="form-group col-md-12 col-md-12 nopadding">
-        <label for="pin" class="control-label">PIN</label>
-        <input type="password" id="pin" name="pin" class="form-control" placeholder="PIN" required>
+        <label for="pin" class="control-label lb-lg">PIN</label>
+        <input type="password" id="pin" name="pin" class="form-control input-large" placeholder="PIN" required>
         <p></p>
     </div>
     
     <div class="form-group col-md-12 col-md-12 nopadding">
         <p></p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+        <button class="btn btn-lg btn-primary" type="submit">Log In</button>
     </div>
 </form>

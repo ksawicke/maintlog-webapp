@@ -2,7 +2,7 @@
     
     <div class="group mainFlow">
         <div class="form-group">
-            <label for="date_entered" class="control-label">Date Entered</label>
+            <label for="date_entered" class="control-label lb-lg">Date Entered</label>
             <div class="input-group date">
                 <div class="input-group-addon">
                    <i class="fa fa-calendar"></i>
@@ -14,7 +14,7 @@
     
     <div class="group mainFlow">
         <div class="form-group">
-            <label for="entered_by" class="control-label">Entered By</label>
+            <label for="entered_by" class="control-label lb-lg">Entered By</label>
             <select id="entered_by" name="entered_by" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="124566"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
@@ -23,7 +23,7 @@
                 <option value="333333"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>
             </select>
         
-            <label for="serviced_by" class="control-label">Serviced By</label>
+            <label for="serviced_by" class="control-label lb-lg">Serviced By</label>
             <select id="serviced_by" name="serviced_by" class="form-control input-lg" multiple>
                 <option value="124566">Doe, John</option>
                 <option value="124512">Johnson, Neil</option>
@@ -35,7 +35,7 @@
     
     <div class="group mainFlow">
         <div class="form-group">
-            <label for="equipment_type" class="control-label">Equipment Type</label>
+            <label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
             <select id="equipment_type" name="equipment_type" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="22252525">Loader</option>
@@ -44,7 +44,7 @@
                 <option value="253788">Other</option>
             </select>
         
-            <label for="equipment" class="control-label">Equipment</label>
+            <label for="equipment" class="control-label lb-lg">Equipment</label>
             <select id="equipment" name="equipment" class="form-control input-lg" disabled>
                 <option value="" selected>Select one:</option>
                 <!--option value="1000">Unit 1000 | Manufacturer Model 100</option>
@@ -57,7 +57,7 @@
     
     <div class="group mainFlow">
         <div class="form-group">
-            <label for="subflow" class="control-label">Entry Selection</label>
+            <label for="subflow" class="control-label lb-lg">Entry Selection</label>
             <select id="subflow" name="subflow" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="sus">SMR update</option>
@@ -74,7 +74,7 @@
             
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <label for="sus_fluid_type" class="control-label">Fluid Type</label>
+                    <label for="sus_fluid_type" class="control-label lb-lg">Fluid Type</label>
                     <select id="sus_fluid_type" name="fluid_type" class="form-control input-lg">
                         <option value="">Select one:</option>
                         <option value="22252525">Diesel - On Highway</option>
@@ -86,12 +86,12 @@
             
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <label for="sus_quantity" class="control-label">Quantity</label>
+                    <label for="sus_quantity" class="control-label lb-lg">Quantity</label>
                     <input type="text" id="sus_quantity" name="sus_quantity" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
-                    <label for="sus_units" class="control-label">&nbsp;</label>
+                    <label for="sus_units" class="control-label lb-lg">&nbsp;</label>
                     <select id="sus_units" name="sus_units" class="form-control input-lg">
                         <option value="" selected>Select one:</option>
                         <option value="gal">Gallons (gal)</option>
@@ -105,7 +105,7 @@
     
     <div class="group smrUpdateSubflow" data-sus-step="2">
         <div class="form-group">
-            <label for="sus_miles" class="control-label">SMR / Miles</label>
+            <label for="sus_miles" class="control-label lb-lg">SMR / Miles</label>
             <input type="text" class="form-control input-lg" id="sus_miles" name="sus_miles" value="">
         </div>
     </div>
@@ -116,7 +116,7 @@
     <!-- PM SERVICE SUBFLOW -->
     <div class="group pmServiceSubflow" data-pss-step="1">
         <div class="form-group">
-            <label for="pss_pm_type" class="control-label">PM Type</label>
+            <label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
             <select id="pss_pm_type" name="pss_pm_type" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="smr_based">SMR based</option>
@@ -128,7 +128,7 @@
     
     <div class="group pmServiceSubflow" data-pss-step="2">
         <div class="form-group">
-            <label for="pss_smr" class="control-label">SMR</label>
+            <label for="pss_smr" class="control-label lb-lg">SMR</label>
             <select id="pss_smr" name="pss_smr" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="250">250</option>
@@ -142,7 +142,7 @@
     <div class="group pmServiceSubflow" data-pss-step="3">
         <div class="form-group">
             SERVICE REMINDER<br /><br />
-            <label for="pss_reminder_pm_type" class="control-label">PM Type</label>
+            <label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
             <select id="pss_reminder_pm_type" name="pss_reminder_pm_type" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="smr_based">SMR Based</option>
@@ -150,14 +150,14 @@
                 <option value="time_based">Time Based</option>
             </select>
             
-            <label for="pss_smr_due" class="control-label">SMR Due</label>
+            <label for="pss_smr_due" class="control-label lb-lg">SMR Due</label>
             <input type="text" class="form-control input-lg" id="pss_smr_due" name="pss_smr_due" value="">
         </div>
     </div>
     
     <div class="group pmServiceSubflow" data-pss-step="4">
         <div class="form-group">
-            <label for="pss_notes" class="control-label">Notes</label>
+            <label for="pss_notes" class="control-label lb-lg">Notes</label>
             <input type="text" class="form-control input-lg" id="pss_notes" name="pss_notes" value="">
         </div>
     </div>
@@ -167,19 +167,19 @@
             
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <label for="pss_reminder_recipients" class="control-label">REMINDER RECIPIENTS</label>
+                    <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label>
                     <input type="text" id="pss_reminder_recipients" name="pss_reminder_recipients" class="form-control input-lg" value="email1@email.com,email2@email2.com">
                 </div>
             </div>
             
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <label for="pss_reminder_quantity" class="control-label">&nbsp;</label>
+                    <label for="pss_reminder_quantity" class="control-label lb-lg">&nbsp;</label>
                     <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
-                    <label for="pss_reminder_units" class="control-label">&nbsp;</label>
+                    <label for="pss_reminder_units" class="control-label lb-lg">&nbsp;</label>
                     <select id="pss_reminder_units" name="pss_reminder_units" class="form-control input-lg">
                         <option value="" selected>Select one:</option>
                         <option value="smr">SMR</option>
@@ -198,7 +198,7 @@
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="group componentChangeSubflow" data-ccs-step="1">
         <div class="form-group">
-            <label for="ccs_component" class="control-label">Component</label>
+            <label for="ccs_component" class="control-label lb-lg">Component</label>
             <select id="ccs_component" name="ccs_component" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="engine">Engine</option>
@@ -212,7 +212,7 @@
     
     <div class="group componentChangeSubflow" data-ccs-step="2">
         <div class="form-group">
-            <label for="ccs_component_info" class="control-label">Component Info</label>
+            <label for="ccs_component_info" class="control-label lb-lg">Component Info</label>
             <select id="ccs_component_info" name="ccs_component_info" class="form-control input-lg">
                 <option value="">Select one:</option>
                 <option value="serial_no">Serial #</option>
@@ -222,14 +222,14 @@
                 <option value="none">None</option>
             </select>
             
-            <label for="ccs_data_entry" class="control-label">Data Entry</label>
+            <label for="ccs_data_entry" class="control-label lb-lg">Data Entry</label>
             <input type="text" class="form-control input-lg" id="ccs_data_entry" name="ccs_data_entry">
         </div>
     </div>
     
     <div class="group componentChangeSubflow" data-ccs-step="3">
         <div class="form-group">
-            <label for="ccs_notes" class="control-label">Notes</label>
+            <label for="ccs_notes" class="control-label lb-lg">Notes</label>
             <input type="text" class="form-control input-lg" id="ccs_notes" name="ccs_notes" value="">
         </div>
     </div>
@@ -244,8 +244,8 @@
     
     <div class="lastCall">
         <div class="form-group">
-            <button id="btnGoBack" type="button">&laquo; Go Back</button>
-            <button id="btnNext" type="button">Next &raquo;</button>
+            <button id="btnGoBack" type="button" class="btn btn-lg btn-primary">&laquo; Go Back</button>
+            <button id="btnNext" type="button" class="btn btn-lg btn-primary">Next &raquo;</button>
         </div>
     </div>
     
@@ -282,8 +282,8 @@
             <li>Response</li>
         </ul>
         
-        <button id="btnGoBack2" type="button">&laquo; Go Back</button>
-        <button id="btnSubmit" type="button">Submit</button>
+        <button id="btnGoBack2" type="button" class="btn btn-lg btn-primary">&laquo; Go Back</button>
+        <button id="btnSubmit" type="button" class="btn btn-lg btn-primary">Submit</button>
     </div>
     
 </form>

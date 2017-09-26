@@ -97,6 +97,18 @@ h1, h2, h3, h4, h5, h6 {
     margin-top:10px;
 }
 
+.lb-sm {
+  font-size: 12px;
+}
+
+.lb-md {
+  font-size: 16px;
+}
+
+.lb-lg {
+  font-size: 18px;
+}
+
 /* jBox tweaks */
 .jBox-Modal .jBox-title {
    background: #0E1271;
