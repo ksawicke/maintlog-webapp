@@ -69,7 +69,7 @@
     </div>
     
     <!-- SMR UPDATE SUBFLOW -->
-    <div class="group smrUpdateSubflow">
+    <div class="group smrUpdateSubflow" data-sus-step="1">
         <div class="form-group">
             
             <div class="row">
@@ -103,7 +103,7 @@
         </div>
     </div>
     
-    <div class="group smrUpdateSubflow">
+    <div class="group smrUpdateSubflow" data-sus-step="2">
         <div class="form-group">
             <label for="sus_miles" class="control-label">SMR / Miles</label>
             <input type="text" class="form-control" id="sus_miles" name="sus_miles" class="form-control" value="">
@@ -114,7 +114,7 @@
     
     
     <!-- PM SERVICE SUBFLOW -->
-    <div class="group pmServiceSubflow">
+    <div class="group pmServiceSubflow" data-pss-step="1">
         <div class="form-group">
             <label for="pss_pm_type" class="control-label">PM Type</label>
             <select id="pss_pm_type" name="pss_pm_type" class="form-control">
@@ -126,7 +126,7 @@
         </div>
     </div>
     
-    <div class="group pmServiceSubflow">
+    <div class="group pmServiceSubflow" data-pss-step="2">
         <div class="form-group">
             <label for="pss_smr" class="control-label">SMR</label>
             <select id="pss_smr" name="pss_smr" class="form-control">
@@ -139,7 +139,7 @@
         </div>
     </div>
     
-    <div class="group pmServiceSubflow">
+    <div class="group pmServiceSubflow" data-pss-step="3">
         <div class="form-group">
             SERVICE REMINDER<br /><br />
             <label for="pss_reminder_pm_type" class="control-label">PM Type</label>
@@ -155,14 +155,14 @@
         </div>
     </div>
     
-    <div class="group pmServiceSubflow">
+    <div class="group pmServiceSubflow" data-pss-step="4">
         <div class="form-group">
             <label for="pss_notes" class="control-label">Notes</label>
             <input type="text" class="form-control" id="pss_notes" name="pss_notes" class="form-control" value="">
         </div>
     </div>
     
-    <div class="group pmServiceSubflow">
+    <div class="group pmServiceSubflow" data-pss-step="5">
         <div class="form-group">
             
             <div class="row">
@@ -196,7 +196,7 @@
     
     
     <!-- COMPONENT CHANGE SUBFLOW -->
-    <div class="group componentChangeSubflow">
+    <div class="group componentChangeSubflow" data-ccs-step="1">
         <div class="form-group">
             <label for="ccs_component" class="control-label">Component</label>
             <select id="ccs_component" name="ccs_component" class="form-control">
@@ -210,7 +210,7 @@
         </div>
     </div>
     
-    <div class="group componentChangeSubflow">
+    <div class="group componentChangeSubflow" data-ccs-step="2">
         <div class="form-group">
             <label for="ccs_component_info" class="control-label">Component Info</label>
             <select id="ccs_component_info" name="ccs_component_info" class="form-control">
@@ -227,7 +227,7 @@
         </div>
     </div>
     
-    <div class="group componentChangeSubflow">
+    <div class="group componentChangeSubflow" data-ccs-step="3">
         <div class="form-group">
             <label for="ccs_notes" class="control-label">Notes</label>
             <input type="text" class="form-control" id="ccs_notes" name="ccs_notes" class="form-control" value="">
@@ -244,8 +244,8 @@
     
     <div class="lastCall">
         <div class="form-group">
-            <button id="btnGoBack" type="submit">&laquo; Go Back</button>
-            <button id="btnNext" type="submit">Next &raquo;</button>
+            <button id="btnGoBack" type="button">&laquo; Go Back</button>
+            <button id="btnNext" type="button">Next &raquo;</button>
         </div>
     </div>
     
@@ -282,8 +282,8 @@
             <li>Response</li>
         </ul>
         
-        <button id="btnGoBack2" type="submit">&laquo; Go Back</button>
-        <button id="btnSubmit" type="submit">Submit</button>
+        <button id="btnGoBack2" type="button">&laquo; Go Back</button>
+        <button id="btnSubmit" type="button">Submit</button>
     </div>
     
 </form>
@@ -309,7 +309,7 @@ $(function () {
     pmServiceSubflowGroupCount = $('#serviceLog div.pmServiceSubflow').length;
     componentChangeSubflowGroupCount = $('#serviceLog div.componentChangeSubflow').length;
     groupCountMax = $('#serviceLog div.group').length;
-    subflowChosen = $("#subflow").val();
+//    subflowChosen = $("#subflow").val();
     
     console.log("groupCount: " + groupCount);
     console.log("mainFlowCount: " + mainFlowCount);
@@ -333,6 +333,11 @@ $(function () {
             subflowChosen = $("#subflow").val();
         }
     });
+    
+    $("#btnGoBack2").on('click', function (event) {
+        event.preventDefault();
+        alert("Clicked Go Back");
+    });
 });
 
 function handleClick() {
@@ -340,25 +345,35 @@ function handleClick() {
     console.log('subflowChosen: ' + subflowChosen);
 
     if(!showReviewNext) {
-        if(subflowChosen == '') {
+        if(subflowChosen === '') {
             console.log(">>> " + groupCount);
             var lastElement = $('#serviceLog div.group:nth-child(' + groupCount + ')'),
                 nextElement = $('#serviceLog div.group:nth-child(' + (groupCount + 1) + ')');
         }
-        if(subflowChosen == 'sus') {
+        if(subflowChosen === 'sus') {
             console.log(">>> " + smrUpdateSubflowCount);
-            var lastElement = $('#serviceLog div.smrUpdateSubflow:nth-child(' + smrUpdateSubflowCount + ')'),
-                nextElement = $('#serviceLog div.smrUpdateSubflow:nth-child(' + (smrUpdateSubflowCount + 1) + ')');
+            $('#serviceLog div.group').hide();
+//            var lastElement = $('#serviceLog div.smrUpdateSubflow:nth-child(' + (smrUpdateSubflowCount - 1) + ')'),
+//                nextElement = $('#serviceLog div.smrUpdateSubflow:nth-child(' + smrUpdateSubflowCount + ')');
+            var lastElement = $('[data-sus-step="' + (smrUpdateSubflowCount - 1) + '"]'),
+                nextElement = $('[data-sus-step="' + smrUpdateSubflowCount + '"]');
         }
-        if(subflowChosen == 'pss') {
+        if(subflowChosen === 'pss') {
             console.log(">>> " + pmServiceSubflowCount);
-            var lastElement = $('#serviceLog div.pmServiceSubflow:nth-child(' + pmServiceSubflowCount + ')'),
-                nextElement = $('#serviceLog div.pmServiceSubflow:nth-child(' + (pmServiceSubflowCount + 1) + ')');
+            $('#serviceLog div.group').hide();
+
+            var lastElement = $('[data-pss-step="' + (pmServiceSubflowCount - 1) + '"]'),
+                nextElement = $('[data-pss-step="' + pmServiceSubflowCount + '"]');
+        
+            console.log("TEST 1: " + pmServiceSubflowCount);
         }
-        if(subflowChosen == 'ccs') {
+        if(subflowChosen === 'ccs') {
             console.log(">>> " + componentChangeSubflowCount);
-            var lastElement = $('#serviceLog div.componentChangeSubflow:nth-child(' + componentChangeSubflowCount + ')'),
-                nextElement = $('#serviceLog div.componentChangeSubflow:nth-child(' + (componentChangeSubflowCount + 1) + ')');
+            $('#serviceLog div.group').hide();
+//            var lastElement = $('#serviceLog div.componentChangeSubflow:nth-child(' + (componentChangeSubflowCount - 1) + ')'),
+//                nextElement = $('#serviceLog div.componentChangeSubflow:nth-child(' + componentChangeSubflowCount + ')');
+            var lastElement = $('[data-ccs-step="' + (componentChangeSubflowCount - 1) + '"]'),
+                nextElement = $('[data-ccs-step="' + componentChangeSubflowCount + '"]');
         }
         
         console.log(nextElement);
@@ -384,44 +399,44 @@ function handleClick() {
             console.log("smrUpdateSubflowGroupCount: " + smrUpdateSubflowGroupCount);
             subFlowCount++;
             
-            if(smrUpdateSubflowCount === smrUpdateSubflowGroupCount) {
+            if(smrUpdateSubflowCount === smrUpdateSubflowGroupCount + 1) {
                 changeNextButtonToReview();
                 showReviewNext = true;
             }
             
-            subflowChosen = 'smrUpdateSubflow';
+//            subflowChosen = 'smrUpdateSubflow';
         }
         
         if(nextElement.hasClass('pmServiceSubflow')) {
             console.log("==========================");
-            pmServiceSubflowCount++;
-            console.log("Element is within COMPONENT CHANGE SUBFLOW");
-            console.log("pmServiceSubflowCount: " + pmServiceSubflowCount);
+            console.log("Element is within PM SERVICE SUBFLOW");
+            console.log("### pmServiceSubflowCount: " + pmServiceSubflowCount);
             console.log("pmServiceSubflowGroupCount: " + pmServiceSubflowGroupCount);
+            pmServiceSubflowCount++;
             subFlowCount++;
             
-            if(pmServiceSubflowCount === pmServiceSubflowGroupCount) {
+            if(pmServiceSubflowCount === pmServiceSubflowGroupCount + 1) {
                 changeNextButtonToReview();
                 showReviewNext = true;
             }
             
-            subflowChosen = 'pmServiceSubflow';
+//            subflowChosen = 'pmServiceSubflow';
         }
         
         if(nextElement.hasClass('componentChangeSubflow')) {
             console.log("==========================");
             componentChangeSubflowCount++;
-            console.log("Element is within MAIN FLOW");
+            console.log("Element is within COMPONENT CHANGE FLOW");
             console.log("componentChangeSubflowCount: " + componentChangeSubflowCount);
             console.log("componentChangeSubflowGroupCount: " + componentChangeSubflowGroupCount);
             subFlowCount++;
             
-            if(componentChangeSubflowCount === componentChangeSubflowGroupCount) {
+            if(componentChangeSubflowCount === componentChangeSubflowGroupCount + 1) {
                 changeNextButtonToReview();
                 showReviewNext = true;
             }
             
-            subflowChosen = 'componentChangeSubflow';
+//            subflowChosen = 'componentChangeSubflow';
         }
         
 //        console.log("subFlowCount: " + subFlowCount);
