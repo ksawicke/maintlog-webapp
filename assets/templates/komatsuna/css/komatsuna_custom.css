@@ -96,3 +96,33 @@ h1, h2, h3, h4, h5, h6 {
 .control-label {
     margin-top:10px;
 }
+
+/* jBox tweaks */
+.jBox-Modal .jBox-title {
+   background: #0E1271;
+   color: #fff;
+   font-weight:bold;
+}
+.jBox-content {
+  border-left: 6px solid #0E1271;
+  border-right: 6px solid #0E1271;
+  border-bottom: 6px solid #0E1271;
+  margin-top: -1px;
+  text-align: center;
+}
+
+div.jBox-title > div.jBox-closeButton.jBox-noDrag > svg > path,
+div.jBox-title > div.jBox-closeButton.jBox-noDrag > svg > path:hover {
+  fill: #fff;
+}
+
+.jBoxContentHeaderText {
+   font-size:32px;
+   font-weight:bold;
+   margin-top: 24px;
+}
+.jBoxContentBodyText {
+   font-size:24px;
+   line-height:30px;
+   padding: 30px 0px;
+}

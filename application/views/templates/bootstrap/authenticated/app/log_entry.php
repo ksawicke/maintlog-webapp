@@ -303,7 +303,29 @@ var groupCount = 1,
     subflowChosen = '',
     showReviewNext = false;
 
-$(function () {
+//$(function () {
+$(document).ready(function() {
+    /** Handle pop up content **/
+    var windowWidth = $(window).width(),
+        dialogWidth = windowWidth * 0.65,
+        windowHeight = $(window).height(),
+        dialogHeight = windowHeight * 0.65;
+        
+    var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="confirmAnswerNo" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="confirmAnswerYes" type="button">Yes</button></div>';
+    var confirmSubmitJBox = new jBox('Modal', {
+        closeButton: 'title',
+        responsiveWidth: true,
+        responsiveHeight: true,
+        minWidth: dialogWidth,
+        minHeight: dialogHeight,
+        attach: '#btnSubmit',
+        title: 'Confirm',
+        content: confirmationMessage,
+        zIndex: 15000,
+            preventDefault: true,
+            preloadAudio: false
+    });
+    
     mainFlowGroupCount = $('#serviceLog div.mainFlow').length;
     smrUpdateSubflowGroupCount = $('#serviceLog div.smrUpdateSubflow').length;
     pmServiceSubflowGroupCount = $('#serviceLog div.pmServiceSubflow').length;
@@ -337,6 +359,17 @@ $(function () {
     $("#btnGoBack2").on('click', function (event) {
         event.preventDefault();
         alert("Clicked Go Back");
+    });
+    
+    $(document).on('click', '#confirmAnswerNo', function (event) {
+        event.preventDefault();
+        confirmSubmitJBox.close();
+    });
+    
+    $(document).on('click', '#confirmAnswerYes', function (event) {
+        event.preventDefault();
+        confirmSubmitJBox.close();
+        alert('We will submit form here....');
     });
 });
 

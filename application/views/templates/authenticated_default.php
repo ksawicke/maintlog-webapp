@@ -29,6 +29,7 @@
     <link href="<?php echo $assetDirectoryCustom; ?>css/sticky-footer-navbar.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet">
+    <link href="//code.jboxcdn.com/0.4.8/jBox.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -41,6 +42,8 @@
     <script src="<?php echo $assetDirectoryCustom; ?>js/jquery-ui.min.js"></script>
     <script src="<?php echo $assetDirectoryCustom; ?>js/bootstrap-datepicker.min.js"></script>
     <?php /***<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>***/?>
+    
+    <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
   </head>
 
   <body>
