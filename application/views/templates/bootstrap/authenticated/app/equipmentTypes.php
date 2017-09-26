@@ -1,37 +1,27 @@
-<a href="#addEquipment"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment</button></a><br /><br />
+<a href="#addEquipmentType"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment Type</button></a><br /><br />
 
-<table id="equipmentList" class="table table-bordered table-striped">
+<table id="equipmentTypeList" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Unit No.</th>
-            <th>Manufacturer</th>
-            <th>Model No.</th>
+            <th>Equipment Type</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>6516513</td>
-            <td>Manuf One</td>
-            <td>12409124FFF</td>
+            <td>All Truck Support Equipment</td>
             <td></td>
         </tr>
         <tr>
-            <td>98746</td>
-            <td>Manuf One</td>
-            <td>1000NN</td>
+            <td>Loader</td>
             <td></td>
         </tr>
         <tr>
-            <td>65412</td>
-            <td>Manuf Two</td>
-            <td>144-204</td>
+            <td>Fork Lift</td>
             <td></td>
         </tr>
         <tr>
-            <td>98998</td>
-            <td>Manuf One</td>
-            <td>KUBWA</td>
+            <td>Light Vehicle</td>
             <td></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
@@ -51,7 +41,7 @@
 <script>
   //var $ = jQuery;
   $(document).ready(function() {
-    $('#equipmentList').DataTable();
+    $('#equipmentTypeList').DataTable();
 //    $('#example2').DataTable({
 //      'paging'      : true,
 //      'lengthChange': false,

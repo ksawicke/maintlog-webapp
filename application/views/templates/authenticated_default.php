@@ -30,6 +30,7 @@
     <link href="<?php echo $assetDirectoryCustom; ?>css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet">
     <link href="//code.jboxcdn.com/0.4.8/jBox.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.css"/>
     <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -44,6 +45,7 @@
     <?php /***<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>***/?>
     
     <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.js"></script>
   </head>
 
   <body>
@@ -72,6 +74,9 @@
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>app/equipment">Edit Equipment</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url(); ?>app/equipmentTypes">Edit Equipment Types</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>app/reporting">Reporting</a>
@@ -112,7 +117,7 @@
                 </div>
                 
                 <div class="row app-content-wrapper">
-                    <div class="col-md-4 col-md-offset-4">
+                    <div class="col-md-8 col-md-offset-2">
                         
                         <?php echo $body; ?>
                         
