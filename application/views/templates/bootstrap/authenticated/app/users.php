@@ -10,19 +10,19 @@
     <tbody>
         <tr>
             <td>Johnson, Bret</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
             <td>Johnson, Neil</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
             <td>Leonetti, John</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
             <td>Sawicke, Kevin</td>
-            <td></td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
         <tr>
