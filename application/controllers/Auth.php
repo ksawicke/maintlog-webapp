@@ -91,7 +91,11 @@ class Auth extends CI_Controller {
      * @param type $username
      */
     private function createUserSession($userObject) {
+//        echo '<pre>';
+//        var_dump($userObject);
+//        exit();
         $sessionData = array(
+            'user_id' => $userObject->id,
             'username' => $userObject->username,
             'first_name' => $userObject->first_name,
             'last_name' => $userObject->last_name,

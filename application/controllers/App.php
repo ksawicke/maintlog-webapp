@@ -51,6 +51,9 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Equipmenttype_model');
+        
+        $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         
         $data['flashdata'] = $this->session->flashdata();
         
@@ -95,6 +98,50 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function manufacturers()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Manufacturer_model');
+        
+        $data['manufacturers'] = $this->Manufacturer_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addManufacturer($manufacturer_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+        
+        $this->load->library('template');
+        $this->load->model('Manufacturer_model');
+        
+        $data['manufacturers'] = $this->Manufacturer_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $manufacturer = (!is_null($manufacturer_id) ? $this->Manufacturer_model->findOne($manufacturer_id) : []);
+        $data['manufacturer_id'] = (!is_null($manufacturer_id) ? $manufacturer_id : 0);
+        $data['manufacturer_manufacturer_name'] = (!empty($manufacturer) ? $manufacturer->manufacturer_name : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
     public function equipment()
     {
         $data = [
@@ -105,7 +152,9 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Equipment_model');
         
+        $data['equipment'] = $this->Equipment_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment/index', $data, true);
@@ -113,7 +162,7 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function addEquipment()
+    public function addEquipment($equipment_id = null)
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -123,8 +172,20 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Manufacturer_model');
+        $this->load->model('Equipment_model');
+        $this->load->model('Equipmenttype_model');
         
+        $data['manufacturers'] = $this->Manufacturer_model->findAll();
+        $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
+        
+        $equipment = (!is_null($equipment_id) ? $this->Equipment_model->findOne($equipment_id) : []);
+        $data['equipment_id'] = (!is_null($equipment_id) ? $equipment_id : 0);
+        $data['equipment_unit_number'] = (!empty($equipment) ? $equipment->unit_number : '');
+        $data['equipment_manufacturer_id'] = (!empty($equipment) ? $equipment->manufacturer_id : '');
+        $data['equipment_model_number'] = (!empty($equipment) ? $equipment->model_number : '');
+        $data['equipment_equipmenttype_id'] = (!empty($equipment) ? $equipment->equipmenttype_id : '');
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment/add', $data, true);
                 
@@ -141,7 +202,9 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Equipmenttype_model');
         
+        $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/index', $data, true);
@@ -149,7 +212,7 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function addEquipmentType()
+    public function addEquipmentType($equipmenttype_id = null)
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -159,8 +222,12 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Equipmenttype_model');
         
         $data['flashdata'] = $this->session->flashdata();
+        $equipmenttype = (!is_null($equipmenttype_id) ? $this->Equipmenttype_model->findOne($equipmenttype_id) : []);
+        $data['equipmenttype_id'] = (!is_null($equipmenttype_id) ? $equipmenttype_id : 0);
+        $data['equipmenttype_equipment_type'] = (!empty($equipmenttype) ? $equipmenttype->equipment_type : '');
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/add', $data, true);
                 
@@ -234,7 +301,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

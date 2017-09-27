@@ -1,4 +1,4 @@
-<a href="<?php echo base_url(); ?>app/addFluidType"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Fluid Type</button></a><br /><br />
+<a href="<?php echo base_url('app/addFluidType'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Fluid Type</button></a><br /><br />
 
 <table id="fluidTypeList" class="table table-bordered table-striped">
     <thead>

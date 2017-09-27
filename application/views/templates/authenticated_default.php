@@ -67,25 +67,28 @@
                     <a href="<?php echo base_url(); ?>app/log_entry">Enter Service Log</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/employees">Edit Employees</a>
+                    <a href="<?php echo base_url(); ?>app/employees/index">Edit Employees</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/users">Edit Users</a>
+                    <a href="<?php echo base_url(); ?>app/users/index">Edit Users</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/equipment">Edit Equipment</a>
+                    <a href="<?php echo base_url(); ?>app/manufacturers/index">Edit Manufacturers</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/equipmentTypes">Edit Equipment Types</a>
+                    <a href="<?php echo base_url(); ?>app/equipment/index">Edit Equipment</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/fluidTypes">Edit Fluid Types</a>
+                    <a href="<?php echo base_url(); ?>app/equipmentTypes/index">Edit Equipment Types</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/pmTypeChoices">Edit PM Type Choices</a>
+                    <a href="<?php echo base_url(); ?>app/fluidTypes/index">Edit Fluid Types</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/reporting">Reporting</a>
+                    <a href="<?php echo base_url(); ?>app/pmTypeChoices/index">Edit PM Type Choices</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url(); ?>app/reporting/index">Reporting</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>auth/logout">Log Out</a>

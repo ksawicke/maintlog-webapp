@@ -38,10 +38,9 @@
             <label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
             <select id="equipment_type" name="equipment_type" class="form-control input-lg">
                 <option value="">Select one:</option>
-                <option value="22252525">Loader</option>
-                <option value="2352">Forklift</option>
-                <option value="43435352">Light Vehicle</option>
-                <option value="253788">Other</option>
+                <?php foreach($equipmenttypes as $equipmenttype) { ?>
+                    <option value="<?php echo $equipmenttype->id; ?>"><?php echo $equipmenttype->equipment_type; ?></option>
+                <?php } ?>
             </select>
         
             <label for="equipment" class="control-label lb-lg">Equipment</label>
