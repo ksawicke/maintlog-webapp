@@ -278,7 +278,7 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function pmTypeChoices()
+    public function appSettings()
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -291,7 +291,11 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/pmTypeChoices/index', $data, true);
+        $data['smr_based_choices'] = '250|500|1000|1500|2000';
+        $data['mileage_based_choices'] = '10000|20000|30000|40000|50000';
+        $data['time_based_choices'] = '1|2|3|4|5';
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/appsettings/edit', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

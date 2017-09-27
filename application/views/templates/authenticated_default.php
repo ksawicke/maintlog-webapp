@@ -85,7 +85,7 @@
                     <a href="<?php echo base_url(); ?>app/fluidTypes/index">Edit Fluid Types</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/pmTypeChoices/index">Edit PM Type Choices</a>
+                    <a href="<?php echo base_url(); ?>app/appSettings">Edit App Settings</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url(); ?>app/reporting/index">Reporting</a>
