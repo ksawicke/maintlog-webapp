@@ -1,27 +1,37 @@
-<a href="#addEquipmentType"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment Type</button></a><br /><br />
+<a href="<?php echo base_url(); ?>app/addEquipment"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment</button></a><br /><br />
 
-<table id="equipmentTypeList" class="table table-bordered table-striped">
+<table id="equipmentList" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Equipment Type</th>
+            <th>Unit No.</th>
+            <th>Manufacturer</th>
+            <th>Model No.</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>All Truck Support Equipment</td>
+            <td>6516513</td>
+            <td>Manuf One</td>
+            <td>12409124FFF</td>
             <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
-            <td>Loader</td>
+            <td>98746</td>
+            <td>Manuf One</td>
+            <td>1000NN</td>
             <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
-            <td>Fork Lift</td>
+            <td>65412</td>
+            <td>Manuf Two</td>
+            <td>144-204</td>
             <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
-            <td>Light Vehicle</td>
+            <td>98998</td>
+            <td>Manuf One</td>
+            <td>KUBWA</td>
             <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
@@ -41,7 +51,7 @@
 <script>
   //var $ = jQuery;
   $(document).ready(function() {
-    $('#equipmentTypeList').DataTable();
+    $('#equipmentList').DataTable();
 //    $('#example2').DataTable({
 //      'paging'      : true,
 //      'lengthChange': false,

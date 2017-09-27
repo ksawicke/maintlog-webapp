@@ -173,13 +173,17 @@
             </div>
             
             <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="pss_reminder_recipients" class="control-label lb-lg">ALERT WINDOW BEFORE DUE</label>
+                </div>
+            </div>
+            
+            <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <label for="pss_reminder_quantity" class="control-label lb-lg">&nbsp;</label>
                     <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-9 col-md-9 col-sm-9">
-                    <label for="pss_reminder_units" class="control-label lb-lg">&nbsp;</label>
                     <select id="pss_reminder_units" name="pss_reminder_units" class="form-control input-lg">
                         <option value="" selected>Select one:</option>
                         <option value="smr">SMR</option>
@@ -254,8 +258,6 @@
         <div class="alert alert-warning" role="alert">
             <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Please review your entries before submitting.</h4>        
         </div>
-        
-        
         
         <strong>Field name</strong>
         <ul>

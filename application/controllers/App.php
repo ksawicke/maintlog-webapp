@@ -72,7 +72,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/employees', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/employees/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -90,7 +90,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -108,7 +108,25 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addEquipment()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -126,7 +144,25 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addEquipmentType()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -144,7 +180,25 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addFluidType()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -162,7 +216,7 @@ class App extends MY_Controller {
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/pmTypeChoices', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/pmTypeChoices/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

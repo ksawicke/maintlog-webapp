@@ -1,19 +1,27 @@
-<a href="#addFluidType"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Fluid Type</button></a><br /><br />
+<a href="<?php echo base_url(); ?>app/addEquipmentType"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment Type</button></a><br /><br />
 
-<table id="fluidTypeList" class="table table-bordered table-striped">
+<table id="equipmentTypeList" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Fluid Type</th>
+            <th>Equipment Type</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Diesel</td>
+            <td>All Truck Support Equipment</td>
             <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <tr>
-            <td>Gasoline</td>
+            <td>Loader</td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Fork Lift</td>
+            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Light Vehicle</td>
             <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
@@ -33,7 +41,7 @@
 <script>
   //var $ = jQuery;
   $(document).ready(function() {
-    $('#fluidTypeList').DataTable();
+    $('#equipmentTypeList').DataTable();
 //    $('#example2').DataTable({
 //      'paging'      : true,
 //      'lengthChange': false,
