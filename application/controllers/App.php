@@ -244,15 +244,17 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Fluidtype_model');
         
+        $data['fluidtypes'] = $this->Fluidtype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
-        
+                
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function addFluidType()
+    public function addFluidType($fluidtype_id = null)
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -262,8 +264,12 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Fluidtype_model');
         
         $data['flashdata'] = $this->session->flashdata();
+        $fluidtype = (!is_null($fluidtype_id) ? $this->Fluidtype_model->findOne($fluidtype_id) : []);
+        $data['fluidtype_id'] = (!is_null($fluidtype_id) ? $fluidtype_id : 0);
+        $data['fluidtype_fluid_type'] = (!empty($fluidtype) ? $fluidtype->fluid_type : '');
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/add', $data, true);
                 

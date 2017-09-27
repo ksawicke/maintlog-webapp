@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Handles equipment object interactions.
+ * Handles equipment type object interactions.
  */
 class Equipmenttype_model extends CI_Model {
 

@@ -8,32 +8,24 @@
         </tr>
     </thead>
     <tbody>
+        <?php foreach($fluidtypes as $fluidtype) { ?>
         <tr>
-            <td>Diesel</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td><?php echo $fluidtype->fluid_type; ?></td>
+            <td><a href="<?php echo base_url('app/addFluidType/' . $fluidtype->id); ?>"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>&nbsp;<a href="<?php echo base_url('fluidtypes/delete/' . $fluidtype->id); ?>"><button type="button" class="btn btn-sm btn-primary">Delete</button></a></td>
         </tr>
-        <tr>
-            <td>Gasoline</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
-        </tr>
-        <?php /**foreach($websites as $websitekey => $website) { ?>
-        <tr>
-            <td><?php echo $website['website_name']; ?></td>
-            <td><?php echo $website['company_name']; ?></td>
-            <td><?php //echo $contact->email_address; ?></td>
-            <td>
-                <a href="/websites/add/<?php echo $website['id']; ?>"<button type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</button>&nbsp;&nbsp;&nbsp;
-                <a href="/websites/delete/<?php echo $website['id']; ?>"<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Delete</button>
-            </td>
-        </tr>
-        <?php } **/ ?>
+        <?php } ?>
     </tbody>
 </table>
 
 <script>
   //var $ = jQuery;
   $(document).ready(function() {
-    $('#fluidTypeList').DataTable();
+    $('#fluidTypeList').DataTable({
+        "columns": [
+            null,
+            {"width": "25%"}
+        ]
+    });
 //    $('#example2').DataTable({
 //      'paging'      : true,
 //      'lengthChange': false,
