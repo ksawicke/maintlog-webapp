@@ -52,8 +52,10 @@ class App extends MY_Controller {
 
         $this->load->library('template');
         $this->load->model('Equipmenttype_model');
+        $this->load->model('Fluidtype_model');
         
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+        $data['fluidtypes'] = $this->Fluidtype_model->findAll();
         
         $data['flashdata'] = $this->session->flashdata();
         

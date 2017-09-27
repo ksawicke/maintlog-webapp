@@ -76,9 +76,9 @@
                     <label for="sus_fluid_type" class="control-label lb-lg">Fluid Type</label>
                     <select id="sus_fluid_type" name="fluid_type" class="form-control input-lg">
                         <option value="">Select one:</option>
-                        <option value="22252525">Diesel - On Highway</option>
-                        <option value="2352">Diesel - Off</option>
-                        <option value="43435352">Gasoline</option>
+                        <?php foreach($fluidtypes as $fluidtype) { ?>
+                            <option value="<?php echo $fluidtype->id; ?>"><?php echo $fluidtype->fluid_type; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
