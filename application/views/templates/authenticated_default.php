@@ -61,37 +61,37 @@
                     </a>
                 </li-->
                 <li>
-                    <a href="<?php echo base_url(); ?>app/log_entry">Home</a>
+                    <a href="<?php echo base_url('app/index'); ?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/log_entry">Enter Service Log</a>
+                    <a href="<?php echo base_url('app/log_entry'); ?>">Enter Service Log</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/employees/index">Edit Employees</a>
+                    <a href="<?php echo base_url('app/employees/index'); ?>">Edit Employees</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/users/index">Edit Users</a>
+                    <a href="<?php echo base_url('app/users/index'); ?>">Edit Users</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/manufacturers/index">Edit Manufacturers</a>
+                    <a href="<?php echo base_url('app/manufacturers/index'); ?>">Edit Manufacturers</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/equipment/index">Edit Equipment</a>
+                    <a href="<?php echo base_url('app/equipment/index'); ?>">Edit Equipment</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/equipmentTypes/index">Edit Equipment Types</a>
+                    <a href="<?php echo base_url('app/equipmentTypes/index'); ?>">Edit Equipment Types</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/fluidTypes/index">Edit Fluid Types</a>
+                    <a href="<?php echo base_url('app/fluidTypes/index'); ?>">Edit Fluid Types</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/appSettings">Edit App Settings</a>
+                    <a href="<?php echo base_url('app/appSettings'); ?>">Edit App Settings</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>app/reporting/index">Reporting</a>
+                    <a href="<?php echo base_url('app/reporting/index'); ?>">Reporting</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url(); ?>auth/logout">Log Out</a>
+                    <a href="<?php echo base_url('auth/logout'); ?>">Log Out</a>
                 </li>
             </ul>
         </div>
