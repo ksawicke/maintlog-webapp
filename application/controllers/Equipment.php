@@ -12,6 +12,16 @@ class Equipment extends MY_Controller {
         $this->load->model('Equipment_model');
     }
     
+    public function getEquipmentByType() {
+        http_response_code(200);
+        
+        $post = json_decode(file_get_contents('php://input'), true);
+        
+        $equipment = $this->Equipment_model->findAllByEquipmentTypeId($post['id']);
+        echo json_encode(['equipment' => $equipment]);
+        exit();
+    }
+    
     public function save() {
         $this->Equipment_model->store($this->input->post());
         

@@ -551,10 +551,19 @@ $('#date_entered').datepicker({
 
 $('#equipment_type').on('change', function() {
     console.log('equipment_type changed');
-    $("#equipment").prop('disabled', false);
-    $('#equipment').append('<option value="foo" selected="selected">Foo</option>');
-    $('#equipment').append('<option value="foo2" selected="selected">Foo 2</option>');
-    $('#equipment').append('<option value="foo3" selected="selected">Foo 3</option>');
+    
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo base_url("equipment/getEquipmentByType"); ?>',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify({id:$(this).val()})
+    });
+    
+//    $("#equipment").prop('disabled', false);
+//    $('#equipment').append('<option value="foo" selected="selected">Foo</option>');
+//    $('#equipment').append('<option value="foo2" selected="selected">Foo 2</option>');
+//    $('#equipment').append('<option value="foo3" selected="selected">Foo 3</option>');
 });
 
 //$(document).ready(function () {

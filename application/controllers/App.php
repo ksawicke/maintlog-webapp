@@ -53,9 +53,11 @@ class App extends MY_Controller {
         $this->load->library('template');
         $this->load->model('Equipmenttype_model');
         $this->load->model('Fluidtype_model');
+//        $this->load->model('Appsetting_model');
         
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['fluidtypes'] = $this->Fluidtype_model->findAll();
+//        $appsetting = $this->Appsetting_model->findOne(15000);
         
         $data['flashdata'] = $this->session->flashdata();
         
@@ -288,12 +290,14 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Appsetting_model');
         
         $data['flashdata'] = $this->session->flashdata();
+        $appsetting = $this->Appsetting_model->findOne(15000);
         
-        $data['smr_based_choices'] = '250|500|1000|1500|2000';
-        $data['mileage_based_choices'] = '10000|20000|30000|40000|50000';
-        $data['time_based_choices'] = '1|2|3|4|5';
+        $data['smr_based_choices'] = $appsetting->smr_based_choices;
+        $data['mileage_based_choices'] = $appsetting->mileage_based_choices;
+        $data['time_based_choices'] = $appsetting->time_based_choices;
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/appsettings/edit', $data, true);
                 

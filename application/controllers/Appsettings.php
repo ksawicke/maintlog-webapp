@@ -13,11 +13,11 @@ class Appsettings extends MY_Controller {
     }
     
     public function save() {
-        $this->Appsettings_model->store($this->input->post());
+        $this->Appsetting_model->store($this->input->post());
         
         $this->load->library('session');
         
         $this->session->set_flashdata('data_name', 'data_value');
-        redirect('/app/pmTypeChoices', 'refresh');
+        redirect('/app/appSettings', 'refresh');
     }
 }

@@ -36,6 +36,17 @@ class Equipment_model extends CI_Model {
     }
     
     /**
+     * Finds all equipment objects.
+     * 
+     * @return type
+     */
+    public function findAllByEquipmentTypeId($equipmenttype_id) {
+        $equipment = R::getAll('SELECT equipment.id, equipment.unit_number, equipment.manufacturer_id, equipment.model_number, equipment.equipmenttype_id, manufacturer.manufacturer_name, equipmenttype.equipment_type FROM equipment LEFT JOIN manufacturer ON manufacturer.id = equipment.manufacturer_id LEFT JOIN equipmenttype ON equipmenttype.id = equipment.equipmenttype_id WHERE equipment.equipmenttype_id = "' . $equipmenttype_id . '" ORDER BY equipment.model_number ASC');
+        
+        return $equipment;
+    }
+    
+    /**
      * Creates or modifies record
      */
     public function store($post) {        

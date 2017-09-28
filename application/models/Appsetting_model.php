@@ -13,58 +13,38 @@ class Appsetting_model extends CI_Model {
     }
     
     /**
-     * Finds a single equipment type object.
+     * Finds a single app setting object.
      * 
      * @param type $equipmenttype_id
      * @return type
      */
-    public function findOne($equipmenttype_id) {
-        $equipmenttype = R::findOne('equipmenttype', ' id = :equipmenttype_id ', [':equipmenttype_id' => $equipmenttype_id]);
+    public function findOne($appsetting_id) {
+        $appsetting = R::findOne('appsetting', ' id = :appsetting_id ', [':appsetting_id' => $appsetting_id]);
         
-        return $equipmenttype;
+        return $appsetting;
     }
     
     /**
-     * Finds all equipment type objects.
+     * Finds all app setting objects.
      * 
      * @return type
      */
     public function findAll() {
-        $equipmenttype = R::findAll('equipmenttype', ' ORDER BY equipment_type ASC');
+        $appsetting = R::findAll('appsetting', ' ');
         
-        return $equipmenttype;
+        return $appsetting;
     }
     
     /**
      * Creates or modifies an app setting object.
      */
-    public function store($post) {        
-        $now = date('Y-m-d h:i:s');
+    public function store($post) {
+        $appsetting = R::load('appsetting', 15000);
+        $appsetting->smr_based_choices = $post['smr_based_choices'];
+        $appsetting->mileage_based_choices = $post['mileage_based_choices'];
+        $appsetting->time_based_choices = $post['time_based_choices'];
         
-        $appsetting = ($post['appsetting_id']==0 ? R::dispense('appsetting') : R::load('appsetting', $post['appsetting_id']));
-        $equipmenttype->equipment_type = $post['equipment_type'];
-        
-        if($post['equipmenttype_id']==0) {
-            $equipmenttype->created = $now;
-            $equipmenttype->created_by = $_SESSION['user_id'];
-        } else {
-            $equipmenttype->modified = $now;
-            $equipmenttype->modified_by = $_SESSION['user_id'];
-        }
-        
-        R::store($equipmenttype);
-    }
-    
-    /**
-     * Deletes an equipment type object.
-     * 
-     * @param type $equipmenttype_id
-     */
-    public function delete($equipmenttype_id = null) {
-        if(!is_null($equipmenttype_id)) {
-            $equipmenttype = R::load('equipmenttype', $equipmenttype_id);
-            R::trash($equipmenttype);
-        }
+        R::store($appsetting);
     }
 
 }
