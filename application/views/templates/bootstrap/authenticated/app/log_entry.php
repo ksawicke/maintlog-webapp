@@ -43,14 +43,19 @@
                 <?php } ?>
             </select>
         
-            <label for="equipment" class="control-label lb-lg">Equipment</label>
+            <label for="equipment_typeahead" class="control-label lb-lg">Equipment</label>
+            <input id="equipment_typeahead" name="equipment_typeahead" class="form-control input-lg">
+            
+            <input type="hidden" id="equipment" name="equipment" value="">
+            
+            <?php /***
             <select id="equipment" name="equipment" class="form-control input-lg" disabled>
                 <option value="" selected>Select one:</option>
                 <!--option value="1000">Unit 1000 | Manufacturer Model 100</option>
                 <option value="1002">Unit 1002 | Manufacturer Model 600</option>
                 <option value="1004">Unit 1004 | Manufacturer Model 400</option>
                 <option value="1006">Unit 1006 | Manufacturer Model 300</option-->
-            </select>
+            </select> ***/ ?>
         </div>
     </div>
     
@@ -312,6 +317,27 @@ $(document).ready(function() {
         windowHeight = $(window).height(),
         dialogHeight = windowHeight * 0.65;
         
+    // Set the Options for "Bloodhound" suggestion engine
+    // @see https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead-js
+    // @see https://github.com/twitter/typeahead.js/issues/1236
+    var engine = new Bloodhound({
+        remote: {
+            url: '<?php echo base_url("equipment/getEquipmentByType"); ?>',
+            //url: '/find?q=%QUERY%',
+            prepare: function (query, settings) {
+                settings.type = "POST";
+                settings.contentType = "application/json; charset=UTF-8";
+                customSearch = {id: $("#equipment_type").val(), query: query};
+                settings.data = JSON.stringify(customSearch); //query
+
+                return settings;
+            },
+            wildcard: '%QUERY%'
+        },
+        datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+    });
+        
     var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="confirmAnswerNo" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="confirmAnswerYes" type="button">Yes</button></div>';
     var confirmSubmitJBox = new jBox('Modal', {
         closeButton: 'title',
@@ -371,6 +397,51 @@ $(document).ready(function() {
         event.preventDefault();
         confirmSubmitJBox.close();
         alert('We will submit form here....');
+    });
+    
+    $("#equipment_typeahead").typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        source: engine.ttAdapter(),
+
+        // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+        name: 'equipmentList',
+
+        // the key from the array we want to display (name,id,email,etc...)
+        templates: {
+            empty: [
+                '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
+            ],
+            header: [
+                '<div class="list-group search-results-dropdown">'
+            ],
+            suggestion: function (data) {
+                // equipment.unit_number | equipment.manufacturer_name equipment.model_number
+                // or
+                // equipment.search_matchs
+                return '<a href="#" class="list-group-item">' + data.search_match + '</a>';
+//                return '<a href="' + data.id + '" class="list-group-item">' + data.search_match + '</a>';
+//                return '<a href="' + data.profile.username + '" class="list-group-item">' + data.name + '- @' + data.profile.username + '</a>'
+            }
+        }
+    }).on('typeahead:selected', function(event, selection) {
+        
+//        console.log($("#equipment").val());
+//        console.log("Selected: " + selection.id);
+        // the second argument has the info you want
+//        alert(selection.value);
+//        $(this).val('');
+//        $("#equipment_typeahead").html('BLAH');
+
+        $("#equipment_typeahead").prop('disabled', true);
+        $(this).typeahead('val', selection.search_match);
+        $("#equipment").val(selection.id);
+        
+        // clearing the selection requires a typeahead method
+//        $(this).typeahead('setQuery', '');
+//        $(this).typeahead('setQuery', selection.search_match);
     });
 });
 
@@ -550,15 +621,18 @@ $('#date_entered').datepicker({
 });
 
 $('#equipment_type').on('change', function() {
-    console.log('equipment_type changed');
+    $("#equipment_typeahead").val('');
+    $("#equipment").val('');
+    $("#equipment_typeahead").prop('disabled', false);
+//    console.log('equipment_type changed');
     
-    $.ajax({
-        type: 'POST',
-        url: '<?php echo base_url("equipment/getEquipmentByType"); ?>',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify({id:$(this).val()})
-    });
+//    $.ajax({
+//        type: 'POST',
+//        url: '<?php echo base_url("equipment/getEquipmentByType"); ?>',
+//        contentType: 'application/json; charset=utf-8',
+//        dataType: 'json',
+//        data: JSON.stringify({id:$(this).val()})
+//    });
     
 //    $("#equipment").prop('disabled', false);
 //    $('#equipment').append('<option value="foo" selected="selected">Foo</option>');

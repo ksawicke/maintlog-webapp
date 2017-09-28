@@ -25,12 +25,18 @@ class Equipment extends MY_Controller {
     }
     
     public function getEquipmentByType() {
-        http_response_code(200);
-        
         $post = json_decode(file_get_contents('php://input'), true);
+        $equipment = [];
         
-        $equipment = $this->Equipment_model->findAllByEquipmentTypeId($post['id']);
-        echo json_encode(['equipment' => $equipment]);
+        if(!array_key_exists('query', $post) || !array_key_exists('id', $post)) {
+            http_response_code(404);
+        } else {
+            http_response_code(200);
+            $equipment = $this->Equipment_model->findAllByEquipmentTypeIdAndQuery($post['id'], $post['query']);
+        }
+        
+        echo json_encode($equipment);
+//        echo json_encode(['equipment' => $equipment]);
         exit();
     }
     

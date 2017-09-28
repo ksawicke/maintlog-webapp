@@ -42,6 +42,7 @@
     <script src="<?php echo $assetDirectoryCustom; ?>js/jquery.min.js"></script>
     <script src="<?php echo $assetDirectoryCustom; ?>js/jquery-ui.min.js"></script>
     <script src="<?php echo $assetDirectoryCustom; ?>js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
     <?php /***<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>***/?>
     
     <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
