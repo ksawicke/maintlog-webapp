@@ -402,7 +402,7 @@ $(document).ready(function() {
     $("#equipment_typeahead").typeahead({
         hint: true,
         highlight: true,
-        minLength: 1
+        minLength: 3
     }, {
         source: engine.ttAdapter(),
 
