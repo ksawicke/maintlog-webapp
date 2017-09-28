@@ -10,19 +10,19 @@
     <tbody>
         <tr>
             <td>Johnson, Bret</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <tr>
             <td>Johnson, Neil</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <tr>
             <td>Leonetti, John</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <tr>
             <td>Sawicke, Kevin</td>
-            <td><button type="button" class="btn btn-sm btn-primary">Edit</button>&nbsp;<button type="button" class="btn btn-sm btn-primary">Delete</button></td>
+            <td><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <?php /**foreach($websites as $websitekey => $website) { ?>
         <tr>
@@ -41,7 +41,12 @@
 <script>
   //var $ = jQuery;
   $(document).ready(function() {
-    $('#userList').DataTable();
+    $('#userList').DataTable({
+        "columns": [
+            null,
+            {"width": "50px"}
+        ]
+    });
 //    $('#example2').DataTable({
 //      'paging'      : true,
 //      'lengthChange': false,

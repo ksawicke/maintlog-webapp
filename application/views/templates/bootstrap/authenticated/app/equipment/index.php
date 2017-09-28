@@ -17,7 +17,7 @@
             <td><?php echo $e['manufacturer_name']; ?></td>
             <td><?php echo $e['model_number']; ?></td>
             <td><?php echo $e['equipment_type']; ?></td>
-            <td><a href="<?php echo base_url('app/addEquipment/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>&nbsp;<a href="<?php echo base_url('equipment/delete/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary">Delete</button></a></td>
+            <td><a href="<?php echo base_url('app/addEquipment/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<a href="<?php echo base_url('equipment/delete/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <?php } ?>
     </tbody>

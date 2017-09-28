@@ -11,7 +11,7 @@
         <?php foreach($manufacturers as $manufacturer) { ?>
         <tr>
             <td><?php echo $manufacturer->manufacturer_name; ?></td>
-            <td><a href="<?php echo base_url('app/addManufacturer/' . $manufacturer->id); ?>"><button type="button" class="btn btn-sm btn-primary">Edit</button></a>&nbsp;<a href="<?php echo base_url('manufacturers/delete/' . $manufacturer->id); ?>"><button type="button" class="btn btn-sm btn-primary">Delete</button></a></td>
+            <td><a href="<?php echo base_url('app/addManufacturer/' . $manufacturer->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a>&nbsp;<a href="<?php echo base_url('manufacturers/delete/' . $manufacturer->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a></td>
         </tr>
         <?php } ?>
     </tbody>
@@ -23,7 +23,7 @@
     $('#manufacturerList').DataTable({
         "columns": [
             null,
-            {"width": "25%"}
+            {"width": "50px"}
         ]
     });
 //    $('#example2').DataTable({
