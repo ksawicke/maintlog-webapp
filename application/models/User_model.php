@@ -13,6 +13,29 @@ class User_model extends CI_Model {
     }
     
     /**
+     * Finds a single user object.
+     * 
+     * @param type $user_id
+     * @return type
+     */
+    public function findOne($user_id) {
+        $user = R::findOne('user', ' id = :user_id ', [':user_id' => $user_id]);
+        
+        return $user;
+    }
+    
+    /**
+     * Finds all user objects.
+     * 
+     * @return type
+     */
+    public function findAll() {
+        $user = R::findAll('user', ' ORDER BY last_name ASC, first_name ASC');
+        
+        return $user;
+    }
+    
+    /**
      * Finds a count of user by username
      * 
      * @param type $username

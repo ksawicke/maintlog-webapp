@@ -105,10 +105,39 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('User_model');
+        
+        $data['users'] = $this->User_model->findAll();
         
         $data['flashdata'] = $this->session->flashdata();
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addUser($user_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+        
+        $this->load->library('template');
+        $this->load->model('User_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $user = (!is_null($user_id) ? $this->User_model->findOne($user_id) : []);
+        $data['user_id'] = (!is_null($user_id) ? $user_id : 0);
+        $data['user_first_name'] = (!empty($user) ? $user->first_name : '');
+        $data['user_last_name'] = (!empty($user) ? $user->last_name : '');
+        $data['user_email_address'] = (!empty($user) ? $user->email_address : '');
+        $data['user_role'] = (!empty($user) ? $user->role : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

@@ -1,4 +1,4 @@
-<a href="#addUser"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add User</button></a><br /><br />
+<a href="<?php echo base_url('app/addUser'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add User</button></a><br /><br />
 
 <table id="userList" class="table table-bordered table-striped">
     <thead>
@@ -8,6 +8,13 @@
         </tr>
     </thead>
     <tbody>
+        <?php foreach($users as $user) { ?>
+        <tr>
+            <td><?php echo $user->last_name . ', ' . $user->first_name; ?></td>
+            <td><a href="<?php echo base_url('app/addUser/' . $user->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a>&nbsp;<a href="<?php echo base_url('users/delete/' . $user->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a></td>
+        </tr>
+        <?php } ?>
+        <?php /**
         <tr>
             <td>Johnson, Bret</td>
             <td><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
@@ -23,7 +30,7 @@
         <tr>
             <td>Sawicke, Kevin</td>
             <td><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
-        </tr>
+        </tr> **/ ?>
         <?php /**foreach($websites as $websitekey => $website) { ?>
         <tr>
             <td><?php echo $website['website_name']; ?></td>
