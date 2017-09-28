@@ -156,15 +156,47 @@ class User_model extends CI_Model {
     }
     
     /**
-     * Deletes a user record
+     * Creates or modifies record
+     */
+    public function store($post) {        
+        $now = date('Y-m-d h:i:s');
+        
+        $user = ($post['user_id']==0 ? R::dispense('user') : R::load('user', $post['user_id']));
+        $user->first_name = $post['first_name'];
+        $user->last_name = $post['last_name'];
+        $user->email_address = $post['email_address'];
+        $user->role = $post['role'];
+        $user->active = 1;
+        if(!empty($post['pin'])) {
+            $user->pin = password_hash($post['pin'], PASSWORD_DEFAULT);
+        }
+        
+        if($post['user_id']==0) {
+            $user->created = $now;
+            $user->created_by = $_SESSION['user_id'];
+        } else {
+            $user->modified = $now;
+            $user->modified_by = $_SESSION['user_id'];
+        }
+        
+        R::store($user);
+    }
+    
+    /**
+     * Toogles activation of a user record
      * 
      * @param type $user_id
      */
-    public function delete($user_id = null) {
-        if(!is_null($user_id)) {
-            $user = R::load('user', $user_id);
-            R::trash($user);
-        }
+    public function toggle_activation($user_id = null) {
+        $user = R::load('user', $user_id);
+        $user->active = ($user->active==1 ? 0 : 1);
+        R::store($user);
+        
+//        die("stop");
+//        if(!is_null($user_id)) {
+//            $user = R::load('user', $user_id);
+//            R::trash($user);
+//        }
     }
     
     /**

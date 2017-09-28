@@ -38,8 +38,8 @@ class Users extends MY_Controller {
      * 
      * @param type $equipment_id
      */
-    public function delete($equipment_id) {
-        $this->Equipment_model->delete($equipment_id);
+    public function toggle_activation($equipment_id) {
+        $this->User_model->toggle_activation($equipment_id);
         $this->session->set_flashdata('data_name', 'data_value');
         redirect('/app/users', 'refresh');
     }

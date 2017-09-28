@@ -11,7 +11,7 @@
     </div>
     
     <div class="form-group">
-        <label for="email_address" class="control-label lb-lg">Last Name</label>
+        <label for="email_address" class="control-label lb-lg">Email Address</label>
         <input type="text" id="email_address" name="email_address" class="form-control input-lg" value="<?php echo $user_email_address; ?>">
     </div>
     
@@ -26,7 +26,11 @@
     
     <div class="form-group">
         <label for="pin" class="control-label lb-lg">PIN</label>
-        <input type="text" id="pin" name="pin" class="form-control input-lg">
+        <input type="password" id="pin" name="pin" class="form-control input-lg">
+        <p class="help-block">
+            When creating a new user, this field is required.<br />
+            When editing a user, leave this field blank unless you want to reset the user's PIN.
+        </p>
     </div>
     
     <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">
