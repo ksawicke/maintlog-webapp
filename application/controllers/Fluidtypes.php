@@ -1,6 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Fluidtypes is a Controller handling interactions related to fluid types
+*
+* Fluidtypes handles routes related mainly to the fluid_types table
+* used by the application.
+*
+*
+* @package  Maintenance Log Application
+* @author   Kevin Sawicke <kevin@rinconmountaintech.com>
+* @version  $Revision: 0.2 $
+* @access   public
+*/
 class Fluidtypes extends MY_Controller {
 
     function __construct() {

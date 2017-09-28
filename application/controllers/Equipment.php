@@ -1,6 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Equipment is a Controller handling interactions related to equipment
+*
+* Equipment handles routes related mainly to the equipment table
+* used by the application.
+*
+*
+* @package  Maintenance Log Application
+* @author   Kevin Sawicke <kevin@rinconmountaintech.com>
+* @version  $Revision: 0.2 $
+* @access   public
+*/
 class Equipment extends MY_Controller {
 
     function __construct() {

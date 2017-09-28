@@ -1,6 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Equipmenttypes is a Controller handling interactions related to equipment types
+*
+* Equipment types handles routes related mainly to the equipment_types table
+* used by the application.
+*
+*
+* @package  Maintenance Log Application
+* @author   Kevin Sawicke <kevin@rinconmountaintech.com>
+* @version  $Revision: 0.2 $
+* @access   public
+*/
 class Equipmenttypes extends MY_Controller {
 
     function __construct() {

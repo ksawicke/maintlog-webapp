@@ -2,8 +2,17 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Authorization class.
- */
+* Auth is a Controller handling interactions related to app authorization
+*
+* Auth handles routes related mainly to authorizing users to use
+* the application.
+*
+*
+* @package  Maintenance Log Application
+* @author   Kevin Sawicke <kevin@rinconmountaintech.com>
+* @version  $Revision: 0.2 $
+* @access   public
+*/
 class Auth extends CI_Controller {
 
     function __construct() {
@@ -30,21 +39,7 @@ class Auth extends CI_Controller {
         $this->load->library('template');
         
         $data['flashdata'] = $this->session->flashdata();
-//        exit();
-        
-//        if(isset($_SESSION['message_danger'])) {
-//        echo '<pre>';
-//            var_dump($_SESSION);
-//            exit();
-//        }
-        
-//        $this->User_model->wipe();
-//        $this->User_model->create();
-        
-//        $data['contacts'] = $this->Contact_model->findAll();
-        
-//        $data['navigationTop'] = $this->load->view('templates/adminlte/authenticated/navigation_top', $data, true);
-//        $data['navigationSidebar'] = $this->load->view('templates/adminlte/authenticated/navigation_sidebar', $data, true);
+
         $data['body'] = $this->load->view('templates/bootstrap/public/auth/login', $data, true);
                 
         $this->template->load('public_auth', null, $data);
@@ -72,7 +67,6 @@ class Auth extends CI_Controller {
             $this->session->set_flashdata('alert_success', 'You have logged in successfully.');
             redirect($redirectTo, 'refresh');
         }
-//        die("dsalfihadlads");
         
         $this->session->set_flashdata('alert_danger', 'Invalid PIN. Please try again.');
         redirect('/auth/index', 'refresh');
@@ -91,9 +85,6 @@ class Auth extends CI_Controller {
      * @param type $username
      */
     private function createUserSession($userObject) {
-//        echo '<pre>';
-//        var_dump($userObject);
-//        exit();
         $sessionData = array(
             'user_id' => $userObject->id,
             'username' => $userObject->username,
@@ -112,6 +103,7 @@ class Auth extends CI_Controller {
      */
     private function destroyUserSession() {
         unset(
+            $_SESSION['user_id'],
             $_SESSION['username'],
             $_SESSION['first_name'],
             $_SESSION['username'],

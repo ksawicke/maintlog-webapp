@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* App is a Controller handling generic app interactions
+*
+* App handles routes that are more generic in focus.
+*
+*
+* @package  Maintenance Log Application
+* @author   Kevin Sawicke <kevin@rinconmountaintech.com>
+* @version  $Revision: 0.2 $
+* @access   public
+*/
 class App extends MY_Controller {
 
     function __construct() {
