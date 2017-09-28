@@ -19,8 +19,8 @@
         <label for="role" class="control-label lb-lg">Role</label>
         <select id="role" name="role" class="form-control input-lg">
             <option value="">Select one:</option>
-            <option value="user">General User</option>
-            <option value="admin">Admin</option>
+            <option value="user"<?php echo ($user_role=="user" ? " selected" : ""); ?>>General User</option>
+            <option value="admin"<?php echo ($user_role=="admin" ? " selected" : ""); ?>>Admin</option>
         </select>
     </div>
     
@@ -31,6 +31,15 @@
             When creating a new user, this field is required.<br />
             When editing a user, leave this field blank unless you want to reset the user's PIN.
         </p>
+    </div>
+    
+    <div class="form-group">
+        <label for="active" class="control-label lb-lg">Active</label>
+        <select id="active" name="active" class="form-control input-lg">
+            <option value="">Select one:</option>
+            <option value="1"<?php echo ($user_active==1 ? " selected" : ""); ?>>Active</option>
+            <option value="0"<?php echo ($user_active==0 ? " selected" : ""); ?>>Inactive</option>
+        </select>
     </div>
     
     <input type="hidden" id="user_id" name="user_id" value="<?php echo $user_id; ?>">

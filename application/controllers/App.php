@@ -136,6 +136,7 @@ class App extends MY_Controller {
         $data['user_last_name'] = (!empty($user) ? $user->last_name : '');
         $data['user_email_address'] = (!empty($user) ? $user->email_address : '');
         $data['user_role'] = (!empty($user) ? $user->role : '');
+        $data['user_active'] = (!empty($user) ? $user->active : '');
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/add', $data, true);
                 

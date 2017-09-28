@@ -166,7 +166,7 @@ class User_model extends CI_Model {
         $user->last_name = $post['last_name'];
         $user->email_address = $post['email_address'];
         $user->role = $post['role'];
-        $user->active = 1;
+        $user->active = $post['active'];
         if(!empty($post['pin'])) {
             $user->pin = password_hash($post['pin'], PASSWORD_DEFAULT);
         }
