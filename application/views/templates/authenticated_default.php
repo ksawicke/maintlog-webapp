@@ -31,6 +31,7 @@
     <link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet">
     <link href="//code.jboxcdn.com/0.4.8/jBox.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.css"/>
+    <link href="<?php echo $assetDirectoryCustom; ?>css/parsley.css" rel="stylesheet">
     <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -47,6 +48,7 @@
     
     <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.js"></script>
+    <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.min.js"></script>
   </head>
 
   <body>

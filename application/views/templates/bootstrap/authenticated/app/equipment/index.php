@@ -6,7 +6,7 @@
             <th>Unit No.</th>
             <th>Manufacturer</th>
             <th>Model No.</th>
-            <td>Equipment Type</th>
+            <th>Equipment Type</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -24,23 +24,15 @@
 </table>
 
 <script>
-  //var $ = jQuery;
   $(document).ready(function() {
     $('#equipmentList').DataTable({
         "columns": [
             null,
             null,
             null,
-            {"width": "25%"}
+            null,
+            {"width": "80px", "orderable": false}
         ]
     });
-//    $('#example2').DataTable({
-//      'paging'      : true,
-//      'lengthChange': false,
-//      'searching'   : false,
-//      'ordering'    : true,
-//      'info'        : true,
-//      'autoWidth'   : false
-//    });
   });
 </script>

@@ -18,21 +18,12 @@
 </table>
 
 <script>
-  //var $ = jQuery;
   $(document).ready(function() {
     $('#manufacturerList').DataTable({
         "columns": [
             null,
-            {"width": "50px"}
+            {"width": "80px", "orderable": false}
         ]
     });
-//    $('#example2').DataTable({
-//      'paging'      : true,
-//      'lengthChange': false,
-//      'searching'   : false,
-//      'ordering'    : true,
-//      'info'        : true,
-//      'autoWidth'   : false
-//    });
   });
 </script>

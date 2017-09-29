@@ -7,7 +7,7 @@
                 <div class="input-group-addon">
                    <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control input-lg" id="date_entered" name="date_entered" value="<?php echo date("m/d/Y"); ?>">
+                <input type="text" class="form-control input-lg" id="date_entered" name="date_entered" value="<?php echo date("m/d/Y"); ?>" data-parsley-required="true">
              </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             </select>
         
             <label for="serviced_by" class="control-label lb-lg">Serviced By</label>
-            <select id="serviced_by" name="serviced_by" class="form-control input-lg" multiple>
+            <select id="serviced_by" name="serviced_by" class="form-control input-lg" multiple data-parsley-required data-parsley-mincheck="2">
                 <option value="124566">Doe, John</option>
                 <option value="124512">Johnson, Neil</option>
                 <option value="622141">Smith, Joe</option>
@@ -442,6 +442,32 @@ $(document).ready(function() {
         // clearing the selection requires a typeahead method
 //        $(this).typeahead('setQuery', '');
 //        $(this).typeahead('setQuery', selection.search_match);
+    });
+    
+//    $('#serviceLog').parsley().on('field:validated', function() {
+//        var ok = $('.parsley-error').length === 0;
+//        $('.bs-callout-info').toggleClass('hidden', !ok);
+//        $('.bs-callout-warning').toggleClass('hidden', ok);
+//    })
+//    .on('form:submit', function() {
+//        return false; // Don't submit form for this demo
+//    });
+    
+//    $("select").chosen();
+    
+    $("#serviceLog").parsley();
+    
+    $("#serviced_by").on('change', function(e) {
+        var f = $(this);
+        f.parsley().validate();
+        
+//        if (f.parsley().isValid()) {
+//            alert('The form is valid');
+//        } else {
+//            alert('There are validation errors');
+//        }
+        
+        e.preventDefault();
     });
 });
 

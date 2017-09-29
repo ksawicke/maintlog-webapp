@@ -18,12 +18,11 @@
 </table>
 
 <script>
-  //var $ = jQuery;
   $(document).ready(function() {
     $('#equipmentTypeList').DataTable({
         "columns": [
             null,
-            {"width": "50px"}
+            {"width": "80px", "orderable": false}
         ]
     });
 //    $('#example2').DataTable({
