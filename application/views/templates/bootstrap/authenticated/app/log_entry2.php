@@ -160,27 +160,86 @@
 
     <div class="form-section subflow sus">
         <label for="sus_miles" class="control-label lb-lg">SMR / Miles</label>
-        <input type="text" class="form-control input-lg" id="sus_miles" name="sus_miles" value="">
+        <input
+               id="sus_miles"
+               name="sus_miles"
+               type="text"
+               class="form-control input-lg"
+               value=""
+               data-parsley-required="true"
+               data-parsley-error-message="Please enter the current SMR or Miles"
+               data-parsley-errors-container=".sus_miles_errors">
+        <p class="form-error sus_miles_errors"></p>
     </div>
     <!-- /SMR UPDATE SUBFLOW -->
 
-    <div class="form-section subflow two">
-        <label for="email">PATH 2 >> Email:</label>
-        <input type="email" class="form-control" name="email" required="">
+    <div class="form-section subflow pss">
+        <label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
+        <select id="pss_pm_type" name="pss_pm_type" class="form-control input-lg">
+            <option value="">Select one:</option>
+            <option value="smr_based">SMR based</option>
+            <option value="mileage_based">Mileage based</option>
+            <option value="time_based">Time based</option>
+        </select>
     </div>
 
-    <div class="form-section subflow two">
-        <label for="color">PATH 2 >> Favorite color:</label>
-        <input type="text" class="form-control" name="color" required="">
+    <div class="form-section subflow pss">
+        <label for="pss_smr" class="control-label lb-lg">SMR</label>
+        <select id="pss_smr" name="pss_smr" class="form-control input-lg">
+            <option value="">Select one:</option>
+            <option value="250">250</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+            <option value="1500">1500</option>
+        </select>
     </div>
-    <div class="form-section subflow two">
-        <label for="email">PATH 2 >> Email:</label>
-        <input type="email" class="form-control" name="email" required="">
+    <div class="form-section subflow pss">
+        SERVICE REMINDER<br /><br />
+        <label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
+        <select id="pss_reminder_pm_type" name="pss_reminder_pm_type" class="form-control input-lg">
+            <option value="">Select one:</option>
+            <option value="smr_based">SMR Based</option>
+            <option value="mileage_based">Mileage Based</option>
+            <option value="time_based">Time Based</option>
+        </select>
+
+        <label for="pss_smr_due" class="control-label lb-lg">SMR Due</label>
+        <input type="text" class="form-control input-lg" id="pss_smr_due" name="pss_smr_due" value="">
     </div>
 
-    <div class="form-section subflow two">
-        <label for="color">PATH 2 >> Favorite color:</label>
-        <input type="text" class="form-control" name="color" required="">
+    <div class="form-section subflow pss">
+        <label for="pss_notes" class="control-label lb-lg">Notes</label>
+        <input type="text" class="form-control input-lg" id="pss_notes" name="pss_notes" value="">
+    </div>
+    
+    <div class="form-section subflow pss">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label>
+                <input type="text" id="pss_reminder_recipients" name="pss_reminder_recipients" class="form-control input-lg" value="email1@email.com,email2@email2.com">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="pss_reminder_recipients" class="control-label lb-lg">ALERT WINDOW BEFORE DUE</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity" class="form-control input-lg">
+            </div>
+
+            <div class="col-lg-9 col-md-9 col-sm-9">
+                <select id="pss_reminder_units" name="pss_reminder_units" class="form-control input-lg">
+                    <option value="" selected>Select one:</option>
+                    <option value="smr">SMR</option>
+                    <option value="miles">Miles</option>
+                    <option value="days">Days</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="form-navigation">
