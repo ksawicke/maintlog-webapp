@@ -77,6 +77,31 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function log_entry2()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Equipmenttype_model');
+        $this->load->model('Fluidtype_model');
+//        $this->load->model('Appsetting_model');
+        
+        $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+        $data['fluidtypes'] = $this->Fluidtype_model->findAll();
+//        $appsetting = $this->Appsetting_model->findOne(15000);
+        
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/log_entry2', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
     public function employees()
     {
         $data = [
