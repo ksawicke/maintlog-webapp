@@ -129,12 +129,13 @@
                        name="sus_quantity"
                        type="text"
                        class="form-control input-lg"
+                       data-parsley-type="number"
                        data-parsley-required="true"
                        data-parsley-gt="0"
-                       data-parsley-lte="9999.99"
+                       data-parsley-lt="10000"
                        data-parsley-required-message="Please choose the quantity of fuel used"
                        data-parsley-gt-message="Please enter a quantity greater than 0"
-                       data-parsley-gt-message="Please enter a quantity less than 9999.9"
+                       data-parsley-lt-message="Please enter a quantity less than 10000.0"
                        data-parsley-errors-container=".sus_quantity_errors">
                 <p class="form-error sus_quantity_errors"></p>
             </div>

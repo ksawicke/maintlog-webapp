@@ -49,6 +49,7 @@
     <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.js"></script>
     <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.min.js"></script>
+    <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.comparison.js"></script>
   </head>
 
   <body>
