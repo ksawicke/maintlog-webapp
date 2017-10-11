@@ -71,15 +71,15 @@
         <input id="equipment_typeahead"
                name="equipment_typeahead"
                type="text"
-               class="form-control input-lg">
+               class="form-control input-lg"
+               data-parsley-equipment-selected="true"
+               data-parsley-required-error-message="Equipment not selected"
+               data-parsley-errors-container=".equipment_typeahead_errors">
         <p class="form-error equipment_typeahead_errors"></p>
         <input id="equipment"
                name="equipment"
                type="hidden"
-               value=""
-               data-parsley-required="true"
-               data-parsley-error-message="Please choose the equipment affected"
-               data-parsley-errors-container=".equipment_typeahead_errors">
+               value="">
     </div>
 
     <div class="form-section">
@@ -311,6 +311,30 @@
 //                preloadAudio: false
 //        });
 
+        function empty(data) {
+          if(typeof(data) == 'number' || typeof(data) == 'boolean')
+          { 
+            return false; 
+          }
+          if(typeof(data) == 'undefined' || data === null)
+          {
+            return true; 
+          }
+          if(typeof(data.length) != 'undefined')
+          {
+            return data.length == 0;
+          }
+          var count = 0;
+          for(var i in data)
+          {
+            if(data.hasOwnProperty(i))
+            {
+              count ++;
+            }
+          }
+          return count == 0;
+        }
+
         function navigateTo(index) {
             // Mark the current section with the class 'current'
             $sections
@@ -441,5 +465,27 @@
     //        $(this).typeahead('setQuery', '');
     //        $(this).typeahead('setQuery', selection.search_match);
         });
+        
+        window.Parsley
+            .addValidator('equipmentSelected', {
+              requirementType: 'string',
+              validateString: function(value, requirement) {
+                console.log("value test: " + value);
+                console.log("requirement test: " + requirement);
+                console.log("equipment value: " + $("#equipment").val());
+                if(empty($("#equipment").val())===true) {
+                    console.log("0");
+                    return false;
+                } else {
+                    console.log("1");
+                    return true;
+                }
+//                return 0 === value % requirement;
+              },
+              messages: {
+                en: 'Equipment not yet selected',
+//                fr: 'Cette valeur doit être un multiple de %s'
+              }
+            });
     });
 </script>
