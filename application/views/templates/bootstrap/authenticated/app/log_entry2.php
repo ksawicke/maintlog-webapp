@@ -248,11 +248,12 @@
         <button type="button" class="next btn btn-lg btn-primary">Next &gt;</button>
         <button id="reviewButton" type="button" class="next btn btn-lg btn-primary" style="display:none;">Review &gt;</button>
         <!--input type="submit" class="btn btn-default pull-right"-->
-        <div style="display:none;" id="reviewScreen">
-            Review screen...
-        </div>
-        <span class="clearfix"></span>
     </div>
+    
+    <div style="display:none;" id="reviewScreen">
+        Review screen...
+    </div>
+    <span class="clearfix"></span>
 
 </form>
 
@@ -332,7 +333,10 @@
         }
 
         $("#reviewButton").on('click', function () {
-            $("#reviewScreen").toggle();
+            $(this).hide();
+            $('.form-navigation').hide();
+            $('.form-section').hide();
+            $("#reviewScreen").show();
         });
 
         $('#subflow').on('change', function () {
