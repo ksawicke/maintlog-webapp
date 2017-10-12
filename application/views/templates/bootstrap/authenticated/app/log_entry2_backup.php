@@ -297,6 +297,21 @@
             queryTokenizer: Bloodhound.tokenizers.whitespace
         });
 
+//        var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="confirmAnswerNo" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="confirmAnswerYes" type="button">Yes</button></div>';
+//        var confirmSubmitJBox = new jBox('Modal', {
+//            closeButton: 'title',
+//            responsiveWidth: true,
+//            responsiveHeight: true,
+//            minWidth: dialogWidth,
+//            minHeight: dialogHeight,
+//            attach: '#btnSubmit',
+//            title: 'Confirm',
+//            content: confirmationMessage,
+//            zIndex: 15000,
+//                preventDefault: true,
+//                preloadAudio: false
+//        });
+
         function navigateTo(index) {
             // Mark the current section with the class 'current'
             $sections
@@ -318,6 +333,29 @@
         $('#subflow').on('change', function () {
             subflowSelected = true;
             currentSubflow = $(this).val();
+
+//      console.log("curIndex: " + curIndex());
+//      console.log("currentSubflow: " + currentSubflow);
+//      console.log("subflowSelected: " + subflowSelected);
+
+//      $("." + currentSubflow + ":first");
+            
+//      console.log($("." + currentSubflow + ":first"));
+//      navigateTo(7);
+
+//      $sections.each(function(index, section) {
+//         if(index == curIndex()+1 ) {
+//           $(section).find(':input').attr('data-parsley-group', 'block');
+//         }
+//      });
+
+//      $sections.each(function(index, section) {
+//         $(section).find(':input').attr('data-parsley-group', 'block-' + (curIndex() + index));
+//      });
+
+//      $sections.each(function(index, section) {
+//         $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+//      });
         });
 
         // Previous button is easy, just go back
@@ -328,12 +366,9 @@
         // Next button goes forward if current block validates
         // KMS 10-11-17 https://stackoverflow.com/questions/27932403/parsleyjs-with-multi-steps-form
         //              https://stackoverflow.com/questions/30054011/duplication-of-field-error-when-using-parsley-js
-//        
         $('.form-navigation .next').click(function () {
             $('.serviceLog-form').parsley().whenValidate({
                 group: 'block-' + curIndex()
-            }).always(function () {
-//                console.log("CHECK 2");
             }).done(function () {
                 var nextIndex = (curIndex() + 1);
                 if(currentSubflow) {
@@ -341,51 +376,6 @@
                 }
                 navigateTo(nextIndex);
             });
-            
-//            var validateBlockPromise = $('.serviceLog-form').parsley().whenValid({
-//                group: 'block-' + curIndex()
-//            });
-            
-//            console.log(validateBlockPromise);
-
-//            if('resolved' === validateBlockPromise.state()) {
-//                console.log('resolved');
-//            }
-//            console.log("check state for block " + curIndex());
-//            console.log(validateBlockPromise.state());
-//            console.log(validateBlockPromise);
-//            
-//            if('pending' === validateBlockPromise.state() && 2 === curIndex()) {
-//                if(!empty($('[name="equipment"]').val()) && !empty($("#equipment").val())) {
-//                    
-//                }
-//            }
-            
-//            validateBlockPromise.then(function(result) {
-////                console.log("result: " + result); // "Stuff worked!"
-//                console.log("Validate block: success");
-//                console.log(result);
-//                var nextIndex = (curIndex() + 1);
-//                if(currentSubflow) {
-//                    nextIndex = $("." + currentSubflow + ":first").data("section-index");
-//                }
-//                navigateTo(nextIndex);
-//            }, function(reason) {
-//                console.log(reason);
-////                console.log("error: " + reason); // Error: "It broke"
-//            });
-            
-//            $('.serviceLog-form').parsley().whenValidate({
-//                group: 'block-' + curIndex()
-//            }).always(function () {
-////                console.log("CHECK 2");
-//            }).done(function () {
-//                var nextIndex = (curIndex() + 1);
-//                if(currentSubflow) {
-//                    nextIndex = $("." + currentSubflow + ":first").data("section-index");
-//                }
-//                navigateTo(nextIndex);
-//            });
         });
 
         // Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
@@ -485,36 +475,13 @@
         .addValidator('equipmentrequired', {
             requirementType: 'string',
             validateString: function(value, requirement) {
-//                const def = new $.Deferred();
-//
-//                return def.promise();
-                console.log("value: " + value);
+//                console.log("value: " + value);
 //                console.log("requirement: " + requirement);
-                console.log("equipment: " + $(requirement).val());
+//                console.log("equipment: " + $(requirement).val());
 //                return false;
                 // Make sure that value and $(requirement).val() are not empty
-//                if(!empty(value)) {
-//                    console.log('empty value: false');
-//                } else {
-//                    console.log('empty value: true');
-//                }
-//                
-//                if(!empty($(requirement).val())) {
-//                    console.log('empty requirement: false');
-//                } else {
-//                    console.log('empty requirement: true');
-//                }
-                if( !empty(value)===false || !empty($(requirement).val())===false ) {
-//                    console.log("H");
-                    return false;
-                } else {
-//                    console.log("I");
-                    return true;
-                }
-//                return true;
-//                return ((!empty(value)===false || !empty($(requirement).val())===false) ? false : true);
+                return((!empty(value) && !empty($(requirement).val())) ? true : false);
 //                return 0 === value % requirement;
-//                return 1;
             },
             messages: {
                 en: 'Please select a valid piece of equipment.'
