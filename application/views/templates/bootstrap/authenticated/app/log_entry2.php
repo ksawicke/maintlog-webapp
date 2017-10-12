@@ -72,9 +72,8 @@
                name="equipment_typeahead"
                type="text"
                class="form-control input-lg"
-               data-parsley-equipmentrequired='["[name=\"equipment\"]"]'
-               data-parsley-validate-if-empty
-               data-parsley-success-class=""
+               required=""
+               data-parsley-equipmentrequired=""
                data-parsley-errors-container=".equipment_typeahead_errors">
         <p class="form-error equipment_typeahead_errors"></p>
         <input id="equipment"
@@ -485,12 +484,12 @@
         .addValidator('equipmentrequired', {
             requirementType: 'string',
             validateString: function(value, requirement) {
-//                const def = new $.Deferred();
-//
-//                return def.promise();
-                console.log("value: " + value);
-//                console.log("requirement: " + requirement);
-                console.log("equipment: " + $(requirement).val());
+                var equipment_typeahead = $("#equipment_typeahead").val(),
+                    equipment = $("#equipment").val();
+            
+//                console.log("equipment_typeahead: " + equipment_typeahead);
+//                console.log("equipment: " + equipment);
+                
 //                return false;
                 // Make sure that value and $(requirement).val() are not empty
 //                if(!empty(value)) {
@@ -504,7 +503,7 @@
 //                } else {
 //                    console.log('empty requirement: true');
 //                }
-                if( !empty(value)===false || !empty($(requirement).val())===false ) {
+                if( !empty(equipment_typeahead)===false || !empty(equipment)===false ) {
 //                    console.log("H");
                     return false;
                 } else {
