@@ -246,7 +246,11 @@
     <div class="form-navigation">
         <button type="button" class="previous btn btn-info">&lt; Previous</button>
         <button type="button" class="next btn btn-lg btn-primary">Next &gt;</button>
-        <input type="submit" class="btn btn-default pull-right">
+        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary" style="display:none;">Review &gt;</button>
+        <!--input type="submit" class="btn btn-default pull-right"-->
+        <div style="display:none;" id="reviewScreen">
+            Review screen...
+        </div>
         <span class="clearfix"></span>
     </div>
 
@@ -273,7 +277,8 @@
     $(function () {
         var $sections = $('.form-section'),
                 subflowSelected = false,
-                currentSubflow = '';
+                currentSubflow = '',
+                subflowIndex = 0;
                 
         // Set the Options for "Bloodhound" suggestion engine
         // @see https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead-js
@@ -304,15 +309,31 @@
                     .addClass('current');
             // Show only the navigation buttons that make sense for the current section:
             $('.form-navigation .previous').toggle(index > 0);
-            var atTheEnd = index >= $sections.length - 1;
+            
+            var atTheEnd = (index >= $sections.length - 1 ||
+                            (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length));
+            
+//            if(currentSubflow!='') {
+//                console.log('subflow length: ' + $('.' + currentSubflow).length);
+//                console.log('subflowIndex: ' + subflowIndex);
+//            }
+            
             $('.form-navigation .next').toggle(!atTheEnd);
-            $('.form-navigation [type=submit]').toggle(atTheEnd);
+            $("#reviewButton").toggle(atTheEnd);
+//            if(atTheEnd) {
+//                $("#reviewButton").show();
+//            }
+//            $('.form-navigation [type=submit]').toggle(atTheEnd);
         }
 
         function curIndex() {
             // Return the current index by looking at which section has the class 'current'
             return $sections.index($sections.filter('.current'));
         }
+
+        $("#reviewButton").on('click', function () {
+            $("#reviewScreen").toggle();
+        });
 
         $('#subflow').on('change', function () {
             subflowSelected = true;
@@ -335,9 +356,17 @@
 //                console.log("CHECK 2");
             }).done(function () {
                 var nextIndex = (curIndex() + 1);
-                if(currentSubflow) {
-                    nextIndex = $("." + currentSubflow + ":first").data("section-index");
+                if(currentSubflow && subflowIndex!=0) {
+                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + 1;
+                    console.log("nextIndex: " + nextIndex);
                 }
+                
+                if(currentSubflow) {
+                    console.log( "currentSubflow: " + currentSubflow );
+                    subflowIndex++;
+//                    console.log( "COUNT: " + $("." + currentSubflow) );
+                }
+                
                 navigateTo(nextIndex);
             });
             
