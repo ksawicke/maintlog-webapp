@@ -52,34 +52,51 @@
     </div>
 
     <div class="form-section">
-        <label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
-        <select id="equipment_type"
-                name="equipment_type"
-                class="form-control input-lg"
-                data-parsley-required="true"
-                data-parsley-error-message="Please select the equipment type"
-                data-parsley-errors-container=".equipment_type_errors">
-            <option value="">Select one:</option>
-            <?php foreach($equipmenttypes as $equipmenttype) { ?>
-                <option value="<?php echo $equipmenttype->id; ?>"><?php echo $equipmenttype->equipment_type; ?></option>
-            <?php } ?>
-        </select>
-        <p class="form-error equipment_type_errors"></p>
-
-        <label for="equipment_typeahead" class="control-label lb-lg">Equipment</label>
-        <br />
-        <input id="equipment_typeahead"
-               name="equipment_typeahead"
-               type="text"
-               class="form-control input-lg"
-               required=""
-               data-parsley-equipmentrequired=""
-               data-parsley-errors-container=".equipment_typeahead_errors">
-        <p class="form-error equipment_typeahead_errors"></p>
-        <input id="equipment"
-               name="equipment"
-               type="hidden"
-               value="">
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                
+                <label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
+                <select id="equipment_type"
+                        name="equipment_type"
+                        class="form-control input-lg"
+                        data-parsley-required="true"
+                        data-parsley-error-message="Please select the equipment type"
+                        data-parsley-errors-container=".equipment_type_errors">
+                    <option value="">Select one:</option>
+                    <?php foreach($equipmenttypes as $equipmenttype) { ?>
+                        <option value="<?php echo $equipmenttype->id; ?>"><?php echo $equipmenttype->equipment_type; ?></option>
+                    <?php } ?>
+                </select>
+                <p class="form-error equipment_type_errors"></p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                
+                <label for="equipment_typeahead" class="control-label lb-lg">Equipment</label>
+                <br />
+                <input id="equipment_typeahead"
+                       name="equipment_typeahead"
+                       type="text"
+                       class="form-control input-lg"
+                       required=""
+                       data-parsley-equipmentrequired=""
+                       data-parsley-errors-container=".equipment_typeahead_errors">
+                <p class="form-error equipment_typeahead_errors"></p>
+              
+                <input id="equipment"
+                    name="equipment"
+                    type="hidden"
+                    value="">
+                <input id="equipment_description"
+                    name="equipment_description"
+                    type="hidden"
+                    value="">
+                
+            </div>
+        </div>
     </div>
 
     <div class="form-section">
@@ -176,48 +193,81 @@
 
     <div class="form-section subflow pss">
         <label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
-        <select id="pss_pm_type" name="pss_pm_type" class="form-control input-lg">
+        <select id="pss_pm_type"
+                name="pss_pm_type"
+                class="form-control input-lg"
+                data-parsley-required="true"
+                data-parsley-error-message="Please select the PM type"
+                data-parsley-errors-container=".pss_pm_type_errors">
             <option value="">Select one:</option>
             <option value="smr_based">SMR based</option>
             <option value="mileage_based">Mileage based</option>
             <option value="time_based">Time based</option>
         </select>
+        <p class="form-error pss_pm_type_errors"></p>
     </div>
 
     <div class="form-section subflow pss">
         <label for="pss_smr" class="control-label lb-lg">SMR</label>
-        <select id="pss_smr" name="pss_smr" class="form-control input-lg">
+        <select id="pss_smr"
+                name="pss_smr"
+                class="form-control input-lg"
+                data-parsley-required="true"
+                data-parsley-error-message="Please select the SMR value"
+                data-parsley-errors-container=".pss_smr_errors">
             <option value="">Select one:</option>
             <option value="250">250</option>
             <option value="500">500</option>
             <option value="1000">1000</option>
             <option value="1500">1500</option>
         </select>
+        <p class="form-error pss_smr_errors"></p>
     </div>
     <div class="form-section subflow pss">
         SERVICE REMINDER<br /><br />
         <label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
-        <select id="pss_reminder_pm_type" name="pss_reminder_pm_type" class="form-control input-lg">
+        <select id="pss_reminder_pm_type"
+                name="pss_reminder_pm_type"
+                class="form-control input-lg"
+                data-parsley-required="true"
+                data-parsley-error-message="Please select the PM Type"
+                data-parsley-errors-container=".pss_reminder_pm_type_errors">
             <option value="">Select one:</option>
             <option value="smr_based">SMR Based</option>
             <option value="mileage_based">Mileage Based</option>
             <option value="time_based">Time Based</option>
         </select>
+        <p class="form-error pss_reminder_pm_type_errors"></p>
 
         <label for="pss_smr_due" class="control-label lb-lg">SMR Due</label>
         <input type="text" class="form-control input-lg" id="pss_smr_due" name="pss_smr_due" value="">
     </div>
 
     <div class="form-section subflow pss">
-        <label for="pss_notes" class="control-label lb-lg">Notes</label>
-        <input type="text" class="form-control input-lg" id="pss_notes" name="pss_notes" value="">
+        <label for="pss_notes"class="control-label lb-lg">Notes</label>
+        <textarea type="text"
+               class="form-control input-lg"
+               id="pss_notes"
+               name="pss_notes"
+               value=""
+               data-parsley-required="true"
+               data-parsley-error-message="Please enter some notes"
+               data-parsley-errors-container=".pss_notes_errors"></textarea>
+        <p class="form-error pss_notes_errors"></p>
     </div>
     
     <div class="form-section subflow pss">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label>
-                <input type="text" id="pss_reminder_recipients" name="pss_reminder_recipients" class="form-control input-lg" value="email1@email.com,email2@email2.com">
+                <textarea type="text"
+                       id="pss_reminder_recipients"
+                       name="pss_reminder_recipients"
+                       class="form-control input-lg"
+                       data-parsley-required="true"
+                       data-parsley-error-message="Please enter recipients email addresses separated by comma"
+                       data-parsley-errors-container=".pss_reminder_recipients_errors">email1@email.com,email2@email2.com</textarea>
+                <p class="form-error pss_reminder_recipients_errors"></p>
             </div>
         </div>
 
@@ -229,30 +279,41 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <input type="text" id="pss_reminder_quantity" name="pss_reminder_quantity" class="form-control input-lg">
+                <input type="text"
+                       id="pss_reminder_quantity"
+                       name="pss_reminder_quantity"
+                       class="form-control input-lg"
+                       data-parsley-required="true"
+                       data-parsley-error-message="Please enter a quantity"
+                       data-parsley-errors-container=".pss_reminder_quantity_errors">
+                <p class="form-error pss_reminder_quantity_errors"></p>
             </div>
 
             <div class="col-lg-9 col-md-9 col-sm-9">
-                <select id="pss_reminder_units" name="pss_reminder_units" class="form-control input-lg">
+                <select id="pss_reminder_units"
+                        name="pss_reminder_units"
+                        class="form-control input-lg"
+                        data-parsley-required="true"
+                        data-parsley-error-message="Please select one"
+                        data-parsley-errors-container=".pss_reminder_units_errors">
                     <option value="" selected>Select one:</option>
                     <option value="smr">SMR</option>
                     <option value="miles">Miles</option>
                     <option value="days">Days</option>
                 </select>
+                <p class="form-error pss_reminder_units_errors"></p>
             </div>
         </div>
     </div>
 
     <div class="form-navigation">
-        <button type="button" class="previous btn btn-info">&lt; Previous</button>
+        <button type="button" class="previous btn btn-info" style="display:none;">&lt; Previous</button>
         <button type="button" class="next btn btn-lg btn-primary">Next &gt;</button>
         <button id="reviewButton" type="button" class="next btn btn-lg btn-primary" style="display:none;">Review &gt;</button>
         <!--input type="submit" class="btn btn-default pull-right"-->
     </div>
     
-    <div style="display:none;" id="reviewScreen">
-        Review screen...
-    </div>
+    <div style="display:none;" id="reviewScreen"></div>
     <span class="clearfix"></span>
 
 </form>
@@ -309,7 +370,7 @@
                     .eq(index)
                     .addClass('current');
             // Show only the navigation buttons that make sense for the current section:
-            $('.form-navigation .previous').toggle(index > 0);
+//            $('.form-navigation .previous').toggle(index > 0);
             
             var atTheEnd = (index >= $sections.length - 1 ||
                             (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length));
@@ -331,11 +392,64 @@
             // Return the current index by looking at which section has the class 'current'
             return $sections.index($sections.filter('.current'));
         }
+        
+        function printReviewScreen() {
+            var text = ''; //<label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul>';
+            
+//            text += '<label>Date Entered</label><ul><li>Some data</li></ul>';
+//            text += '<label>Entered By</label><ul><li>Some data</li></ul>';
+//            text += '<label>Test field</label><ul><li>Some data</li></ul>';
+//            text += '<label>Test field</label><ul><li>Some data</li></ul>';
+//            text += '<label>Test field</label><ul><li>Some data</li></ul>';
+            
+            var json = [
+                { "label" : "Date Entered",
+                  "value" : $("#date_entered").val()
+                },
+                { "label" : "Entered By",
+                  "value" : $("#entered_by").val()
+                },
+                { "label" : "Serviced By",
+                  "value" : $("#serviced_by").val()
+                },
+                { "label" : "Equipment Type",
+                  "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text() //$("#equipment_type").val() 
+                },
+                { "label" : "Equipment",
+                  "value" : $("#equipment_description").val()
+                }
+            ];
+            
+//            var data = JSON.parse(fields);
+//            for(key in data) {
+//                text += '<label>' + data.label + '</label><ul><li>' + data.value + '</li></ul>';
+//            }
+            
+            for(var i = 0; i < json.length; i++) {
+                var obj = json[i];
+
+                text += '<label>' + obj.label + '</label><ul><li>' + obj.value + '</li></ul>';
+//                console.log(obj.id);
+            }
+            
+            
+            // date_entered
+            // entered_by
+            // serviced_by
+            // equipment_type
+            // equipment
+            // subflow
+            
+            // $("#list option[value='2']").text()
+            
+            $("#reviewScreen").html(text);
+        }
 
         $("#reviewButton").on('click', function () {
             $(this).hide();
             $('.form-navigation').hide();
             $('.form-section').hide();
+            printReviewScreen();
             $("#reviewScreen").show();
         });
 
@@ -360,16 +474,42 @@
 //                console.log("CHECK 2");
             }).done(function () {
                 var nextIndex = (curIndex() + 1);
-                if(currentSubflow && subflowIndex!=0) {
-                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + 1;
+                
+                if(currentSubflow && subflowIndex==0) {
+                    console.log("currentSubflow selected and subflow Index equals 0");
+                    
+                    subflowIndex++;
+                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + 2;
+                    
+                    console.log($("." + currentSubflow + ":first").data("section-index"));
+                    console.log("new subflowIndex: " + subflowIndex);
                     console.log("nextIndex: " + nextIndex);
+                    
+//                    console.log("currentSubflow: " + currentSubflow);
+//                    console.log($("." + currentSubflow + ":first").data("section-index"));
+////                    console.log($("." + currentSubflow + ":first").data("section-index") + 1);
+//                    console.log("subflowIndex: " + subflowIndex);
                 }
                 
-                if(currentSubflow) {
-                    console.log( "currentSubflow: " + currentSubflow );
+                if(currentSubflow && subflowIndex>0) {
+                    console.log("currentSubflow selected and subflow Index greater than 0");
+                    
                     subflowIndex++;
-//                    console.log( "COUNT: " + $("." + currentSubflow) );
+                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex;
                 }
+                
+//                if(currentSubflow && subflowIndex!=0) {
+//                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + 1;
+//                    console.log("nextIndex: " + nextIndex);
+//                }
+                
+//                if(currentSubflow) {
+//                    console.log( "currentSubflow: " + currentSubflow );
+//                    subflowIndex++;
+//                    nextIndex = subflowIndex;
+//                    console.log("nextIndex: " + nextIndex);
+////                    console.log( "COUNT: " + $("." + currentSubflow) );
+//                }
                 
                 navigateTo(nextIndex);
             });
@@ -481,6 +621,7 @@
 //            $("#equipment_typeahead").prop('disabled', true);
             $(this).typeahead('val', selection.search_match);
             $("#equipment").val(selection.id);
+            $("#equipment_description").val(selection.search_match);
 
             // clearing the selection requires a typeahead method
     //        $(this).typeahead('setQuery', '');

@@ -143,3 +143,12 @@ div.jBox-title > div.jBox-closeButton.jBox-noDrag > svg > path:hover {
     margin-top: -18px;
     width: 100%;
 }
+
+ul, li {
+    list-style-type: none;
+}
+
+li {
+    padding-left: 2em;
+    text-indent: -2em;
+}
