@@ -407,10 +407,10 @@
                   "value" : $("#date_entered").val()
                 },
                 { "label" : "Entered By",
-                  "value" : $("#entered_by").val()
+                  "value" : $("#entered_by option[value='" + $("#entered_by").val() + "']").text() //$("#entered_by").val()
                 },
                 { "label" : "Serviced By",
-                  "value" : $("#serviced_by").val()
+                  "value" : $("#serviced_by option[value='" + $("#serviced_by").val() + "']").text() //$("#serviced_by").val()
                 },
                 { "label" : "Equipment Type",
                   "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text() //$("#equipment_type").val() 
