@@ -372,9 +372,25 @@
             // Show only the navigation buttons that make sense for the current section:
 //            $('.form-navigation .previous').toggle(index > 0);
             
-            var atTheEnd = (index >= $sections.length - 1 ||
-                            (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length));
+//            console.log("---");
+//            console.log("index: " + index);
+//            console.log("$sections.length: " + $sections.length);
             
+            
+            //var atTheEnd = (index >= $sections.length - 1 ||
+            //                (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length));
+            var atTheEnd = false;
+            console.log("++++++");
+            if(currentSubflow) {
+                console.log("currentSubflow: " + currentSubflow);
+                console.log("subflowIndex: " + subflowIndex);
+                console.log("subflow length: " + $('.' + currentSubflow).length);
+                
+                if(subflowIndex > $('.' + currentSubflow).length) {
+                    atTheEnd = true;
+                }
+            }
+//            var atTheEnd = (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length);
 //            if(currentSubflow!='') {
 //                console.log('subflow length: ' + $('.' + currentSubflow).length);
 //                console.log('subflowIndex: ' + subflowIndex);
@@ -423,48 +439,46 @@
                 }
             ];
             
-            switch(subflow) {
+            switch(currentSubflow) {
                 case 'sus':
-                    var obj = JSON.parse(json);
-                    obj.push({ "label": "Fluid Type",
-                               "value": $("#sus_fluid_type option[value='" + $("#sus_fluid_type").val() + "']").text()
+                    json.push({ "label": "Fluid Type",
+                                "value": $("#sus_fluid_type option:selected").map(function() {
+                                    return $("#sus_fluid_type option[value='" + this.value + "']").text();
+                                }).get()  //$("#sus_fluid_type option[value='" + $("#sus_fluid_type").val() + "']").text()
                     });
-                    obj.push({ "label": "Quantity",
+                    json.push({ "label": "Quantity",
                                "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
                     });
-                    obj.push({ "label": "SMR/Miles",
+                    json.push({ "label": "SMR/Miles",
                                "value": $("#sus_miles").val()
                     });
-                    json = JSON.stringify(obj);
                     //            Fluid Type: sus_fluid_type (dropdown)
                     //            Quantity: sus_quantity sus_units (dropdown)
                     //            SMR/Miles sus_miles                  
                     break
                     
                 case 'pss':
-                    var obj = JSON.parse(json);
-                    obj.push({ "label": "PM Type",
+                    json.push({ "label": "PM Type",
                                "value": $("#pss_pm_type option[value='" + $("#pss_pm_type").val() + "']").text()
                     });
-                    obj.push({ "label": "SMR",
+                    json.push({ "label": "SMR",
                                "value": $("#pss_smr option[value='" + $("#pss_smr").val() + "']").text()
                     });
-                    obj.push({ "label": "Reminder PM Type",
+                    json.push({ "label": "Reminder PM Type",
                                "value": $("#pss_reminder_pm_type option[value='" + $("#pss_reminder_pm_type").val() + "']").text()
                     });
-                    obj.push({ "label": "SMR Due",
+                    json.push({ "label": "SMR Due",
                                "value": $("#pss_smr_due").val()
                     });
-                    obj.push({ "label": "Notes",
+                    json.push({ "label": "Notes",
                                "value": $("#pss_notes").val()
                     });
-                    obj.push({ "label": "Reminder Recipients",
+                    json.push({ "label": "Reminder Recipients",
                                "value": $("#pss_reminder_recipients").val()
                     });
-                    obj.push({ "label": "Reminder due",
+                    json.push({ "label": "Reminder due",
                                "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
                     });
-                    json = JSON.stringify(obj);
                     //            PM Type: pss_pm_type (dropdown)
                     //            SMR: pss_smr (dropdown)
                     //            Reminder PM Type: pss_reminder_pm_type (dropdown)
@@ -541,13 +555,21 @@
             }).done(function () {
                 var nextIndex = (curIndex() + 1);
                 
-                if(currentSubflow && subflowIndex==0) {
+                if(currentSubflow!='') {
+                    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                    console.log("currentSubflow: " + currentSubflow);
+                    console.log("subflowIndex: " + subflowIndex);
+                    console.log("currentSubflow Length: " + $('.' + currentSubflow).length);
+                }
+                
+                if(currentSubflow && subflowIndex===0) {
+                    console.log("currentSubflow: " + currentSubflow);
                     console.log("currentSubflow selected and subflow Index equals 0");
                     
                     subflowIndex++;
-                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + 2;
+                    nextIndex = $("." + currentSubflow + ":first").data("section-index") - 1;
                     
-                    console.log($("." + currentSubflow + ":first").data("section-index"));
+                    console.log($("." + currentSubflow + ":first").data("section-index") - 1);
                     console.log("new subflowIndex: " + subflowIndex);
                     console.log("nextIndex: " + nextIndex);
                     
@@ -561,7 +583,8 @@
                     console.log("currentSubflow selected and subflow Index greater than 0");
                     
                     subflowIndex++;
-                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex;
+//                    nextIndex++;
+                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
                 }
                 
 //                if(currentSubflow && subflowIndex!=0) {
