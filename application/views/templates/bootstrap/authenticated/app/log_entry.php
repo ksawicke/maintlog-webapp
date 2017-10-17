@@ -478,16 +478,13 @@
                     
                 case 'pss':
                     json.push({ "label": "PM Type",
-                               "value": $("#pss_pm_type option[value='" + $("#pss_pm_type").val() + "']").text()
+                               "value": $("#pss_reminder_pm_type option[value='" + $("#pss_reminder_pm_type").val() + "']").text()
                     });
                     json.push({ "label": "SMR",
-                               "value": $("#pss_smr option[value='" + $("#pss_smr").val() + "']").text()
+                               "value": $("#pss_smr_due").val()
                     });
                     json.push({ "label": "Reminder PM Type",
                                "value": $("#pss_reminder_pm_type option[value='" + $("#pss_reminder_pm_type").val() + "']").text()
-                    });
-                    json.push({ "label": "SMR Due",
-                               "value": $("#pss_smr_due").val()
                     });
                     json.push({ "label": "Notes",
                                "value": $("#pss_notes").val()
@@ -501,7 +498,6 @@
                     //            PM Type: pss_pm_type (dropdown)
                     //            SMR: pss_smr (dropdown)
                     //            Reminder PM Type: pss_reminder_pm_type (dropdown)
-                    //            SMR Due: pss_smr_due
                     //            Notes: pss_notes
                     //            Reminder Recipients: pss_reminder_recipients
                     //            Reminder due: pss_reminder_quantity pss_reminder_units (dropdown)
