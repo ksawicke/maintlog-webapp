@@ -273,7 +273,7 @@
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_reminder_recipients" class="control-label lb-lg">ALERT WINDOW BEFORE DUE</label>
+                <label for="pss_reminder_quantity" class="control-label lb-lg">ALERT WINDOW BEFORE DUE</label>
             </div>
         </div>
 
@@ -422,6 +422,63 @@
                   "value" : $("#equipment_description").val()
                 }
             ];
+            
+            switch(subflow) {
+                case 'sus':
+                    var obj = JSON.parse(json);
+                    obj.push({ "label": "Fluid Type",
+                               "value": $("#sus_fluid_type option[value='" + $("#sus_fluid_type").val() + "']").text()
+                    });
+                    obj.push({ "label": "Quantity",
+                               "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
+                    });
+                    obj.push({ "label": "SMR/Miles",
+                               "value": $("#sus_miles").val()
+                    });
+                    json = JSON.stringify(obj);
+                    //            Fluid Type: sus_fluid_type (dropdown)
+                    //            Quantity: sus_quantity sus_units (dropdown)
+                    //            SMR/Miles sus_miles                  
+                    break
+                    
+                case 'pss':
+                    var obj = JSON.parse(json);
+                    obj.push({ "label": "PM Type",
+                               "value": $("#pss_pm_type option[value='" + $("#pss_pm_type").val() + "']").text()
+                    });
+                    obj.push({ "label": "SMR",
+                               "value": $("#pss_smr option[value='" + $("#pss_smr").val() + "']").text()
+                    });
+                    obj.push({ "label": "Reminder PM Type",
+                               "value": $("#pss_reminder_pm_type option[value='" + $("#pss_reminder_pm_type").val() + "']").text()
+                    });
+                    obj.push({ "label": "SMR Due",
+                               "value": $("#pss_smr_due").val()
+                    });
+                    obj.push({ "label": "Notes",
+                               "value": $("#pss_notes").val()
+                    });
+                    obj.push({ "label": "Reminder Recipients",
+                               "value": $("#pss_reminder_recipients").val()
+                    });
+                    obj.push({ "label": "Reminder due",
+                               "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
+                    });
+                    json = JSON.stringify(obj);
+                    //            PM Type: pss_pm_type (dropdown)
+                    //            SMR: pss_smr (dropdown)
+                    //            Reminder PM Type: pss_reminder_pm_type (dropdown)
+                    //            SMR Due: pss_smr_due
+                    //            Notes: pss_notes
+                    //            Reminder Recipients: pss_reminder_recipients
+                    //            Reminder due: pss_reminder_quantity pss_reminder_units (dropdown)
+
+                    break;
+                    
+                case 'ccs':
+
+                    break;
+            }
             
             for(var i = 0; i < json.length; i++) {
                 var obj = json[i];
