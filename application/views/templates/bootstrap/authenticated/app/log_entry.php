@@ -389,6 +389,25 @@
                 if(subflowIndex > $('.' + currentSubflow).length) {
                     atTheEnd = true;
                 }
+                
+                if(currentSubflow=='sus') {
+                    if(subflowIndex > $('.' + currentSubflow).length) {
+                        atTheEnd = true;
+                    }
+                }
+                if(currentSubflow=='pss') {
+                    if(subflowIndex == 4) {
+                        atTheEnd = true;
+                    }
+                }
+                if(currentSubflow=='ccs') {
+                    if(subflowIndex == 2) {
+                        atTheEnd = true;
+                    }
+                }
+//                if(subflowIndex > $('.' + currentSubflow).length) {
+//                        atTheEnd = true;
+//                    }
             }
 //            var atTheEnd = (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length);
 //            if(currentSubflow!='') {
@@ -410,7 +429,7 @@
         }
         
         function printReviewScreen() {
-            var text = ''; //<label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul>';
+            var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>'; //<label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul>';
             
 //            text += '<label>Date Entered</label><ul><li>Some data</li></ul>';
 //            text += '<label>Entered By</label><ul><li>Some data</li></ul>';
@@ -584,7 +603,15 @@
                     
                     subflowIndex++;
 //                    nextIndex++;
-                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+                    if(currentSubflow=='sus') {
+                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+                    }
+                    if(currentSubflow=='pss') {
+                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex;
+                    }
+                    if(currentSubflow=='ccs') {
+                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+                    }
                 }
                 
 //                if(currentSubflow && subflowIndex!=0) {
