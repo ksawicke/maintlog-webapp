@@ -27,10 +27,10 @@
                 data-parsley-error-message="Please select who entered the record"
                 data-parsley-errors-container=".entered_by_errors">
             <option value="">Select one:</option>
-            <option value="124566"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
-            <option value="622141"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
-            <option value="124512"<?php echo ($_SESSION['first_name']=='John' && $_SESSION['last_name']=='Leonetti' ? ' selected' : ''); ?>>Leonetti, John</option>
-            <option value="333333"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>
+            <option value="1"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
+            <option value="2"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
+            <option value="3"<?php echo ($_SESSION['first_name']=='John' && $_SESSION['last_name']=='Leonetti' ? ' selected' : ''); ?>>Leonetti, John</option>
+            <option value="4"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>
         </select>
         <p class="form-error entered_by_errors"></p>
         
@@ -43,10 +43,10 @@
                 data-parsley-mincheck="1"
                 data-parsley-error-message="Please select at least one person who performed the service"
                 data-parsley-errors-container=".serviced_by_errors">
-            <option value="124566">Doe, John</option>
-            <option value="124512">Johnson, Neil</option>
-            <option value="622141">Smith, Joe</option>
-            <option value="622141">Xavier, Jose</option>
+            <option value="11">Doe, John</option>
+            <option value="12">Johnson, Neil</option>
+            <option value="13">Smith, Joe</option>
+            <option value="14">Xavier, Jose</option>
         </select>
         <p class="form-error serviced_by_errors"></p>
     </div>
@@ -410,7 +410,10 @@
                   "value" : $("#entered_by option[value='" + $("#entered_by").val() + "']").text() //$("#entered_by").val()
                 },
                 { "label" : "Serviced By",
-                  "value" : $("#serviced_by option[value='" + $("#serviced_by").val() + "']").text() //$("#serviced_by").val()
+                  "value" : $("#serviced_by option:selected").map(function() {
+                      return $("#serviced_by option[value='" + this.value + "']").text();
+                    //return this.value;
+                  }).get().join("|") //$("#serviced_by option[value='" + $("#serviced_by").val() + "']").text() //$("#serviced_by").val()
                 },
                 { "label" : "Equipment Type",
                   "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text() //$("#equipment_type").val() 
@@ -420,16 +423,22 @@
                 }
             ];
             
-//            var data = JSON.parse(fields);
-//            for(key in data) {
-//                text += '<label>' + data.label + '</label><ul><li>' + data.value + '</li></ul>';
-//            }
-            
             for(var i = 0; i < json.length; i++) {
                 var obj = json[i];
-
-                text += '<label>' + obj.label + '</label><ul><li>' + obj.value + '</li></ul>';
-//                console.log(obj.id);
+                var value = obj.value;
+                
+                text += '<label>' + obj.label + '</label><ul>';
+                
+                if(obj.value.indexOf("|") >= 0) {
+                    var splitText = obj.value.split("|");
+                    for (var i = 0; i < splitText.length; i++) {
+                        text += '<li>' + splitText[i] + '</li>';
+                    }
+                } else {
+                    text += '<li>' + value + '</li>';
+                }
+                
+                text += '</ul>';
             }
             
             
