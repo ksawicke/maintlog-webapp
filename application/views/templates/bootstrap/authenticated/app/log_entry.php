@@ -86,8 +86,8 @@
                        data-parsley-errors-container=".equipment_typeahead_errors">
                 <p class="form-error equipment_typeahead_errors"></p>
               
-                <input id="equipment"
-                    name="equipment"
+                <input id="equipment_id"
+                    name="equipment_id"
                     type="hidden"
                     value="">
                 <input id="equipment_description"
@@ -502,62 +502,7 @@
 //            text += '<label>Test field</label><ul><li>Some data</li></ul>';
 //            text += '<label>Test field</label><ul><li>Some data</li></ul>';
             
-            var json = [
-                { "label" : "Date Entered",
-                  "value" : $("#date_entered").val()
-                },
-                { "label" : "Entered By",
-                  "value" : $("#entered_by option[value='" + $("#entered_by").val() + "']").text() //$("#entered_by").val()
-                },
-                { "label" : "Serviced By",
-                  "value" : $("#serviced_by option:selected").map(function() {
-                      return $("#serviced_by option[value='" + this.value + "']").text();
-                    //return this.value;
-                  }).get().join("|") //$("#serviced_by option[value='" + $("#serviced_by").val() + "']").text() //$("#serviced_by").val()
-                },
-                { "label" : "Equipment Type",
-                  "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text() //$("#equipment_type").val() 
-                },
-                { "label" : "Equipment",
-                  "value" : $("#equipment_description").val()
-                }
-            ];
-            
-            switch(currentSubflow) {
-                case 'sus':
-                    json.push({ "label": "Entry Selection", "value": "SMR update" });
-                    objectPush(json, "Fluid Type", "sus_fluid_type", true);
-                    
-                    // Concatenated value so handling differently...
-                    json.push({ "label": "Quantity",
-                                "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
-                    });
-                    
-                    objectPush(json, "SMR/Miles", "sus_miles", false);                
-                    break
-                    
-                case 'pss':
-                    json.push({ "label": "Entry Selection", "value": "PM Service" });
-                    objectPush(json, "PM Type", "pss_reminder_pm_type", true);
-                    objectPush(json, "SMR", "pss_smr_due", false);
-                    objectPush(json, "Reminder PM Type", "pss_reminder_pm_type", true);
-                    objectPush(json, "Notes", "pss_notes", false);
-                    objectPush(json, "Reminder Recipients", "pss_reminder_recipients", false);
-                    
-                    // Concatenated value so handling differently...
-                    json.push({ "label": "Reminder due",
-                                "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
-                    });
-                    break;
-                    
-                case 'ccs':
-                    json.push({ "label": "Entry Selection", "value": "Component change" });
-                    objectPush(json, "Component Type", "ccs_component_type", true);
-                    objectPush(json, "Component", "ccs_component", true);
-                    objectPush(json, "Component Data", "component_data", false);
-                    objectPush(json, "Notes", "ccs_notes", false);
-                    break;
-            }
+            var json = getJsonObject(currentSubflow);
             
             for(var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -578,6 +523,25 @@
             }
             
             $("#reviewScreen").html(text);
+            
+            saveServiceLog();
+        }
+        
+        function saveServiceLog() {
+            var serviceUrl = '/sites/komatsuna/servicelog/save',
+                jsonData = getJsonToSave(currentSubflow);
+//                jsonData = [ {"first_name": "Dave", "last_name": "Jones", "phone_number": "222-333-4444"},
+//                             {"first_name": "Dave", "last_name": "Jones", "phone_number": "222-333-4444"},
+//                             {"first_name": "Dave", "last_name": "Jones", "phone_number": "222-333-4444"}
+//                           ];
+            
+            $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(jsonData),
+                contentType: "application/json"
+            }); 
         }
 
         $("#reviewButton").on('click', function () {
@@ -719,12 +683,12 @@
         
         $("#equipment_type").on('change', function() {
             $("#equipment_typeahead").val('');
-            $("#equipment").val('');
+            $("#equipment_id").val('');
         });
         
         $("#equipment_typeahead").on('focus', function() {
            $(this).val('');
-           $("#equipment").val('');
+           $("#equipment_id").val('');
         });
         
         $("#equipment_typeahead").typeahead({
@@ -765,7 +729,7 @@
 
 //            $("#equipment_typeahead").prop('disabled', true);
             $(this).typeahead('val', selection.search_match);
-            $("#equipment").val(selection.id);
+            $("#equipment_id").val(selection.id);
             $("#equipment_description").val(selection.search_match);
 
             // clearing the selection requires a typeahead method
@@ -775,6 +739,116 @@
     });
 </script>
 <script>
+    function getJsonToSave(currentSubflow) {
+        var json = [
+                { "field_name" : "date_entered",
+                  "value" : $("#date_entered").val()
+                },
+                { "field_name" : "entered_by",
+                  "value" : $("#entered_by").val()
+                },
+                { "field_name" : "serviced_by",
+                  "value" : $("#serviced_by option:selected").map(function() {
+                      return this.value;
+                  }).get().join("|")
+                },
+                { "field_name" : "equipment_id",
+                  "value" : $("#equipment_id").val()
+                }
+            ];
+        
+        json.push({ "field_name": "subflow", "value": currentSubflow });
+        
+        switch(currentSubflow) {
+            case 'sus':
+                json.push({ "field_name": "sus_fluid_type", "value": $("#sus_fluid_type").val() });
+                json.push({ "field_name": "sus_quantity", "value": $("#sus_quantity").val() });
+                json.push({ "field_name": "sus_units", "value": $("#sus_units").val() });
+                json.push({ "field_name": "sus_miles", "value": $("#sus_miles").val() });             
+                break
+
+            case 'pss':
+                json.push({ "field_name": "pss_reminder_pm_type", "value": $("#pss_reminder_pm_type").val() });
+                json.push({ "field_name": "pss_smr_due", "value": $("#pss_smr_due").val() });
+                json.push({ "field_name": "pss_reminder_pm_type", "value": $("#pss_reminder_pm_type").val() });
+                json.push({ "field_name": "pss_notes", "value": $("#pss_notes").val() });
+                json.push({ "field_name": "pss_reminder_recipients", "value": $("#pss_reminder_recipients").val() });
+                json.push({ "field_name": "pss_reminder_quantity", "value": $("#pss_reminder_quantity").val() });
+                json.push({ "field_name": "pss_reminder_units", "value": $("#pss_reminder_units").val() });
+                break;
+
+            case 'ccs':
+                json.push({ "field_name": "ccs_component_type", "value": $("#ccs_component_type").val() });
+                json.push({ "field_name": "ccs_component", "value": $("#ccs_component").val() });
+                json.push({ "field_name": "component_data", "value": $("#component_data").val() });
+                json.push({ "field_name": "ccs_notes", "value": $("#ccs_notes").val() });
+                break;
+        }
+         
+        return json;
+    }
+    
+    function getJsonObject(currentSubflow) {
+        var json = [
+                { "label" : "Date Entered",
+                  "value" : $("#date_entered").val()
+                },
+                { "label" : "Entered By",
+                  "value" : $("#entered_by option[value='" + $("#entered_by").val() + "']").text() //$("#entered_by").val()
+                },
+                { "label" : "Serviced By",
+                  "value" : $("#serviced_by option:selected").map(function() {
+                      return $("#serviced_by option[value='" + this.value + "']").text();
+                    //return this.value;
+                  }).get().join("|") //$("#serviced_by option[value='" + $("#serviced_by").val() + "']").text() //$("#serviced_by").val()
+                },
+                { "label" : "Equipment Type",
+                  "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text() //$("#equipment_type").val() 
+                },
+                { "label" : "Equipment",
+                  "value" : $("#equipment_description").val()
+                }
+            ];
+            
+        switch(currentSubflow) {
+            case 'sus':
+                json.push({ "label": "Entry Selection", "value": "SMR update" });
+                objectPush(json, "Fluid Type", "sus_fluid_type", true);
+
+                // Concatenated value so handling differently...
+                json.push({ "label": "Quantity",
+                            "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
+                });
+
+                objectPush(json, "SMR/Miles", "sus_miles", false);                
+                break
+
+            case 'pss':
+                json.push({ "label": "Entry Selection", "value": "PM Service" });
+                objectPush(json, "PM Type", "pss_reminder_pm_type", true);
+                objectPush(json, "SMR", "pss_smr_due", false);
+                objectPush(json, "Reminder PM Type", "pss_reminder_pm_type", true);
+                objectPush(json, "Notes", "pss_notes", false);
+                objectPush(json, "Reminder Recipients", "pss_reminder_recipients", false);
+
+                // Concatenated value so handling differently...
+                json.push({ "label": "Reminder due",
+                            "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
+                });
+                break;
+
+            case 'ccs':
+                json.push({ "label": "Entry Selection", "value": "Component change" });
+                objectPush(json, "Component Type", "ccs_component_type", true);
+                objectPush(json, "Component", "ccs_component", true);
+                objectPush(json, "Component Data", "component_data", false);
+                objectPush(json, "Notes", "ccs_notes", false);
+                break;
+        }
+         
+        return json;
+    }
+    
     function objectPush(objectName, objectLabel, fieldName, bool) {
         objectName.push({ "label": objectLabel,
                           "value": ( bool ? $("#" + fieldName + " option[value='" + $("#" + fieldName).val() + "']").text() :
@@ -812,7 +886,7 @@
             requirementType: 'string',
             validateString: function(value, requirement) {
                 var equipment_typeahead = $("#equipment_typeahead").val(),
-                    equipment = $("#equipment").val();
+                    equipment_id = $("#equipment_id").val();
             
 //                console.log("equipment_typeahead: " + equipment_typeahead);
 //                console.log("equipment: " + equipment);
@@ -830,7 +904,7 @@
 //                } else {
 //                    console.log('empty requirement: true');
 //                }
-                if( !empty(equipment_typeahead)===false || !empty(equipment)===false ) {
+                if( !empty(equipment_typeahead)===false || !empty(equipment_id)===false ) {
 //                    console.log("H");
                     return false;
                 } else {
