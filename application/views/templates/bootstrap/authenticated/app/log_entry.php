@@ -191,6 +191,7 @@
     </div>
     <!-- /SMR UPDATE SUBFLOW -->
 
+    <!-- PM SERVICE SUBFLOW -->
     <div class="form-section subflow pss">
         <label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
         <select id="pss_pm_type"
@@ -223,6 +224,7 @@
         </select>
         <p class="form-error pss_smr_errors"></p>
     </div>
+    
     <div class="form-section subflow pss">
         SERVICE REMINDER<br /><br />
         <label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
@@ -305,6 +307,69 @@
             </div>
         </div>
     </div>
+    <!-- /PM SERVICE SUBFLOW -->
+    
+    <!-- COMPONENT CHANGE SUBFLOW -->
+    <div class="form-section subflow ccs">
+        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label>
+        <select id="ccs_component_type"
+                name="ccs_component_type"
+                class="form-control input-lg"
+                data-parsley-required="true"
+                data-parsley-error-message="Please select a Component Type"
+                data-parsley-errors-container=".ccs_component_type_errors">
+            <option value="">Select one:</option>
+            <option value="78">Engine</option>
+            <option value="55">Final Drive</option>
+            <option value="444">Suspension</option>
+            <option value="3">Software</option>
+        </select>
+        <p class="form-error ccs_component_type_errors"></p>
+    </div>
+    
+    <div class="form-section subflow ccs">
+        <label for="ccs_component" class="control-label lb-lg">Component</label>
+        <select id="ccs_component"
+                name="ccs_component"
+                class="form-control input-lg"
+                data-parsley-required="true"
+                data-parsley-error-message="Please select a Component"
+                data-parsley-errors-container=".ccs_component_errors">
+            <option value="">Select one:</option>
+            <option value="626">Serial #</option>
+            <option value="235">Revision #</option>
+            <option value="23622">Part #</option>
+            <option value="355">Campaign #</option>
+            <option value="3626">None</option>
+        </select>
+        <p class="form-error ccs_component_errors"></p>
+        
+        <label for="component_data" class="control-label lb-lg">Component Data</label>
+        <input
+               id="component_data"
+               name="component_data"
+               type="text"
+               class="form-control input-lg"
+               value=""
+               data-parsley-required="true"
+               data-parsley-error-message="Please enter the Component Data for the Component selected"
+               data-parsley-errors-container=".component_data_errors">
+        <p class="form-error component_data_errors"></p>
+    </div>
+    
+    <div class="form-section subflow ccs">
+        <label for="ccs_notes"class="control-label lb-lg">Notes</label>
+        <textarea type="text"
+               class="form-control input-lg"
+               id="ccs_notes"
+               name="ccs_notes"
+               value=""
+               data-parsley-required="true"
+               data-parsley-error-message="Please enter some notes"
+               data-parsley-errors-container=".ccs_notes_errors"></textarea>
+        <p class="form-error ccs_notes_errors"></p>
+    </div>
+    <!-- /COMPONENT CHANGE SUBFLOW -->
 
     <div class="form-navigation">
         <button type="button" class="previous btn btn-info" style="display:none;">&lt; Previous</button>
@@ -401,7 +466,7 @@
                     }
                 }
                 if(currentSubflow=='ccs') {
-                    if(subflowIndex == 2) {
+                    if(subflowIndex == 4) {
                         atTheEnd = true;
                     }
                 }
@@ -460,52 +525,37 @@
             
             switch(currentSubflow) {
                 case 'sus':
-                    json.push({ "label": "Fluid Type",
-                                "value": $("#sus_fluid_type option:selected").map(function() {
-                                    return $("#sus_fluid_type option[value='" + this.value + "']").text();
-                                }).get()  //$("#sus_fluid_type option[value='" + $("#sus_fluid_type").val() + "']").text()
-                    });
+                    json.push({ "label": "Entry Selection", "value": "SMR update" });
+                    objectPush(json, "Fluid Type", "sus_fluid_type", true);
+                    
+                    // Concatenated value so handling differently...
                     json.push({ "label": "Quantity",
-                               "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
+                                "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
                     });
-                    json.push({ "label": "SMR/Miles",
-                               "value": $("#sus_miles").val()
-                    });
-                    //            Fluid Type: sus_fluid_type (dropdown)
-                    //            Quantity: sus_quantity sus_units (dropdown)
-                    //            SMR/Miles sus_miles                  
+                    
+                    objectPush(json, "SMR/Miles", "sus_miles", false);                
                     break
                     
                 case 'pss':
-                    json.push({ "label": "PM Type",
-                               "value": $("#pss_reminder_pm_type option[value='" + $("#pss_reminder_pm_type").val() + "']").text()
-                    });
-                    json.push({ "label": "SMR",
-                               "value": $("#pss_smr_due").val()
-                    });
-                    json.push({ "label": "Reminder PM Type",
-                               "value": $("#pss_reminder_pm_type option[value='" + $("#pss_reminder_pm_type").val() + "']").text()
-                    });
-                    json.push({ "label": "Notes",
-                               "value": $("#pss_notes").val()
-                    });
-                    json.push({ "label": "Reminder Recipients",
-                               "value": $("#pss_reminder_recipients").val()
-                    });
+                    json.push({ "label": "Entry Selection", "value": "PM Service" });
+                    objectPush(json, "PM Type", "pss_reminder_pm_type", true);
+                    objectPush(json, "SMR", "pss_smr_due", false);
+                    objectPush(json, "Reminder PM Type", "pss_reminder_pm_type", true);
+                    objectPush(json, "Notes", "pss_notes", false);
+                    objectPush(json, "Reminder Recipients", "pss_reminder_recipients", false);
+                    
+                    // Concatenated value so handling differently...
                     json.push({ "label": "Reminder due",
-                               "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
+                                "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
                     });
-                    //            PM Type: pss_pm_type (dropdown)
-                    //            SMR: pss_smr (dropdown)
-                    //            Reminder PM Type: pss_reminder_pm_type (dropdown)
-                    //            Notes: pss_notes
-                    //            Reminder Recipients: pss_reminder_recipients
-                    //            Reminder due: pss_reminder_quantity pss_reminder_units (dropdown)
-
                     break;
                     
                 case 'ccs':
-
+                    json.push({ "label": "Entry Selection", "value": "Component change" });
+                    objectPush(json, "Component Type", "ccs_component_type", true);
+                    objectPush(json, "Component", "ccs_component", true);
+                    objectPush(json, "Component Data", "component_data", false);
+                    objectPush(json, "Notes", "ccs_notes", false);
                     break;
             }
             
@@ -526,16 +576,6 @@
                 
                 text += '</ul>';
             }
-            
-            
-            // date_entered
-            // entered_by
-            // serviced_by
-            // equipment_type
-            // equipment
-            // subflow
-            
-            // $("#list option[value='2']").text()
             
             $("#reviewScreen").html(text);
         }
@@ -569,13 +609,6 @@
 //                console.log("CHECK 2");
             }).done(function () {
                 var nextIndex = (curIndex() + 1);
-                
-                if(currentSubflow!='') {
-                    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                    console.log("currentSubflow: " + currentSubflow);
-                    console.log("subflowIndex: " + subflowIndex);
-                    console.log("currentSubflow Length: " + $('.' + currentSubflow).length);
-                }
                 
                 if(currentSubflow && subflowIndex===0) {
                     console.log("currentSubflow: " + currentSubflow);
@@ -742,6 +775,14 @@
     });
 </script>
 <script>
+    function objectPush(objectName, objectLabel, fieldName, bool) {
+        objectName.push({ "label": objectLabel,
+                          "value": ( bool ? $("#" + fieldName + " option[value='" + $("#" + fieldName).val() + "']").text() :
+                                            $("#" + fieldName).val()
+                                   )
+                        });   
+    }
+    
     function empty(data) {
         if(typeof(data) == 'number' || typeof(data) == 'boolean')
         { 
