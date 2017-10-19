@@ -344,17 +344,17 @@
         </select>
         <p class="form-error ccs_component_errors"></p>
         
-        <label for="component_data" class="control-label lb-lg">Component Data</label>
+        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label>
         <input
-               id="component_data"
-               name="component_data"
+               id="ccs_component_data"
+               name="ccs_component_data"
                type="text"
                class="form-control input-lg"
                value=""
                data-parsley-required="true"
                data-parsley-error-message="Please enter the Component Data for the Component selected"
-               data-parsley-errors-container=".component_data_errors">
-        <p class="form-error component_data_errors"></p>
+               data-parsley-errors-container=".ccs_component_data_errors">
+        <p class="form-error ccs_component_data_errors"></p>
     </div>
     
     <div class="form-section subflow ccs">
@@ -740,48 +740,39 @@
 </script>
 <script>
     function getJsonToSave(currentSubflow) {
-        var json = [
-                { "field_name" : "date_entered",
-                  "value" : $("#date_entered").val()
-                },
-                { "field_name" : "entered_by",
-                  "value" : $("#entered_by").val()
-                },
-                { "field_name" : "serviced_by",
-                  "value" : $("#serviced_by option:selected").map(function() {
-                      return this.value;
-                  }).get().join("|")
-                },
-                { "field_name" : "equipment_id",
-                  "value" : $("#equipment_id").val()
-                }
-            ];
+        var json = { "date_entered": $("#date_entered").val(),
+                     "entered_by": $("#entered_by").val(),
+                     "serviced_by": $("#serviced_by option:selected").map(function() {
+                        return this.value;
+                     }).get().join("|"),
+                     "equipment_id": $("#equipment_id").val()
+                   };
         
-        json.push({ "field_name": "subflow", "value": currentSubflow });
+        json.subflow = currentSubflow;
         
         switch(currentSubflow) {
             case 'sus':
-                json.push({ "field_name": "sus_fluid_type", "value": $("#sus_fluid_type").val() });
-                json.push({ "field_name": "sus_quantity", "value": $("#sus_quantity").val() });
-                json.push({ "field_name": "sus_units", "value": $("#sus_units").val() });
-                json.push({ "field_name": "sus_miles", "value": $("#sus_miles").val() });             
+                json.sus_fluid_type = $("#sus_fluid_type").val();
+                json.sus_quantity = $("#sus_quantity").val();
+                json.sus_units = $("#sus_units").val();
+                json.sus_miles = $("#sus_miles").val();             
                 break
 
             case 'pss':
-                json.push({ "field_name": "pss_reminder_pm_type", "value": $("#pss_reminder_pm_type").val() });
-                json.push({ "field_name": "pss_smr_due", "value": $("#pss_smr_due").val() });
-                json.push({ "field_name": "pss_reminder_pm_type", "value": $("#pss_reminder_pm_type").val() });
-                json.push({ "field_name": "pss_notes", "value": $("#pss_notes").val() });
-                json.push({ "field_name": "pss_reminder_recipients", "value": $("#pss_reminder_recipients").val() });
-                json.push({ "field_name": "pss_reminder_quantity", "value": $("#pss_reminder_quantity").val() });
-                json.push({ "field_name": "pss_reminder_units", "value": $("#pss_reminder_units").val() });
+                json.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
+                json.pss_smr_due = $("#pss_smr_due").val();
+                json.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
+                json.pss_notes = $("#pss_notes").val();
+                json.pss_reminder_recipients = $("#pss_reminder_recipients").val();
+                json.pss_reminder_quantity = $("#pss_reminder_quantity").val();
+                json.pss_reminder_units = $("#pss_reminder_units").val();
                 break;
 
             case 'ccs':
-                json.push({ "field_name": "ccs_component_type", "value": $("#ccs_component_type").val() });
-                json.push({ "field_name": "ccs_component", "value": $("#ccs_component").val() });
-                json.push({ "field_name": "component_data", "value": $("#component_data").val() });
-                json.push({ "field_name": "ccs_notes", "value": $("#ccs_notes").val() });
+                json.ccs_component_type = $("#ccs_component_type").val();
+                json.ccs_component = $("#ccs_component").val();
+                json.ccs_component_data = $("#ccs_component_data").val();
+                json.ccs_notes = $("#ccs_notes").val();
                 break;
         }
          
@@ -841,7 +832,7 @@
                 json.push({ "label": "Entry Selection", "value": "Component change" });
                 objectPush(json, "Component Type", "ccs_component_type", true);
                 objectPush(json, "Component", "ccs_component", true);
-                objectPush(json, "Component Data", "component_data", false);
+                objectPush(json, "Component Data", "ccs_component_data", false);
                 objectPush(json, "Notes", "ccs_notes", false);
                 break;
         }

@@ -42,8 +42,8 @@ class Servicelog extends MY_Controller {
     public function save() {
         $post = json_decode(file_get_contents('php://input'), true);
         
-        echo '<pre>POST';
-        var_dump($post);
+//        echo '<pre>POST';
+//        var_dump($post);
         
         $this->Servicelog_model->store($post);
         
