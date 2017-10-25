@@ -372,18 +372,28 @@
     <!-- /COMPONENT CHANGE SUBFLOW -->
 
     <div class="form-navigation">
-        <button type="button" class="previous btn btn-info" style="display:none;">&lt; Previous</button>
-        <button type="button" class="next btn btn-lg btn-primary">Next &gt;</button>
-        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary" style="display:none;">Review &gt;</button>
+        <button type="button" class="next btn btn-lg btn-primary">Next &raquo;</button>
+        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary">Review &raquo;</button>
         <!--input type="submit" class="btn btn-default pull-right"-->
     </div>
     
-    <div style="display:none;" id="reviewScreen"></div>
+    <div id="reviewScreen"></div>
+    <span class="clearfix"></span>
+    
+    <button id="goBackButton" type="button" class="previous btn btn-lg btn-primary">&laquo; Go Back</button>
+    <button id="submitButton" type="button" class="next btn btn-lg btn-primary">Submit</button>
+    
     <span class="clearfix"></span>
 
 </form>
 
 <style class="example">
+    #goBackButton,
+    #reviewButton,
+    #submitButton,
+    #reviewScreen {
+        display: none;
+    }
     .form-section {
         display: none;
     }
@@ -405,7 +415,15 @@
         var $sections = $('.form-section'),
                 subflowSelected = false,
                 currentSubflow = '',
-                subflowIndex = 0;
+                subflowIndex = 0,
+                atTheEnd = false,
+                atReview = false;
+                
+        /** Handle pop up content **/
+        var windowWidth = $(window).width(),
+            dialogWidth = windowWidth * 0.65,
+            windowHeight = $(window).height(),
+            dialogHeight = windowHeight * 0.65;
                 
         // Set the Options for "Bloodhound" suggestion engine
         // @see https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead-js
@@ -427,8 +445,71 @@
             datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
             queryTokenizer: Bloodhound.tokenizers.whitespace
         });
+        
+        var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="cancelSubmitLogEntryForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitLogEntryForm" type="button">Yes</button></div>';
+        var confirmSubmitJBox = new jBox('Modal', {
+            closeButton: 'title',
+            responsiveWidth: true,
+            responsiveHeight: true,
+            minWidth: dialogWidth,
+            minHeight: dialogHeight,
+            attach: '#submitButton',
+            title: 'Confirm',
+            content: confirmationMessage,
+            zIndex: 15000,
+                preventDefault: true,
+                preloadAudio: false
+        });
+
+        function resetVars() {
+            var subflowSelected = false,
+                currentSubflow = '',
+                subflowIndex = 0,
+                atTheEnd = false,
+                atReview = false;
+        }
+        
+        function goBackAfterReview() {
+            /*
+             * $(this).hide();
+            $('.form-navigation').hide();
+            $('.form-section').hide();
+            printReviewScreen();
+            $("#reviewScreen").show();
+            atReview = true;
+            $("#submitButton").toggle();
+             */
+            
+            $("#reviewScreen").hide();
+            $('.form-section').hide();
+            $("#submitButton").hide();
+            $("#goBackButton").hide();
+            $('.form-section').eq(0).show();
+            $('.form-navigation').show();
+            $('.form-navigation .next').show();
+            $("#reviewButton").hide();
+            
+            currentSubflow = '';
+            subflowIndex = 0;
+            atTheEnd = false;
+            atReview = false;
+            
+            console.log('currentSubflow TEST: ' + currentSubflow);
+            console.log('subflowIndex TEST: ' + subflowIndex);
+            console.log('atTheEnd TEST: ' + atTheEnd);
+            console.log('atReview TEST: ' + atReview);
+            
+//            $sections
+//                    .removeClass('current')
+//                    .eq(0)
+//                    .addClass('current');
+//            alert(currentSubflow);
+            navigateTo(curIndex() - 1);
+        }
 
         function navigateTo(index) {
+            console.log("XX index: " + index);
+            console.log("XX currentSubflow: " + currentSubflow);
             // Mark the current section with the class 'current'
             $sections
                     .removeClass('current')
@@ -444,12 +525,12 @@
             
             //var atTheEnd = (index >= $sections.length - 1 ||
             //                (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length));
-            var atTheEnd = false;
-            console.log("++++++");
-            if(currentSubflow) {
+            if(index>0 && currentSubflow) {
+                console.log("function navigateTo with index " + index + " accessed");
                 console.log("currentSubflow: " + currentSubflow);
                 console.log("subflowIndex: " + subflowIndex);
                 console.log("subflow length: " + $('.' + currentSubflow).length);
+                console.log("xxxxxxxxxxxxxx");
                 
                 if(subflowIndex > $('.' + currentSubflow).length) {
                     atTheEnd = true;
@@ -457,6 +538,7 @@
                 
                 if(currentSubflow=='sus') {
                     if(subflowIndex > $('.' + currentSubflow).length) {
+//                    if(subflowIndex == 3) {
                         atTheEnd = true;
                     }
                 }
@@ -473,6 +555,9 @@
 //                if(subflowIndex > $('.' + currentSubflow).length) {
 //                        atTheEnd = true;
 //                    }
+            } else {
+//                $('.form-navigation').show();
+//                $('.form-section').hide();
             }
 //            var atTheEnd = (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length);
 //            if(currentSubflow!='') {
@@ -482,6 +567,7 @@
             
             $('.form-navigation .next').toggle(!atTheEnd);
             $("#reviewButton").toggle(atTheEnd);
+            $("#submitButton").toggle(atReview);
 //            if(atTheEnd) {
 //                $("#reviewButton").show();
 //            }
@@ -523,8 +609,8 @@
             }
             
             $("#reviewScreen").html(text);
-            
-            saveServiceLog();
+            $("#goBackButton").show();
+            $("#submitButton").show();
         }
         
         function saveServiceLog() {
@@ -543,6 +629,12 @@
                 contentType: "application/json"
             }); 
         }
+        
+        function goBack() {
+//            console.log("current Index: " + current)
+            goBackAfterReview();
+//            navigateTo(curIndex() - 1);
+        }
 
         $("#reviewButton").on('click', function () {
             $(this).hide();
@@ -550,6 +642,27 @@
             $('.form-section').hide();
             printReviewScreen();
             $("#reviewScreen").show();
+            atReview = true;
+            $("#submitButton").toggle();
+        });
+        
+//        $(document).on("click", "#goBackButton", function () {
+//            alert("test click go back");
+//        $("#goBackButton").on('click', function () {
+//            resetVars();
+//            goBack();
+//        });
+//        
+        $(document).on("click", "#cancelSubmitLogEntryForm", function () {
+//        $("#cancelSubmitLogEntryForm").on('click', function () {
+//            alert("cancel submit form test");
+            confirmSubmitJBox.close();
+        });
+        
+        $(document).on("click", "#submitLogEntryForm", function () {
+//        $("#submitLogEntryForm").on('click', function () {
+//            alert("submit form test");
+            saveServiceLog();
         });
 
         $('#subflow').on('change', function () {
@@ -558,8 +671,12 @@
         });
 
         // Previous button is easy, just go back
-        $('.form-navigation .previous').click(function () {
-            navigateTo(curIndex() - 1);
+        $(document).on("click", ".previous", function () {
+//        $('.form-navigation .previous').click(function () {
+//            resetVars();
+            goBack();
+//            alert(curIndex() - 1);
+//            navigateTo(curIndex() - 1);
         });
 
         // Next button goes forward if current block validates

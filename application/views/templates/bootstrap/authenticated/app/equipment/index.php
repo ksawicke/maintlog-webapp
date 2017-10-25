@@ -1,6 +1,6 @@
 <a href="<?php echo base_url('app/addEquipment'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment</button></a><br /><br />
 
-<table id="equipmentList" class="table table-bordered table-striped">
+<table id="equipmentList" class="table table-bordered table-striped display nowrap">
     <thead>
         <tr>
             <th>Unit No.</th>
@@ -26,6 +26,7 @@
 <script>
   $(document).ready(function() {
     $('#equipmentList').DataTable({
+        "responsive": true,
         "columns": [
             null,
             null,

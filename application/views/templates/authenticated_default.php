@@ -48,6 +48,7 @@
     
     <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.min.js"></script>
     <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.comparison.js"></script>
   </head>
@@ -105,7 +106,7 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-sm-8 col-md-8 col-lg-8">
                         
                         <table>
                             <tr>
@@ -122,7 +123,7 @@
                         </table>
                         
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-sm-8 col-md-8 col-lg-4">
                         
                         Logged in as <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.
                         
