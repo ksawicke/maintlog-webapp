@@ -421,6 +421,7 @@
                 subflowSelected = false,
                 currentSubflow = '',
                 subflowIndex = 0,
+                initialPassCompleted = false,
                 atTheEnd = false,
                 atReview = false;
                 
@@ -498,6 +499,7 @@
             subflowIndex = 0;
             atTheEnd = false;
             atReview = false;
+            initialPassCompleted = true;
             
             console.log('currentSubflow TEST: ' + currentSubflow);
             console.log('subflowIndex TEST: ' + subflowIndex);
@@ -524,6 +526,10 @@
 //                    .removeClass('current')
 //                    .eq(0)
 //                    .addClass('current');
+            if(initialPassCompleted && index===3) {
+                setCurrentSubflow();
+            }
+            
             $('.form-section').eq(index).show();
             
             // Show only the navigation buttons that make sense for the current section:
@@ -638,13 +644,22 @@
                 dataType: "json",
                 data: JSON.stringify(jsonData),
                 contentType: "application/json"
-            }); 
+            });
+            
+            confirmSubmitJBox.close();
+            
+            location.reload(true);
         }
         
         function goBack() {
 //            console.log("current Index: " + current)
             goBackAfterReview();
 //            navigateTo(curIndex() - 1);
+        }
+        
+        function setCurrentSubflow() {
+            subflowSelected = true;
+            currentSubflow = $('#subflow').val();
         }
 
         $("#reviewButton").on('click', function () {
@@ -677,8 +692,7 @@
         });
 
         $('#subflow').on('change', function () {
-            subflowSelected = true;
-            currentSubflow = $(this).val();
+            setCurrentSubflow();
         });
 
         // Previous button is easy, just go back
