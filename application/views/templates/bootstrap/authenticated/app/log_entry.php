@@ -585,6 +585,7 @@
             $('.form-navigation .next').toggle(!atTheEnd);
             $("#reviewButton").toggle(atTheEnd);
             $("#submitButton").toggle(atReview);
+            
 //            if(atTheEnd) {
 //                $("#reviewButton").show();
 //            }
@@ -625,6 +626,10 @@
                 text += '</ul>';
             }
             
+//            $(".sus:first").data("section-index").hide();
+//            $(".pss:first").data("section-index").hide();
+//            $(".ccs:first").data("section-index").hide();
+
             $("#reviewScreen").html(text);
             $("#goBackButton").show();
             $("#submitButton").show();
@@ -662,14 +667,16 @@
             currentSubflow = $('#subflow').val();
         }
 
-        $("#reviewButton").on('click', function () {
+        $(document).on("click", "#reviewButton", function () {
             $(this).hide();
             $('.form-navigation').hide();
             $('.form-section').hide();
             printReviewScreen();
             $("#reviewScreen").show();
             atReview = true;
-            $("#submitButton").toggle();
+            $("#submitButton").show();
+            $(".subflow").hide();
+//            $(".subflow").hide();
         });
         
 //        $(document).on("click", "#goBackButton", function () {
