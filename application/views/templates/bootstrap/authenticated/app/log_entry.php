@@ -184,8 +184,13 @@
                type="text"
                class="form-control input-lg"
                value=""
+               data-parsley-type="number"
                data-parsley-required="true"
-               data-parsley-error-message="Please enter the current SMR or Miles"
+               data-parsley-gt="0"
+               data-parsley-lt="9999999"
+               data-parsley-required-message="Please enter the current SMR or Miles"
+               data-parsley-gt-message="Please enter a quantity greater than 0"
+               data-parsley-lt-message="Please enter a quantity less than 9,999,999"
                data-parsley-errors-container=".sus_miles_errors">
         <p class="form-error sus_miles_errors"></p>
     </div>
@@ -484,7 +489,7 @@
             $('.form-section').hide();
             $("#submitButton").hide();
             $("#goBackButton").hide();
-            $('.form-section').eq(0).show();
+//            $('.form-section').eq(0).show();
             $('.form-navigation').show();
             $('.form-navigation .next').show();
             $("#reviewButton").hide();
@@ -499,12 +504,11 @@
             console.log('atTheEnd TEST: ' + atTheEnd);
             console.log('atReview TEST: ' + atReview);
             
-//            $sections
-//                    .removeClass('current')
-//                    .eq(0)
-//                    .addClass('current');
-//            alert(currentSubflow);
-            navigateTo(curIndex() - 1);
+            $sections
+                    .removeClass('current')
+                    .eq(0)
+                    .addClass('current');
+            $('.form-section').eq(0).show();
         }
 
         function navigateTo(index) {
@@ -515,6 +519,13 @@
                     .removeClass('current')
                     .eq(index)
                     .addClass('current');
+            
+//            $sections
+//                    .removeClass('current')
+//                    .eq(0)
+//                    .addClass('current');
+            $('.form-section').eq(index).show();
+            
             // Show only the navigation buttons that make sense for the current section:
 //            $('.form-navigation .previous').toggle(index > 0);
             
@@ -684,11 +695,18 @@
         //              https://stackoverflow.com/questions/30054011/duplication-of-field-error-when-using-parsley-js
 //        
         $('.form-navigation .next').click(function () {
+            console.log("++++++++++");
+            console.log("EVENT: Clicked Next button.");
+            
             $('.serviceLog-form').parsley().whenValidate({
                 group: 'block-' + curIndex()
             }).always(function () {
-//                console.log("CHECK 2");
+                console.log("EVENT: Next button ALWAYS.");
+                console.log("curIndex: " + curIndex());
             }).done(function () {
+                console.log("++++++++++");
+                console.log("EVENT: Next button DONE.");
+                
                 var nextIndex = (curIndex() + 1);
                 
                 if(currentSubflow && subflowIndex===0) {
@@ -736,6 +754,11 @@
 //                    console.log("nextIndex: " + nextIndex);
 ////                    console.log( "COUNT: " + $("." + currentSubflow) );
 //                }
+                
+                console.log("nextIndex: " + nextIndex);
+                console.log("currentSubflow: " + currentSubflow);
+                console.log("subflowIndex: " + subflowIndex);
+                console.log("++++++++++");
                 
                 navigateTo(nextIndex);
             });
