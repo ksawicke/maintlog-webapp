@@ -476,21 +476,10 @@
         }
         
         function goBackAfterReview() {
-            /*
-             * $(this).hide();
-            $('.form-navigation').hide();
-            $('.form-section').hide();
-            printReviewScreen();
-            $("#reviewScreen").show();
-            atReview = true;
-            $("#submitButton").toggle();
-             */
-            
             $("#reviewScreen").hide();
             $('.form-section').hide();
             $("#submitButton").hide();
             $("#goBackButton").hide();
-//            $('.form-section').eq(0).show();
             $('.form-navigation').show();
             $('.form-navigation .next').show();
             $("#reviewButton").hide();
@@ -500,12 +489,7 @@
             atTheEnd = false;
             atReview = false;
             initialPassCompleted = true;
-            
-            console.log('currentSubflow TEST: ' + currentSubflow);
-            console.log('subflowIndex TEST: ' + subflowIndex);
-            console.log('atTheEnd TEST: ' + atTheEnd);
-            console.log('atReview TEST: ' + atReview);
-            
+                        
             $sections
                     .removeClass('current')
                     .eq(0)
@@ -514,41 +498,18 @@
         }
 
         function navigateTo(index) {
-            console.log("XX index: " + index);
-            console.log("XX currentSubflow: " + currentSubflow);
-            // Mark the current section with the class 'current'
             $sections
                     .removeClass('current')
                     .eq(index)
                     .addClass('current');
             
-//            $sections
-//                    .removeClass('current')
-//                    .eq(0)
-//                    .addClass('current');
             if(initialPassCompleted && index===3) {
                 setCurrentSubflow();
             }
             
             $('.form-section').eq(index).show();
-            
-            // Show only the navigation buttons that make sense for the current section:
-//            $('.form-navigation .previous').toggle(index > 0);
-            
-//            console.log("---");
-//            console.log("index: " + index);
-//            console.log("$sections.length: " + $sections.length);
-            
-            
-            //var atTheEnd = (index >= $sections.length - 1 ||
-            //                (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length));
-            if(index>0 && currentSubflow) {
-                console.log("function navigateTo with index " + index + " accessed");
-                console.log("currentSubflow: " + currentSubflow);
-                console.log("subflowIndex: " + subflowIndex);
-                console.log("subflow length: " + $('.' + currentSubflow).length);
-                console.log("xxxxxxxxxxxxxx");
-                
+
+            if(index>0 && currentSubflow) {                
                 if(subflowIndex > $('.' + currentSubflow).length) {
                     atTheEnd = true;
                 }
@@ -569,27 +530,11 @@
                         atTheEnd = true;
                     }
                 }
-//                if(subflowIndex > $('.' + currentSubflow).length) {
-//                        atTheEnd = true;
-//                    }
-            } else {
-//                $('.form-navigation').show();
-//                $('.form-section').hide();
             }
-//            var atTheEnd = (currentSubflow!='' && subflowIndex >= $('.' + currentSubflow).length);
-//            if(currentSubflow!='') {
-//                console.log('subflow length: ' + $('.' + currentSubflow).length);
-//                console.log('subflowIndex: ' + subflowIndex);
-//            }
             
             $('.form-navigation .next').toggle(!atTheEnd);
             $("#reviewButton").toggle(atTheEnd);
             $("#submitButton").toggle(atReview);
-            
-//            if(atTheEnd) {
-//                $("#reviewButton").show();
-//            }
-//            $('.form-navigation [type=submit]').toggle(atTheEnd);
         }
 
         function curIndex() {
@@ -598,13 +543,7 @@
         }
         
         function printReviewScreen() {
-            var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>'; //<label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul><label>Test field</label><ul><li>Some data</li></ul>';
-            
-//            text += '<label>Date Entered</label><ul><li>Some data</li></ul>';
-//            text += '<label>Entered By</label><ul><li>Some data</li></ul>';
-//            text += '<label>Test field</label><ul><li>Some data</li></ul>';
-//            text += '<label>Test field</label><ul><li>Some data</li></ul>';
-//            text += '<label>Test field</label><ul><li>Some data</li></ul>';
+            var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>';
             
             var json = getJsonObject(currentSubflow);
             
@@ -626,10 +565,6 @@
                 text += '</ul>';
             }
             
-//            $(".sus:first").data("section-index").hide();
-//            $(".pss:first").data("section-index").hide();
-//            $(".ccs:first").data("section-index").hide();
-
             $("#reviewScreen").html(text);
             $("#goBackButton").show();
             $("#submitButton").show();
@@ -638,10 +573,6 @@
         function saveServiceLog() {
             var serviceUrl = '/sites/komatsuna/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
-//                jsonData = [ {"first_name": "Dave", "last_name": "Jones", "phone_number": "222-333-4444"},
-//                             {"first_name": "Dave", "last_name": "Jones", "phone_number": "222-333-4444"},
-//                             {"first_name": "Dave", "last_name": "Jones", "phone_number": "222-333-4444"}
-//                           ];
             
             $.ajax({
                 url: serviceUrl,
@@ -657,9 +588,7 @@
         }
         
         function goBack() {
-//            console.log("current Index: " + current)
             goBackAfterReview();
-//            navigateTo(curIndex() - 1);
         }
         
         function setCurrentSubflow() {
@@ -676,25 +605,13 @@
             atReview = true;
             $("#submitButton").show();
             $(".subflow").hide();
-//            $(".subflow").hide();
         });
         
-//        $(document).on("click", "#goBackButton", function () {
-//            alert("test click go back");
-//        $("#goBackButton").on('click', function () {
-//            resetVars();
-//            goBack();
-//        });
-//        
         $(document).on("click", "#cancelSubmitLogEntryForm", function () {
-//        $("#cancelSubmitLogEntryForm").on('click', function () {
-//            alert("cancel submit form test");
             confirmSubmitJBox.close();
         });
         
         $(document).on("click", "#submitLogEntryForm", function () {
-//        $("#submitLogEntryForm").on('click', function () {
-//            alert("submit form test");
             saveServiceLog();
         });
 
@@ -704,11 +621,7 @@
 
         // Previous button is easy, just go back
         $(document).on("click", ".previous", function () {
-//        $('.form-navigation .previous').click(function () {
-//            resetVars();
             goBack();
-//            alert(curIndex() - 1);
-//            navigateTo(curIndex() - 1);
         });
 
         // Next button goes forward if current block validates
@@ -716,42 +629,21 @@
         //              https://stackoverflow.com/questions/30054011/duplication-of-field-error-when-using-parsley-js
 //        
         $('.form-navigation .next').click(function () {
-            console.log("++++++++++");
-            console.log("EVENT: Clicked Next button.");
-            
             $('.serviceLog-form').parsley().whenValidate({
                 group: 'block-' + curIndex()
             }).always(function () {
-                console.log("EVENT: Next button ALWAYS.");
-                console.log("curIndex: " + curIndex());
+                //
             }).done(function () {
-                console.log("++++++++++");
-                console.log("EVENT: Next button DONE.");
-                
                 var nextIndex = (curIndex() + 1);
                 
                 if(currentSubflow && subflowIndex===0) {
-                    console.log("currentSubflow: " + currentSubflow);
-                    console.log("currentSubflow selected and subflow Index equals 0");
-                    
                     subflowIndex++;
                     nextIndex = $("." + currentSubflow + ":first").data("section-index") - 1;
-                    
-                    console.log($("." + currentSubflow + ":first").data("section-index") - 1);
-                    console.log("new subflowIndex: " + subflowIndex);
-                    console.log("nextIndex: " + nextIndex);
-                    
-//                    console.log("currentSubflow: " + currentSubflow);
-//                    console.log($("." + currentSubflow + ":first").data("section-index"));
-////                    console.log($("." + currentSubflow + ":first").data("section-index") + 1);
-//                    console.log("subflowIndex: " + subflowIndex);
                 }
                 
                 if(currentSubflow && subflowIndex>0) {
-                    console.log("currentSubflow selected and subflow Index greater than 0");
-                    
                     subflowIndex++;
-//                    nextIndex++;
+                    
                     if(currentSubflow=='sus') {
                         nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
                     }
@@ -763,71 +655,8 @@
                     }
                 }
                 
-//                if(currentSubflow && subflowIndex!=0) {
-//                    nextIndex = $("." + currentSubflow + ":first").data("section-index") + 1;
-//                    console.log("nextIndex: " + nextIndex);
-//                }
-                
-//                if(currentSubflow) {
-//                    console.log( "currentSubflow: " + currentSubflow );
-//                    subflowIndex++;
-//                    nextIndex = subflowIndex;
-//                    console.log("nextIndex: " + nextIndex);
-////                    console.log( "COUNT: " + $("." + currentSubflow) );
-//                }
-                
-                console.log("nextIndex: " + nextIndex);
-                console.log("currentSubflow: " + currentSubflow);
-                console.log("subflowIndex: " + subflowIndex);
-                console.log("++++++++++");
-                
                 navigateTo(nextIndex);
             });
-            
-//            var validateBlockPromise = $('.serviceLog-form').parsley().whenValid({
-//                group: 'block-' + curIndex()
-//            });
-            
-//            console.log(validateBlockPromise);
-
-//            if('resolved' === validateBlockPromise.state()) {
-//                console.log('resolved');
-//            }
-//            console.log("check state for block " + curIndex());
-//            console.log(validateBlockPromise.state());
-//            console.log(validateBlockPromise);
-//            
-//            if('pending' === validateBlockPromise.state() && 2 === curIndex()) {
-//                if(!empty($('[name="equipment"]').val()) && !empty($("#equipment").val())) {
-//                    
-//                }
-//            }
-            
-//            validateBlockPromise.then(function(result) {
-////                console.log("result: " + result); // "Stuff worked!"
-//                console.log("Validate block: success");
-//                console.log(result);
-//                var nextIndex = (curIndex() + 1);
-//                if(currentSubflow) {
-//                    nextIndex = $("." + currentSubflow + ":first").data("section-index");
-//                }
-//                navigateTo(nextIndex);
-//            }, function(reason) {
-//                console.log(reason);
-////                console.log("error: " + reason); // Error: "It broke"
-//            });
-            
-//            $('.serviceLog-form').parsley().whenValidate({
-//                group: 'block-' + curIndex()
-//            }).always(function () {
-////                console.log("CHECK 2");
-//            }).done(function () {
-//                var nextIndex = (curIndex() + 1);
-//                if(currentSubflow) {
-//                    nextIndex = $("." + currentSubflow + ":first").data("section-index");
-//                }
-//                navigateTo(nextIndex);
-//            });
         });
 
         // Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
@@ -871,31 +700,13 @@
                     '<div class="list-group search-results-dropdown">'
                 ],
                 suggestion: function (data) {
-                    // equipment.unit_number | equipment.manufacturer_name equipment.model_number
-                    // or
-                    // equipment.search_matchs
                     return '<a href="#" class="list-group-item">' + data.search_match + '</a>';
-    //                return '<a href="' + data.id + '" class="list-group-item">' + data.search_match + '</a>';
-    //                return '<a href="' + data.profile.username + '" class="list-group-item">' + data.name + '- @' + data.profile.username + '</a>'
                 }
             }
         }).on('typeahead:selected', function(event, selection) {
-
-    //        console.log($("#equipment").val());
-    //        console.log("Selected: " + selection.id);
-            // the second argument has the info you want
-    //        alert(selection.value);
-    //        $(this).val('');
-    //        $("#equipment_typeahead").html('BLAH');
-
-//            $("#equipment_typeahead").prop('disabled', true);
             $(this).typeahead('val', selection.search_match);
             $("#equipment_id").val(selection.id);
             $("#equipment_description").val(selection.search_match);
-
-            // clearing the selection requires a typeahead method
-    //        $(this).typeahead('setQuery', '');
-    //        $(this).typeahead('setQuery', selection.search_match);
         });
     });
 </script>
@@ -946,16 +757,15 @@
                   "value" : $("#date_entered").val()
                 },
                 { "label" : "Entered By",
-                  "value" : $("#entered_by option[value='" + $("#entered_by").val() + "']").text() //$("#entered_by").val()
+                  "value" : $("#entered_by option[value='" + $("#entered_by").val() + "']").text()
                 },
                 { "label" : "Serviced By",
                   "value" : $("#serviced_by option:selected").map(function() {
                       return $("#serviced_by option[value='" + this.value + "']").text();
-                    //return this.value;
-                  }).get().join("|") //$("#serviced_by option[value='" + $("#serviced_by").val() + "']").text() //$("#serviced_by").val()
+                  }).get().join("|")
                 },
                 { "label" : "Equipment Type",
-                  "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text() //$("#equipment_type").val() 
+                  "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text()
                 },
                 { "label" : "Equipment",
                   "value" : $("#equipment_description").val()
@@ -1039,34 +849,11 @@
             validateString: function(value, requirement) {
                 var equipment_typeahead = $("#equipment_typeahead").val(),
                     equipment_id = $("#equipment_id").val();
-            
-//                console.log("equipment_typeahead: " + equipment_typeahead);
-//                console.log("equipment: " + equipment);
-                
-//                return false;
-                // Make sure that value and $(requirement).val() are not empty
-//                if(!empty(value)) {
-//                    console.log('empty value: false');
-//                } else {
-//                    console.log('empty value: true');
-//                }
-//                
-//                if(!empty($(requirement).val())) {
-//                    console.log('empty requirement: false');
-//                } else {
-//                    console.log('empty requirement: true');
-//                }
                 if( !empty(equipment_typeahead)===false || !empty(equipment_id)===false ) {
-//                    console.log("H");
                     return false;
                 } else {
-//                    console.log("I");
                     return true;
                 }
-//                return true;
-//                return ((!empty(value)===false || !empty($(requirement).val())===false) ? false : true);
-//                return 0 === value % requirement;
-//                return 1;
             },
             messages: {
                 en: 'Please select a valid piece of equipment.'
