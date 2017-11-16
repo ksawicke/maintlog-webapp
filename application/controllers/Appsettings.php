@@ -23,6 +23,14 @@ class Appsettings extends MY_Controller {
         $this->load->model('Appsetting_model');
     }
     
+    public function get_setting() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        
+        $data = $this->Appsetting_model->findOne(15000);
+        
+        echo $data[$post['field']];
+    }
+    
     public function save() {
         $this->Appsetting_model->store($this->input->post());
         

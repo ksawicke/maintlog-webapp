@@ -273,7 +273,8 @@
                        class="form-control input-lg"
                        data-parsley-required="true"
                        data-parsley-error-message="Please enter recipients email addresses separated by comma"
-                       data-parsley-errors-container=".pss_reminder_recipients_errors">email1@email.com,email2@email2.com</textarea>
+                       data-parsley-errors-container=".pss_reminder_recipients_errors"
+                       readonly>NPJohnson@KOMATSUNA.COM,kevin@rinconmountaintech.com</textarea>
                 <p class="form-error pss_reminder_recipients_errors"></p>
             </div>
         </div>
@@ -570,6 +571,28 @@
             $("#submitButton").show();
         }
         
+        function populateDropdownWithData(serviceUrl, field) {
+            /*{
+                "serviceUrl" : "/sites/komatsuna/appsettings/get_setting",
+                "field" : $(this)
+            }*/
+//            console.log(serviceUrl);
+//            console.log(field);
+            
+            var data = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({"field": "smr_based_choices"}),
+                contentType: "application/json"
+            });
+            
+            var values = data.split('|');
+            
+            console.log(values);
+            console.log(field);
+        }
+        
         function saveServiceLog() {
             var serviceUrl = '/sites/komatsuna/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
@@ -605,6 +628,12 @@
             atReview = true;
             $("#submitButton").show();
             $(".subflow").hide();
+        });
+        
+        $(document).on("focus", "#pss_smr", function () {
+            // Populate with choices from the db
+            populateDropdownWithData("/sites/komatsuna/appsettings/get_setting",
+                $(this));
         });
         
         $(document).on("click", "#cancelSubmitLogEntryForm", function () {
@@ -648,7 +677,7 @@
                         nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
                     }
                     if(currentSubflow=='pss') {
-                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex;
+                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
                     }
                     if(currentSubflow=='ccs') {
                         nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
