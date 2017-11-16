@@ -346,6 +346,174 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function componentTypes()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Componenttype_model');
+        
+        $data['componenttypes'] = $this->Componenttype_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addComponentType($componenttype_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Componenttype_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $componenttype = (!is_null($componenttype_id) ? $this->Componenttype_model->findOne($componenttype_id) : []);
+        $data['componenttype_id'] = (!is_null($componenttype_id) ? $componenttype_id : 0);
+        $data['componenttype_component_type'] = (!empty($componenttype) ? $componenttype->component_type : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function smrChoices()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Smrchoice_model');
+        
+        $data['smrchoices'] = $this->Smrchoice_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addSmrChoice($smrchoice_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Smrchoice_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $smrchoice = (!is_null($smrchoice_id) ? $this->Smrchoice_model->findOne($smrchoice_id) : []);
+        $data['smrchoice_id'] = (!is_null($smrchoice_id) ? $smrchoice_id : 0);
+        $data['smrchoice_smr_choice'] = (!empty($smrchoice) ? $smrchoice->smr_choice : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function mileageChoices()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Mileagechoice_model');
+        
+        $data['mileagechoices'] = $this->Mileagechoice_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addMileageChoice($mileagechoice_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Mileagechoice_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $mileagechoice = (!is_null($mileagechoice_id) ? $this->Mileagechoice_model->findOne($mileagechoice_id) : []);
+        $data['mileagechoice_id'] = (!is_null($mileagechoice_id) ? $mileagechoice_id : 0);
+        $data['mileagechoice_mileage_choice'] = (!empty($mileagechoice) ? $mileagechoice->mileage_choice : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function timeChoices()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Timechoice_model');
+        
+        $data['timechoices'] = $this->Timechoice_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addTimeChoice($timechoice_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Timechoice_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $timechoice = (!is_null($timechoice_id) ? $this->Timechoice_model->findOne($timechoice_id) : []);
+        $data['timechoice_id'] = (!is_null($timechoice_id) ? $timechoice_id : 0);
+        $data['timechoice_time_choice'] = (!empty($timechoice) ? $timechoice->time_choice : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
     public function appSettings()
     {
         $data = [

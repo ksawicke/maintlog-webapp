@@ -55,7 +55,7 @@
 
   <body>
 
-    <div id="wrapper">
+    <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -90,7 +90,16 @@
                     <a href="<?php echo base_url('app/fluidTypes/index'); ?>">Edit Fluid Types</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('app/appSettings'); ?>">Edit App Settings</a>
+                    <a href="<?php echo base_url('app/componentTypes/index'); ?>">Edit Component Types</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('app/smrChoices/index'); ?>">Edit SMR Choices</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('app/mileageChoices/index'); ?>">Edit Mileage Choices</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('app/timeChoices/index'); ?>">Edit Time Choices</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('app/reporting/index'); ?>">Reporting</a>
@@ -125,7 +134,7 @@
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-4">
                         
-                        Logged in as <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.
+                        Logged in as <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.&nbsp;&nbsp;<a class="smallCaps" href="<?php echo base_url('/auth/logout'); ?>">Log out</a>
                         
                     </div>
                 </div>
@@ -176,6 +185,9 @@
     
     <!-- Menu Toggle Script -->
     <script>
+    $(function () {
+//       $("#wrapper").toggleClass("toggled");
+    });
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
