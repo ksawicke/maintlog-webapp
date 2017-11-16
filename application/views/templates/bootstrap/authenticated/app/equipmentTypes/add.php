@@ -3,7 +3,7 @@
     <div class="group mainFlow">
         <div class="form-group">
             <label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
-            <input type="text" id="equipment_type" name="equipment_type" class="form-control input-lg">
+            <input type="text" id="equipment_type" name="equipment_type" class="form-control input-lg" value="<?php echo $equipmenttype_equipment_type; ?>">
         </div>
     </div>
     
