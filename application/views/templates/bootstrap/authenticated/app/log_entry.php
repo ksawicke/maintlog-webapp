@@ -377,17 +377,15 @@
     </div>
     <!-- /COMPONENT CHANGE SUBFLOW -->
 
-    <div class="form-navigation">
-        <button type="button" class="next btn btn-lg btn-primary">Next &raquo;</button>
-        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary">Review &raquo;</button>
-        <!--input type="submit" class="btn btn-default pull-right"-->
-    </div>
-    
     <div id="reviewScreen"></div>
     <span class="clearfix"></span>
     
-    <button id="goBackButton" type="button" class="previous btn btn-lg btn-primary">&laquo; Go Back</button>
-    <button id="submitButton" type="button" class="next btn btn-lg btn-primary">Submit</button>
+    <div class="form-navigation">
+        <button id="goBackButton" type="button" class="prev btn btn-lg btn-primary">&laquo; Prev</button>
+        <button id="goForwardButton" type="button" class="next btn btn-lg btn-primary">Next &raquo;</button>
+        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary">Review &raquo;</button>
+        <button id="submitButton" type="button" class="next btn btn-lg btn-primary">Submit</button>
+    </div>
     
     <span class="clearfix"></span>
 
@@ -479,23 +477,26 @@
         function goBackAfterReview() {
             $("#reviewScreen").hide();
             $('.form-section').hide();
-            $("#submitButton").hide();
-            $("#goBackButton").hide();
-            $('.form-navigation').show();
+//            $("#submitButton").hide();
+//            $("#goBackButton").hide();
+//            $('.form-navigation').show();
             $('.form-navigation .next').show();
-            $("#reviewButton").hide();
+//            $("#reviewButton").hide();
             
-            currentSubflow = '';
-            subflowIndex = 0;
+//            currentSubflow = '';
+//            subflowIndex = 0;
             atTheEnd = false;
             atReview = false;
             initialPassCompleted = true;
                         
+            currentIndex = curIndex();
+            prevIndex = currentIndex - 1;
+                        
             $sections
                     .removeClass('current')
-                    .eq(0)
+                    .eq(prevIndex)
                     .addClass('current');
-            $('.form-section').eq(0).show();
+            $('.form-section').eq(prevIndex).show();
         }
 
         function navigateTo(index) {
@@ -507,6 +508,8 @@
             if(initialPassCompleted && index===3) {
                 setCurrentSubflow();
             }
+            
+            var atTheBeginning = (index===0 ? true : false);
             
             $('.form-section').eq(index).show();
 
@@ -534,6 +537,7 @@
             }
             
             $('.form-navigation .next').toggle(!atTheEnd);
+            $('.form-navigation .prev').toggle(!atTheBeginning || atTheEnd);
             $("#reviewButton").toggle(atTheEnd);
             $("#submitButton").toggle(atReview);
         }
@@ -611,7 +615,10 @@
         }
         
         function goBack() {
-            goBackAfterReview();
+            if(atReview) {
+                console.log("AT REVIEW REACHED>........");
+            }
+            navigateTo(curIndex() - 1);
         }
         
         function setCurrentSubflow() {
@@ -621,7 +628,7 @@
 
         $(document).on("click", "#reviewButton", function () {
             $(this).hide();
-            $('.form-navigation').hide();
+//            $('.form-navigation').hide();
             $('.form-section').hide();
             printReviewScreen();
             $("#reviewScreen").show();
@@ -649,7 +656,7 @@
         });
 
         // Previous button is easy, just go back
-        $(document).on("click", ".previous", function () {
+        $(document).on("click", ".prev", function () {
             goBack();
         });
 
