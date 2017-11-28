@@ -1,5 +1,5 @@
 <form class="serviceLog-form">
-    <div class="form-section">
+    <div class="form-section show-next">
         <label for="date_entered" class="control-label lb-lg">Date Entered</label>
         <div class="input-group date">
             <div class="input-group-addon">
@@ -18,7 +18,7 @@
         <p class="form-error date_entered_errors"></p>
     </div>
 
-    <div class="form-section">
+    <div class="form-section show-prev show-next">
         <label for="entered_by" class="control-label lb-lg">Entered By</label>
         <select id="entered_by"
                 name="entered_by"
@@ -51,7 +51,7 @@
         <p class="form-error serviced_by_errors"></p>
     </div>
 
-    <div class="form-section">
+    <div class="form-section show-prev show-next">
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <div class="form-section">
+    <div class="form-section show-prev show-next">
         <label for="subflow" class="control-label lb-lg">Entry Selection</label>
         <select
                 id="subflow"
@@ -117,7 +117,7 @@
     </div>
 
     <!-- SMR UPDATE SUBFLOW -->
-    <div class="form-section subflow sus">
+    <div class="form-section subflow sus show-prev show-next">
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -176,7 +176,7 @@
         
     </div>
 
-    <div class="form-section subflow sus">
+    <div class="form-section subflow sus show-prev show-review">
         <label for="sus_miles" class="control-label lb-lg">SMR / Miles</label>
         <input
                id="sus_miles"
@@ -197,7 +197,7 @@
     <!-- /SMR UPDATE SUBFLOW -->
 
     <!-- PM SERVICE SUBFLOW -->
-    <div class="form-section subflow pss">
+    <div class="form-section subflow pss show-prev show-next">
         <label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
         <select id="pss_pm_type"
                 name="pss_pm_type"
@@ -213,7 +213,7 @@
         <p class="form-error pss_pm_type_errors"></p>
     </div>
 
-    <div class="form-section subflow pss">
+    <div class="form-section subflow pss show-prev show-next">
         <label for="pss_smr" class="control-label lb-lg">SMR</label>
         <select id="pss_smr"
                 name="pss_smr"
@@ -230,7 +230,7 @@
         <p class="form-error pss_smr_errors"></p>
     </div>
     
-    <div class="form-section subflow pss">
+    <div class="form-section subflow pss show-prev show-next">
         SERVICE REMINDER<br /><br />
         <label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
         <select id="pss_reminder_pm_type"
@@ -250,7 +250,7 @@
         <input type="text" class="form-control input-lg" id="pss_smr_due" name="pss_smr_due" value="">
     </div>
 
-    <div class="form-section subflow pss">
+    <div class="form-section subflow pss show-prev show-next">
         <label for="pss_notes"class="control-label lb-lg">Notes</label>
         <textarea type="text"
                class="form-control input-lg"
@@ -263,7 +263,7 @@
         <p class="form-error pss_notes_errors"></p>
     </div>
     
-    <div class="form-section subflow pss">
+    <div class="form-section subflow pss show-prev show-review">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label>
@@ -316,7 +316,7 @@
     <!-- /PM SERVICE SUBFLOW -->
     
     <!-- COMPONENT CHANGE SUBFLOW -->
-    <div class="form-section subflow ccs">
+    <div class="form-section subflow ccs show-prev show-next">
         <label for="ccs_component_type" class="control-label lb-lg">Component Type</label>
         <select id="ccs_component_type"
                 name="ccs_component_type"
@@ -333,7 +333,7 @@
         <p class="form-error ccs_component_type_errors"></p>
     </div>
     
-    <div class="form-section subflow ccs">
+    <div class="form-section subflow ccs show-prev show-next">
         <label for="ccs_component" class="control-label lb-lg">Component</label>
         <select id="ccs_component"
                 name="ccs_component"
@@ -363,7 +363,7 @@
         <p class="form-error ccs_component_data_errors"></p>
     </div>
     
-    <div class="form-section subflow ccs">
+    <div class="form-section subflow ccs show-prev show-review">
         <label for="ccs_notes"class="control-label lb-lg">Notes</label>
         <textarea type="text"
                class="form-control input-lg"
@@ -500,6 +500,13 @@
         }
 
         function navigateTo(index) {
+            var thisSection = $('.form-section').eq(index),
+                lastSection = $('.form-section').length - 1,
+                thisIndex = thisSection.attr('data-section-index'),
+                goToIndex = lastSection;
+        
+//            var showNextButton = (thisIndex===lastSection ? false : true);
+            
             $sections
                     .removeClass('current')
                     .eq(index)
@@ -509,37 +516,63 @@
                 setCurrentSubflow();
             }
             
-            var atTheBeginning = (index===0 ? true : false);
+//            var atTheBeginning = (index===0 ? true : false);
             
             $('.form-section').eq(index).show();
+            
+//            console.log("INDEX: " + $('.form-section').eq(index).attr('data-section-index'));
 
-            if(index>0 && currentSubflow) {                
-                if(subflowIndex > $('.' + currentSubflow).length) {
-                    atTheEnd = true;
-                }
-                
-                if(currentSubflow=='sus') {
-                    if(subflowIndex > $('.' + currentSubflow).length) {
-//                    if(subflowIndex == 3) {
-                        atTheEnd = true;
-                    }
-                }
-                if(currentSubflow=='pss') {
-                    if(subflowIndex == 4) {
-                        atTheEnd = true;
-                    }
-                }
-                if(currentSubflow=='ccs') {
-                    if(subflowIndex == 4) {
-                        atTheEnd = true;
-                    }
-                }
+//            if(index>0 && currentSubflow) {                
+//                if(subflowIndex > $('.' + currentSubflow).length) {
+//                    atTheEnd = true;
+//                }
+//                
+//                if(currentSubflow=='sus') {
+//                    if(subflowIndex > $('.' + currentSubflow).length) {
+////                    if(subflowIndex == 3) {
+//                        atTheEnd = true;
+//                    }
+//                }
+//                if(currentSubflow=='pss') {
+//                    if(subflowIndex == 4) {
+//                        atTheEnd = true;
+//                    }
+//                }
+//                if(currentSubflow=='ccs') {
+//                    if(subflowIndex == 4) {
+//                        atTheEnd = true;
+//                    }
+//                }
+//            }
+//            var atTheBeginning = (index===0 ? true : false);
+//            var atReview = ($('.form-section').eq(index).hasClass('show-review') ? true : false);
+//            var atReview = ($('.form-section').eq(index).hasClass('show-review') ? true : false);
+            
+            console.log(thisSection);
+            
+            if(thisSection.hasClass("show-prev")) {
+                $('#goBackButton').show();
+            } else {
+                $('#goBackButton').hide();
             }
             
-            $('.form-navigation .next').toggle(!atTheEnd);
-            $('.form-navigation .prev').toggle(!atTheBeginning || atTheEnd);
-            $("#reviewButton").toggle(atTheEnd);
-            $("#submitButton").toggle(atReview);
+            if(thisSection.hasClass("show-next")) {
+                $('#goForwardButton').show();
+            } else {
+                $('#goForwardButton').hide();
+            }
+            
+            if(thisSection.hasClass("show-review")) {
+                $('#reviewButton').show();
+            } else {
+                $('#reviewButton').hide();
+            }
+            
+            
+//            $('.form-navigation .next').toggle(!atTheEnd);
+//            $('.form-navigation .prev').toggle(!atTheBeginning && !atTheEnd);
+//            $("#reviewButton").toggle(atTheEnd);
+//            $("#submitButton").toggle(atReview);
         }
 
         function curIndex() {
@@ -615,26 +648,45 @@
         }
         
         function goBack() {
-            if(atReview) {
-                console.log("AT REVIEW REACHED>........");
+            var thisSection = $('.form-section.current'),
+                lastSection = $('.form-section').length - 1,
+                thisIndex = thisSection.attr('data-section-index'),
+                goToIndex = lastSection;
+            
+            if(thisIndex < lastSection && empty(currentSubflow)) {
+                var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
+            } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)) {
+                var goToIndex = thisSection.prev('.form-section.' + currentSubflow).attr('data-section-index');
+            } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)===false) {
+                var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
             }
-            navigateTo(curIndex() - 1);
+            
+            navigateTo(goToIndex);
         }
         
         function setCurrentSubflow() {
             subflowSelected = true;
             currentSubflow = $('#subflow').val();
         }
-
-        $(document).on("click", "#reviewButton", function () {
-            $(this).hide();
-//            $('.form-navigation').hide();
+        
+        function showReview() {
             $('.form-section').hide();
-            printReviewScreen();
-            $("#reviewScreen").show();
-            atReview = true;
-            $("#submitButton").show();
+            $("#reviewButton").hide();
+            $("#goForwardButton").hide();
             $(".subflow").hide();
+            $("#submitButton").show();
+            
+            printReviewScreen();
+            
+            $("#reviewScreen").show();            
+        }
+        
+        $(document).on("click", "#reviewButton", function () {
+            showReview();
+        });
+        
+        $(document).on("toggle", "#reviewButton", function () {
+            showReview();
         });
         
         $(document).on("focus", "#pss_smr", function () {
@@ -657,6 +709,8 @@
 
         // Previous button is easy, just go back
         $(document).on("click", ".prev", function () {
+            $("#reviewScreen").hide();
+            $("#submitButton").hide();
             goBack();
         });
 
@@ -670,28 +724,88 @@
             }).always(function () {
                 //
             }).done(function () {
-                var nextIndex = (curIndex() + 1);
+                //$('.form-section').eq(index).attr('data-section-index')
+//                var thisSection = $('.form-section.current'),
+//                    lastSection = $('.form-section').length - 1,
+//                    thisIndex = thisSection.attr('data-section-index'),
+//                    goToIndex = lastSection;
+
+//                console.log("thisIndex: " + thisIndex);
+//                console.log(typeof(thisIndex));
+//                if(thisIndex.toString==="3") {
+//                    console.log("select subflow!");
+//                }
                 
-                if(currentSubflow && subflowIndex===0) {
-                    subflowIndex++;
-                    nextIndex = $("." + currentSubflow + ":first").data("section-index") - 1;
-                }
+//                var thisSection = $('.form-section.current'),
+//                    lastSection = $('.form-section').length - 1,
+//                    thisIndex = thisSection.attr('data-section-index'),
+//                    goToIndex = lastSection;
+//
+//                if(thisIndex < lastSection && empty(currentSubflow)) {
+//                    var goToIndex = thisSection.next('.form-section').attr('data-section-index');
+//                } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)) {
+//                    var goToIndex = thisSection.next('.form-section.' + currentSubflow).attr('data-section-index');
+//                } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.next('.form-section').hasClass(currentSubflow)===false) {
+//                    var goToIndex = thisSection.next('.form-section').attr('data-section-index');
+//                }
                 
-                if(currentSubflow && subflowIndex>0) {
-                    subflowIndex++;
+                var thisSection = $('.form-section').eq(curIndex());
+                
+                /****/
+                $sections.each(function (index, section) {
+//                    $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+//                    $(section).attr("data-section-index", index);
                     
-                    if(currentSubflow=='sus') {
-                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+                    // clear section index
+                    if(index>=4) {
+                        $(section).attr("data-section-index", "");
                     }
-                    if(currentSubflow=='pss') {
-                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
-                    }
-                    if(currentSubflow=='ccs') {
-                        nextIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
-                    }
-                }
+                    if(index>=4 && $(section).hasClass(currentSubflow)) {
+                        $(section).attr("data-section-index", index);
+                    }                        
+                });
+                /****/
                 
-                navigateTo(nextIndex);
+                if(thisSection.hasClass("show-prev")) {
+                    $('#goBackButton').show();
+                } else {
+                    $('#goBackButton').hide();
+                }
+
+                if(thisSection.hasClass("show-next")) {
+                    $('#goForwardButton').show();
+                } else {
+                    $('#goForwardButton').hide();
+                }
+//
+//                if(thisSection.hasClass("show-review")) {
+//                    $('#reviewButton').show();
+//                } else {
+//                    $('#reviewButton').hide();
+//                }
+
+                var goToIndex = (curIndex() + 1);
+                
+//                if(currentSubflow && subflowIndex===0) {
+//                    subflowIndex++;
+//                    goToIndex = $("." + currentSubflow + ":first").data("section-index") - 1;
+//                }
+//                
+//                if(currentSubflow && subflowIndex>0) {
+//                    subflowIndex++;
+//                    
+//                    if(currentSubflow=='sus') {
+//                        goToIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+//                    }
+//                    if(currentSubflow=='pss') {
+//                        goToIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+//                    }
+//                    if(currentSubflow=='ccs') {
+//                        goToIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
+//                    }
+//                }
+                
+                navigateTo(goToIndex);
             });
         });
 
