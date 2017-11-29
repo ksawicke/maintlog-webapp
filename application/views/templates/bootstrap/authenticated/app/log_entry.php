@@ -672,6 +672,8 @@
                 thisIndex = thisSection.attr('data-section-index');
 //                goToIndex = lastSection;
             
+            // If we are on the review screen and click "Back"
+            // then we need to check which index to send the user back to
             if("undefined"===typeof(thisIndex)) {
                 var goToIndex = 3 + parseInt($('.subflow.' + currentSubflow).length);
                 navigateTo(goToIndex);
