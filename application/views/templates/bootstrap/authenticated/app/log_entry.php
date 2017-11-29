@@ -500,10 +500,20 @@
         }
 
         function navigateTo(index) {
-            var thisSection = $('.form-section').eq(index),
-                lastSection = $('.form-section').length - 1,
-                thisIndex = thisSection.attr('data-section-index'),
-                goToIndex = lastSection;
+            var thisSection = $("div").find("[data-section-index='" + (index) + "']"),
+//                lastSection = $('.form-section').length - 1,
+                thisIndex = thisSection.attr('data-section-index');
+//                goToIndex = lastSection;
+                
+//            console.log("TEST-- thisIndex: " + thisIndex);    
+                
+            var lastSection = $("div").find("[data-section-index='" + (index - 1) + "']");
+            var goToIndex = lastSection.attr('data-section-index');
+            
+//            var thisSection = $('.form-section').eq(index),
+//                lastSection = $('.form-section').length - 1,
+//                thisIndex = thisSection.attr('data-section-index'),
+//                goToIndex = lastSection;
         
 //            var showNextButton = (thisIndex===lastSection ? false : true);
             
