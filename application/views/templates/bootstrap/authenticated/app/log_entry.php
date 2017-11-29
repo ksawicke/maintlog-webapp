@@ -507,10 +507,19 @@
         
 //            var showNextButton = (thisIndex===lastSection ? false : true);
             
-            $sections
-                    .removeClass('current')
-                    .eq(index)
-                    .addClass('current');
+            $('.form-section').removeClass('current');
+            $("div").find("[data-section-index='" + index + "']").addClass('current').show();
+//            $sections.each(function (ctr, section) {
+//                if($(section).attr("data-section-index").toString()===index.toString()) {
+//                    $(section).addClass("current");
+//                    $(section).show();
+//                }
+//            });
+            
+//            $sections
+//                    .removeClass('current')
+//                    .eq(index)
+//                    .addClass('current');
             
             if(initialPassCompleted && index===3) {
                 setCurrentSubflow();
@@ -518,7 +527,7 @@
             
 //            var atTheBeginning = (index===0 ? true : false);
             
-            $('.form-section').eq(index).show();
+//            $('.form-section').eq(index).show();
             
 //            console.log("INDEX: " + $('.form-section').eq(index).attr('data-section-index'));
 
@@ -649,17 +658,34 @@
         
         function goBack() {
             var thisSection = $('.form-section.current'),
-                lastSection = $('.form-section').length - 1,
-                thisIndex = thisSection.attr('data-section-index'),
-                goToIndex = lastSection;
-            
+//                lastSection = $('.form-section').length - 1,
+                thisIndex = thisSection.attr('data-section-index');
+//                goToIndex = lastSection;
+                
+            console.log("TEST-- thisIndex: " + thisIndex);    
+                
+            var lastSection = $("div").find("[data-section-index='" + (thisIndex - 1) + "']");
+            var goToIndex = lastSection.attr('data-section-index');
+                        
             if(thisIndex < lastSection && empty(currentSubflow)) {
                 var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
+                console.log("    -- goToIndex a: " + goToIndex);
             } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)) {
                 var goToIndex = thisSection.prev('.form-section.' + currentSubflow).attr('data-section-index');
+                console.log("    -- goToIndex b: " + goToIndex);
             } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)===false) {
-                var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
+                var goToIndex = thisIndex - 1;
+//                var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
+                console.log("    -- goToIndex c: " + goToIndex);
             }
+            
+            console.log("    -- lastSection: " + lastSection);
+            console.log("    -- goToIndex: " + goToIndex);
+            
+            console.log("@@@ SECTION CHECK:");
+            $sections.each(function (index, section) {
+                console.log(section);
+            });
             
             navigateTo(goToIndex);
         }
@@ -749,7 +775,21 @@
 //                    var goToIndex = thisSection.next('.form-section').attr('data-section-index');
 //                }
                 
-                var thisSection = $('.form-section').eq(curIndex());
+                var thisSection = $('.form-section.current'),
+//                lastSection = $('.form-section').length - 1,
+                thisIndex = thisSection.attr('data-section-index');
+//                goToIndex = lastSection;
+                
+//                console.log("TEST-- thisIndex: " + thisIndex);    
+
+//                var nextSection = $("div").find("[data-section-index='" + (thisIndex + 1) + "']");
+                var goToIndex = parseInt(thisIndex) + 1;
+                
+                console.log("  @@ thisIndex: " + thisIndex);
+                console.log("  @@ goToIndex: " + goToIndex);
+                
+//                var thisSection = $('.form-section').eq(curIndex());
+                var startAtIndex = 4;
                 
                 /****/
                 $sections.each(function (index, section) {
@@ -760,10 +800,20 @@
                     if(index>=4) {
                         $(section).attr("data-section-index", "");
                     }
+                    
                     if(index>=4 && $(section).hasClass(currentSubflow)) {
-                        $(section).attr("data-section-index", index);
+                        $(section).attr("data-section-index", startAtIndex);
+                        startAtIndex++;
+//                        console.log("SECTION CHECK");
+//                        console.log($(section));
                     }                        
                 });
+                
+                console.log("SECTION CHECK:");
+                $sections.each(function (index, section) {
+                    console.log(section);
+                });
+                
                 /****/
                 
                 if(thisSection.hasClass("show-prev")) {
@@ -784,7 +834,7 @@
 //                    $('#reviewButton').hide();
 //                }
 
-                var goToIndex = (curIndex() + 1);
+//                var goToIndex = (curIndex() + 1);
                 
 //                if(currentSubflow && subflowIndex===0) {
 //                    subflowIndex++;
