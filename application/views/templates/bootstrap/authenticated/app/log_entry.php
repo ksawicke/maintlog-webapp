@@ -671,6 +671,14 @@
 //                lastSection = $('.form-section').length - 1,
                 thisIndex = thisSection.attr('data-section-index');
 //                goToIndex = lastSection;
+            
+            if("undefined"===typeof(thisIndex)) {
+                var goToIndex = 3 + parseInt($('.subflow.' + currentSubflow).length);
+                navigateTo(goToIndex);
+                return;
+            }
+            
+            console.log("####: " + thisSection);    
                 
             console.log("TEST-- thisIndex: " + thisIndex);    
                 
