@@ -1,10 +1,6 @@
-<form id="addEquipment" action="<?php echo base_url('equipment/save'); ?>" method="post">
+<form id="addEquipmentmodel" action="<?php echo base_url('equipmentmodel/save'); ?>" method="post">
     
     <div class="group mainFlow">
-        <div class="form-group">
-            <label for="unit_number" class="control-label lb-lg">Unit No.</label>
-            <input type="text" id="unit_number" name="unit_number" class="form-control input-lg" value="<?php echo $equipment_unit_number; ?>">
-        </div>
         <div class="form-group">
             <label for="manufacturer_id" class="control-label lb-lg">Manufacturer</label>
             <select class="form-control input-lg" id="manufacturer_id" name="manufacturer_id" style="width: 100%;">

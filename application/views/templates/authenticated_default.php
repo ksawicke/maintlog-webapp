@@ -81,7 +81,7 @@
                     <a href="<?php echo base_url('app/manufacturers/index'); ?>">Edit Manufacturers</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('app/equipment/index'); ?>">Edit Equipment</a>
+                    <a href="<?php echo base_url('app/equipmentmodel/index'); ?>">Edit Equipment Models</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('app/equipmentTypes/index'); ?>">Edit Equipment Types</a>

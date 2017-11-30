@@ -212,7 +212,7 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function equipment()
+    public function equipmentmodel()
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -222,17 +222,17 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
-        $this->load->model('Equipment_model');
+        $this->load->model('Equipmentmodel_model');
         
-        $data['equipment'] = $this->Equipment_model->findAll();
+        $data['equipmentmodel'] = $this->Equipmentmodel_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function addEquipment($equipment_id = null)
+    public function addEquipmentmodel($equipment_id = null)
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -243,21 +243,21 @@ class App extends MY_Controller {
 
         $this->load->library('template');
         $this->load->model('Manufacturer_model');
-        $this->load->model('Equipment_model');
+        $this->load->model('Equipmentmodel_model');
         $this->load->model('Equipmenttype_model');
         
         $data['manufacturers'] = $this->Manufacturer_model->findAll();
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
-        $equipment = (!is_null($equipment_id) ? $this->Equipment_model->findOne($equipment_id) : []);
+        $equipmentmodel = (!is_null($equipment_id) ? $this->Equipmentmodel_model->findOne($equipment_id) : []);
         $data['equipment_id'] = (!is_null($equipment_id) ? $equipment_id : 0);
-        $data['equipment_unit_number'] = (!empty($equipment) ? $equipment->unit_number : '');
-        $data['equipment_manufacturer_id'] = (!empty($equipment) ? $equipment->manufacturer_id : '');
-        $data['equipment_model_number'] = (!empty($equipment) ? $equipment->model_number : '');
-        $data['equipment_equipmenttype_id'] = (!empty($equipment) ? $equipment->equipmenttype_id : '');
+        $data['equipment_unit_number'] = (!empty($equipmentmodel) ? $equipment->unit_number : '');
+        $data['equipment_manufacturer_id'] = (!empty($equipmentmodel) ? $equipment->manufacturer_id : '');
+        $data['equipment_model_number'] = (!empty($equipmentmodel) ? $equipment->model_number : '');
+        $data['equipment_equipmenttype_id'] = (!empty($equipmentmodel) ? $equipment->equipmenttype_id : '');
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipment/add', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
