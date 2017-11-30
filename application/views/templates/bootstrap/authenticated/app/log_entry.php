@@ -109,41 +109,80 @@
                 data-parsley-error-message="Please select the entry type"
                 data-parsley-errors-container=".subflow_errors">
             <option value="">Select one:</option>
-            <option value="sus">SMR update</option>
-            <option value="pss">PM service</option>
+            <option value="sus">SMR Update</option>
+            <option value="flu">Fluid Entry</option>
+            <option value="pss">PM Service</option>
             <option value="ccs">Component Change</option>
         </select>
         <p class="form-error subflow_errors"></p>
     </div>
 
     <!-- SMR UPDATE SUBFLOW -->
-    <div class="form-section subflow sus show-prev show-next">
+    <div class="form-section subflow sus show-prev show-review">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="sus_previous_smr" class="control-label lb-lg">Previous SMR</label>
+                <input 
+                       id="sus_previous_smr"
+                       name="sus_previous_smr"
+                       type="text"
+                       class="form-control input-lg"
+                       value="99"
+                       disabled>
+            </div>
+        </div>
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="sus_fluid_type" class="control-label lb-lg">Fluid Type</label>
+                <label for="sus_current_smr" class="control-label lb-lg">Current SMR</label>
+                <input
+                       id="sus_current_smr"
+                       name="sus_current_smr"
+                       type="text"
+                       class="form-control input-lg"
+                       value=""
+                       data-parsley-type="number"
+                       data-parsley-required="true"
+                       data-parsley-gt="0"
+                       data-parsley-lt="9999999"
+                       data-parsley-required-message="Please enter the current SMR"
+                       data-parsley-gt-message="Please enter a quantity greater than 0"
+                       data-parsley-lt-message="Please enter a quantity less than 9,999,999"
+                       data-parsley-errors-container=".sus_current_smr_errors">
+                <p class="form-error sus_current_smr_errors"></p>
+            </div>
+        </div>
+    </div>
+    <!-- /SMR UPDATE SUBFLOW -->
+    
+    <!-- FLUID ENTRY SUBFLOW -->
+    <div class="form-section subflow flu show-prev show-next">
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="flu_fluid_type" class="control-label lb-lg">Fluid Type</label>
                 <select 
-                        id="sus_fluid_type"
-                        name="sus_fluid_type"
+                        id="flu_fluid_type"
+                        name="flu_fluid_type"
                         class="form-control input-lg"
                         data-parsley-required="true"
                         data-parsley-error-message="Please select the fluid type"
-                        data-parsley-errors-container=".sus_fluid_type_errors">
+                        data-parsley-errors-container=".flu_fluid_type_errors">
                     <option value="">Select one:</option>
                     <?php foreach($fluidtypes as $fluidtype) { ?>
                         <option value="<?php echo $fluidtype->id; ?>"><?php echo $fluidtype->fluid_type; ?></option>
                     <?php } ?>
                 </select>
-                <p class="form-error sus_fluid_type_errors"></p>
+                <p class="form-error flu_fluid_type_errors"></p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <label for="sus_quantity" class="control-label lb-lg">Quantity</label>
+                <label for="flu_quantity" class="control-label lb-lg">Quantity</label>
                 <input 
-                       id="sus_quantity"
-                       name="sus_quantity"
+                       id="flu_quantity"
+                       name="flu_quantity"
                        type="text"
                        class="form-control input-lg"
                        data-parsley-type="number"
@@ -153,34 +192,34 @@
                        data-parsley-required-message="Please choose the quantity of fuel used"
                        data-parsley-gt-message="Please enter a quantity greater than 0"
                        data-parsley-lt-message="Please enter a quantity less than 10000.0"
-                       data-parsley-errors-container=".sus_quantity_errors">
-                <p class="form-error sus_quantity_errors"></p>
+                       data-parsley-errors-container=".flu_quantity_errors">
+                <p class="form-error flu_quantity_errors"></p>
             </div>
 
             <div class="col-lg-9 col-md-9 col-sm-9">
-                <label for="sus_units" class="control-label lb-lg">&nbsp;</label>
+                <label for="flu_units" class="control-label lb-lg">&nbsp;</label>
                 <select
-                        id="sus_units"
-                        name="sus_units"
+                        id="flu_units"
+                        name="flu_units"
                         class="form-control input-lg"
                         data-parsley-required="true"
                         data-parsley-error-message="Please choose the units of fuel used"
-                        data-parsley-errors-container=".sus_units_errors">
+                        data-parsley-errors-container=".flu_units_errors">
                     <option value="" selected>Select one:</option>
                     <option value="gal">Gallons (gal)</option>
                     <option value="L">Liters (L)</option>
                 </select>
-                <p class="form-error sus_units_errors"></p>
+                <p class="form-error flu_units_errors"></p>
             </div>
         </div>
         
     </div>
 
-    <div class="form-section subflow sus show-prev show-review">
-        <label for="sus_miles" class="control-label lb-lg">SMR / Miles</label>
+    <div class="form-section subflow flu show-prev show-review">
+        <label for="flu_miles" class="control-label lb-lg">SMR / Miles</label>
         <input
-               id="sus_miles"
-               name="sus_miles"
+               id="flu_miles"
+               name="flu_miles"
                type="text"
                class="form-control input-lg"
                value=""
@@ -192,9 +231,9 @@
                data-parsley-gt-message="Please enter a quantity greater than 0"
                data-parsley-lt-message="Please enter a quantity less than 9,999,999"
                data-parsley-errors-container=".sus_miles_errors">
-        <p class="form-error sus_miles_errors"></p>
+        <p class="form-error flu_miles_errors"></p>
     </div>
-    <!-- /SMR UPDATE SUBFLOW -->
+    <!-- /FLUID ENTRY SUBFLOW -->
 
     <!-- PM SERVICE SUBFLOW -->
     <div class="form-section subflow pss show-prev show-next">
@@ -944,11 +983,16 @@
         
         switch(currentSubflow) {
             case 'sus':
-                json.sus_fluid_type = $("#sus_fluid_type").val();
-                json.sus_quantity = $("#sus_quantity").val();
-                json.sus_units = $("#sus_units").val();
-                json.sus_miles = $("#sus_miles").val();             
-                break
+                json.sus_previous_smr = $("#sus_previous_smr").val();
+                json.sus_current_smr = $("#sus_current_smr").val();
+                break;
+                
+            case 'flu':
+                json.flu_fluid_type = $("#flu_fluid_type").val();
+                json.flu_quantity = $("#flu_quantity").val();
+                json.flu_units = $("#flu_units").val();
+                json.flu_miles = $("#flu_miles").val();             
+                break;
 
             case 'pss':
                 json.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
@@ -994,16 +1038,21 @@
             
         switch(currentSubflow) {
             case 'sus':
-                json.push({ "label": "Entry Selection", "value": "SMR update" });
-                objectPush(json, "Fluid Type", "sus_fluid_type", true);
+                objectPush(json, "Previous SMR", "sus_previous_smr", false);
+                objectPush(json, "Current SMR", "sus_current_smr", false);
+                break;
+                
+            case 'flu':
+                json.push({ "label": "Entry Selection", "value": "Fluid Entry" });
+                objectPush(json, "Fluid Type", "flu_fluid_type", true);
 
                 // Concatenated value so handling differently...
                 json.push({ "label": "Quantity",
-                            "value": $("#sus_quantity").val() + " " + $("#sus_units option[value='" + $("#sus_units").val() + "']").text()
+                            "value": $("#flu_quantity").val() + " " + $("#flu_units option[value='" + $("#flu_units").val() + "']").text()
                 });
 
-                objectPush(json, "SMR/Miles", "sus_miles", false);                
-                break
+                objectPush(json, "SMR/Miles", "flu_miles", false);                
+                break;
 
             case 'pss':
                 json.push({ "label": "Entry Selection", "value": "PM Service" });
