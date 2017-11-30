@@ -33,10 +33,17 @@ class Servicelog_model extends CI_Model {
             case 'sus':
                 $smrupdate = R::dispense('smrupdate');
                 $smrupdate->servicelog_id = $servicelog_id;
-                $smrupdate->sus_fluid_type = $post['sus_fluid_type'];
-                $smrupdate->sus_quantity = $post['sus_quantity'];
-                $smrupdate->sus_units = $post['sus_units'];
-                $smrupdate->sus_miles = $post['sus_miles'];
+                $smrupdate->smr = 'sus_current_smr';
+                R::store($smrupdate);
+                break;
+            
+            case 'flu':
+                $smrupdate = R::dispense('fluidupdate');
+                $smrupdate->servicelog_id = $servicelog_id;
+                $smrupdate->flu_fluid_type = $post['flu_fluid_type'];
+                $smrupdate->flu_quantity = $post['flu_quantity'];
+                $smrupdate->flu_units = $post['flu_units'];
+                $smrupdate->flu_miles = $post['flu_miles'];
                 R::store($smrupdate);
                 break;
             
