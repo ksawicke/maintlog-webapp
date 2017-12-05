@@ -317,6 +317,21 @@
                 <p class="form-error pss_reminder_recipients_errors"></p>
             </div>
         </div>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label>
+                <textarea type="text"
+                       id="pss_additional_reminder_recipients"
+                       name="pss_additional_reminder_recipients"
+                       class="form-control input-lg"
+                       data-parsley-required="true"
+                       data-parsley-error-message="Please enter recipients email addresses separated by comma"
+                       data-parsley-errors-container=".pss_additional_reminder_recipients"
+                       readonly></textarea>
+                <p class="form-error pss_reminder_recipients_errors"></p>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">

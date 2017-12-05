@@ -259,7 +259,7 @@ class App extends MY_Controller {
         $data['equipment_model_number'] = (!empty($equipmentmodel) ? $equipment->model_number : '');
         $data['equipment_equipmenttype_id'] = (!empty($equipmentmodel) ? $equipment->equipmenttype_id : '');
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/add', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentunit/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
