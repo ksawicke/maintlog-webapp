@@ -212,6 +212,58 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function equipmentunit()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Equipmentunit_model');
+        
+        $data['equipmentunit'] = $this->Equipmentunit_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentunit/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addEquipmentunit($equipmentunit_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Manufacturer_model');
+        $this->load->model('Equipmentunit_model');
+        $this->load->model('Equipmentmodel_model');
+        $this->load->model('Equipmenttype_model');
+        
+        $data['manufacturers'] = $this->Manufacturer_model->findAll();
+        $data['equipmentmodels'] = $this->Equipmentmodel_model->findAll();
+        $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $equipmentunit = (!is_null($equipmentunit_id) ? $this->Equipmentunit_model->findOne($equipmentunit_id) : []);
+        $data['equipmentunit_id'] = (!is_null($equipment_id) ? $equipment_id : 0);
+        $data['equipment_unit_number'] = (!empty($equipmentmodel) ? $equipment->unit_number : '');
+        $data['equipment_manufacturer_id'] = (!empty($equipmentmodel) ? $equipment->manufacturer_id : '');
+        $data['equipment_model_number'] = (!empty($equipmentmodel) ? $equipment->model_number : '');
+        $data['equipment_equipmenttype_id'] = (!empty($equipmentmodel) ? $equipment->equipmenttype_id : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
     public function equipmentmodel()
     {
         $data = [
@@ -514,6 +566,48 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function reminderRecipients()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Reminderrecipient_model');
+        
+        $data['reminderrecipients'] = $this->Reminderrecipient_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addReminderRecipient($reminderrecipient_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Reminderrecipient_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $reminderrecipient = (!is_null($reminderrecipient_id) ? $this->Reminderrecipient_model->findOne($reminderrecipient_id) : []);
+        $data['reminderrecipient_id'] = (!is_null($reminderrecipient_id) ? $reminderrecipient_id : 0);
+        $data['reminderrecipient_reminder_recipient'] = (!empty($reminderrecipient) ? $reminderrecipient->reminder_recipient : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
     public function appSettings()
     {
         $data = [
@@ -532,6 +626,7 @@ class App extends MY_Controller {
         $data['smr_based_choices'] = $appsetting->smr_based_choices;
         $data['mileage_based_choices'] = $appsetting->mileage_based_choices;
         $data['time_based_choices'] = $appsetting->time_based_choices;
+        $data['additional_email_reminder_recipient'] = $appsetting->additional_email_reminder_recipient;
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/appsettings/edit', $data, true);
                 
