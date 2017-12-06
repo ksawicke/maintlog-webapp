@@ -28,14 +28,16 @@ class Equipmentmodel extends MY_Controller {
         $post = json_decode(file_get_contents('php://input'), true);
         $equipmentmodel = [];
         
-        if(!array_key_exists('query', $post) || !array_key_exists('id', $post)) {
+        if(!array_key_exists('id', $post)) {
             http_response_code(404);
+            echo json_encode(['success' => false]);
         } else {
             http_response_code(200);
-            $equipmentmodel = $this->Equipment_model->findAllByEquipmentTypeIdAndQuery($post['id'], $post['query']);
+            $equipmentmodel = $this->Equipmentmodel_model->findAllByEquipmentType($post['id']);
+            echo json_encode(['success' => true, 'data' => $equipmentmodel]);
         }
         
-        echo json_encode($equipmentmodel);
+        
 //        echo json_encode(['equipment' => $equipment]);
         exit();
     }

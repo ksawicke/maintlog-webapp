@@ -19,9 +19,14 @@ class Equipmentunit_model extends CI_Model {
      * @return type
      */
     public function findOne($equipmentunit_id) {
-        $equipmentunit = R::findOne('equipmentunit', ' id = :equipmentunit_id ', [':equipmentunit_id' => $equipmentunit_id]);
+        $equipmentunit = R::getAll('SELECT equipmentunit.id AS equipmentunit_id, equipmentunit.unit_number, manufacturer.id as manufacturer_id, manufacturer.manufacturer_name, equipmentunit.equipmentmodel_id, equipmentmodel.model_number, equipmenttype.equipment_type, equipmenttype.id as equipment_type_id
+FROM equipmentunit
+  LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+  LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+  LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+  WHERE equipmentunit.id = ' . $equipmentunit_id);
         
-        return $equipmentunit;
+        return (object) $equipmentunit[0];
     }
     
     /**
@@ -30,7 +35,12 @@ class Equipmentunit_model extends CI_Model {
      * @return type
      */
     public function findAll() {
-        $equipmentunit = R::findAll('equipmentunit', ' ORDER BY equipment_unit ASC');
+        $equipmentunit = R::getAll('SELECT equipmentunit.id AS equipmentunit_id, equipmentunit.unit_number, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmenttype.equipment_type
+FROM equipmentunit
+  LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+  LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+  LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+  ORDER BY manufacturer_name ASC, model_number ASC');
         
         return $equipmentunit;
     }
@@ -42,7 +52,8 @@ class Equipmentunit_model extends CI_Model {
         $now = date('Y-m-d h:i:s');
         
         $equipmentunit = ($post['equipmentunit_id']==0 ? R::dispense('equipmentunit') : R::load('equipmentunit', $post['equipmentunit_id']));
-        $equipmenttype->equipment_type = $post['equipment_type'];
+        $equipmentunit->equipmentmodel_id = $post['equipmentmodel_id'];
+        $equipmentunit->unit_number = $post['unit_number'];
         
         if($post['equipmentunit_id']==0) {
             $equipmentunit->created = $now;

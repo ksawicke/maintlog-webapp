@@ -224,10 +224,10 @@ class App extends MY_Controller {
         $this->load->library('template');
         $this->load->model('Equipmentunit_model');
         
-        $data['equipmentunit'] = $this->Equipmentunit_model->findAll();
+        $data['equipmentunits'] = $this->Equipmentunit_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentunit/index', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }
@@ -253,13 +253,18 @@ class App extends MY_Controller {
         $data['flashdata'] = $this->session->flashdata();
         
         $equipmentunit = (!is_null($equipmentunit_id) ? $this->Equipmentunit_model->findOne($equipmentunit_id) : []);
-        $data['equipmentunit_id'] = (!is_null($equipment_id) ? $equipment_id : 0);
-        $data['equipment_unit_number'] = (!empty($equipmentmodel) ? $equipment->unit_number : '');
-        $data['equipment_manufacturer_id'] = (!empty($equipmentmodel) ? $equipment->manufacturer_id : '');
-        $data['equipment_model_number'] = (!empty($equipmentmodel) ? $equipment->model_number : '');
-        $data['equipment_equipmenttype_id'] = (!empty($equipmentmodel) ? $equipment->equipmenttype_id : '');
+        $data['equipmentunit_id'] = (!is_null($equipmentunit_id) ? $equipmentunit_id : 0);
+        $data['equipment_unit_number'] = (!empty($equipmentunit) ? $equipmentunit->unit_number : '');
+        $data['equipment_manufacturer_id'] = (!empty($equipmentunit) ? $equipmentunit->manufacturer_id : '');
+        $data['equipment_model_id'] = (!empty($equipmentunit) ? $equipmentunit->model_number : '');
+        $data['equipment_equipmentmodel_id'] = (!empty($equipmentunit) ? $equipmentunit->equipmentmodel_id : '');
+        $data['equipment_equipmenttype_id'] = (!empty($equipmentunit) ? $equipmentunit->equipment_type_id : '');
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentunit/add', $data, true);
+//        echo '<pre>';
+//        var_dump($data['equipmentunit_id']);
+//        exit();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/add', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

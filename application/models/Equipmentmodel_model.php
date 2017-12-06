@@ -40,14 +40,8 @@ class Equipmentmodel_model extends CI_Model {
      * 
      * @return type
      */
-    public function findAllByEquipmentTypeIdAndQuery($equipmenttype_id, $query) {        
-        $dbQuery = 'SELECT equipmentmodel.id, equipmentmodel.manufacturer_id, equipmentmodel.model_number, equipmentmodel.equipmenttype_id, manufacturer.manufacturer_name, equipmenttype.equipment_type, CONCAT( equipmentmodel.unit_number,  " ", manufacturer.manufacturer_name,  " ", equipmentmodel.model_number ) AS search_match
-FROM equipmentmodel
-LEFT JOIN manufacturer ON manufacturer.id = equipmentmodel.manufacturer_id
-LEFT JOIN equipmenttype ON equipmenttype.id = equipmentmodel.equipmenttype_id
-WHERE equipmentmodel.equipmenttype_id =  "' . $equipmenttype_id . '"
-AND CONCAT( equipmentmodel.unit_number,  " ", manufacturer.manufacturer_name,  " ", equipmentmodel.model_number ) LIKE  "%' . $query . '%"
-ORDER BY equipmentmodel.model_number ASC';
+    public function findAllByEquipmentType($equipmenttype_id) {        
+        $dbQuery = 'SELECT equipmentmodel.id AS equipmentmodel_id, equipmentmodel.manufacturer_id, equipmentmodel.model_number, equipmentmodel.equipmenttype_id, manufacturer.manufacturer_name, equipmenttype.equipment_type FROM equipmentmodel LEFT JOIN manufacturer ON manufacturer.id = equipmentmodel.manufacturer_id LEFT JOIN equipmenttype ON equipmenttype.id = equipmentmodel.equipmenttype_id WHERE equipmentmodel.equipmenttype_id = ' . $equipmenttype_id . ' ORDER BY equipmentmodel.model_number ASC';
 
         $equipmentmodel = R::getAll($dbQuery);
         
