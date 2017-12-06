@@ -24,6 +24,22 @@ class Equipmentunits extends MY_Controller {
         $this->load->model('Equipmentunit_model');
     }
     
+    public function getUnitByModelId() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $equipmentunit = [];
+        
+        if(!array_key_exists('id', $post)) {
+            http_response_code(404);
+            echo json_encode(['success' => false]);
+        } else {
+            http_response_code(200);
+            $equipmentunit = $this->Equipmentunit_model->findAllByModelId($post['id']);
+            echo json_encode(['success' => true, 'data' => $equipmentunit]);
+        }
+        
+        exit();
+    }
+    
     public function save() {
         $this->Equipmentunit_model->store($this->input->post());
         

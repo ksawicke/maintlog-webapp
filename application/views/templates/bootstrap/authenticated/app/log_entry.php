@@ -587,7 +587,7 @@
             $("#submitButton").show();
         }
         
-        function populateDropdownWithData(serviceUrl, field) {            
+        function populateEquipmentModelDropdownWithData(serviceUrl, field) {            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -595,7 +595,8 @@
                 data: JSON.stringify({"id": $("#equipment_type").val()}),
                 contentType: "application/json"
             }).done(function(object) {
-                // Clear dropdown first.
+                // Clear dropdowns first.
+                $('#unit_number').empty();
                 $('#equipmentmodel_id').empty();
                 $('#equipmentmodel_id').append('<option value="">Select one:</option>');
                 
@@ -606,10 +607,28 @@
                         
                     $('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
                 });
+            });
+        }
+        
+        function populateUnitNumberDropdownWithData(serviceUrl, field) {            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({"id": $("#equipmentmodel_id").val()}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdown first.
+                $('#unit_number').empty();
+                $('#unit_number').append('<option value="">Select one:</option>');
                 
-                <?php if(!empty($equipmentunit_id)) { ?>
-                    $("#equipmentmodel_id").val("<?php echo $equipment_equipmentmodel_id; ?>");
-                <?php } ?>
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, unitData) {
+                    var id = unitData.id,
+                        value = unitData.unit_number;
+                        
+                    $('#unit_number').append('<option value="' + id + '">' + value + '</option>');
+                });
             });
         }
         
@@ -683,8 +702,9 @@
         
         $(document).on("focus", "#pss_smr", function () {
             // Populate with choices from the db
-            populateDropdownWithData("/sites/komatsuna/appsettings/get_setting",
-                $(this));
+            console.log("POPULATE SMR");
+//            populateDropdownWithData("/sites/komatsuna/appsettings/get_setting",
+//                $(this));
         });
         
         $(document).on("click", "#cancelSubmitLogEntryForm", function () {
@@ -762,8 +782,14 @@
         
         $("#equipment_type").on('change', function() {
             $("#equipmentmodel_id").prop('disabled', false);
-            populateDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
+            populateEquipmentModelDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
                 $("#equipmentmodel_id"));
+        });
+        
+        $("#equipmentmodel_id").on('change', function() {
+            $("#unit_number").prop('disabled', false);
+            populateUnitNumberDropdownWithData("/sites/komatsuna/equipmentunits/getUnitByModelId",
+                $("#unit_number"));
         });
     });
 </script>

@@ -37,8 +37,6 @@ class Equipmentmodel extends MY_Controller {
             echo json_encode(['success' => true, 'data' => $equipmentmodel]);
         }
         
-        
-//        echo json_encode(['equipment' => $equipment]);
         exit();
     }
     

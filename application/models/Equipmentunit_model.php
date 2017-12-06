@@ -45,6 +45,14 @@ FROM equipmentunit
         return $equipmentunit;
     }
     
+    public function findAllByModelId($equipmentmodel_id) {
+        $dbQuery = 'SELECT equipmentunit.id, equipmentunit.unit_number FROM equipmentunit WHERE equipmentunit.equipmentmodel_id = ' . $equipmentmodel_id . ' ORDER BY equipmentunit.unit_number ASC';
+
+        $equipmentunit = R::getAll($dbQuery);
+        
+        return $equipmentunit;
+    }
+    
     /**
      * Creates or modifies an equipment unit object.
      */
