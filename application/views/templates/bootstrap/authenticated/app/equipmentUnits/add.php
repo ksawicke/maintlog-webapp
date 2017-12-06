@@ -77,38 +77,5 @@
             populateDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
                 $("#equipmentmodel_id"));
         <?php } ?>
-        
-//        $("#equipment_typeahead").on('focus', function() {
-//           $(this).val('');
-//           $("#equipment_id").val('');
-//        });
-//        
-//        $("#equipment_typeahead").typeahead({
-//            hint: true,
-//            highlight: true,
-//            minLength: 3
-//        }, {
-//            source: engine.ttAdapter(),
-//
-//            // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-//            name: 'equipmentList',
-//
-//            // the key from the array we want to display (name,id,email,etc...)
-//            templates: {
-//                empty: [
-//                    '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
-//                ],
-//                header: [
-//                    '<div class="list-group search-results-dropdown">'
-//                ],
-//                suggestion: function (data) {
-//                    return '<a href="#" class="list-group-item">' + data.search_match + '</a>';
-//                }
-//            }
-//        }).on('typeahead:selected', function(event, selection) {
-//            $(this).typeahead('val', selection.search_match);
-//            $("#equipment_id").val(selection.id);
-//            $("#equipment_description").val(selection.search_match);
-//        });
     });
 </script>
