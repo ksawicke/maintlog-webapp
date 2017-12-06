@@ -7,7 +7,7 @@
                     name="equipment_type"
                     class="form-control input-lg"
                     data-parsley-required="true"
-                    data-parsley-error-message="Please select the equipment type"
+                    data-parsley-error-message="Please select the Equipment Type"
                     data-parsley-errors-container=".equipment_type_errors">
                 <option value="">Select one:</option>
                 <?php foreach($equipmenttypes as $equipmenttype) { ?>
@@ -20,7 +20,7 @@
                     name="equipmentmodel_id"
                     class="form-control input-lg"
                     data-parsley-required="true"
-                    data-parsley-error-message="Please select the equipment model"
+                    data-parsley-error-message="Please select the Equipment Model"
                     data-parsley-errors-container=".equipmentmodel_id_errors"
                     disabled>
             </select>
@@ -52,8 +52,6 @@
                 
                 // Populate dropdown via ajax.
                 $.each(object.data, function(id, unitData) {
-                    //unitData.equipmentmodel_id
-                    //unitData.manufacturer_name
                     var id = unitData.equipmentmodel_id,
                         value = unitData.manufacturer_name + " " + unitData.model_number;
                         

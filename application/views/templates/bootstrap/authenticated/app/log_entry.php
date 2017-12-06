@@ -55,48 +55,43 @@
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                
+
                 <label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
                 <select id="equipment_type"
                         name="equipment_type"
                         class="form-control input-lg"
                         data-parsley-required="true"
-                        data-parsley-error-message="Please select the equipment type"
+                        data-parsley-error-message="Please select the Equipment Type"
                         data-parsley-errors-container=".equipment_type_errors">
                     <option value="">Select one:</option>
                     <?php foreach($equipmenttypes as $equipmenttype) { ?>
                         <option value="<?php echo $equipmenttype->id; ?>"><?php echo $equipmenttype->equipment_type; ?></option>
                     <?php } ?>
                 </select>
-                <p class="form-error equipment_type_errors"></p>
+
+                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label>
+                <select id="equipmentmodel_id"
+                        name="equipmentmodel_id"
+                        class="form-control input-lg"
+                        data-parsley-required="true"
+                        data-parsley-error-message="Please select the Equipment Model"
+                        data-parsley-errors-container=".equipmentmodel_id_errors"
+                        disabled>
+                </select>
+
+                <label for="unit_number" class="control-label lb-lg">Unit Number</label>
+                <select id="unit_number"
+                        name="unit_number"
+                        class="form-control input-lg"
+                        data-parsley-required="true"
+                        data-parsley-error-message="Please select the Unit Number"
+                        data-parsley-errors-container=".unit_number_errors"
+                        disabled>
+                </select>
+                                
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                
-                <label for="equipment_typeahead" class="control-label lb-lg">Equipment</label>
-                <br />
-                <input id="equipment_typeahead"
-                       name="equipment_typeahead"
-                       type="text"
-                       class="form-control input-lg"
-                       required=""
-                       data-parsley-equipmentrequired=""
-                       data-parsley-errors-container=".equipment_typeahead_errors">
-                <p class="form-error equipment_typeahead_errors"></p>
-              
-                <input id="equipment_id"
-                    name="equipment_id"
-                    type="hidden"
-                    value="">
-                <input id="equipment_description"
-                    name="equipment_description"
-                    type="hidden"
-                    value="">
-                
-            </div>
-        </div>
     </div>
 
     <div class="form-section show-prev show-next">
@@ -483,28 +478,7 @@
             dialogWidth = windowWidth * 0.65,
             windowHeight = $(window).height(),
             dialogHeight = windowHeight * 0.65;
-                
-        // Set the Options for "Bloodhound" suggestion engine
-        // @see https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead-js
-        // @see https://github.com/twitter/typeahead.js/issues/1236
-        var engine = new Bloodhound({
-            remote: {
-                url: '<?php echo base_url("equipment/getEquipmentByType"); ?>',
-                //url: '/find?q=%QUERY%',
-                prepare: function (query, settings) {
-                    settings.type = "POST";
-                    settings.contentType = "application/json; charset=UTF-8";
-                    customSearch = {id: $("#equipment_type").val(), query: query};
-                    settings.data = JSON.stringify(customSearch); //query
-
-                    return settings;
-                },
-                wildcard: '%QUERY%'
-            },
-            datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace
-        });
-        
+            
         var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="cancelSubmitLogEntryForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitLogEntryForm" type="button">Yes</button></div>';
         var confirmSubmitJBox = new jBox('Modal', {
             closeButton: 'title',
@@ -531,14 +505,8 @@
         function goBackAfterReview() {
             $("#reviewScreen").hide();
             $('.form-section').hide();
-//            $("#submitButton").hide();
-//            $("#goBackButton").hide();
-//            $('.form-navigation').show();
             $('.form-navigation .next').show();
-//            $("#reviewButton").hide();
             
-//            currentSubflow = '';
-//            subflowIndex = 0;
             atTheEnd = false;
             atReview = false;
             initialPassCompleted = true;
@@ -555,73 +523,17 @@
 
         function navigateTo(index) {
             var thisSection = $("div").find("[data-section-index='" + (index) + "']"),
-//                lastSection = $('.form-section').length - 1,
                 thisIndex = thisSection.attr('data-section-index');
-//                goToIndex = lastSection;
-                
-//            console.log("TEST-- thisIndex: " + thisIndex);    
-                
+        
             var lastSection = $("div").find("[data-section-index='" + (index - 1) + "']");
             var goToIndex = lastSection.attr('data-section-index');
             
-//            var thisSection = $('.form-section').eq(index),
-//                lastSection = $('.form-section').length - 1,
-//                thisIndex = thisSection.attr('data-section-index'),
-//                goToIndex = lastSection;
-        
-//            var showNextButton = (thisIndex===lastSection ? false : true);
-            
             $('.form-section').removeClass('current');
             $("div").find("[data-section-index='" + index + "']").addClass('current').show();
-//            $sections.each(function (ctr, section) {
-//                if($(section).attr("data-section-index").toString()===index.toString()) {
-//                    $(section).addClass("current");
-//                    $(section).show();
-//                }
-//            });
-            
-//            $sections
-//                    .removeClass('current')
-//                    .eq(index)
-//                    .addClass('current');
             
             if(initialPassCompleted && index===3) {
                 setCurrentSubflow();
             }
-            
-//            var atTheBeginning = (index===0 ? true : false);
-            
-//            $('.form-section').eq(index).show();
-            
-//            console.log("INDEX: " + $('.form-section').eq(index).attr('data-section-index'));
-
-//            if(index>0 && currentSubflow) {                
-//                if(subflowIndex > $('.' + currentSubflow).length) {
-//                    atTheEnd = true;
-//                }
-//                
-//                if(currentSubflow=='sus') {
-//                    if(subflowIndex > $('.' + currentSubflow).length) {
-////                    if(subflowIndex == 3) {
-//                        atTheEnd = true;
-//                    }
-//                }
-//                if(currentSubflow=='pss') {
-//                    if(subflowIndex == 4) {
-//                        atTheEnd = true;
-//                    }
-//                }
-//                if(currentSubflow=='ccs') {
-//                    if(subflowIndex == 4) {
-//                        atTheEnd = true;
-//                    }
-//                }
-//            }
-//            var atTheBeginning = (index===0 ? true : false);
-//            var atReview = ($('.form-section').eq(index).hasClass('show-review') ? true : false);
-//            var atReview = ($('.form-section').eq(index).hasClass('show-review') ? true : false);
-            
-            console.log(thisSection);
             
             if(thisSection.hasClass("show-prev")) {
                 $('#goBackButton').show();
@@ -640,12 +552,6 @@
             } else {
                 $('#reviewButton').hide();
             }
-            
-            
-//            $('.form-navigation .next').toggle(!atTheEnd);
-//            $('.form-navigation .prev').toggle(!atTheBeginning && !atTheEnd);
-//            $("#reviewButton").toggle(atTheEnd);
-//            $("#submitButton").toggle(atReview);
         }
 
         function curIndex() {
@@ -681,26 +587,30 @@
             $("#submitButton").show();
         }
         
-        function populateDropdownWithData(serviceUrl, field) {
-            /*{
-                "serviceUrl" : "/sites/komatsuna/appsettings/get_setting",
-                "field" : $(this)
-            }*/
-//            console.log(serviceUrl);
-//            console.log(field);
-            
-            var data = $.ajax({
+        function populateDropdownWithData(serviceUrl, field) {            
+            var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify({"field": "smr_based_choices"}),
+                data: JSON.stringify({"id": $("#equipment_type").val()}),
                 contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdown first.
+                $('#equipmentmodel_id').empty();
+                $('#equipmentmodel_id').append('<option value="">Select one:</option>');
+                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, unitData) {
+                    var id = unitData.equipmentmodel_id,
+                        value = unitData.manufacturer_name + " " + unitData.model_number;
+                        
+                    $('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
+                });
+                
+                <?php if(!empty($equipmentunit_id)) { ?>
+                    $("#equipmentmodel_id").val("<?php echo $equipment_equipmentmodel_id; ?>");
+                <?php } ?>
             });
-            
-            var values = data.split('|');
-            
-            console.log(values);
-            console.log(field);
         }
         
         function saveServiceLog() {
@@ -722,9 +632,7 @@
         
         function goBack() {
             var thisSection = $('.form-section.current'),
-//                lastSection = $('.form-section').length - 1,
                 thisIndex = thisSection.attr('data-section-index');
-//                goToIndex = lastSection;
             
             // If we are on the review screen and click "Back"
             // then we need to check which index to send the user back to
@@ -734,32 +642,16 @@
                 return;
             }
             
-            console.log("####: " + thisSection);    
-                
-            console.log("TEST-- thisIndex: " + thisIndex);    
-                
             var lastSection = $("div").find("[data-section-index='" + (thisIndex - 1) + "']");
             var goToIndex = lastSection.attr('data-section-index');
                         
             if(thisIndex < lastSection && empty(currentSubflow)) {
                 var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
-                console.log("    -- goToIndex a: " + goToIndex);
             } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)) {
                 var goToIndex = thisSection.prev('.form-section.' + currentSubflow).attr('data-section-index');
-                console.log("    -- goToIndex b: " + goToIndex);
             } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)===false) {
                 var goToIndex = thisIndex - 1;
-//                var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
-                console.log("    -- goToIndex c: " + goToIndex);
             }
-            
-            console.log("    -- lastSection: " + lastSection);
-            console.log("    -- goToIndex: " + goToIndex);
-            
-            console.log("@@@ SECTION CHECK:");
-            $sections.each(function (index, section) {
-                console.log(section);
-            });
             
             navigateTo(goToIndex);
         }
@@ -815,61 +707,20 @@
         });
 
         // Next button goes forward if current block validates
-        // KMS 10-11-17 https://stackoverflow.com/questions/27932403/parsleyjs-with-multi-steps-form
-        //              https://stackoverflow.com/questions/30054011/duplication-of-field-error-when-using-parsley-js
-//        
         $('.form-navigation .next').click(function () {
             $('.serviceLog-form').parsley().whenValidate({
                 group: 'block-' + curIndex()
             }).always(function () {
                 //
-            }).done(function () {
-                //$('.form-section').eq(index).attr('data-section-index')
-//                var thisSection = $('.form-section.current'),
-//                    lastSection = $('.form-section').length - 1,
-//                    thisIndex = thisSection.attr('data-section-index'),
-//                    goToIndex = lastSection;
-
-//                console.log("thisIndex: " + thisIndex);
-//                console.log(typeof(thisIndex));
-//                if(thisIndex.toString==="3") {
-//                    console.log("select subflow!");
-//                }
-                
-//                var thisSection = $('.form-section.current'),
-//                    lastSection = $('.form-section').length - 1,
-//                    thisIndex = thisSection.attr('data-section-index'),
-//                    goToIndex = lastSection;
-//
-//                if(thisIndex < lastSection && empty(currentSubflow)) {
-//                    var goToIndex = thisSection.next('.form-section').attr('data-section-index');
-//                } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)) {
-//                    var goToIndex = thisSection.next('.form-section.' + currentSubflow).attr('data-section-index');
-//                } else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.next('.form-section').hasClass(currentSubflow)===false) {
-//                    var goToIndex = thisSection.next('.form-section').attr('data-section-index');
-//                }
-                
+            }).done(function () {                
                 var thisSection = $('.form-section.current'),
-//                lastSection = $('.form-section').length - 1,
                 thisIndex = thisSection.attr('data-section-index');
-//                goToIndex = lastSection;
-                
-//                console.log("TEST-- thisIndex: " + thisIndex);    
-
-//                var nextSection = $("div").find("[data-section-index='" + (thisIndex + 1) + "']");
+        
                 var goToIndex = parseInt(thisIndex) + 1;
-                
-                console.log("  @@ thisIndex: " + thisIndex);
-                console.log("  @@ goToIndex: " + goToIndex);
-                
-//                var thisSection = $('.form-section').eq(curIndex());
                 var startAtIndex = 4;
                 
                 /****/
                 $sections.each(function (index, section) {
-//                    $(section).find(':input').attr('data-parsley-group', 'block-' + index);
-//                    $(section).attr("data-section-index", index);
-                    
                     // clear section index
                     if(index>=4) {
                         $(section).attr("data-section-index", "");
@@ -878,17 +729,8 @@
                     if(index>=4 && $(section).hasClass(currentSubflow)) {
                         $(section).attr("data-section-index", startAtIndex);
                         startAtIndex++;
-//                        console.log("SECTION CHECK");
-//                        console.log($(section));
                     }                        
                 });
-                
-                console.log("SECTION CHECK:");
-                $sections.each(function (index, section) {
-                    console.log(section);
-                });
-                
-                /****/
                 
                 if(thisSection.hasClass("show-prev")) {
                     $('#goBackButton').show();
@@ -901,33 +743,6 @@
                 } else {
                     $('#goForwardButton').hide();
                 }
-//
-//                if(thisSection.hasClass("show-review")) {
-//                    $('#reviewButton').show();
-//                } else {
-//                    $('#reviewButton').hide();
-//                }
-
-//                var goToIndex = (curIndex() + 1);
-                
-//                if(currentSubflow && subflowIndex===0) {
-//                    subflowIndex++;
-//                    goToIndex = $("." + currentSubflow + ":first").data("section-index") - 1;
-//                }
-//                
-//                if(currentSubflow && subflowIndex>0) {
-//                    subflowIndex++;
-//                    
-//                    if(currentSubflow=='sus') {
-//                        goToIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
-//                    }
-//                    if(currentSubflow=='pss') {
-//                        goToIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
-//                    }
-//                    if(currentSubflow=='ccs') {
-//                        goToIndex = $("." + currentSubflow + ":first").data("section-index") + subflowIndex - 2;
-//                    }
-//                }
                 
                 navigateTo(goToIndex);
             });
@@ -946,41 +761,9 @@
         });
         
         $("#equipment_type").on('change', function() {
-            $("#equipment_typeahead").val('');
-            $("#equipment_id").val('');
-        });
-        
-        $("#equipment_typeahead").on('focus', function() {
-           $(this).val('');
-           $("#equipment_id").val('');
-        });
-        
-        $("#equipment_typeahead").typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 3
-        }, {
-            source: engine.ttAdapter(),
-
-            // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-            name: 'equipmentList',
-
-            // the key from the array we want to display (name,id,email,etc...)
-            templates: {
-                empty: [
-                    '<div class="list-group search-results-dropdown"><div class="list-group-item">Nothing found.</div></div>'
-                ],
-                header: [
-                    '<div class="list-group search-results-dropdown">'
-                ],
-                suggestion: function (data) {
-                    return '<a href="#" class="list-group-item">' + data.search_match + '</a>';
-                }
-            }
-        }).on('typeahead:selected', function(event, selection) {
-            $(this).typeahead('val', selection.search_match);
-            $("#equipment_id").val(selection.id);
-            $("#equipment_description").val(selection.search_match);
+            $("#equipmentmodel_id").prop('disabled', false);
+            populateDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
+                $("#equipmentmodel_id"));
         });
     });
 </script>
