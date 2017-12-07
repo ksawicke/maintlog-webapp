@@ -216,7 +216,10 @@ $maxFluidEntries = 10;
             </div>
         </div>
         
-        <button class="showFluidEntry<?php echo ($fluidEntryCounter + 1); ?>" type="button" class="prev btn btn-lg btn-success">+ Add Additional Fluid</button>
+        <?php } ?>
+        
+        <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+        <button class="showFluidEntry<?php echo $fluidEntryCounter; ?>" type="button" class="prev btn btn-lg btn-success">+ Add Additional Fluid</button>
         <?php } ?>
         
     </div>
@@ -805,11 +808,8 @@ $maxFluidEntries = 10;
         
         <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
         $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
-        <?php } ?>
-            
-        <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
         $(".showFluidEntry<?php echo $fluidEntryCounter; ?>").hide();
-        $(".showFluidEntry<?php echo $fluidEntryCounter; ?>").on('click', function() {
+        $(document).on('click', '.showFluidEntry<?php echo $fluidEntryCounter; ?>', function() {
             $(".fluidEntry<?php echo $fluidEntryCounter; ?>").show();
         });
         <?php } ?>
