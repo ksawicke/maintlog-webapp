@@ -1,3 +1,7 @@
+<?php
+$maxFluidEntries = 10;
+?>
+
 <form class="serviceLog-form">
     <div class="form-section show-next">
         <label for="date_entered" class="control-label lb-lg">Date Entered</label>
@@ -152,31 +156,36 @@
     <!-- FLUID ENTRY SUBFLOW -->
     <div class="form-section subflow flu show-prev show-next">
         
-        <div class="row">
+        <?php for($fluidEntryCounter = 1; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+        <div class="row fluidEntry<?php echo $fluidEntryCounter; ?>">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="flu_fluid_type" class="control-label lb-lg">Fluid Type</label>
+                <label for="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">Fluid Type</label>
                 <select 
-                        id="flu_fluid_type"
-                        name="flu_fluid_type"
+                        id="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
+                        name="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
                         class="form-control input-lg"
                         data-parsley-required="true"
                         data-parsley-error-message="Please select the fluid type"
-                        data-parsley-errors-container=".flu_fluid_type_errors">
+                        data-parsley-errors-container=".flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors">
                     <option value="">Select one:</option>
                     <?php foreach($fluidtypes as $fluidtype) { ?>
                         <option value="<?php echo $fluidtype->id; ?>"><?php echo $fluidtype->fluid_type; ?></option>
                     <?php } ?>
                 </select>
-                <p class="form-error flu_fluid_type_errors"></p>
+                <p class="form-error flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors"></p>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-3">
-                <label for="flu_quantity" class="control-label lb-lg">Quantity</label>
+        <div class="row fluidEntry<?php echo $fluidEntryCounter; ?>">
+            <div class="col-lg-1 col-md-1 col-sm-1">
+                &nbsp;
+            </div>
+            
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <label for="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">Quantity</label>
                 <input 
-                       id="flu_quantity"
-                       name="flu_quantity"
+                       id="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
+                       name="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
                        type="text"
                        class="form-control input-lg"
                        data-parsley-type="number"
@@ -186,26 +195,29 @@
                        data-parsley-required-message="Please choose the quantity of fuel used"
                        data-parsley-gt-message="Please enter a quantity greater than 0"
                        data-parsley-lt-message="Please enter a quantity less than 10000.0"
-                       data-parsley-errors-container=".flu_quantity_errors">
-                <p class="form-error flu_quantity_errors"></p>
+                       data-parsley-errors-container=".flu_quantity<?php echo "_" . $fluidEntryCounter; ?>_errors">
+                <?php echo '<p class="form-error flu_quantity' . $fluidEntryCounter . '_errors"></p>'; ?>
             </div>
 
             <div class="col-lg-9 col-md-9 col-sm-9">
-                <label for="flu_units" class="control-label lb-lg">&nbsp;</label>
+                <label for="flu_units<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">&nbsp;</label>
                 <select
-                        id="flu_units"
-                        name="flu_units"
+                        id="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
+                        name="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
                         class="form-control input-lg"
                         data-parsley-required="true"
                         data-parsley-error-message="Please choose the units of fuel used"
-                        data-parsley-errors-container=".flu_units_errors">
+                        data-parsley-errors-container=".flu_units<?php echo "_" . $fluidEntryCounter; ?>_errors">
                     <option value="" selected>Select one:</option>
                     <option value="gal">Gallons (gal)</option>
                     <option value="L">Liters (L)</option>
                 </select>
-                <p class="form-error flu_units_errors"></p>
+                <?php echo '<p class="form-error flu_units_' . $fluidEntryCounter . '_errors"></p>'; ?>
             </div>
         </div>
+        
+        <button class="showFluidEntry<?php echo ($fluidEntryCounter + 1); ?>" type="button" class="prev btn btn-lg btn-success">+ Add Additional Fluid</button>
+        <?php } ?>
         
     </div>
 
@@ -790,6 +802,19 @@
             populateUnitNumberDropdownWithData("/sites/komatsuna/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
         });
+        
+        <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+        $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
+        <?php } ?>
+            
+        <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+        $(".showFluidEntry<?php echo $fluidEntryCounter; ?>").hide();
+        $(".showFluidEntry<?php echo $fluidEntryCounter; ?>").on('click', function() {
+            $(".fluidEntry<?php echo $fluidEntryCounter; ?>").show();
+        });
+        <?php } ?>
+            
+        
     });
 </script>
 <script>
