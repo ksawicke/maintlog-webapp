@@ -808,6 +808,9 @@ $maxFluidEntries = 10;
         
         <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
         $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
+        <?php } ?>
+            
+        <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
         $(".showFluidEntry<?php echo $fluidEntryCounter; ?>").hide();
         $(document).on('click', '.showFluidEntry<?php echo $fluidEntryCounter; ?>', function() {
             $(".fluidEntry<?php echo $fluidEntryCounter; ?>").show();
