@@ -164,9 +164,9 @@ $maxFluidEntries = 10;
                         id="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
                         name="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
                         class="form-control input-lg"
-                        data-parsley-required="true"
-                        data-parsley-error-message="Please select the fluid type"
-                        data-parsley-errors-container=".flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors">
+                        <?php if($fluidEntryCounter==1) { ?>data-parsley-required="true"<?php } ?>
+                        <?php if($fluidEntryCounter==1) { ?>data-parsley-error-message="Please select the fluid type"<?php } ?>
+                        <?php if($fluidEntryCounter==1) { ?>data-parsley-errors-container=".flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors"<?php } ?>>
                     <option value="">Select one:</option>
                     <?php foreach($fluidtypes as $fluidtype) { ?>
                         <option value="<?php echo $fluidtype->id; ?>"><?php echo $fluidtype->fluid_type; ?></option>
@@ -188,13 +188,13 @@ $maxFluidEntries = 10;
                        name="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
                        type="text"
                        class="form-control input-lg"
-                       data-parsley-type="number"
+                       <?php if($fluidEntryCounter==1) { ?>data-parsley-type="number"
                        data-parsley-required="true"
                        data-parsley-gt="0"
                        data-parsley-lt="10000"
                        data-parsley-required-message="Please choose the quantity of fuel used"
                        data-parsley-gt-message="Please enter a quantity greater than 0"
-                       data-parsley-lt-message="Please enter a quantity less than 10000.0"
+                       data-parsley-lt-message="Please enter a quantity less than 10000.0"<?php } ?>
                        data-parsley-errors-container=".flu_quantity<?php echo "_" . $fluidEntryCounter; ?>_errors">
                 <?php echo '<p class="form-error flu_quantity' . $fluidEntryCounter . '_errors"></p>'; ?>
             </div>
@@ -205,8 +205,8 @@ $maxFluidEntries = 10;
                         id="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
                         name="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
                         class="form-control input-lg"
-                        data-parsley-required="true"
-                        data-parsley-error-message="Please choose the units of fuel used"
+                        <?php if($fluidEntryCounter==1) { ?>data-parsley-required="true"
+                        data-parsley-error-message="Please choose the units of fuel used"<?php } ?>
                         data-parsley-errors-container=".flu_units<?php echo "_" . $fluidEntryCounter; ?>_errors">
                     <option value="" selected>Select one:</option>
                     <option value="gal">Gallons (gal)</option>
@@ -225,10 +225,10 @@ $maxFluidEntries = 10;
     </div>
 
     <div class="form-section subflow flu show-prev show-review">
-        <label for="flu_miles" class="control-label lb-lg">SMR / Miles</label>
+        <label for="flu_units" class="control-label lb-lg"></label>
         <input
-               id="flu_miles"
-               name="flu_miles"
+               id="flu_units"
+               name="flu_units"
                type="text"
                class="form-control input-lg"
                value=""
@@ -239,8 +239,8 @@ $maxFluidEntries = 10;
                data-parsley-required-message="Please enter the current SMR or Miles"
                data-parsley-gt-message="Please enter a quantity greater than 0"
                data-parsley-lt-message="Please enter a quantity less than 9,999,999"
-               data-parsley-errors-container=".sus_miles_errors">
-        <p class="form-error flu_miles_errors"></p>
+               data-parsley-errors-container=".flu_units_errors">
+        <p class="form-error flu_units_errors"></p>
     </div>
     <!-- /FLUID ENTRY SUBFLOW -->
 
@@ -639,9 +639,10 @@ $maxFluidEntries = 10;
                 // Populate dropdown via ajax.
                 $.each(object.data, function(id, unitData) {
                     var id = unitData.id,
-                        value = unitData.unit_number;
+                        value = unitData.unit_number,
+                        track_type = unitData.track_type;
                         
-                    $('#unit_number').append('<option value="' + id + '">' + value + '</option>');
+                    $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '">' + value + '</option>');
                 });
             });
         }
@@ -738,6 +739,29 @@ $maxFluidEntries = 10;
             $("#reviewScreen").hide();
             $("#submitButton").hide();
             goBack();
+        });
+
+        $(document).on('change', '#unit_number', function() {
+            var fluUnitslabelText = '',
+                thisTrackType = $(this).find(":selected").attr('data-track-type');
+                
+            console.log($(this).find(":selected"));
+            console.log(thisTrackType);    
+                
+            switch(thisTrackType) {
+                case 'smr':
+                    fluUnitslabelText = 'SMR';
+                    break;
+                    
+                case 'miles':
+                    fluUnitslabelText = 'Miles';
+                    break;
+
+                case 'time':
+                    fluUnitslabelText = 'Time';
+                    break;
+            }
+            $("label[for = flu_units]").text(fluUnitslabelText);
         });
 
         // Next button goes forward if current block validates
