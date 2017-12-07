@@ -28,6 +28,19 @@
             <label for="unit_number" class="control-label lb-lg">Unit Number</label>
             <input type="text" id="unit_number" name="unit_number" class="form-control input-lg" value="<?php echo $equipment_unit_number; ?>">
             
+            <label for="track_type" class="control-label lb-lg">Units to Track</label>
+            <select id="track_type"
+                    name="track_type"
+                    class="form-control input-lg"
+                    data-parsley-required="true"
+                    data-parsley-error-message="Please select what units to track for this unit"
+                data-parsley-errors-container=".track_type_errors">
+                <option value="">Select one:</option>
+                <option value="smr"<?php echo ($equipment_track_type=='smr' ? ' selected' : ''); ?>>SMR</option>
+                <option value="miles"<?php echo ($equipment_track_type=='miles' ? ' selected' : ''); ?>>Miles</option>
+                <option value="time"<?php echo ($equipment_track_type=='time' ? ' selected' : ''); ?>>Time</option>
+            </select>
+            
             <label for="person_responsible" class="control-label lb-lg">Person Responsible</label>
             <select id="person_responsible"
                     name="person_responsible"

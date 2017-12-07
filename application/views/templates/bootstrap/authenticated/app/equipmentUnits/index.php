@@ -24,6 +24,7 @@
     $('#equipmentUnitList').DataTable({
         "columns": [
             null,
+            null,
             {"width": "80px", "orderable": false}
         ]
     });
