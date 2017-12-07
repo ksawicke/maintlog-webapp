@@ -744,10 +744,7 @@ $maxFluidEntries = 10;
         $(document).on('change', '#unit_number', function() {
             var fluUnitslabelText = '',
                 thisTrackType = $(this).find(":selected").attr('data-track-type');
-                
-            console.log($(this).find(":selected"));
-            console.log(thisTrackType);    
-                
+
             switch(thisTrackType) {
                 case 'smr':
                     fluUnitslabelText = 'SMR';
