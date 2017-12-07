@@ -163,3 +163,7 @@ li.paginate_button {
     font-size: 12px;
     font-weight: bold;
 }
+
+.hideButton {
+    display: none;
+}

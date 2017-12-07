@@ -219,7 +219,7 @@ $maxFluidEntries = 10;
         <?php } ?>
         
         <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
-        <button class="showFluidEntry<?php echo $fluidEntryCounter; ?>" type="button" class="prev btn btn-lg btn-success">+ Add Additional Fluid</button>
+        <button class="btn btn-success showFluidEntry<?php echo ($fluidEntryCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-fluid-entry="<?php echo $fluidEntryCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Fluid</button>
         <?php } ?>
         
     </div>
@@ -806,19 +806,35 @@ $maxFluidEntries = 10;
                 $("#unit_number"));
         });
         
-        <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
-        $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
-        <?php } ?>
-            
-        <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
-        $(".showFluidEntry<?php echo $fluidEntryCounter; ?>").hide();
-        $(document).on('click', '.showFluidEntry<?php echo $fluidEntryCounter; ?>', function(e) {
-            e.preventDefault();
-            console.log("Clicked .showFluidEntry<?php echo $fluidEntryCounter; ?>");
-            $(".fluidEntry<?php echo $fluidEntryCounter; ?>").show();
+        $(document).ready(function() {
+            <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+            $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
+            <?php } ?>
+
+            $(".hideButton").hide();
+
+            <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+            $(document).on('click', '.showFluidEntry', function(e) {
+                e.preventDefault();
+                
+                var fluidEntryNumber = $(this).attr('data-show-fluid-entry');
+                $('.fluidEntry' + fluidEntryNumber).show();
+                $(this).addClass('hideButton').hide().css("display","none");             
+                             
+                $('.showFluidEntry')
+//                    .children()
+                    .filter(function(){
+                        var nextFluidEntryNumber = parseInt(fluidEntryNumber, 10) + 1;
+//                        console.log($(this));
+//                        console.log($(this).data('show-fluid-entry') + " :: " + fluidEntryNumber);
+//                          console.log("nextFluidEntryNumber = " + nextFluidEntryNumber);
+                          $('.fluidEntry' + fluidEntryNumber).show();
+                        return $(this).data('show-fluid-entry') === nextFluidEntryNumber;
+                    })
+                    .removeClass('hideButton').show().css("display","block");
+            });
+            <?php } ?>
         });
-        <?php } ?>
-            
         
     });
 </script>
