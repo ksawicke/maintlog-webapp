@@ -27,6 +27,21 @@
             
             <label for="unit_number" class="control-label lb-lg">Unit Number</label>
             <input type="text" id="unit_number" name="unit_number" class="form-control input-lg" value="<?php echo $equipment_unit_number; ?>">
+            
+            <label for="person_responsible" class="control-label lb-lg">Person Responsible</label>
+            <select id="person_responsible"
+                    name="person_responsible"
+                    class="form-control input-lg"
+                    multiple
+                    data-parsley-required="true"
+                    data-parsley-error-message="Please select who is responsible for this unit"
+                    data-parsley-errors-container=".person_responsible_errors">
+                <option value="1"<?php echo ($equipment_person_responsible==1 ? ' selected' : ''); ?>>Johnson, Bret</option>
+                <option value="2"<?php echo ($equipment_person_responsible==2 ? ' selected' : ''); ?>>Johnson, Neil</option>
+                <option value="3"<?php echo ($equipment_person_responsible==3 ? ' selected' : ''); ?>>Leonetti, John</option>
+                <option value="4"<?php echo ($equipment_person_responsible==4 ? ' selected' : ''); ?>>Sawicke, Kevin</option>
+            </select>
+            <p class="form-error person_responsible_errors"></p>
         </div>
     </div>
     

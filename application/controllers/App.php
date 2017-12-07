@@ -259,6 +259,7 @@ class App extends MY_Controller {
         $data['equipment_model_id'] = (!empty($equipmentunit) ? $equipmentunit->model_number : '');
         $data['equipment_equipmentmodel_id'] = (!empty($equipmentunit) ? $equipmentunit->equipmentmodel_id : '');
         $data['equipment_equipmenttype_id'] = (!empty($equipmentunit) ? $equipmentunit->equipment_type_id : '');
+        $data['equipment_person_responsible'] = (!empty($equipmentunit) ? $equipmentunit->person_responsible : '');
         
 //        echo '<pre>';
 //        var_dump($data['equipmentunit_id']);

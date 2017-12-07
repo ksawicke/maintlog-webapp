@@ -26,7 +26,6 @@
                 data-parsley-required="true"
                 data-parsley-error-message="Please select who entered the record"
                 data-parsley-errors-container=".entered_by_errors">
-            <option value="">Select one:</option>
             <option value="1"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
             <option value="2"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
             <option value="3"<?php echo ($_SESSION['first_name']=='John' && $_SESSION['last_name']=='Leonetti' ? ' selected' : ''); ?>>Leonetti, John</option>

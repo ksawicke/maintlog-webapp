@@ -19,7 +19,7 @@ class Equipmentunit_model extends CI_Model {
      * @return type
      */
     public function findOne($equipmentunit_id) {
-        $equipmentunit = R::getAll('SELECT equipmentunit.id AS equipmentunit_id, equipmentunit.unit_number, manufacturer.id as manufacturer_id, manufacturer.manufacturer_name, equipmentunit.equipmentmodel_id, equipmentmodel.model_number, equipmenttype.equipment_type, equipmenttype.id as equipment_type_id
+        $equipmentunit = R::getAll('SELECT equipmentunit.id AS equipmentunit_id, equipmentunit.unit_number, equipmentunit.person_responsible, manufacturer.id as manufacturer_id, manufacturer.manufacturer_name, equipmentunit.equipmentmodel_id, equipmentmodel.model_number, equipmenttype.equipment_type, equipmenttype.id as equipment_type_id
 FROM equipmentunit
   LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
   LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
@@ -35,7 +35,7 @@ FROM equipmentunit
      * @return type
      */
     public function findAll() {
-        $equipmentunit = R::getAll('SELECT equipmentunit.id AS equipmentunit_id, equipmentunit.unit_number, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmenttype.equipment_type
+        $equipmentunit = R::getAll('SELECT equipmentunit.id AS equipmentunit_id, equipmentunit.unit_number, equipmentunit.person_responsible, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmenttype.equipment_type
 FROM equipmentunit
   LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
   LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
@@ -46,7 +46,7 @@ FROM equipmentunit
     }
     
     public function findAllByModelId($equipmentmodel_id) {
-        $dbQuery = 'SELECT equipmentunit.id, equipmentunit.unit_number FROM equipmentunit WHERE equipmentunit.equipmentmodel_id = ' . $equipmentmodel_id . ' ORDER BY equipmentunit.unit_number ASC';
+        $dbQuery = 'SELECT equipmentunit.id, equipmentunit.unit_number, equipmentunit.person_responsible FROM equipmentunit WHERE equipmentunit.equipmentmodel_id = ' . $equipmentmodel_id . ' ORDER BY equipmentunit.unit_number ASC';
 
         $equipmentunit = R::getAll($dbQuery);
         
@@ -62,6 +62,7 @@ FROM equipmentunit
         $equipmentunit = ($post['equipmentunit_id']==0 ? R::dispense('equipmentunit') : R::load('equipmentunit', $post['equipmentunit_id']));
         $equipmentunit->equipmentmodel_id = $post['equipmentmodel_id'];
         $equipmentunit->unit_number = $post['unit_number'];
+        $equipmentunit->person_responsible = $post['person_responsible'];
         
         if($post['equipmentunit_id']==0) {
             $equipmentunit->created = $now;
