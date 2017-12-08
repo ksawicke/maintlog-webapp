@@ -1,5 +1,6 @@
 <?php
 $maxFluidEntries = 10;
+$maxNotes = 5;
 ?>
 
 <form class="serviceLog-form">
@@ -46,10 +47,6 @@ $maxFluidEntries = 10;
                 data-parsley-mincheck="1"
                 data-parsley-error-message="Please select at least one person who performed the service"
                 data-parsley-errors-container=".serviced_by_errors">
-            <?php /**<option value="11">Doe, John</option>
-            <option value="12">Johnson, Neil</option>
-            <option value="13">Smith, Joe</option>
-            <option value="14">Xavier, Jose</option>**/?>
         </select>
         <p class="form-error serviced_by_errors"></p>
     </div>
@@ -262,7 +259,58 @@ $maxFluidEntries = 10;
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <label for="pss_smr" class="control-label lb-lg">SMR</label>
+        <?php
+        /***
+         * Need to choose what displays here via javascript based on the #pss_pm_type
+         * choice made from previous step. See javascript section.
+         */
+        ?>
+        <!-- smr_based -->
+        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label>
+        <select id="pss_smr_based_pm_level"
+                name="pss_smr_based_pm_level"
+                class="form-control input-lg pss_smr_based">
+        </select>
+        <p class="form-error pss_smr_based_pm_level_errors"></p>
+        
+        <label for="pss_smr_based_current_smr" class="control-label lb-lg pss_smr_based">Current SMR</label>
+        <input
+               id="pss_smr_based_current_smr"
+               name="pss_smr_based_current_smr"
+               type="text"
+               class="form-control input-lg pss_smr_based"
+               value="">
+        <p class="form-error pss_smr_based_current_smr_errors"></p>
+        
+        <label for="pss_smr_based_notes"class="control-label lb-lg pss_smr_based">Notes</label>
+        <textarea type="text"
+               id="pss_smr_based_notes"
+               name="pss_smr_based_notes"
+               class="form-control input-lg pss_smr_based"
+               value=""></textarea>
+        <p class="form-error pss_smr_based_notes_errors"></p>
+        
+        <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
+        <button class="btn btn-success pss_smr_based showPssSmrBasedNote<?php echo ($noteCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-fluid-entry="<?php echo $noteCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+        <?php } ?>
+        <!-- /smr_based -->
+        
+        
+        
+        <!-- mileage_based -->
+        <!--.pss_mileage_based-->
+        
+        <!-- /mileage_based -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!--<label for="pss_smr" class="control-label lb-lg pss_smr_based">SMR</label>
         <select id="pss_smr"
                 name="pss_smr"
                 class="form-control input-lg"
@@ -275,7 +323,7 @@ $maxFluidEntries = 10;
             <option value="1000">1000</option>
             <option value="1500">1500</option>
         </select>
-        <p class="form-error pss_smr_errors"></p>
+        <p class="form-error pss_smr_errors"></p>-->
     </div>
     
     <div class="form-section subflow pss show-prev show-next">
@@ -481,6 +529,9 @@ $maxFluidEntries = 10;
         padding-top:5px;
         font-weight: bold;
         color: red;
+    }
+    .pss_smr_based {
+        display: none;
     }
 </style>
 
@@ -829,6 +880,32 @@ $maxFluidEntries = 10;
             }
             $("label[for = flu_units]").text(fluUnitslabelText);
         });
+        
+        $(document).on('change', '#pss_pm_type', function() {
+            var fluUnitslabelText = '',
+                thisSelection = $('#pss_pm_type :selected').val();
+                
+            $('.pss_smr_based').hide();
+            $('.pss_mileage_based').hide();
+            $('.pss_time_based').hide();
+                
+            console.log(thisSelection);
+            
+            switch(thisSelection) {
+                case 'smr_based':
+                    // Populate #pss_smr_based_pm_level via ajax with SMR Choices
+                    $('.pss_smr_based').show();
+                    break;
+                    
+                case 'mileage_based':
+                    $('.pss_mileage_based').show();
+                    break;
+
+                case 'time_based':
+                    $('.pss_time_based').show();
+                    break;
+            }
+        });
 
         // Next button goes forward if current block validates
         $('.form-navigation .next').click(function () {
@@ -900,7 +977,7 @@ $maxFluidEntries = 10;
             <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
             $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
             <?php } ?>
-
+                
             $(".hideButton").hide();
 
             <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
@@ -912,12 +989,8 @@ $maxFluidEntries = 10;
                 $(this).addClass('hideButton').hide().css("display","none");             
                              
                 $('.showFluidEntry')
-//                    .children()
                     .filter(function(){
                         var nextFluidEntryNumber = parseInt(fluidEntryNumber, 10) + 1;
-//                        console.log($(this));
-//                        console.log($(this).data('show-fluid-entry') + " :: " + fluidEntryNumber);
-//                          console.log("nextFluidEntryNumber = " + nextFluidEntryNumber);
                           $('.fluidEntry' + fluidEntryNumber).show();
                         return $(this).data('show-fluid-entry') === nextFluidEntryNumber;
                     })
