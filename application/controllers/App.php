@@ -132,7 +132,7 @@ class App extends MY_Controller {
         $this->load->library('template');
         $this->load->model('User_model');
         
-        $data['users'] = $this->User_model->findAll();
+        $data['users'] = (object) $this->User_model->findAll();
         
         $data['flashdata'] = $this->session->flashdata();
         

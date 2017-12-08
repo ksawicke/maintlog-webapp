@@ -30,10 +30,10 @@ $maxFluidEntries = 10;
                 data-parsley-required="true"
                 data-parsley-error-message="Please select who entered the record"
                 data-parsley-errors-container=".entered_by_errors">
-            <option value="1"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
+            <?php /**<option value="1"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
             <option value="2"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
             <option value="3"<?php echo ($_SESSION['first_name']=='John' && $_SESSION['last_name']=='Leonetti' ? ' selected' : ''); ?>>Leonetti, John</option>
-            <option value="4"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>
+            <option value="4"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>**/ ?>
         </select>
         <p class="form-error entered_by_errors"></p>
         
@@ -46,10 +46,10 @@ $maxFluidEntries = 10;
                 data-parsley-mincheck="1"
                 data-parsley-error-message="Please select at least one person who performed the service"
                 data-parsley-errors-container=".serviced_by_errors">
-            <option value="11">Doe, John</option>
+            <?php /**<option value="11">Doe, John</option>
             <option value="12">Johnson, Neil</option>
             <option value="13">Smith, Joe</option>
-            <option value="14">Xavier, Jose</option>
+            <option value="14">Xavier, Jose</option>**/?>
         </select>
         <p class="form-error serviced_by_errors"></p>
     </div>
@@ -566,6 +566,15 @@ $maxFluidEntries = 10;
             } else {
                 $('#reviewButton').hide();
             }
+            
+            // On click the first "Next" button, let's load the user data into the
+            // #entered_by and #serviced_by fields. For the #entered_by
+            // field, we will pre-select the logged in user, but still allow the
+            // user to change the value.
+            if(index===1) {
+                populateUserData("/sites/komatsuna/users/getUsers",
+                    $("#entered_by"));
+            }
         }
 
         function curIndex() {
@@ -599,6 +608,51 @@ $maxFluidEntries = 10;
             $("#reviewScreen").html(text);
             $("#goBackButton").show();
             $("#submitButton").show();
+        }
+        
+        function populateUserData(serviceUrl, field) {            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}), // no need to send data, just get it
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#entered_by').empty();
+                $('#entered_by').append('<option value="">Select one:</option>');
+                
+                populateEnteredByDropdownWithData(object);
+                populateServicedByDropdownWithData(object);
+            });
+        }
+        
+        function populateEnteredByDropdownWithData(object) {
+            // Populate dropdown via ajax.
+            $.each(object.data, function(id, userData) {
+                var id = userData.id,
+                    value = userData.last_name + ", " + userData.first_name,
+                    current = userData.current,
+                    active = userData.active;
+
+                if(active==="1") {
+                    $('#entered_by').append('<option value="' + id + '"' + (current==='1' ? ' selected' : '') + '>' + value + '</option>');
+                }
+            });
+        }
+        
+        function populateServicedByDropdownWithData(object) {
+            // Populate multiselect using loaded object.
+            $.each(object.data, function(id, userData) {
+                var id = userData.id,
+                    value = userData.last_name + ", " + userData.first_name,
+                    current = userData.current,
+                    active = userData.active;
+
+                if(active==="1") {
+                    $('#serviced_by').append('<option value="' + id + '">' + value + '</option>');
+                }
+            });
         }
         
         function populateEquipmentModelDropdownWithData(serviceUrl, field) {            
@@ -814,7 +868,7 @@ $maxFluidEntries = 10;
             autoclose: true,
             dateFormat: 'mm/dd/yyyy'
         });
-        
+                
         $("#equipment_type").on('change', function() {
             $("#equipmentmodel_id").prop('disabled', false);
             populateEquipmentModelDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",

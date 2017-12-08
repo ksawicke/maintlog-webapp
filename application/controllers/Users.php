@@ -24,6 +24,27 @@ class Users extends MY_Controller {
         $this->load->model('User_model');
     }
     
+    public function getUsers() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $usermodel = [];
+        
+        $usermodel = $this->User_model->findAll();
+        
+        if(empty($usermodel)) {
+            http_response_code(404);
+            echo json_encode(['success' => false]);
+        } else {
+            foreach($usermodel as $id => $userData) {
+                $usermodel[$id]['current'] = (($userData['id']===$_SESSION['user_id']) ? "1" : "0");
+            }
+            
+            http_response_code(200);
+            echo json_encode(['success' => true, 'data' => $usermodel]);
+        }
+        
+        exit();
+    }
+    
     /**
      * 
      */

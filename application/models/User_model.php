@@ -30,7 +30,9 @@ class User_model extends CI_Model {
      * @return type
      */
     public function findAll() {
-        $user = R::findAll('user', ' ORDER BY last_name ASC, first_name ASC');
+        $user = R::getAll('SELECT id, first_name, last_name, email_address, role, active
+                           FROM user
+                           ORDER BY last_name ASC, first_name ASC');
         
         return $user;
     }
@@ -101,7 +103,7 @@ class User_model extends CI_Model {
     /**
      * Creates record(s) for testing
      */
-    public function create() {
+    /*public function create() {
         $now = date('Y-m-d h:i:s');
         $user = R::dispense('user');
         $user->username = 'ksawic';
@@ -153,7 +155,7 @@ class User_model extends CI_Model {
         $user->created = $now;
         $user->modified = $now;
         $user_id = R::store($user);
-    }
+    }*/
     
     /**
      * Creates or modifies record
@@ -191,19 +193,13 @@ class User_model extends CI_Model {
         $user = R::load('user', $user_id);
         $user->active = ($user->active==1 ? 0 : 1);
         R::store($user);
-        
-//        die("stop");
-//        if(!is_null($user_id)) {
-//            $user = R::load('user', $user_id);
-//            R::trash($user);
-//        }
     }
     
     /**
      * Wipes out all user records
      */
-    public function wipe() {
+    /*public function wipe() {
         R::wipe('user');
-    }
+    }*/
 
 }
