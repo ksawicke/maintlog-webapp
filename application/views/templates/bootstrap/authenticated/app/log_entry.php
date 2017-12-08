@@ -283,17 +283,17 @@ $maxNotes = 5;
         <p class="form-error pss_smr_based_current_smr_errors"></p>
         
         <?php for($noteCounter = 1; $noteCounter <= $maxNotes; $noteCounter++) { ?>
-        <label for="pss_smr_based_notes<?php echo $noteCounter; ?>"class="control-label lb-lg pss_smr_based_notes<?php echo $noteCounter; ?> smr_based_note<?php echo $noteCounter; ?>">Notes</label>
+        <label for="pss_smr_based_notes<?php echo $noteCounter; ?>"class="control-label lb-lg pss_smr_based_notes<?php echo $noteCounter; ?>">Notes</label>
         <textarea type="text"
                id="pss_smr_based_notes<?php echo $noteCounter; ?>"
                name="pss_smr_based_notes<?php echo $noteCounter; ?>"
-               class="form-control input-lg pss_smr_based smr_based_note<?php echo $noteCounter; ?>"
+               class="form-control input-lg pss_smr_based pss_smr_based_notes<?php echo $noteCounter; ?>"
                value=""></textarea>
         <p class="form-error pss_smr_based_notes_errors"></p>
         <?php } ?>
         
-        <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
-        <button class="btn btn-success pss_smr_based showPssSmrBasedNote<?php echo ($noteCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-fluid-entry="<?php echo $noteCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+        <?php for($noteCounter = 1; $noteCounter <= $maxNotes; $noteCounter++) { ?>
+        <button class="btn btn-success pss_smr_based showPssSmrBasedNote" type="button" data-show-smr-based-note="<?php echo $noteCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
         <?php } ?>
         <!-- /smr_based -->
         
@@ -1024,6 +1024,27 @@ $maxNotes = 5;
                 
             <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
             $(".pss_smr_based_notes<?php echo $noteCounter; ?>").hide();
+            // hide .showPssSmrBasedNote where data-show-smr-based-note 2 - 5
+                
+            $('.showPssSmrBasedNote')
+                .filter(function(){
+//                    var nextFluidEntryNumber = parseInt(fluidEntryNumber, 10) + 1;
+//                      $('.fluidEntry' + fluidEntryNumber).show();
+                    return $(this).data('data-show-smr-based-note') === parseInt(<?php echo $noteCounter; ?>, 10);
+                })
+                .hide();    
+            
+//            .showPssSmrBasedNote on click
+            $(document).on('click', '.showPssSmrBasedNote', function() {
+                
+//                $('.showPssSmrBasedNote')
+//                    .filter(function(){
+//                        var nextFluidEntryNumber = parseInt(fluidEntryNumber, 10) + 1;
+//                          $('.fluidEntry' + fluidEntryNumber).show();
+//                        return $(this).data('data-show-smr-based-note') === parseInt(<?php echo $noteCounter; ?>, 10);
+//                    })
+//                    .removeClass('hideButton').show().css("display","block");
+            });
             <?php } ?>
         });
         
