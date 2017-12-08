@@ -282,13 +282,15 @@ $maxNotes = 5;
                value="">
         <p class="form-error pss_smr_based_current_smr_errors"></p>
         
-        <label for="pss_smr_based_notes"class="control-label lb-lg pss_smr_based">Notes</label>
+        <?php for($noteCounter = 1; $noteCounter <= $maxNotes; $noteCounter++) { ?>
+        <label for="pss_smr_based_notes<?php echo $noteCounter; ?>"class="control-label lb-lg pss_smr_based_notes<?php echo $noteCounter; ?> smr_based_note<?php echo $noteCounter; ?>">Notes</label>
         <textarea type="text"
-               id="pss_smr_based_notes"
-               name="pss_smr_based_notes"
-               class="form-control input-lg pss_smr_based"
+               id="pss_smr_based_notes<?php echo $noteCounter; ?>"
+               name="pss_smr_based_notes<?php echo $noteCounter; ?>"
+               class="form-control input-lg pss_smr_based smr_based_note<?php echo $noteCounter; ?>"
                value=""></textarea>
         <p class="form-error pss_smr_based_notes_errors"></p>
+        <?php } ?>
         
         <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
         <button class="btn btn-success pss_smr_based showPssSmrBasedNote<?php echo ($noteCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-fluid-entry="<?php echo $noteCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
@@ -767,6 +769,28 @@ $maxNotes = 5;
             });
         }
         
+        function populateSMRBasedPMLevelDropdownWithData(serviceUrl, field) {
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdown first.
+                $('#pss_smr_based_pm_level').empty();
+                $('#pss_smr_based_pm_level').append('<option value="">Select one:</option>');
+                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, smrchoiceData) {
+                    var id = smrchoiceData.id,
+                        smr_choice = smrchoiceData.smr_choice;
+                        
+                    $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + smr_choice + '</option>');
+                });
+            });
+        }
+        
         function saveServiceLog() {
             var serviceUrl = '/sites/komatsuna/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
@@ -889,11 +913,11 @@ $maxNotes = 5;
             $('.pss_mileage_based').hide();
             $('.pss_time_based').hide();
                 
-            console.log(thisSelection);
-            
             switch(thisSelection) {
                 case 'smr_based':
                     // Populate #pss_smr_based_pm_level via ajax with SMR Choices
+                    populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/smrchoices/getSMRChoices",
+                        $("#pss_smr_based_pm_level"));
                     $('.pss_smr_based').show();
                     break;
                     
@@ -996,6 +1020,10 @@ $maxNotes = 5;
                     })
                     .removeClass('hideButton').show().css("display","block");
             });
+            <?php } ?>
+                
+            <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
+            $(".pss_smr_based_notes<?php echo $noteCounter; ?>").hide();
             <?php } ?>
         });
         
