@@ -72,7 +72,7 @@ $maxFluidEntries = 10;
                     <?php } ?>
                 </select>
 
-                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label>
+                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
                 <select id="equipmentmodel_id"
                         name="equipmentmodel_id"
                         class="form-control input-lg"
@@ -82,7 +82,7 @@ $maxFluidEntries = 10;
                         disabled>
                 </select>
 
-                <label for="unit_number" class="control-label lb-lg">Unit Number</label>
+                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
                 <select id="unit_number"
                         name="unit_number"
                         class="form-control input-lg"
@@ -461,6 +461,13 @@ $maxFluidEntries = 10;
     #reviewScreen {
         display: none;
     }
+    #loading_equipmentmodel_id,
+    #loading_unit_number {
+        width:18px;
+        margin-left:7px;
+        margin-bottom:2px;
+        display:none;
+    }
     .form-section {
         display: none;
     }
@@ -655,7 +662,9 @@ $maxFluidEntries = 10;
             });
         }
         
-        function populateEquipmentModelDropdownWithData(serviceUrl, field) {            
+        function populateEquipmentModelDropdownWithData(serviceUrl, field) {
+            $("#loading_equipmentmodel_id").show();
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -675,10 +684,14 @@ $maxFluidEntries = 10;
                         
                     $('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
                 });
+                
+                $("#loading_equipmentmodel_id").hide();
             });
         }
         
-        function populateUnitNumberDropdownWithData(serviceUrl, field) {            
+        function populateUnitNumberDropdownWithData(serviceUrl, field) {
+            $("#loading_unit_number").show();
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -698,6 +711,8 @@ $maxFluidEntries = 10;
                         
                     $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '">' + value + '</option>');
                 });
+                
+                $("#loading_unit_number").hide();
             });
         }
         
