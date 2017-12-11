@@ -24,6 +24,23 @@ class Mileagechoices extends MY_Controller {
         $this->load->model('Mileagechoice_model');
     }
     
+    public function getMileageChoices() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $mileagechoicemodel = [];
+        
+        $mileagechoicemodel = $this->Mileagechoice_model->findAll();
+        
+        if(empty($mileagechoicemodel)) {
+            http_response_code(404);
+            echo json_encode(['success' => false]);
+        } else {
+            http_response_code(200);
+            echo json_encode(['success' => true, 'data' => $mileagechoicemodel]);
+        }
+        
+        exit();
+    }
+    
     public function save() {
         $this->Mileagechoice_model->store($this->input->post());
         

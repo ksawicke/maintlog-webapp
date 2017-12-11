@@ -24,6 +24,23 @@ class Timechoices extends MY_Controller {
         $this->load->model('Timechoice_model');
     }
     
+    public function getTimeChoices() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $timechoicemodel = [];
+        
+        $timechoicemodel = $this->Timechoice_model->findAll();
+        
+        if(empty($timechoicemodel)) {
+            http_response_code(404);
+            echo json_encode(['success' => false]);
+        } else {
+            http_response_code(200);
+            echo json_encode(['success' => true, 'data' => $timechoicemodel]);
+        }
+        
+        exit();
+    }
+    
     public function save() {
         $this->Timechoice_model->store($this->input->post());
         

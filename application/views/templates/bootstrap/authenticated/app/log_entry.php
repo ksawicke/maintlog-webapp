@@ -284,7 +284,6 @@ $maxNotes = 5;
                name="pss_smr_based_notes1"
                class="form-control input-lg pss_smr_based_notes1"
                value=""></textarea>
-        <p class="form-error pss_smr_based_notes1_errors"></p>
         
         <label for="pss_smr_based_notes2" class="control-label lb-lg pss_smr_based_notes2 hide_me">Notes</label>
         <textarea type="text"
@@ -292,7 +291,6 @@ $maxNotes = 5;
                name="pss_smr_based_notes2"
                class="form-control input-lg pss_smr_based pss_smr_based_notes2 hide_me"
                value=""></textarea>
-        <p class="form-error pss_smr_based_notes2_errors"></p>
         
         <label for="pss_smr_based_notes3" class="control-label lb-lg pss_smr_based_notes3 hide_me">Notes</label>
         <textarea type="text"
@@ -300,7 +298,6 @@ $maxNotes = 5;
                name="pss_smr_based_notes3"
                class="form-control input-lg pss_smr_based pss_smr_based_notes3 hide_me"
                value=""></textarea>
-        <p class="form-error pss_smr_based_notes3_errors"></p>
         
         <button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
         
@@ -353,9 +350,20 @@ $maxNotes = 5;
             <option value="time_based">Time Based</option>
         </select>
         <p class="form-error pss_reminder_pm_type_errors"></p>
+        
+        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <select id="pss_reminder_pm_level"
+                name="pss_reminder_pm_level"
+                class="form-control input-lg"
+                data-parsley-required="true"
+                data-parsley-error-message="Please select the PM Level"
+                data-parsley-errors-container=".pss_reminder_pm_type_errors">
+            <option value="">Select one:</option>
+        </select>
+        <p class="form-error pss_reminder_pm_type_errors"></p>
 
-        <label for="pss_smr_due" class="control-label lb-lg">SMR Due</label>
-        <input type="text" class="form-control input-lg" id="pss_smr_due" name="pss_smr_due" value="">
+        <label for="pss_due_units" class="control-label lb-lg">Due</label>
+        <input type="text" class="form-control input-lg" id="pss_due_units" name="pss_due_units" value="">
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
@@ -524,7 +532,8 @@ $maxNotes = 5;
     #loading_entered_by,
     #loading_serviced_by,
     #loading_equipmentmodel_id,
-    #loading_unit_number {
+    #loading_unit_number,
+    #loading_pss_reminder_pm_level {
         width:18px;
         margin-left:7px;
         margin-bottom:2px;
@@ -788,6 +797,84 @@ $maxNotes = 5;
             });
         }
         
+        function populatePMServiceReminderPMLevelDropdownWithSMRChoiceData(serviceUrl, field) {
+            $("#loading_pss_reminder_pm_level").show();
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#pss_reminder_pm_level').empty();
+                $('#pss_reminder_pm_level').append('<option value="">Select one:</option>');
+                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, choiceData) {
+                    var id = choiceData.id,
+                        choice = choiceData.smr_choice;
+                    
+                    $('#pss_reminder_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                });
+                
+                $("#loading_pss_reminder_pm_level").hide();
+            });
+        }
+        
+        function populatePMServiceReminderPMLevelDropdownWithMileageChoiceData(serviceUrl, field) {
+            $("#loading_pss_reminder_pm_level").show();
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#pss_reminder_pm_level').empty();
+                $('#pss_reminder_pm_level').append('<option value="">Select one:</option>');
+                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, choiceData) {
+                    var id = choiceData.id,
+                        choice = choiceData.mileage_choice;
+                    
+                    $('#pss_reminder_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                });
+                
+                $("#loading_pss_reminder_pm_level").hide();
+            });
+        }
+        
+        function populatePMServiceReminderPMLevelDropdownWithTimeChoiceData(serviceUrl, field) {
+            $("#loading_pss_reminder_pm_level").show();
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#pss_reminder_pm_level').empty();
+                $('#pss_reminder_pm_level').append('<option value="">Select one:</option>');
+                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, choiceData) {
+                    var id = choiceData.id,
+                        choice = choiceData.time_choice;
+                    
+                    $('#pss_reminder_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                });
+                
+                $("#loading_pss_reminder_pm_level").hide();
+            });
+        }
+        
         function populateSMRBasedPMLevelDropdownWithData(serviceUrl, field) {
             var jqxhr = $.ajax({
                 url: serviceUrl,
@@ -796,10 +883,10 @@ $maxNotes = 5;
                 data: JSON.stringify({}),
                 contentType: "application/json"
             }).done(function(object) {
-                // Clear dropdown first.
+                // Clear dropdowns first.
                 $('#pss_smr_based_pm_level').empty();
                 $('#pss_smr_based_pm_level').append('<option value="">Select one:</option>');
-                
+                                
                 // Populate dropdown via ajax.
                 $.each(object.data, function(id, smrchoiceData) {
                     var id = smrchoiceData.id,
@@ -922,6 +1009,33 @@ $maxNotes = 5;
                     break;
             }
             $("label[for = flu_units]").text(fluUnitslabelText);
+        });
+        
+        $(document).on('change', '#pss_reminder_pm_type', function() {
+            var pssdueunitslabelText = '',
+                thisSelection = $('#pss_reminder_pm_type :selected').val();
+                
+            switch(thisSelection) {
+                case 'smr_based':
+                    populatePMServiceReminderPMLevelDropdownWithSMRChoiceData("/sites/komatsuna/smrchoices/getSMRChoices",
+                        $("#pss_reminder_pm_level"));
+                    pssdueunitslabelText = 'SMR Due';
+                    break;
+                    
+                case 'mileage_based':
+                    populatePMServiceReminderPMLevelDropdownWithMileageChoiceData("/sites/komatsuna/mileagechoices/getMileageChoices",
+                        $("#pss_reminder_pm_level"));
+                    pssdueunitslabelText = 'Mileage Due';
+                    break;
+
+                case 'time_based':
+                    populatePMServiceReminderPMLevelDropdownWithTimeChoiceData("/sites/komatsuna/timechoices/getTimeChoices",
+                        $("#pss_reminder_pm_level"));
+                    pssdueunitslabelText = 'Time Due';
+                    break;
+            }
+            
+            $("label[for = pss_due_units]").text(pssdueunitslabelText);
         });
         
         $(document).on('change', '#pss_pm_type', function() {

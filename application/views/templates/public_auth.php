@@ -9,7 +9,7 @@
         <meta name="author" content="">
         <?php /***<!--link rel="icon" href="../../favicon.ico"-->***/?>
 
-        <title>Signin Template for Bootstrap</title>
+        <title>Komatsu NA Maintenance Log - Login</title>
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo $assetDirectory; ?>css/bootstrap.min.css" rel="stylesheet">
