@@ -24,21 +24,17 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section show-prev show-next">
-        <label for="entered_by" class="control-label lb-lg">Entered By</label>
+        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
         <select id="entered_by"
                 name="entered_by"
                 class="form-control input-lg"
                 data-parsley-required="true"
                 data-parsley-error-message="Please select who entered the record"
                 data-parsley-errors-container=".entered_by_errors">
-            <?php /**<option value="1"<?php echo ($_SESSION['first_name']=='Bret' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Bret</option>
-            <option value="2"<?php echo ($_SESSION['first_name']=='Neil' && $_SESSION['last_name']=='Johnson' ? ' selected' : ''); ?>>Johnson, Neil</option>
-            <option value="3"<?php echo ($_SESSION['first_name']=='John' && $_SESSION['last_name']=='Leonetti' ? ' selected' : ''); ?>>Leonetti, John</option>
-            <option value="4"<?php echo ($_SESSION['first_name']=='Kevin' && $_SESSION['last_name']=='Sawicke' ? ' selected' : ''); ?>>Sawicke, Kevin</option>**/ ?>
         </select>
         <p class="form-error entered_by_errors"></p>
         
-        <label for="serviced_by" class="control-label lb-lg">Serviced By</label>
+        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
         <select id="serviced_by"
                 name="serviced_by"
                 class="form-control input-lg"
@@ -282,19 +278,33 @@ $maxNotes = 5;
                value="">
         <p class="form-error pss_smr_based_current_smr_errors"></p>
         
-        <?php for($noteCounter = 1; $noteCounter <= $maxNotes; $noteCounter++) { ?>
-        <label for="pss_smr_based_notes<?php echo $noteCounter; ?>" class="control-label lb-lg pss_smr_based_notes<?php echo $noteCounter; ?>">Notes</label>
+        <label for="pss_smr_based_notes1" class="control-label lb-lg pss_smr_based_notes1">Notes</label>
         <textarea type="text"
-               id="pss_smr_based_notes<?php echo $noteCounter; ?>"
-               name="pss_smr_based_notes<?php echo $noteCounter; ?>"
-               class="form-control input-lg pss_smr_based pss_smr_based_notes<?php echo $noteCounter; ?><?php echo ($noteCounter===1 ? '' : ' hide_me'); ?>"
+               id="pss_smr_based_notes1"
+               name="pss_smr_based_notes1"
+               class="form-control input-lg pss_smr_based_notes1"
                value=""></textarea>
-        <p class="form-error pss_smr_based_notes_errors"></p>
-        <?php } ?>
+        <p class="form-error pss_smr_based_notes1_errors"></p>
         
-        <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
-        <button class="btn btn-success showPssSmrBasedNote<?php echo ($noteCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-smr-based-note="<?php echo $noteCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
-        <?php } ?>
+        <label for="pss_smr_based_notes2" class="control-label lb-lg pss_smr_based_notes2 hide_me">Notes</label>
+        <textarea type="text"
+               id="pss_smr_based_notes2"
+               name="pss_smr_based_notes2"
+               class="form-control input-lg pss_smr_based pss_smr_based_notes2 hide_me"
+               value=""></textarea>
+        <p class="form-error pss_smr_based_notes2_errors"></p>
+        
+        <label for="pss_smr_based_notes3" class="control-label lb-lg pss_smr_based_notes3 hide_me">Notes</label>
+        <textarea type="text"
+               id="pss_smr_based_notes3"
+               name="pss_smr_based_notes3"
+               class="form-control input-lg pss_smr_based pss_smr_based_notes3 hide_me"
+               value=""></textarea>
+        <p class="form-error pss_smr_based_notes3_errors"></p>
+        
+        <button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+        
+        <button class="btn btn-success showPssSmrBasedNote hideButton" type="button" data-show-smr-based-note="3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
         <!-- /smr_based -->
         
         
@@ -511,6 +521,8 @@ $maxNotes = 5;
     #reviewScreen {
         display: none;
     }
+    #loading_entered_by,
+    #loading_serviced_by,
     #loading_equipmentmodel_id,
     #loading_unit_number {
         width:18px;
@@ -532,8 +544,8 @@ $maxNotes = 5;
         font-weight: bold;
         color: red;
     }
-    .pss_smr_based,
-    .hide_me {
+    .hide_me,
+    .hideButton {
         display: none;
     }
 </style>
@@ -671,7 +683,10 @@ $maxNotes = 5;
             $("#submitButton").show();
         }
         
-        function populateUserData(serviceUrl, field) {            
+        function populateUserData(serviceUrl, field) {      
+            $("#loading_entered_by").show();
+            $("#loading_serviced_by").show();
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -684,7 +699,10 @@ $maxNotes = 5;
                 $('#entered_by').append('<option value="">Select one:</option>');
                 
                 populateEnteredByDropdownWithData(object);
+                $("#loading_entered_by").hide();
+                
                 populateServicedByDropdownWithData(object);
+                $("#loading_serviced_by").hide();
             });
         }
         
@@ -910,24 +928,28 @@ $maxNotes = 5;
             var fluUnitslabelText = '',
                 thisSelection = $('#pss_pm_type :selected').val();
                 
-            $('.pss_smr_based').hide();
-            $('.pss_mileage_based').hide();
-            $('.pss_time_based').hide();
+            $('.pss_smr_based').removeClass("hide-me");
+            $('.pss_mileage_based').removeClass("hide-me");
+            $('.pss_time_based').removeClass("hide-me");
                 
             switch(thisSelection) {
                 case 'smr_based':
                     // Populate #pss_smr_based_pm_level via ajax with SMR Choices
                     populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/smrchoices/getSMRChoices",
                         $("#pss_smr_based_pm_level"));
-                    $('.pss_smr_based').show();
+                    
+                    $('.pss_smr_based').removeClass("hide-me");
+                    $('.pss_smr_based_notes2').addClass("hide-me");
+                    $('.pss_smr_based_notes3').addClass("hide-me");
+                    $('.showPssSmrBasedNote3').addClass("hideButton");
                     break;
                     
                 case 'mileage_based':
-                    $('.pss_mileage_based').show();
+                    $('.pss_mileage_based').removeClass("hide-me");;
                     break;
 
                 case 'time_based':
-                    $('.pss_time_based').show();
+                    $('.pss_time_based').removeClass("hide-me");;
                     break;
             }
         });
@@ -1004,7 +1026,7 @@ $maxNotes = 5;
             <?php } ?>
                 
             $(".hideButton").hide();
-            $(".hide_me").hide();
+//            $(".hide_me").hide();
 
             <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
             $(document).on('click', '.showFluidEntry', function(e) {
@@ -1020,34 +1042,22 @@ $maxNotes = 5;
                           $('.fluidEntry' + fluidEntryNumber).show();
                         return $(this).data('show-fluid-entry') === nextFluidEntryNumber;
                     })
-                    .removeClass('hideButton').show().css("display","block");
+                    .removeClass('hideButton').css("display","block");
             });
             <?php } ?>
-                
-            <?php for($noteCounter = 2; $noteCounter <= $maxNotes; $noteCounter++) { ?>
-            $(".pss_smr_based_notes<?php echo $noteCounter; ?>").hide();
-            // hide .showPssSmrBasedNote where data-show-smr-based-note 2 - 5
-                
-//            $('.showPssSmrBasedNote')
-//                .filter(function(){
-////                    var nextFluidEntryNumber = parseInt(fluidEntryNumber, 10) + 1;
-////                      $('.fluidEntry' + fluidEntryNumber).show();
-//                    return $(this).data('data-show-smr-based-note') === parseInt(<?php echo $noteCounter; ?>, 10);
-//                })
-//                .hide();    
-            
-//            .showPssSmrBasedNote on click
+
             $(document).on('click', '.showPssSmrBasedNote', function() {
+                var showNoteNumber = $(this).attr('data-show-smr-based-note'),
+                    nextNumber = parseInt(showNoteNumber, 10) + 1;
+                $('#pss_smr_based_notes' + showNoteNumber).removeClass("hide_me");
+                $(this).addClass('hideButton').hide().css("display","none");
                 
-//                $('.showPssSmrBasedNote')
-//                    .filter(function(){
-//                        var nextFluidEntryNumber = parseInt(fluidEntryNumber, 10) + 1;
-//                          $('.fluidEntry' + fluidEntryNumber).show();
-//                        return $(this).data('data-show-smr-based-note') === parseInt(<?php echo $noteCounter; ?>, 10);
-//                    })
-//                    .removeClass('hideButton').show().css("display","block");
+                $('.showPssSmrBasedNote')
+                    .filter(function(){
+                        return $(this).data('show-smr-based-note') === nextNumber;
+                    })
+                    .removeClass('hideButton').hide().css("display","block");
             });
-            <?php } ?>
         });
         
     });
