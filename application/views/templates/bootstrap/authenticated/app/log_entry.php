@@ -255,13 +255,6 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <?php
-        /***
-         * Need to choose what displays here via javascript based on the #pss_pm_type
-         * choice made from previous step. See javascript section.
-         */
-        ?>
-        <!-- smr_based -->
         <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label>
         <select id="pss_smr_based_pm_level"
                 name="pss_smr_based_pm_level"
@@ -302,37 +295,6 @@ $maxNotes = 5;
         <button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
         
         <button class="btn btn-success showPssSmrBasedNote hideButton" type="button" data-show-smr-based-note="3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
-        <!-- /smr_based -->
-        
-        
-        
-        <!-- mileage_based -->
-        <!--.pss_mileage_based-->
-        
-        <!-- /mileage_based -->
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <!--<label for="pss_smr" class="control-label lb-lg pss_smr_based">SMR</label>
-        <select id="pss_smr"
-                name="pss_smr"
-                class="form-control input-lg"
-                data-parsley-required="true"
-                data-parsley-error-message="Please select the SMR value"
-                data-parsley-errors-container=".pss_smr_errors">
-            <option value="">Select one:</option>
-            <option value="250">250</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-            <option value="1500">1500</option>
-        </select>
-        <p class="form-error pss_smr_errors"></p>-->
     </div>
     
     <div class="form-section subflow pss show-prev show-next">
@@ -401,12 +363,7 @@ $maxNotes = 5;
                 <textarea type="text"
                        id="pss_additional_reminder_recipients"
                        name="pss_additional_reminder_recipients"
-                       class="form-control input-lg"
-                       data-parsley-required="true"
-                       data-parsley-error-message="Please enter recipients email addresses separated by comma"
-                       data-parsley-errors-container=".pss_additional_reminder_recipients"
-                       readonly></textarea>
-                <p class="form-error pss_reminder_recipients_errors"></p>
+                       class="form-control input-lg"></textarea>
             </div>
         </div>
 
@@ -1237,8 +1194,11 @@ $maxNotes = 5;
                 { "label" : "Equipment Type",
                   "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text()
                 },
-                { "label" : "Equipment",
-                  "value" : $("#equipment_description").val()
+                { "label" : "Equipment Model",
+                  "value" : $("#equipment_model_id option[value='" + $("#equipment_model_id").val() + "']").text()
+                },
+                { "label" : "Unit Number",
+                  "value" : $("#unit_number option[value='" + $("#unit_number").val() + "']").text()
                 }
             ];
             
@@ -1250,14 +1210,86 @@ $maxNotes = 5;
                 
             case 'flu':
                 json.push({ "label": "Entry Selection", "value": "Fluid Entry" });
-                objectPush(json, "Fluid Type", "flu_fluid_type", true);
-
-                // Concatenated value so handling differently...
+                
+                // Fluid entry 1
+                objectPush(json, "Fluid Type", "flu_fluid_type1", true);
                 json.push({ "label": "Quantity",
-                            "value": $("#flu_quantity").val() + " " + $("#flu_units option[value='" + $("#flu_units").val() + "']").text()
+                            "value": $("#flu_quantity1").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units1").val() + "']").text()
                 });
+                
+                // Fluid entry 2
+                if(!empty($("#flu_quantity2").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type2", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity2").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units2").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 3
+                if(!empty($("#flu_quantity3").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type3", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity3").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units3").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 4
+                if(!empty($("#flu_quantity4").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type4", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity4").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units4").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 5
+                if(!empty($("#flu_quantity5").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type5", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity5").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units5").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 6
+                if(!empty($("#flu_quantity6").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type6", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity6").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units6").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 7
+                if(!empty($("#flu_quantity7").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type7", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity7").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units7").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 8
+                if(!empty($("#flu_quantity8").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type8", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity8").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units8").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 9
+                if(!empty($("#flu_quantity9").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type9", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity9").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units9").val() + "']").text()
+                    });
+                }
+                
+                // Fluid entry 10
+                if(!empty($("#flu_quantity10").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type10", true);
+                    json.push({ "label": "Quantity",
+                                "value": $("#flu_quantity10").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units10").val() + "']").text()
+                    });
+                }
 
-                objectPush(json, "SMR/Miles", "flu_miles", false);                
+                objectPush(json, $("label[for = flu_units]").text(), "flu_units", false);
                 break;
 
             case 'pss':
