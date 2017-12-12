@@ -425,6 +425,48 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function addComponent($component_id = null)
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Component_model');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $component = (!is_null($component_id) ? $this->Component_model->findOne($component_id) : []);
+        $data['component_id'] = (!is_null($component_id) ? $component_id : 0);
+        $data['component_component'] = (!empty($component) ? $component->component : '');
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function components()
+    {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Component_model');
+        
+        $data['components'] = $this->Component_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
     public function addComponentType($componenttype_id = null)
     {
         $data = [

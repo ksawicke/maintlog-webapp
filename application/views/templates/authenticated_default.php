@@ -96,6 +96,9 @@
                     <a href="<?php echo base_url('app/componentTypes/index'); ?>">Edit Component Types</a>
                 </li>
                 <li>
+                    <a href="<?php echo base_url('app/components/index'); ?>">Edit Components</a>
+                </li>
+                <li>
                     <a href="<?php echo base_url('app/smrChoices/index'); ?>">Edit SMR Choices</a>
                 </li>
                 <li>

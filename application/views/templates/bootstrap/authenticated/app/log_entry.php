@@ -422,23 +422,17 @@ $maxNotes = 5;
     </div>
     
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component" class="control-label lb-lg">Component</label>
+        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
         <select id="ccs_component"
                 name="ccs_component"
                 class="form-control input-lg"
                 data-parsley-required="true"
                 data-parsley-error-message="Please select a Component"
                 data-parsley-errors-container=".ccs_component_errors">
-            <option value="">Select one:</option>
-            <option value="626">Serial #</option>
-            <option value="235">Revision #</option>
-            <option value="23622">Part #</option>
-            <option value="355">Campaign #</option>
-            <option value="3626">None</option>
         </select>
         <p class="form-error ccs_component_errors"></p>
         
-        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label>
+        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
         <input
                id="ccs_component_data"
                name="ccs_component_data"
@@ -490,7 +484,9 @@ $maxNotes = 5;
     #loading_serviced_by,
     #loading_equipmentmodel_id,
     #loading_unit_number,
-    #loading_pss_reminder_pm_level {
+    #loading_pss_reminder_pm_level,
+    #loading_ccs_component,
+    #loading_ccs_component_data {
         width:18px;
         margin-left:7px;
         margin-bottom:2px;
@@ -625,6 +621,8 @@ $maxNotes = 5;
             var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>';
             
             var json = getJsonObject(currentSubflow);
+            
+            console.log(json);
             
             for(var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -854,6 +852,58 @@ $maxNotes = 5;
             });
         }
         
+        function populateComponentTypeDropdownWithData(serviceUrl, field) {
+            $("#loading_ccs_component_type").show();
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#ccs_component_type').empty();
+                $('#ccs_component_type').append('<option value="">Select one:</option>');
+                                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, choiceData) {
+                    var id = choiceData.id,
+                        choice = choiceData.component_type;
+                        
+                    $('#ccs_component_type').append('<option value="' + id + '">' + choice + '</option>');
+                });
+                
+                $("#loading_ccs_component_type").hide();
+            });
+        }
+        
+        function populateComponentDropdownWithData(serviceUrl, field) {
+            $("#loading_ccs_component").show();
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#ccs_component').empty();
+                $('#ccs_component').append('<option value="">Select one:</option>');
+                                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, choiceData) {
+                    var id = choiceData.id,
+                        choice = choiceData.component;
+                        
+                    $('#ccs_component').append('<option value="' + id + '">' + choice + '</option>');
+                });
+                
+                $("#loading_ccs_component").hide();
+            });
+        }
+        
         function saveServiceLog() {
             var serviceUrl = '/sites/komatsuna/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
@@ -939,6 +989,10 @@ $maxNotes = 5;
 
         $('#subflow').on('change', function () {
             setCurrentSubflow();
+            populateComponentTypeDropdownWithData("/sites/komatsuna/componenttypes/getComponentTypes",
+                $("#ccs_component_type"));
+            populateComponentDropdownWithData("/sites/komatsuna/components/getComponents",
+                $("#ccs_component"));
         });
 
         // Previous button is easy, just go back
@@ -1090,7 +1144,7 @@ $maxNotes = 5;
             populateUnitNumberDropdownWithData("/sites/komatsuna/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
         });
-        
+                
         $(document).ready(function() {
             <?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
             $(".fluidEntry<?php echo $fluidEntryCounter; ?>").hide();
@@ -1195,7 +1249,7 @@ $maxNotes = 5;
                   "value" : $("#equipment_type option[value='" + $("#equipment_type").val() + "']").text()
                 },
                 { "label" : "Equipment Model",
-                  "value" : $("#equipment_model_id option[value='" + $("#equipment_model_id").val() + "']").text()
+                  "value" : $("#equipmentmodel_id option[value='" + $("#equipmentmodel_id").val() + "']").text()
                 },
                 { "label" : "Unit Number",
                   "value" : $("#unit_number option[value='" + $("#unit_number").val() + "']").text()
@@ -1294,14 +1348,30 @@ $maxNotes = 5;
 
             case 'pss':
                 json.push({ "label": "Entry Selection", "value": "PM Service" });
+                
+                objectPush(json, "PM Type", "pss_pm_type", true);
+                objectPush(json, "PM Level", "pss_smr_based_pm_level", true);
+                objectPush(json, "Current SMR", "pss_smr_based_current_smr", false);
+                objectPush(json, "Notes", "pss_smr_based_notes1", false);
+                
+                if(!empty($("#pss_smr_based_notes2").val())) {
+                    objectPush(json, "Notes", "pss_smr_based_notes2", false);
+                }
+                
+                if(!empty($("#pss_smr_based_notes3").val())) {
+                    objectPush(json, "Notes", "pss_smr_based_notes3", false);
+                }
+                
                 objectPush(json, "PM Type", "pss_reminder_pm_type", true);
-                objectPush(json, "SMR", "pss_smr_due", false);
-                objectPush(json, "Reminder PM Type", "pss_reminder_pm_type", true);
+                objectPush(json, "PM Level", "pss_reminder_pm_level", true);
+                objectPush(json, $("label[for = pss_due_units]").text(), "pss_due_units", false);
                 objectPush(json, "Notes", "pss_notes", false);
+                
                 objectPush(json, "Reminder Recipients", "pss_reminder_recipients", false);
-
+                objectPush(json, "Additional Reminder Recipients", "pss_additional_reminder_recipients", false);
+                
                 // Concatenated value so handling differently...
-                json.push({ "label": "Reminder due",
+                json.push({ "label": "Reminder Due",
                             "value": $("#pss_reminder_quantity").val() + " " + $("#pss_reminder_units option[value='" + $("#pss_reminder_units").val() + "']").text()
                 });
                 break;
@@ -1327,17 +1397,17 @@ $maxNotes = 5;
     }
     
     function empty(data) {
-        if(typeof(data) == 'number' || typeof(data) == 'boolean')
+        if(typeof(data) === 'number' || typeof(data) === 'boolean')
         { 
           return false; 
         }
-        if(typeof(data) == 'undefined' || data === null)
+        if(typeof(data) === 'undefined' || data === null)
         {
           return true; 
         }
-        if(typeof(data.length) != 'undefined')
+        if(typeof(data.length) !== 'undefined')
         {
-          return data.length == 0;
+          return data.length === 0;
         }
         var count = 0;
         for(var i in data)
@@ -1347,7 +1417,7 @@ $maxNotes = 5;
             count ++;
           }
         }
-        return count == 0;
+        return count === 0;
       }
         
     window.Parsley
