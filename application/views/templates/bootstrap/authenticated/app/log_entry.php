@@ -847,6 +847,28 @@ $maxNotes = 5;
             });
         }
         
+        function populatePSSSmrDropdownWithSMRChoiceData(serviceUrl, field) {
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Clear dropdowns first.
+                $('#pss_smr').empty();
+                $('#pss_smr').append('<option value="">Select one:</option>');
+                                
+                // Populate dropdown via ajax.
+                $.each(object.data, function(id, smrchoiceData) {
+                    var id = smrchoiceData.id,
+                        smr_choice = smrchoiceData.smr_choice;
+                        
+                    $('#pss_smr').append('<option value="' + id + '">' + smr_choice + '</option>');
+                });
+            });
+        }
+        
         function populateComponentTypeDropdownWithData(serviceUrl, field) {
             $("#loading_ccs_component_type").show();
             
@@ -965,13 +987,6 @@ $maxNotes = 5;
         
         $(document).on("toggle", "#reviewButton", function () {
             showReview();
-        });
-        
-        $(document).on("focus", "#pss_smr", function () {
-            // Populate with choices from the db
-            console.log("POPULATE SMR");
-//            populateDropdownWithData("/sites/komatsuna/appsettings/get_setting",
-//                $(this));
         });
         
         $(document).on("click", "#cancelSubmitLogEntryForm", function () {
