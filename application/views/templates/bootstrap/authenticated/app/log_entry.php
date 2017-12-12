@@ -24,7 +24,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section show-prev show-next">
-        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="entered_by"
                 name="entered_by"
                 class="form-control input-lg"
@@ -34,7 +34,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error entered_by_errors"></p>
         
-        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="serviced_by"
                 name="serviced_by"
                 class="form-control input-lg"
@@ -65,7 +65,7 @@ $maxNotes = 5;
                     <?php } ?>
                 </select>
 
-                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="equipmentmodel_id"
                         name="equipmentmodel_id"
                         class="form-control input-lg"
@@ -75,7 +75,7 @@ $maxNotes = 5;
                         disabled>
                 </select>
 
-                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="unit_number"
                         name="unit_number"
                         class="form-control input-lg"
@@ -313,7 +313,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error pss_reminder_pm_type_errors"></p>
         
-        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_reminder_pm_level"
                 name="pss_reminder_pm_level"
                 class="form-control input-lg"
@@ -405,7 +405,7 @@ $maxNotes = 5;
     
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component_type"
                 name="ccs_component_type"
                 class="form-control input-lg"
@@ -417,7 +417,7 @@ $maxNotes = 5;
     </div>
     
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component"
                 name="ccs_component"
                 class="form-control input-lg"
@@ -427,7 +427,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error ccs_component_errors"></p>
         
-        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
+        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <input
                id="ccs_component_data"
                name="ccs_component_data"
@@ -474,18 +474,6 @@ $maxNotes = 5;
     #submitButton,
     #reviewScreen {
         display: none;
-    }
-    #loading_entered_by,
-    #loading_serviced_by,
-    #loading_equipmentmodel_id,
-    #loading_unit_number,
-    #loading_pss_reminder_pm_level,
-    #loading_ccs_component,
-    #loading_ccs_component_data {
-        width:18px;
-        margin-left:7px;
-        margin-bottom:2px;
-        display:none;
     }
     .form-section {
         display: none;

@@ -167,3 +167,10 @@ li.paginate_button {
 .hideButton {
     display: none;
 }
+
+.loading {
+    width:18px;
+    margin-left:7px;
+    margin-bottom:2px;
+    display:none;
+}
