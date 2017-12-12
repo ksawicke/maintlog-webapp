@@ -405,18 +405,13 @@ $maxNotes = 5;
     
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label>
+        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif">
         <select id="ccs_component_type"
                 name="ccs_component_type"
                 class="form-control input-lg"
                 data-parsley-required="true"
                 data-parsley-error-message="Please select a Component Type"
                 data-parsley-errors-container=".ccs_component_type_errors">
-            <option value="">Select one:</option>
-            <option value="78">Engine</option>
-            <option value="55">Final Drive</option>
-            <option value="444">Suspension</option>
-            <option value="3">Software</option>
         </select>
         <p class="form-error ccs_component_type_errors"></p>
     </div>
@@ -987,12 +982,14 @@ $maxNotes = 5;
             saveServiceLog();
         });
 
-        $('#subflow').on('change', function () {
+        $(document).on("change", "#subflow", function () {
             setCurrentSubflow();
-            populateComponentTypeDropdownWithData("/sites/komatsuna/componenttypes/getComponentTypes",
-                $("#ccs_component_type"));
-            populateComponentDropdownWithData("/sites/komatsuna/components/getComponents",
-                $("#ccs_component"));
+            if($('#subflow :selected').val()==="ccs") {
+                populateComponentTypeDropdownWithData("/sites/komatsuna/componenttypes/getComponentTypes",
+                    $("#ccs_component_type"));
+                populateComponentDropdownWithData("/sites/komatsuna/components/getComponents",
+                    $("#ccs_component"));
+            }
         });
 
         // Previous button is easy, just go back
