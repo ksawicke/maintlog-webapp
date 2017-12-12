@@ -344,26 +344,25 @@ $maxNotes = 5;
     <div class="form-section subflow pss show-prev show-review">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label>
-                <textarea type="text"
-                       id="pss_reminder_recipients"
-                       name="pss_reminder_recipients"
-                       class="form-control input-lg"
-                       data-parsley-required="true"
-                       data-parsley-error-message="Please enter recipients email addresses separated by comma"
-                       data-parsley-errors-container=".pss_reminder_recipients_errors"
-                       readonly>NPJohnson@KOMATSUNA.COM,kevin@rinconmountaintech.com</textarea>
+                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <select id="pss_reminder_recipients"
+                        name="pss_reminder_recipients"
+                        class="form-control input-lg"
+                        multiple
+                        readonly>
+                </select>
                 <p class="form-error pss_reminder_recipients_errors"></p>
             </div>
         </div>
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label>
-                <textarea type="text"
-                       id="pss_additional_reminder_recipients"
-                       name="pss_additional_reminder_recipients"
-                       class="form-control input-lg"></textarea>
+                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <select id="pss_additional_reminder_recipients"
+                        name="pss_additional_reminder_recipients"
+                        class="form-control input-lg"
+                        multiple>
+                </select>
             </div>
         </div>
 
@@ -671,12 +670,13 @@ $maxNotes = 5;
             // Populate multiselect using loaded object.
             $.each(object.data, function(id, userData) {
                 var id = userData.id,
-                    value = userData.last_name + ", " + userData.first_name,
+                    display = userData.last_name + ", " + userData.first_name,
+                    email_address = userData.email_address,
                     current = userData.current,
                     active = userData.active;
 
                 if(active==="1") {
-                    $('#serviced_by').append('<option value="' + id + '">' + value + '</option>');
+                    $("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
                 }
             });
         }
@@ -883,6 +883,39 @@ $maxNotes = 5;
             });
         }
         
+        function populateReminderRecipientsWithData(serviceUrl) {
+//            $("#loading_ccs_component_type").show();
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}),
+                contentType: "application/json"
+            }).done(function(object) {
+                // Populate textarea pss_reminder_recipients with emails, comma separated
+                //     Change to multiselect
+                //        <option value="email@email.com">Johnson, Neil <email@email.com></option>
+                $('#pss_reminder_recipients').empty();
+                $('#pss_additional_reminder_recipients').empty();
+                
+                $.each(object.data, function(id, userData) {
+                    var id = userData.id,
+                        value = userData.email_address,
+                        display = userData.last_name + ", " + userData.first_name + " <" + userData.email_address + ">",
+                        active = userData.active,
+                        logentry_reminderrecipient = userData.logentry_reminderrecipient;
+
+                    if(logentry_reminderrecipient==="1") {
+                        $("#pss_reminder_recipients").append('<option value="' + id + '" selected>' + display + '</option>');
+                    }
+                    $("#pss_additional_reminder_recipients").append('<option value="' + id + '">' + display + '</option>');
+                });
+                
+//                $("#loading_ccs_component_type").hide();
+            });
+        }
+        
         function populateComponentDropdownWithData(serviceUrl, field) {
             $("#loading_ccs_component").show();
             
@@ -1020,6 +1053,8 @@ $maxNotes = 5;
                     break;
             }
             $("label[for = flu_units]").text(fluUnitslabelText);
+            
+            populateReminderRecipientsWithData("/sites/komatsuna/users/getUsers");
         });
         
         $(document).on('change', '#pss_reminder_pm_type', function() {
