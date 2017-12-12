@@ -2,9 +2,9 @@
     
     <div class="group mainFlow">
         <div class="form-group">
-            <label for="reminder_recipient" class="control-label lb-lg">Reminder Recipient</label><img id="loading_reminder_recipient" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+            <label for="reminder_recipient[]" class="control-label lb-lg">Reminder Recipient</label><img id="loading_reminder_recipient" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
             <select id="reminder_recipient"
-                name="reminder_recipient"
+                name="reminder_recipient[]"
                 class="form-control input-lg"
                 multiple
                 data-parsley-required="true"

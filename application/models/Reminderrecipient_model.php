@@ -38,21 +38,19 @@ class Reminderrecipient_model extends CI_Model {
     /**
      * Creates or modifies a Reminder recipient object.
      */
-    public function store($post) {        
+    public function store($post) {
         $now = date('Y-m-d h:i:s');
         
-        $reminderrecipient = ($post['reminderrecipient_id']==0 ? R::dispense('reminderrecipient') : R::load('reminderrecipient', $post['reminderrecipient_id']));
-        $reminderrecipient->reminder_recipient = $post['reminder_recipient'];
+        R::wipe('reminderrecipient');
         
-        if($post['reminderrecipient_id']==0) {
+        foreach($post['reminder_recipient'] as $ctr => $reminder_recipient_user_id) {
+            $reminderrecipient = R::dispense('reminderrecipient');
+            $reminderrecipient->user_id = $reminder_recipient_user_id;
             $reminderrecipient->created = $now;
             $reminderrecipient->created_by = $_SESSION['user_id'];
-        } else {
-            $reminderrecipient->modified = $now;
-            $reminderrecipient->modified_by = $_SESSION['user_id'];
+
+            R::store($reminderrecipient);
         }
-        
-        R::store($reminderrecipient);
     }
     
     /**
