@@ -108,7 +108,7 @@
                     <a href="<?php echo base_url('app/timeChoices/index'); ?>">Edit Time Choices</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('app/reminderRecipients/index'); ?>">Edit Reminder Recipients</a>
+                    <a href="<?php echo base_url('app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('app/reporting/index'); ?>">Reporting</a>

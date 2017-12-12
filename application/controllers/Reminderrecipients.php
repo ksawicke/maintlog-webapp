@@ -30,15 +30,6 @@ class Reminderrecipients extends MY_Controller {
         $this->load->library('session');
         
         $this->session->set_flashdata('data_name', 'data_value');
-        redirect('/app/reminderRecipients', 'refresh');
-    }
-    
-    public function delete($reminderrecipient_id) {
-        $this->load->library('session');
-        
-        $this->load->model('Reminderrecipient_model');
-        $this->Reminderrecipient_model->delete($reminderrecipient_id);
-        $this->session->set_flashdata('data_name', 'data_value');
-        redirect('/app/reminderRecipients', 'refresh');
+        redirect('/app/addReminderRecipient', 'refresh');
     }
 }
