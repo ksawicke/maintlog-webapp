@@ -30,8 +30,9 @@ class User_model extends CI_Model {
      * @return type
      */
     public function findAll() {
-        $user = R::getAll('SELECT id, first_name, last_name, email_address, role, active
+        $user = R::getAll('SELECT user.id, first_name, last_name, email_address, role, active, IF(reminderrecipient.user_id IS NULL, 0, 1) AS logentry_reminderrecipient
                            FROM user
+                           LEFT JOIN reminderrecipient ON reminderrecipient.user_id = user.id
                            ORDER BY last_name ASC, first_name ASC');
         
         return $user;
