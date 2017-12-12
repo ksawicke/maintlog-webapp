@@ -63,7 +63,7 @@ FROM equipmentunit
         $equipmentunit->equipmentmodel_id = $post['equipmentmodel_id'];
         $equipmentunit->unit_number = $post['unit_number'];
         $equipmentunit->track_type = $post['track_type'];
-        $equipmentunit->person_responsible = $post['person_responsible'];
+        $equipmentunit->person_responsible = implode("|", $post['person_responsible']);
         
         if($post['equipmentunit_id']==0) {
             $equipmentunit->created = $now;

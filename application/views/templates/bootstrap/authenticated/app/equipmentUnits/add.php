@@ -43,16 +43,15 @@
             
             <label for="person_responsible" class="control-label lb-lg">Person Responsible</label>
             <select id="person_responsible"
-                    name="person_responsible"
+                    name="person_responsible[]"
                     class="form-control input-lg"
                     multiple
                     data-parsley-required="true"
                     data-parsley-error-message="Please select who is responsible for this unit"
                     data-parsley-errors-container=".person_responsible_errors">
-                <option value="1"<?php echo ($equipment_person_responsible==1 ? ' selected' : ''); ?>>Johnson, Bret</option>
-                <option value="2"<?php echo ($equipment_person_responsible==2 ? ' selected' : ''); ?>>Johnson, Neil</option>
-                <option value="3"<?php echo ($equipment_person_responsible==3 ? ' selected' : ''); ?>>Leonetti, John</option>
-                <option value="4"<?php echo ($equipment_person_responsible==4 ? ' selected' : ''); ?>>Sawicke, Kevin</option>
+                <?php foreach($users as $uid => $userData) { ?>
+                    <option value="<?php echo $userData['id']; ?>"<?php echo (($userData['person_responsible']==="1")?' selected':''); ?>><?php echo $userData['last_name'] . ", " . $userData['first_name']; ?></option>
+                <?php } ?>
             </select>
             <p class="form-error person_responsible_errors"></p>
         </div>
@@ -90,7 +89,7 @@
                     $("#equipmentmodel_id").val("<?php echo $equipment_equipmentmodel_id; ?>");
                 <?php } ?>
             });
-        }  
+        }
         
         $("#equipment_type").on('change', function() {
             $("#equipmentmodel_id").prop('disabled', false);

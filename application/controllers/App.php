@@ -246,10 +246,12 @@ class App extends MY_Controller {
         $this->load->model('Equipmentunit_model');
         $this->load->model('Equipmentmodel_model');
         $this->load->model('Equipmenttype_model');
+        $this->load->model('User_model');
         
         $data['manufacturers'] = $this->Manufacturer_model->findAll();
         $data['equipmentmodels'] = $this->Equipmentmodel_model->findAll();
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+        $data['users'] = $this->User_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
         $equipmentunit = (!is_null($equipmentunit_id) ? $this->Equipmentunit_model->findOne($equipmentunit_id) : []);
@@ -262,9 +264,15 @@ class App extends MY_Controller {
         $data['equipment_track_type'] = (!empty($equipmentunit) ? $equipmentunit->track_type : '');
         $data['equipment_person_responsible'] = (!empty($equipmentunit) ? $equipmentunit->person_responsible : '');
         
-//        echo '<pre>';
-//        var_dump($data['equipmentunit_id']);
-//        exit();
+        $personResponsibleThisUnit = explode("|", $data['equipment_person_responsible']);
+        
+        foreach($data['users'] as $key => $personData) {
+            if(in_array($personData['id'], $personResponsibleThisUnit)) {
+                $data['users'][$key]['person_responsible'] = "1";
+            } else {
+                $data['users'][$key]['person_responsible'] = "0";
+            }
+        }
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/add', $data, true);
                 

@@ -357,6 +357,18 @@ $maxNotes = 5;
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
+                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <select id="pss_responsible_reminder_recipients"
+                        name="pss_responsible_reminder_recipients"
+                        class="form-control input-lg"
+                        multiple
+                        readonly>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
                 <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_additional_reminder_recipients"
                         name="pss_additional_reminder_recipients"
@@ -727,6 +739,8 @@ $maxNotes = 5;
                     var id = unitData.id,
                         value = unitData.unit_number,
                         track_type = unitData.track_type;
+                        
+                    console.log(unitData);
                         
                     $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '">' + value + '</option>');
                 });
