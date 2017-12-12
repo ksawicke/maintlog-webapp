@@ -738,11 +738,10 @@ $maxNotes = 5;
                 $.each(object.data, function(id, unitData) {
                     var id = unitData.id,
                         value = unitData.unit_number,
-                        track_type = unitData.track_type;
+                        track_type = unitData.track_type,
+                        person_responsible = unitData.person_responsible;
                         
-                    console.log(unitData);
-                        
-                    $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '">' + value + '</option>');
+                    $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
                 });
                 
                 $("#loading_unit_number").hide();
@@ -907,6 +906,11 @@ $maxNotes = 5;
                 data: JSON.stringify({}),
                 contentType: "application/json"
             }).done(function(object) {
+                var personResponsibleSelectedUnit = $("#unit_number").find(":selected").attr('data-person-responsible');
+                var personResponsibleArray = personResponsibleSelectedUnit.split("|");
+                
+                console.log(personResponsibleArray);
+                
                 // Populate textarea pss_reminder_recipients with emails, comma separated
                 //     Change to multiselect
                 //        <option value="email@email.com">Johnson, Neil <email@email.com></option>
@@ -915,15 +919,19 @@ $maxNotes = 5;
                 
                 $.each(object.data, function(id, userData) {
                     var id = userData.id,
-                        value = userData.email_address,
+                        email_address = userData.email_address,
                         display = userData.last_name + ", " + userData.first_name + " <" + userData.email_address + ">",
                         active = userData.active,
                         logentry_reminderrecipient = userData.logentry_reminderrecipient;
+                    var isPersonResponsibleForSelectedUnit = $.inArray(id, personResponsibleArray);
 
                     if(logentry_reminderrecipient==="1") {
-                        $("#pss_reminder_recipients").append('<option value="' + id + '" selected>' + display + '</option>');
+                        $("#pss_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
                     }
-                    $("#pss_additional_reminder_recipients").append('<option value="' + id + '">' + display + '</option>');
+                    if(isPersonResponsibleForSelectedUnit!==-1) {
+                        $("#pss_responsible_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
+                    }
+                    $("#pss_additional_reminder_recipients").append('<option value="' + email_address + '">' + display + '</option>');
                 });
                 
 //                $("#loading_ccs_component_type").hide();
