@@ -255,7 +255,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label>
+        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_smr_based_pm_level"
                 name="pss_smr_based_pm_level"
                 class="form-control input-lg pss_smr_based">
@@ -826,7 +826,9 @@ $maxNotes = 5;
             });
         }
         
-        function populateSMRBasedPMLevelDropdownWithData(serviceUrl, field) {
+        function populateSMRBasedPMLevelDropdownWithData(serviceUrl, field, type) {
+            $("#loading_pss_smr_based_pm_level").show();
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -838,13 +840,39 @@ $maxNotes = 5;
                 $('#pss_smr_based_pm_level').empty();
                 $('#pss_smr_based_pm_level').append('<option value="">Select one:</option>');
                                 
-                // Populate dropdown via ajax.
-                $.each(object.data, function(id, smrchoiceData) {
-                    var id = smrchoiceData.id,
-                        smr_choice = smrchoiceData.smr_choice;
+                switch(type) {
+                    case 'smr_based':
+                        // Populate dropdown via ajax.
+                        $.each(object.data, function(id, smrchoiceData) {
+                            var id = smrchoiceData.id,
+                                smr_choice = smrchoiceData.smr_choice;
+
+                            $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + smr_choice + '</option>');
+                        });
+                        break;
+                    
+                    case 'mileage_based':
+                        // Populate dropdown via ajax.
+                        $.each(object.data, function(id, choiceData) {
+                            var id = choiceData.id,
+                                choice = choiceData.mileage_choice;
+
+                            $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                        });
+                        break;
                         
-                    $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + smr_choice + '</option>');
-                });
+                    case 'time_based':
+                        // Populate dropdown via ajax.
+                        $.each(object.data, function(id, choiceData) {
+                            var id = choiceData.id,
+                                choice = choiceData.time_choice;
+
+                            $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                        });
+                        break;
+                }
+                
+                $("#loading_pss_smr_based_pm_level").hide();
             });
         }
         
@@ -909,11 +937,6 @@ $maxNotes = 5;
                 var personResponsibleSelectedUnit = $("#unit_number").find(":selected").attr('data-person-responsible');
                 var personResponsibleArray = personResponsibleSelectedUnit.split("|");
                 
-                console.log(personResponsibleArray);
-                
-                // Populate textarea pss_reminder_recipients with emails, comma separated
-                //     Change to multiselect
-                //        <option value="email@email.com">Johnson, Neil <email@email.com></option>
                 $('#pss_reminder_recipients').empty();
                 $('#pss_additional_reminder_recipients').empty();
                 
@@ -1118,7 +1141,7 @@ $maxNotes = 5;
                 case 'smr_based':
                     // Populate #pss_smr_based_pm_level via ajax with SMR Choices
                     populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/smrchoices/getSMRChoices",
-                        $("#pss_smr_based_pm_level"));
+                        $("#pss_smr_based_pm_level"), 'smr_based');
                     
                     $('.pss_smr_based').removeClass("hide-me");
                     $('.pss_smr_based_notes2').addClass("hide-me");
@@ -1127,11 +1150,21 @@ $maxNotes = 5;
                     break;
                     
                 case 'mileage_based':
-                    $('.pss_mileage_based').removeClass("hide-me");;
+                    populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/mileagechoices/getMileageChoices",
+                        $("#pss_smr_based_pm_level"), 'mileage_based');
+                    $('.pss_mileage_based').removeClass("hide-me");
+                    $('.pss_smr_based_notes2').addClass("hide-me");
+                    $('.pss_smr_based_notes3').addClass("hide-me");
+                    $('.showPssSmrBasedNote3').addClass("hideButton");
                     break;
 
                 case 'time_based':
-                    $('.pss_time_based').removeClass("hide-me");;
+                    populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/timechoices/getTimeChoices",
+                        $("#pss_smr_based_pm_level"), 'time_based');
+                    $('.pss_time_based').removeClass("hide-me");
+                    $('.pss_smr_based_notes2').addClass("hide-me");
+                    $('.pss_smr_based_notes3').addClass("hide-me");
+                    $('.showPssSmrBasedNote3').addClass("hideButton");
                     break;
             }
         });
@@ -1425,6 +1458,7 @@ $maxNotes = 5;
                 objectPush(json, "Notes", "pss_notes", false);
                 
                 objectPush(json, "Reminder Recipients", "pss_reminder_recipients", false);
+                objectPush(json, "Person Responsible Reminder Recipients", "pss_responsible_reminder_recipients", false);
                 objectPush(json, "Additional Reminder Recipients", "pss_additional_reminder_recipients", false);
                 
                 // Concatenated value so handling differently...
