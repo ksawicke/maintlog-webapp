@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2017 at 01:30 PM
+-- Generation Time: Dec 12, 2017 at 11:42 PM
 -- Server version: 5.6.36-cll-lve
 -- PHP Version: 5.6.30
 
@@ -46,6 +46,30 @@ INSERT INTO `appsetting` (`id`, `smr_based_choices`, `mileage_based_choices`, `t
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `component`
+--
+
+CREATE TABLE `component` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `component` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `created_by` tinyint(1) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `component`
+--
+
+INSERT INTO `component` (`id`, `component`, `created`, `created_by`) VALUES
+(2, 'Serial #', '2017-12-11 08:39:21', 1),
+(3, 'Revision #', '2017-12-11 08:39:29', 1),
+(4, 'Part #', '2017-12-11 08:39:40', 1),
+(5, 'Campaign #', '2017-12-11 08:39:51', 1),
+(6, 'None', '2017-12-11 08:39:56', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `componentchange`
 --
 
@@ -54,9 +78,16 @@ CREATE TABLE `componentchange` (
   `servicelog_id` int(11) UNSIGNED DEFAULT NULL,
   `component_type` int(11) UNSIGNED DEFAULT NULL,
   `component` int(11) UNSIGNED DEFAULT NULL,
-  `component_data` int(11) UNSIGNED DEFAULT NULL,
+  `component_data` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `componentchange`
+--
+
+INSERT INTO `componentchange` (`id`, `servicelog_id`, `component_type`, `component`, `component_data`, `notes`) VALUES
+(1, 25, 2, 3, 'sadf', 'asdfdsa');
 
 -- --------------------------------------------------------
 
@@ -159,7 +190,7 @@ CREATE TABLE `equipmentunit` (
   `unit_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `created_by` tinyint(1) UNSIGNED DEFAULT NULL,
-  `person_responsible` int(11) UNSIGNED DEFAULT NULL,
+  `person_responsible` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modified_by` tinyint(1) UNSIGNED DEFAULT NULL,
   `track_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -170,14 +201,36 @@ CREATE TABLE `equipmentunit` (
 --
 
 INSERT INTO `equipmentunit` (`id`, `equipmentmodel_id`, `unit_number`, `created`, `created_by`, `person_responsible`, `modified`, `modified_by`, `track_type`) VALUES
-(1, 15, '123', '2017-12-05 05:58:56', 1, 2, '2017-12-07 11:07:48', 1, 'miles'),
-(2, 15, '1111', '2017-12-05 05:59:06', 1, 1, '2017-12-07 11:07:43', 1, 'smr'),
-(3, 9, 'AVC', '2017-12-05 07:36:24', 1, 3, '2017-12-07 11:08:17', 1, 'smr'),
-(4, 14, '08962321', '2017-12-05 07:36:36', 1, 3, '2017-12-07 11:08:10', 1, 'smr'),
-(5, 12, '11111111111111111', '2017-12-05 07:36:46', 1, 2, '2017-12-07 11:08:27', 1, 'miles'),
-(6, 15, '123123123', '2017-12-06 08:47:39', 1, 1, '2017-12-07 11:07:52', 1, 'time'),
-(7, 15, '455455455', '2017-12-06 08:49:21', 1, 1, '2017-12-07 11:07:57', 1, 'miles'),
-(8, 15, '888888888888888', '2017-12-07 10:56:40', 1, 2, '2017-12-07 11:08:01', 1, 'time');
+(1, 15, '123', '2017-12-05 05:58:56', 1, '2', '2017-12-07 11:07:48', 1, 'miles'),
+(2, 15, '1111', '2017-12-05 05:59:06', 1, '4|3', '2017-12-12 03:05:19', 1, 'smr'),
+(3, 9, 'AVC', '2017-12-05 07:36:24', 1, '3', '2017-12-07 11:08:17', 1, 'smr'),
+(4, 14, '08962321', '2017-12-05 07:36:36', 1, '3', '2017-12-07 11:08:10', 1, 'smr'),
+(5, 12, '11111111111111111', '2017-12-05 07:36:46', 1, '2', '2017-12-07 11:08:27', 1, 'miles'),
+(6, 15, '123123123', '2017-12-06 08:47:39', 1, '1', '2017-12-07 11:07:52', 1, 'time'),
+(7, 15, '455455455', '2017-12-06 08:49:21', 1, '1', '2017-12-07 11:07:57', 1, 'miles'),
+(8, 15, '888888888888888', '2017-12-07 10:56:40', 1, '2', '2017-12-07 11:08:01', 1, 'time');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fluidentry`
+--
+
+CREATE TABLE `fluidentry` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `servicelog_id` int(11) UNSIGNED DEFAULT NULL,
+  `type` int(11) UNSIGNED DEFAULT NULL,
+  `quantity` int(11) UNSIGNED DEFAULT NULL,
+  `units` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fluidentry`
+--
+
+INSERT INTO `fluidentry` (`id`, `servicelog_id`, `type`, `quantity`, `units`) VALUES
+(1, 23, 6, 44, 'gal'),
+(2, 23, 1, 432, 'gal');
 
 -- --------------------------------------------------------
 
@@ -265,13 +318,80 @@ INSERT INTO `mileagechoice` (`id`, `mileage_choice`, `created`, `created_by`) VA
 CREATE TABLE `pmservice` (
   `id` int(11) UNSIGNED NOT NULL,
   `servicelog_id` int(11) UNSIGNED DEFAULT NULL,
-  `reminder_pm_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `smr_due` int(11) UNSIGNED DEFAULT NULL,
-  `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reminder_recipients` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reminder_quantity` int(11) UNSIGNED DEFAULT NULL,
-  `reminder_units` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `pm_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pm_level` int(11) UNSIGNED DEFAULT NULL,
+  `current_smr` int(11) UNSIGNED DEFAULT NULL,
+  `due_units` int(11) UNSIGNED DEFAULT NULL,
+  `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pmservice`
+--
+
+INSERT INTO `pmservice` (`id`, `servicelog_id`, `pm_type`, `pm_level`, `current_smr`, `due_units`, `notes`) VALUES
+(1, 6, 'smr_based', 2, 234234234, 333, 'asdf'),
+(2, 7, 'smr_based', 2, 545, 555, 'asdfadsf'),
+(3, 8, 'smr_based', 4, 9, 9999, 'l'),
+(4, 9, 'smr_based', 3, 455, 334, 'asdfdsafdsfdsf'),
+(5, 10, 'smr_based', 2, 333, 3242344, 'asdfadsfdsfsdf'),
+(6, 11, 'smr_based', 3, 5553, 444, 'asdfasdafs'),
+(7, 12, 'mileage_based', 2, 999, 4336346, 'dgsgffg'),
+(8, 13, 'mileage_based', 1, 7778, 768686, 'hgjhgj'),
+(9, 14, 'smr_based', 3, 98, 6789, '67896789'),
+(10, 15, 'mileage_based', 2, 5768, 778686788, 'ghkkkjhkghk'),
+(11, 16, 'mileage_based', 2, 5345, 356345, 'sdgfgsgf'),
+(12, 17, 'smr_based', 3, 876, 333, 'asdfadsf'),
+(13, 18, 'mileage_based', 2, 435, 44534, 'sdgfg'),
+(14, 19, 'smr_based', 4, 444, 345, 'asdfasdf'),
+(15, 20, 'smr_based', 2, 5643, 435, 'dfgdgfsgf'),
+(16, 21, 'smr_based', 2, 554, 444, 'asdf'),
+(17, 24, 'smr_based', 2, 44, 223532, 'sdafdasfs');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pmservicenote`
+--
+
+CREATE TABLE `pmservicenote` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `pmservice_id` int(11) UNSIGNED DEFAULT NULL,
+  `note` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pmservicenote`
+--
+
+INSERT INTO `pmservicenote` (`id`, `pmservice_id`, `note`) VALUES
+(1, 17, 'sadfadsfsf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pmservicereminder`
+--
+
+CREATE TABLE `pmservicereminder` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `pmservice_id` int(11) UNSIGNED DEFAULT NULL,
+  `emails` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pm_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pm_level` int(11) UNSIGNED DEFAULT NULL,
+  `quantity` int(11) UNSIGNED DEFAULT NULL,
+  `units` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `sent` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pmservicereminder`
+--
+
+INSERT INTO `pmservicereminder` (`id`, `pmservice_id`, `emails`, `pm_type`, `pm_level`, `quantity`, `units`, `date`, `sent`) VALUES
+(1, 17, 'eguin@komatsuna.com', 'smr_based', 3, 4, 'days', '2017-12-12', 0),
+(2, 17, 'npjohnson@komatsuna.com', 'smr_based', 3, 4, 'days', '2017-12-12', 0);
 
 -- --------------------------------------------------------
 
@@ -281,7 +401,7 @@ CREATE TABLE `pmservice` (
 
 CREATE TABLE `reminderrecipient` (
   `id` int(11) UNSIGNED NOT NULL,
-  `reminder_recipient` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` int(11) UNSIGNED DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `created_by` tinyint(1) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -290,9 +410,9 @@ CREATE TABLE `reminderrecipient` (
 -- Dumping data for table `reminderrecipient`
 --
 
-INSERT INTO `reminderrecipient` (`id`, `reminder_recipient`, `created`, `created_by`) VALUES
-(4, 'NPJohnson@KOMATSUNA.COM', '2017-12-05 03:39:45', 1),
-(5, 'kevin@rinconmountaintech.com', '2017-12-05 03:39:55', 1);
+INSERT INTO `reminderrecipient` (`id`, `user_id`, `created`, `created_by`) VALUES
+(1, 6, '2017-12-12 07:16:04', 1),
+(2, 2, '2017-12-12 07:16:04', 1);
 
 -- --------------------------------------------------------
 
@@ -302,10 +422,9 @@ INSERT INTO `reminderrecipient` (`id`, `reminder_recipient`, `created`, `created
 
 CREATE TABLE `servicelog` (
   `id` int(11) UNSIGNED NOT NULL,
-  `date_entered` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `entered_by` int(11) UNSIGNED DEFAULT NULL,
-  `serviced_by` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `equipment_id` int(11) UNSIGNED DEFAULT NULL,
+  `date_entered` date DEFAULT NULL,
+  `entered_by` tinyint(1) UNSIGNED DEFAULT NULL,
+  `unit_number` int(11) UNSIGNED DEFAULT NULL,
   `created` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -313,8 +432,58 @@ CREATE TABLE `servicelog` (
 -- Dumping data for table `servicelog`
 --
 
-INSERT INTO `servicelog` (`id`, `date_entered`, `entered_by`, `serviced_by`, `equipment_id`, `created`) VALUES
-(31, '11/14/2017', 4, '12', 9, '2017-11-14 11:11:57');
+INSERT INTO `servicelog` (`id`, `date_entered`, `entered_by`, `unit_number`, `created`) VALUES
+(1, '2017-12-12', 1, 2, '2017-12-12 10:44:51'),
+(2, '2017-12-12', 1, 2, '2017-12-12 10:49:36'),
+(3, '2017-12-12', 1, 6, '2017-12-12 10:51:21'),
+(4, '2017-12-12', 1, 8, '2017-12-12 10:52:56'),
+(5, '2017-12-12', 1, 4, '2017-12-12 10:54:25'),
+(6, '2017-12-12', 1, 2, '2017-12-12 10:55:41'),
+(7, '2017-12-12', 1, 1, '2017-12-12 10:58:33'),
+(8, '2017-12-12', 1, 2, '2017-12-12 11:02:06'),
+(9, '2017-12-12', 1, 2, '2017-12-12 11:04:27'),
+(10, '2017-12-12', 1, 4, '2017-12-12 11:07:00'),
+(11, '2017-12-12', 1, 7, '2017-12-12 11:10:42'),
+(12, '2017-12-12', 1, 2, '2017-12-12 11:13:31'),
+(13, '2017-12-12', 1, 3, '2017-12-12 11:17:08'),
+(14, '2017-12-12', 1, 3, '2017-12-12 11:18:46'),
+(15, '2017-12-12', 1, 3, '2017-12-12 11:22:08'),
+(16, '2017-12-12', 1, 3, '2017-12-12 11:23:46'),
+(17, '2017-12-12', 1, 3, '2017-12-12 11:25:53'),
+(18, '2017-12-12', 1, 3, '2017-12-12 11:27:23'),
+(19, '2017-12-12', 1, 7, '2017-12-12 11:29:03'),
+(20, '2017-12-12', 1, 3, '2017-12-12 11:30:39'),
+(21, '2017-12-12', 1, 2, '2017-12-12 11:35:51'),
+(22, '2017-12-12', 1, 2, '2017-12-12 11:37:44'),
+(23, '2017-12-12', 1, 1, '2017-12-12 11:38:19'),
+(24, '2017-12-12', 1, 1, '2017-12-12 11:38:55'),
+(25, '2017-12-12', 1, 3, '2017-12-12 11:39:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `servicelogservicedby`
+--
+
+CREATE TABLE `servicelogservicedby` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `servicelog_id` int(11) UNSIGNED DEFAULT NULL,
+  `user_id` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `servicelogservicedby`
+--
+
+INSERT INTO `servicelogservicedby` (`id`, `servicelog_id`, `user_id`) VALUES
+(1, 22, 6),
+(2, 22, 4),
+(3, 22, 2),
+(4, 22, 3),
+(5, 23, 6),
+(6, 23, 2),
+(7, 24, 4),
+(8, 25, 4);
 
 -- --------------------------------------------------------
 
@@ -338,7 +507,8 @@ INSERT INTO `smrchoice` (`id`, `smr_choice`, `created`, `created_by`) VALUES
 (3, '500', '2017-11-15 07:15:33', 1),
 (4, '1000', '2017-11-15 07:15:38', 1),
 (5, '1500', '2017-11-15 07:15:43', 1),
-(6, '2000', '2017-11-15 07:15:47', 1);
+(6, '2000', '2017-11-15 07:15:47', 1),
+(7, '34567', '2017-12-08 01:12:08', 1);
 
 -- --------------------------------------------------------
 
@@ -349,18 +519,15 @@ INSERT INTO `smrchoice` (`id`, `smr_choice`, `created`, `created_by`) VALUES
 CREATE TABLE `smrupdate` (
   `id` int(11) UNSIGNED NOT NULL,
   `servicelog_id` int(11) UNSIGNED DEFAULT NULL,
-  `sus_fluid_type` int(11) UNSIGNED DEFAULT NULL,
-  `sus_quantity` double DEFAULT NULL,
-  `sus_units` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sus_miles` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `smr` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `smrupdate`
 --
 
-INSERT INTO `smrupdate` (`id`, `servicelog_id`, `sus_fluid_type`, `sus_quantity`, `sus_units`, `sus_miles`) VALUES
-(20, 31, 3, 555, 'gal', '121311');
+INSERT INTO `smrupdate` (`id`, `servicelog_id`, `smr`) VALUES
+(1, 22, 235);
 
 -- --------------------------------------------------------
 
@@ -432,6 +599,12 @@ ALTER TABLE `appsetting`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `component`
+--
+ALTER TABLE `component`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `componentchange`
 --
 ALTER TABLE `componentchange`
@@ -466,6 +639,13 @@ ALTER TABLE `equipmentunit`
   ADD KEY `index_foreignkey_equipmentunit_equipmentmodel` (`equipmentmodel_id`);
 
 --
+-- Indexes for table `fluidentry`
+--
+ALTER TABLE `fluidentry`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_foreignkey_fluidentry_servicelog` (`servicelog_id`);
+
+--
 -- Indexes for table `fluidtype`
 --
 ALTER TABLE `fluidtype`
@@ -491,17 +671,39 @@ ALTER TABLE `pmservice`
   ADD KEY `index_foreignkey_pmservice_servicelog` (`servicelog_id`);
 
 --
+-- Indexes for table `pmservicenote`
+--
+ALTER TABLE `pmservicenote`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_foreignkey_pmservicenote_pmservice` (`pmservice_id`);
+
+--
+-- Indexes for table `pmservicereminder`
+--
+ALTER TABLE `pmservicereminder`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_foreignkey_pmservicereminder_pmservice` (`pmservice_id`);
+
+--
 -- Indexes for table `reminderrecipient`
 --
 ALTER TABLE `reminderrecipient`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_foreignkey_reminderrecipient_user` (`user_id`);
 
 --
 -- Indexes for table `servicelog`
 --
 ALTER TABLE `servicelog`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `servicelogservicedby`
+--
+ALTER TABLE `servicelogservicedby`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_foreignkey_servicelog_equipment` (`equipment_id`);
+  ADD KEY `index_foreignkey_servicelogservicedby_servicelog` (`servicelog_id`),
+  ADD KEY `index_foreignkey_servicelogservicedby_user` (`user_id`);
 
 --
 -- Indexes for table `smrchoice`
@@ -538,10 +740,15 @@ ALTER TABLE `user`
 ALTER TABLE `appsetting`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15001;
 --
+-- AUTO_INCREMENT for table `component`
+--
+ALTER TABLE `component`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT for table `componentchange`
 --
 ALTER TABLE `componentchange`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `componenttype`
 --
@@ -563,6 +770,11 @@ ALTER TABLE `equipmenttype`
 ALTER TABLE `equipmentunit`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `fluidentry`
+--
+ALTER TABLE `fluidentry`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `fluidtype`
 --
 ALTER TABLE `fluidtype`
@@ -581,27 +793,42 @@ ALTER TABLE `mileagechoice`
 -- AUTO_INCREMENT for table `pmservice`
 --
 ALTER TABLE `pmservice`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `pmservicenote`
+--
+ALTER TABLE `pmservicenote`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `pmservicereminder`
+--
+ALTER TABLE `pmservicereminder`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `reminderrecipient`
 --
 ALTER TABLE `reminderrecipient`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `servicelog`
 --
 ALTER TABLE `servicelog`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `servicelogservicedby`
+--
+ALTER TABLE `servicelogservicedby`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `smrchoice`
 --
 ALTER TABLE `smrchoice`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `smrupdate`
 --
 ALTER TABLE `smrupdate`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `timechoice`
 --
@@ -636,16 +863,41 @@ ALTER TABLE `equipmentunit`
   ADD CONSTRAINT `c_fk_equipmentunit_equipmentmodel_id` FOREIGN KEY (`equipmentmodel_id`) REFERENCES `equipmentmodel` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
+-- Constraints for table `fluidentry`
+--
+ALTER TABLE `fluidentry`
+  ADD CONSTRAINT `c_fk_fluidentry_servicelog_id` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
 -- Constraints for table `pmservice`
 --
 ALTER TABLE `pmservice`
   ADD CONSTRAINT `c_fk_pmservice_servicelog_id` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
--- Constraints for table `servicelog`
+-- Constraints for table `pmservicenote`
 --
-ALTER TABLE `servicelog`
-  ADD CONSTRAINT `c_fk_servicelog_equipment_id` FOREIGN KEY (`equipment_id`) REFERENCES `equipmentmodel` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+ALTER TABLE `pmservicenote`
+  ADD CONSTRAINT `c_fk_pmservicenote_pmservice_id` FOREIGN KEY (`pmservice_id`) REFERENCES `pmservice` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `pmservicereminder`
+--
+ALTER TABLE `pmservicereminder`
+  ADD CONSTRAINT `c_fk_pmservicereminder_pmservice_id` FOREIGN KEY (`pmservice_id`) REFERENCES `pmservice` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `reminderrecipient`
+--
+ALTER TABLE `reminderrecipient`
+  ADD CONSTRAINT `c_fk_reminderrecipient_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `servicelogservicedby`
+--
+ALTER TABLE `servicelogservicedby`
+  ADD CONSTRAINT `c_fk_servicelogservicedby_servicelog_id` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `c_fk_servicelogservicedby_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `smrupdate`
