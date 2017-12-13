@@ -991,17 +991,22 @@ $maxNotes = 5;
             var serviceUrl = '/sites/komatsuna/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
             
-            $.ajax({
-                url: serviceUrl,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify(jsonData),
-                contentType: "application/json"
-            });
+            console.log("-------------------");
+            console.log("Before we submit let's check the data.");
+            console.log(jsonData);
+            console.log("End.");
             
-            confirmSubmitJBox.close();
-            
-            location.reload(true);
+//            $.ajax({
+//                url: serviceUrl,
+//                type: "POST",
+//                dataType: "json",
+//                data: JSON.stringify(jsonData),
+//                contentType: "application/json"
+//            });
+//            
+//            confirmSubmitJBox.close();
+//            
+//            location.reload(true);
         }
         
         function goBack() {
@@ -1284,7 +1289,9 @@ $maxNotes = 5;
                      "serviced_by": $("#serviced_by option:selected").map(function() {
                         return this.value;
                      }).get().join("|"),
-                     "equipment_id": $("#equipment_id").val()
+                     "unit_number": $("#unit_number option:selected").map(function() {
+                        return this.value;
+                     })
                    };
         
         json.subflow = currentSubflow;
@@ -1295,18 +1302,110 @@ $maxNotes = 5;
                 break;
                 
             case 'flu':
-                json.flu_fluid_type = $("#flu_fluid_type").val();
-                json.flu_quantity = $("#flu_quantity").val();
-                json.flu_units = $("#flu_units").val();
-                json.flu_miles = $("#flu_miles").val();             
+                json.fluid_added = [
+                    { type: $("#flu_fluid_type_1 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_1").val(),
+                      units: $("#flu_units_1 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_2 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_2").val(),
+                      units: $("#flu_units_2 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_3 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_3").val(),
+                      units: $("#flu_units_3 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_4 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_4").val(),
+                      units: $("#flu_units_4 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_5 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_5").val(),
+                      units: $("#flu_units_5 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_6 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_6").val(),
+                      units: $("#flu_units_6 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_7 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_7").val(),
+                      units: $("#flu_units_7 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_8 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_8").val(),
+                      units: $("#flu_units_8 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_9 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_9").val(),
+                      units: $("#flu_units_9 option:selected").map(function() {
+                         return this.value;
+                      })
+                    },
+                    { type: $("#flu_fluid_type_10 option:selected").map(function() {
+                         return this.value;
+                      }),
+                      quantity: $("#flu_quantity_10").val(),
+                      units: $("#flu_units_10 option:selected").map(function() {
+                         return this.value;
+                      })
+                    }
+                ];            
                 break;
 
             case 'pss':
+                json.pss_pm_type
+                json.pss_smr_based_pm_level
+                json.pss_smr_based_current_smr
+                json.pss_smr_based_notes = [
+                    { note: $("#pss_smr_based_notes1").val() },
+                    { note: $("#pss_smr_based_notes2").val() },
+                    { note: $("#pss_smr_based_notes3").val() }
+                ];
                 json.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
-                json.pss_smr_due = $("#pss_smr_due").val();
-                json.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
+                json.pss_reminder_pm_level = $("#pss_reminder_pm_level").val();
+                json.pss_due_units = $("#pss_due_units option:selected").map(function() {
+                   return this.value;
+                });
                 json.pss_notes = $("#pss_notes").val();
-                json.pss_reminder_recipients = $("#pss_reminder_recipients").val();
+                json.pss_reminder_recipients = [
+                    { email_addresses: $("#pss_reminder_recipients").val() },
+                    { email_addresses: $("#pss_responsible_reminder_recipients").val() },
+                    { email_addresses: $("#pss_additional_reminder_recipients").val() }
+                ];
                 json.pss_reminder_quantity = $("#pss_reminder_quantity").val();
                 json.pss_reminder_units = $("#pss_reminder_units").val();
                 break;
