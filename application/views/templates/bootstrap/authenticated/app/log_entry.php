@@ -991,22 +991,22 @@ $maxNotes = 5;
             var serviceUrl = '/sites/komatsuna/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
             
-            console.log("-------------------");
-            console.log("Before we submit let's check the data.");
-            console.log(jsonData);
-            console.log("End.");
+//            console.log("-------------------");
+//            console.log("Before we submit let's check the data.");
+//            console.log(jsonData);
+//            console.log("End.");
             
-//            $.ajax({
-//                url: serviceUrl,
-//                type: "POST",
-//                dataType: "json",
-//                data: JSON.stringify(jsonData),
-//                contentType: "application/json"
-//            });
-//            
-//            confirmSubmitJBox.close();
-//            
-//            location.reload(true);
+            $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(jsonData),
+                contentType: "application/json"
+            });
+            
+            confirmSubmitJBox.close();
+            
+            location.reload(true);
         }
         
         function goBack() {

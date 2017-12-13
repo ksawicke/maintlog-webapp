@@ -19,16 +19,15 @@ class Servicelog_model extends CI_Model {
         $now = date('Y-m-d h:i:s');
 
         $servicelog = R::dispense('servicelog');
-        $servicelog->date_entered = $post['date_entered'];
+        $servicelog->date_entered = date('Y-m-d', strtotime($post['date_entered']));
         $servicelog->entered_by = $post['entered_by'];
-//        $servicelog->serviced_by = $post['serviced_by']; // TODO: Will be 6|4|2...need to explode on |
         $servicelog->unit_number = $post['unit_number'];
         $servicelog->created = $now;
         $servicelog_id = R::store($servicelog);
         
         $servicedBys = explode("|", $post['serviced_by']);
-        foreach($servicedBy as $ctr => $serviceByUserId) {
-            $servicelog_servicedby = R::dispense('servicelog_servicedby');
+        foreach($servicedBys as $ctr => $serviceByUserId) {
+            $servicelog_servicedby = R::dispense('servicelogservicedby');
             $servicelog_servicedby->servicelog_id = $servicelog_id;
             $servicelog_servicedby->user_id = $serviceByUserId;
             $servicelog_servicedby_id = R::store($servicelog_servicedby);
@@ -38,7 +37,7 @@ class Servicelog_model extends CI_Model {
             case 'sus':
                 $smrupdate = R::dispense('smrupdate');
                 $smrupdate->servicelog_id = $servicelog_id;
-                $smrupdate->smr = 'current_smr';
+                $smrupdate->smr = $post['sus_current_smr'];
                 R::store($smrupdate);
                 break;
             
@@ -46,6 +45,7 @@ class Servicelog_model extends CI_Model {
                 foreach($post['fluid_added'] as $ctr => $fluid_added) {
                     if(!empty($fluid_added['type'])) {
                         $fluidentry = R::dispense('fluidentry');
+                        $fluidentry->servicelog_id = $servicelog_id;
                         $fluidentry->type = $fluid_added['type'];
                         $fluidentry->quantity = $fluid_added['quantity'];
                         $fluidentry->units = $fluid_added['units'];
@@ -60,37 +60,40 @@ class Servicelog_model extends CI_Model {
                 $pmservice->pm_type = $post['pss_pm_type'];
                 $pmservice->pm_level = $post['pss_smr_based_pm_level'];
                 $pmservice->current_smr = $post['pss_smr_based_current_smr'];
-                
-                foreach($post['pss_smr_based_notes'] as $note) {
-                    $pmservicenote = R::dispense('pmservicenote');
-                    $pmservicenote->pmservice_id = $pmservice_id;
-                    $pmservicenote->note = $note;
-                    R::store($pmservicenote);
-                }
-                
-                $pmservice->reminder_pm_type = $post['pss_reminder_pm_type'];
-                $pmservice->reminder_pm_level = $post['pss_reminder_pm_level'];
                 $pmservice->due_units = $post['pss_due_units'];
                 $pmservice->notes = $post['pss_notes'];
+                $pmservice_id = R::store($pmservice);
                 
-                foreach($post['pss_reminder_recipients'] as $recipient) {
-                    $emails = explode(",", $recipient['email_addresses']);
-                    foreach($emails as $id => $email) {
-                        $pmservicereminder = R::dispense('pmservicereminder');
-                        $pmservicereminder->pmservice_id = $pmservice_id;
-                        $pmservicereminder->email = $email;
-                        $pmservicereminder->quantity = $post['pss_reminder_quantity'];
-                        $pmservicereminder->units = $post['pss_reminder_units'];
-                        $pmservicereminder->date = date("Y-m-d");
-                        $pmservicereminder->sent = 0;
-                        R::store($pmservicereminder);
+                foreach($post['pss_smr_based_notes'] as $id => $note) {
+                    if(!empty($note['note'])) {
+                        $pmservicenote = R::dispense('pmservicenote');
+                        $pmservicenote->pmservice_id = $pmservice_id;
+                        $pmservicenote->note = $note['note'];
+                        R::store($pmservicenote);
                     }
                 }
                 
-                $pmservice->reminder_recipients = $post['pss_reminder_recipients'];
-                $pmservice->reminder_quantity = $post['pss_reminder_quantity'];
-                $pmservice->reminder_units = $post['pss_reminder_units'];
-                R::store($pmservice);
+                $emailsCaptured = [];
+                foreach($post['pss_reminder_recipients'] as $id => $recipient) {
+                    if(!empty($recipient['email_addresses'])) {
+                        if(!in_array($recipient['email_addresses'][0], $emailsCaptured)) {
+                            $emailsCaptured[] = $recipient['email_addresses'][0];
+                        }
+                    }
+                }
+                
+                foreach($emailsCaptured as $id => $email_address) {
+                    $pmservicereminder = R::dispense('pmservicereminder');
+                    $pmservicereminder->pmservice_id = $pmservice_id;
+                    $pmservicereminder->emails = $email_address;
+                    $pmservicereminder->pm_type = $post['pss_reminder_pm_type'];
+                    $pmservicereminder->pm_level = $post['pss_reminder_pm_level'];
+                    $pmservicereminder->quantity = $post['pss_reminder_quantity'];
+                    $pmservicereminder->units = $post['pss_reminder_units'];
+                    $pmservicereminder->date = date("Y-m-d");
+                    $pmservicereminder->sent = 0;
+                    R::store($pmservicereminder);
+                }
                 break;
             
             case 'ccs':
