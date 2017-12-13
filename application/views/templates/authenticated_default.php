@@ -71,48 +71,50 @@
                 <li>
                     <a href="<?php echo base_url('app/log_entry'); ?>">Enter Service Log</a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('app/employees/index'); ?>">Edit Employees</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/users/index'); ?>">Edit Users</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/manufacturers/index'); ?>">Edit Manufacturers</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/equipmentunit/index'); ?>">Edit Equipment Units</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/equipmentmodel/index'); ?>">Edit Equipment Models</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/equipmentTypes/index'); ?>">Edit Equipment Types</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/fluidTypes/index'); ?>">Edit Fluid Types</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/componentTypes/index'); ?>">Edit Component Types</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/components/index'); ?>">Edit Components</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/smrChoices/index'); ?>">Edit SMR Choices</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/mileageChoices/index'); ?>">Edit Mileage Choices</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/timeChoices/index'); ?>">Edit Time Choices</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('app/reporting/index'); ?>">Reporting</a>
-                </li>
+                <?php if($_SESSION['role']==='admin') { ?>
+                    <li>
+                        <a href="<?php echo base_url('app/employees/index'); ?>">Edit Employees</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/users/index'); ?>">Edit Users</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/manufacturers/index'); ?>">Edit Manufacturers</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/equipmentunit/index'); ?>">Edit Equipment Units</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/equipmentmodel/index'); ?>">Edit Equipment Models</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/equipmentTypes/index'); ?>">Edit Equipment Types</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/fluidTypes/index'); ?>">Edit Fluid Types</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/componentTypes/index'); ?>">Edit Component Types</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/components/index'); ?>">Edit Components</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/smrChoices/index'); ?>">Edit SMR Choices</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/mileageChoices/index'); ?>">Edit Mileage Choices</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/timeChoices/index'); ?>">Edit Time Choices</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('app/reporting/index'); ?>">Reporting</a>
+                    </li>
+                <?php } ?>
                 <li>
                     <a href="<?php echo base_url('auth/logout'); ?>">Log Out</a>
                 </li>
@@ -128,11 +130,13 @@
                         
                         <table>
                             <tr>
+                                <?php if($_SESSION['role']==='admin') { ?>
                                 <td>
                                     <a href="#" id="menu-toggle" class="btn btn-sm">
                                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                                     </a>
                                 </td>
+                                <?php } ?>
                                 <td>
                                     <img src="<?php echo $assetDirectoryCustom; ?>img/025_Gloria_blue_nega_r.jpg">
                                     <h5>Maintenance Log Application</h5>
