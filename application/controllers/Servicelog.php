@@ -42,14 +42,6 @@ class Servicelog extends MY_Controller {
     public function save() {
         $post = json_decode(file_get_contents('php://input'), true);
         
-//        echo '<pre>POST';
-//        var_dump($post);
-        
         $this->Servicelog_model->store($post);
-        
-//        $this->load->library('session');
-//        
-//        $this->session->set_flashdata('data_name', 'data_value');
-//        redirect('/app/equipment', 'refresh');
     }
 }

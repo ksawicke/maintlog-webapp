@@ -1345,9 +1345,9 @@ $maxNotes = 5;
                 break;
 
             case 'pss':
-                json.pss_pm_type
-                json.pss_smr_based_pm_level
-                json.pss_smr_based_current_smr
+                json.pss_pm_type = $("#pss_pm_type").val();
+                json.pss_smr_based_pm_level = $("#pss_smr_based_pm_level").val();
+                json.pss_smr_based_current_smr = $("#pss_smr_based_current_smr").val();
                 json.pss_smr_based_notes = [
                     { note: $("#pss_smr_based_notes1").val() },
                     { note: $("#pss_smr_based_notes2").val() },
