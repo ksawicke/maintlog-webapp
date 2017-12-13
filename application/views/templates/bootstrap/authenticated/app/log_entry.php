@@ -1355,81 +1355,84 @@ $maxNotes = 5;
             case 'flu':
                 json.push({ "label": "Entry Selection", "value": "Fluid Entry" });
                 
+                console.log($("#flu_quantity_1").val());
+                console.log($("#flu_units_1 option[value='" + $("#flu_units_1").val() + "']").text());
+                
                 // Fluid entry 1
-                objectPush(json, "Fluid Type", "flu_fluid_type1", true);
+                objectPush(json, "Fluid Type", "flu_fluid_type_1", true);
                 json.push({ "label": "Quantity",
-                            "value": $("#flu_quantity1").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units1").val() + "']").text()
+                            "value": $("#flu_quantity_1").val() + " " + $("#flu_units_1 option[value='" + $("#flu_units_1").val() + "']").text()
                 });
                 
                 // Fluid entry 2
-                if(!empty($("#flu_quantity2").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type2", true);
+                if(!empty($("#flu_quantity_2").val())) {
+                    objectPush(json, "Fluid Type", "flu_fluid_type_2", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity2").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units2").val() + "']").text()
+                                "value": $("#flu_quantity_2").val() + " " + $("#flu_units_2 option[value='" + $("#flu_units_2").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 3
                 if(!empty($("#flu_quantity3").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type3", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_3", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity3").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units3").val() + "']").text()
+                                "value": $("#flu_quantity_3").val() + " " + $("#flu_units_3 option[value='" + $("#flu_units_3").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 4
                 if(!empty($("#flu_quantity4").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type4", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_4", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity4").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units4").val() + "']").text()
+                                "value": $("#flu_quantity_4").val() + " " + $("#flu_units_4 option[value='" + $("#flu_units_4").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 5
                 if(!empty($("#flu_quantity5").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type5", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_5", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity5").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units5").val() + "']").text()
+                                "value": $("#flu_quantity_5").val() + " " + $("#flu_units_5 option[value='" + $("#flu_units_5").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 6
                 if(!empty($("#flu_quantity6").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type6", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_6", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity6").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units6").val() + "']").text()
+                                "value": $("#flu_quantity_6").val() + " " + $("#flu_units_6 option[value='" + $("#flu_units_6").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 7
                 if(!empty($("#flu_quantity7").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type7", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_7", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity7").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units7").val() + "']").text()
+                                "value": $("#flu_quantity_7").val() + " " + $("#flu_units_7 option[value='" + $("#flu_units_7").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 8
                 if(!empty($("#flu_quantity8").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type8", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_8", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity8").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units8").val() + "']").text()
+                                "value": $("#flu_quantity_8").val() + " " + $("#flu_units_8 option[value='" + $("#flu_units_8").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 9
                 if(!empty($("#flu_quantity9").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type9", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_9", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity9").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units9").val() + "']").text()
+                                "value": $("#flu_quantity_9").val() + " " + $("#flu_units_9 option[value='" + $("#flu_units_9").val() + "']").text()
                     });
                 }
                 
                 // Fluid entry 10
                 if(!empty($("#flu_quantity10").val())) {
-                    objectPush(json, "Fluid Type", "flu_fluid_type10", true);
+                    objectPush(json, "Fluid Type", "flu_fluid_type_10", true);
                     json.push({ "label": "Quantity",
-                                "value": $("#flu_quantity10").val() + " " + $("#flu_unit1s option[value='" + $("#flu_units10").val() + "']").text()
+                                "value": $("#flu_quantity_10").val() + " " + $("#flu_units_10 option[value='" + $("#flu_units_10").val() + "']").text()
                     });
                 }
 
