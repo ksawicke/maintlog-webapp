@@ -1289,9 +1289,7 @@ $maxNotes = 5;
                      "serviced_by": $("#serviced_by option:selected").map(function() {
                         return this.value;
                      }).get().join("|"),
-                     "unit_number": $("#unit_number option:selected").map(function() {
-                        return this.value;
-                     })
+                     "unit_number": $("#unit_number").val()
                    };
         
         json.subflow = currentSubflow;
@@ -1303,85 +1301,45 @@ $maxNotes = 5;
                 
             case 'flu':
                 json.fluid_added = [
-                    { type: $("#flu_fluid_type_1 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_1").val(),
                       quantity: $("#flu_quantity_1").val(),
-                      units: $("#flu_units_1 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_1").val()
                     },
-                    { type: $("#flu_fluid_type_2 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_2").val(),
                       quantity: $("#flu_quantity_2").val(),
-                      units: $("#flu_units_2 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_2").val()
                     },
-                    { type: $("#flu_fluid_type_3 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_3").val(),
                       quantity: $("#flu_quantity_3").val(),
-                      units: $("#flu_units_3 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_3").val()
                     },
-                    { type: $("#flu_fluid_type_4 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_4").val(),
                       quantity: $("#flu_quantity_4").val(),
-                      units: $("#flu_units_4 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_4").val()
                     },
-                    { type: $("#flu_fluid_type_5 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_5").val(),
                       quantity: $("#flu_quantity_5").val(),
-                      units: $("#flu_units_5 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_5").val()
                     },
-                    { type: $("#flu_fluid_type_6 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_6").val(),
                       quantity: $("#flu_quantity_6").val(),
-                      units: $("#flu_units_6 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_6").val()
                     },
-                    { type: $("#flu_fluid_type_7 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_7").val(),
                       quantity: $("#flu_quantity_7").val(),
-                      units: $("#flu_units_7 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_7").val()
                     },
-                    { type: $("#flu_fluid_type_8 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_8").val(),
                       quantity: $("#flu_quantity_8").val(),
-                      units: $("#flu_units_8 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_8").val()
                     },
-                    { type: $("#flu_fluid_type_9 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_9").val(),
                       quantity: $("#flu_quantity_9").val(),
-                      units: $("#flu_units_9 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_9").val()
                     },
-                    { type: $("#flu_fluid_type_10 option:selected").map(function() {
-                         return this.value;
-                      }),
+                    { type: $("#flu_fluid_type_10").val(),
                       quantity: $("#flu_quantity_10").val(),
-                      units: $("#flu_units_10 option:selected").map(function() {
-                         return this.value;
-                      })
+                      units: $("#flu_units_10").val()
                     }
                 ];            
                 break;
@@ -1397,9 +1355,7 @@ $maxNotes = 5;
                 ];
                 json.pss_reminder_pm_type = $("#pss_reminder_pm_type").val();
                 json.pss_reminder_pm_level = $("#pss_reminder_pm_level").val();
-                json.pss_due_units = $("#pss_due_units option:selected").map(function() {
-                   return this.value;
-                });
+                json.pss_due_units = $("#pss_due_units").val();
                 json.pss_notes = $("#pss_notes").val();
                 json.pss_reminder_recipients = [
                     { email_addresses: $("#pss_reminder_recipients").val() },
