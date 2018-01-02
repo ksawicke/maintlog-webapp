@@ -690,7 +690,7 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function reporting()
+    public function reporting($report_type = 'index', $id = 0)
     {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -700,13 +700,28 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
-        $this->load->model('Report_model');
         
         $data['flashdata'] = $this->session->flashdata();
         
-        $data['maintenance_reminders'] = $this->Report_model->findMaintenanceLogReminders();
+        $this->load->model('Report_model');
         
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/index', $data, true);
+        switch($report_type) {
+            case 'service_logs':
+                $data['service_logs'] = $this->Report_model->findServiceLogs();
+                break;
+            
+            case 'service_log_detail':
+                $data['service_log'] = $this->Report_model->findServiceLogs($id);
+                break;
+            
+            case 'maintenance_log_reminders':
+            default:
+                $report_type = 'maintenance_log_reminders';
+                $data['maintenance_log_reminders'] = $this->Report_model->findMaintenanceLogReminders();
+                break;
+        }
+        
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

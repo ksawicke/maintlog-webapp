@@ -13,15 +13,15 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($maintenance_reminders as $ctr => $maintenance_reminder) { ?>
+        <?php foreach($maintenance_log_reminders as $ctr => $reminder) { ?>
         <tr>
-            <td><?php echo date('m/d/Y', strtotime($maintenance_reminder['date_entered'])); ?></th>
-            <td><?php echo $maintenance_reminder['current_smr']; ?></th>
-            <td><?php echo $maintenance_reminder['manufacturer_name']; ?></th>
-            <td><?php echo $maintenance_reminder['model_number']; ?></th>
-            <td><?php echo $maintenance_reminder['unit_number']; ?></th>
-            <td><?php echo $maintenance_reminder['notes']; ?></th>
-            <td><?php echo $maintenance_reminder['due_units']; ?></th>
+            <td><?php echo date('m/d/Y', strtotime($reminder['date_entered'])); ?></td>
+            <td><?php echo $reminder['current_smr']; ?></td>
+            <td><?php echo $reminder['manufacturer_name']; ?></td>
+            <td><?php echo $reminder['model_number']; ?></td>
+            <td><?php echo $reminder['unit_number']; ?></td>
+            <td><?php echo $reminder['notes']; ?></td>
+            <td><?php echo $reminder['due_units']; ?></td>
         </tr>
         <?php } ?>
     </tbody>
