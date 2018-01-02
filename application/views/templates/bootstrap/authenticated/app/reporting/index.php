@@ -13,23 +13,19 @@
         </tr>
     </thead>
     <tbody>
-        <?php //foreach($mileagechoices as $mileagechoice) { ?>
+        <?php foreach($maintenance_reminders as $ctr => $maintenance_reminder) { ?>
         <tr>
-            <td>&nbsp;</th>
-            <td>&nbsp;</th>
-            <td>&nbsp;</th>
-            <td>&nbsp;</th>
-            <td>&nbsp;</th>
-            <td>&nbsp;</th>
-            <td>&nbsp;</th>
+            <td><?php echo $maintenance_reminder['date_entered']; ?></th>
+            <td><?php echo $maintenance_reminder['current_smr']; ?></th>
+            <td><?php echo $maintenance_reminder['manufacturer_name']; ?></th>
+            <td><?php echo $maintenance_reminder['model_number']; ?></th>
+            <td><?php echo $maintenance_reminder['unit_number']; ?></th>
+            <td><?php echo $maintenance_reminder['notes']; ?></th>
+            <td><?php echo $maintenance_reminder['due_units']; ?></th>
         </tr>
-        <?php //} ?>
+        <?php } ?>
     </tbody>
 </table>
-
-<pre>
-    <?php var_dump($maintenance_reminders); ?>
-</pre>
 
 <script>
   $(document).ready(function() {
