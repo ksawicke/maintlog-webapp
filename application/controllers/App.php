@@ -700,8 +700,11 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Report_model');
         
         $data['flashdata'] = $this->session->flashdata();
+        
+        $data['maintenance_reminders'] = $this->Report_model->findMaintenanceLogReminders();
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/index', $data, true);
                 
