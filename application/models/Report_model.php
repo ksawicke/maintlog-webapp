@@ -116,16 +116,30 @@ class Report_model extends CI_Model {
     }
     
     public function getSMRUpdateDetail($servicelog_id = 0) {
-        return [];
+        $detail = R::getAll(
+            "SELECT
+                smr.smr
+            FROM smrupdate smr
+            WHERE smr.servicelog_id = '" . $servicelog_id . "'");
+        
+        return $detail[0];
     }
     
     public function getFluidEntryDetail($servicelog_id = 0) {
-        return [];
+        $detail = R::getAll(
+            "SELECT
+                ft.fluid_type, fe.quantity, fe.units
+            FROM fluidentry fe
+            LEFT JOIN fluidtype ft ON ft.id = fe.type
+            WHERE fe.servicelog_id = '" . $servicelog_id . "'");
+        
+        return $detail;
     }
     
     public function getPMServiceDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
+                pm.id,
                 pm.pm_type,
                 CASE pm.pm_type
                         WHEN 'smr_based' THEN smr.smr_choice
@@ -138,9 +152,21 @@ class Report_model extends CI_Model {
             LEFT OUTER JOIN smrchoice smr ON (smr.id = pm.pm_level AND pm.pm_type = 'smr_based')
             LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = pm.pm_level AND pm.pm_type = 'mileage_based')
             LEFT OUTER JOIN timechoice time ON (time.id = pm.pm_level AND pm.pm_type = 'time_based')
-            WHERE servicelog_id = '" . $servicelog_id . "'");
+            WHERE pm.servicelog_id = '" . $servicelog_id . "'");
+        
+        $detail[0]['pmservicenotes'] = $this->getPMServiceNotes($detail[0]['id']);
         
         return $detail[0];
+    }
+    
+    public function getPMServiceNotes($pmservice_id = 0) {
+        $detail = R::getAll(
+           "SELECT
+               pn.note
+            FROM pmservicenote pn
+            WHERE pn.pmservice_id = '" . $pmservice_id . "'");
+        
+        return $detail;
     }
     
     public function getComponentChangeDetail($servicelog_id = 0) {
