@@ -41,41 +41,50 @@ class Report_model extends CI_Model {
     }
 
     public function findServiceLogs($servicelog_id = 0) {
-        $append_query = "ORDER BY s.created DESC";
+        $append_query = " WHERE su.servicelog_id <> 'UNKNOWN'
+                          OR pm.servicelog_id <> 'UNKNOWN'
+                          OR fe.servicelog_id <> 'UNKNOWN'
+                          OR cc.servicelog_id <> 'UNKNOWN'
+                          ORDER BY s.created DESC";
 
         if ($servicelog_id <> 0) {
             $append_query = " WHERE s.id = '" . $servicelog_id . "'";
         }
 
         $service_logs = R::getAll(
-            "SELECT
-                s.id, s.date_entered, u.first_name, u.last_name, man.manufacturer_name, em.model_number, eu.unit_number
+            "SELECT DISTINCT
+                s.id, s.date_entered, u.first_name, u.last_name, man.manufacturer_name, em.model_number, eu.unit_number,
+                CASE
+                    WHEN su.servicelog_id IS NOT NULL THEN 'SMR Update'
+                    WHEN pm.servicelog_id IS NOT NULL THEN 'PM Service'
+                    WHEN fe.servicelog_id IS NOT NULL THEN 'Fluid Entry'
+                    WHEN cc.servicelog_id IS NOT NULL THEN 'Component Change'
+                    ELSE 'UNKNOWN'
+                END AS entry_type
             FROM servicelog s
                 LEFT JOIN equipmentunit eu ON eu.id = s.unit_number
 		LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
 		LEFT JOIN manufacturer man on man.id = em.manufacturer_id
-                LEFT JOIN user u on u.id = s.entered_by " . $append_query);
+                LEFT JOIN user u on u.id = s.entered_by
+                LEFT OUTER JOIN smrupdate su ON su.servicelog_id = s.id
+                LEFT OUTER JOIN pmservice pm ON pm.servicelog_id = s.id
+                LEFT OUTER JOIN fluidentry fe ON fe.servicelog_id = s.id
+                LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id " . $append_query);
 
         if ($servicelog_id <> 0) {
-            $service_logs[0]['update_type'] = '';
-
-            if ($this->isSMRUpdate($servicelog_id)) {
-                $service_logs[0]['update_type'] = 'smr_update';
+            if ($service_logs[0]['entry_type']=='SMR Update') {
                 $service_logs[0]['update_detail'] = $this->getSMRUpdateDetail($servicelog_id);
             }
 
-            if ($this->isFluidEntry($servicelog_id)) {
-                $service_logs[0]['update_type'] = 'fluid';
+            if ($service_logs[0]['entry_type']=='PM Service') {
+                $service_logs[0]['update_detail'] = $this->getPMServiceDetail($servicelog_id);
+            }
+            
+            if ($service_logs[0]['entry_type']=='Fluid Entry') {
                 $service_logs[0]['update_detail'] = $this->getFluidEntryDetail($servicelog_id);
             }
 
-            if ($this->isPMService($servicelog_id)) {
-                $service_logs[0]['update_type'] = 'pmservice';
-                $service_logs[0]['update_detail'] = $this->getPMServiceDetail($servicelog_id);
-            }
-
-            if ($this->isComponentChange($servicelog_id)) {
-                $service_logs[0]['update_type'] = 'componentchange';
+            if ($service_logs[0]['entry_type']=='Component Change') {
                 $service_logs[0]['update_detail'] = $this->getComponentChangeDetail($servicelog_id);
             }
         }

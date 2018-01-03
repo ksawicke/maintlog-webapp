@@ -10,6 +10,7 @@
             <th>Manufacturer Name</th>
             <th>Model Name</th>
             <th>Unit Number</th>
+            <th>Entry Type</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
             <td><?php echo $log['manufacturer_name']; ?></td>
             <td><?php echo $log['model_number']; ?></td>
             <td><?php echo $log['unit_number']; ?></td>
+            <td><?php echo $log['entry_type']; ?></td>
             <td>
                 <a href="<?php echo base_url('app/reporting/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
             </td>
@@ -33,6 +35,7 @@
   $(document).ready(function() {
     $('#serviceLogsReport').DataTable({
         "columns": [
+            null,
             null,
             null,
             null,
