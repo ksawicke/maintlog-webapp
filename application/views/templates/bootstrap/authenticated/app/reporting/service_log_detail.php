@@ -2,7 +2,11 @@
 
 <h3>SERVICE LOG DETAIL</h3>
 
-<h5>This page is currently being developed.</h5>
+
+<label>Service Log ID</label>
+<ul>
+    <li><?php echo $service_log['id']; ?></li>
+</ul>
 
 <label>Date Entered</label>
 <ul>
