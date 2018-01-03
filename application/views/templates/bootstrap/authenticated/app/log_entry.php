@@ -739,9 +739,12 @@ $maxNotes = 5;
                     var id = unitData.id,
                         value = unitData.unit_number,
                         track_type = unitData.track_type,
-                        person_responsible = unitData.person_responsible;
+                        person_responsible = unitData.person_responsible,
+                        active = unitData.active;
                         
-                    $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
+                    if(active==="1") {
+                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
+                    }
                 });
                 
                 $("#loading_unit_number").hide();

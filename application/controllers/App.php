@@ -263,6 +263,7 @@ class App extends MY_Controller {
         $data['equipment_equipmenttype_id'] = (!empty($equipmentunit) ? $equipmentunit->equipment_type_id : '');
         $data['equipment_track_type'] = (!empty($equipmentunit) ? $equipmentunit->track_type : '');
         $data['equipment_person_responsible'] = (!empty($equipmentunit) ? $equipmentunit->person_responsible : '');
+        $data['unit_active'] = (!empty($equipmentunit) ? $equipmentunit->active : '');
         
         $personResponsibleThisUnit = explode("|", $data['equipment_person_responsible']);
         

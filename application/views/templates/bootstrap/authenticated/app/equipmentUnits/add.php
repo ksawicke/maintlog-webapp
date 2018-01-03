@@ -57,6 +57,15 @@
         </div>
     </div>
     
+    <div class="form-group">
+        <label for="active" class="control-label lb-lg">Active</label>
+        <select id="active" name="active" class="form-control input-lg">
+            <option value="">Select one:</option>
+            <option value="1"<?php echo ($unit_active==1 ? " selected" : ""); ?>>Active</option>
+            <option value="0"<?php echo ($unit_active==0 ? " selected" : ""); ?>>Inactive</option>
+        </select>
+    </div>
+    
     <input type="hidden" id="equipmentunit_id" name="equipmentunit_id" value="<?php echo $equipmentunit_id; ?>">
 
     <button id="btnSubmit" type="submit" class="btn btn-lg btn-primary">Submit</button>
