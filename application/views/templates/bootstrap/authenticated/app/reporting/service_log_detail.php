@@ -1,6 +1,6 @@
 <?php echo $reports_navigation; ?>
 
-<h3>SERVICE LOG DETAIL</h3>
+<h3>Service Log Detail</h3>
 
 
 <label>Service Log ID</label>
