@@ -11,12 +11,14 @@
 
 <label>Entered By</label>
 <ul>
-    <li>...</li>
+    <li><?php echo $service_log['enteredby_last_name'] . ', ' . $service_log['enteredby_first_name']; ?></li>
 </ul>
 
 <label>Serviced By</label>
 <ul>
-    <li>...</li>
+    <?php foreach($service_log['serviced_by'] as $ctr => $serviced_by) { ?>
+        <li><?php echo $serviced_by['last_name']; ?>, <?php echo $serviced_by['first_name']; ?></li>
+    <?php } ?>
 </ul>
 
 <label>Manufacturer</label>
@@ -178,3 +180,7 @@
     </ul>
 
 <?php } ?>
+
+<!--pre>
+<?php //var_dump($service_log); ?>
+</pre-->

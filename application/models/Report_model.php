@@ -53,7 +53,7 @@ class Report_model extends CI_Model {
 
         $service_logs = R::getAll(
             "SELECT DISTINCT
-                s.id, s.date_entered, u.first_name, u.last_name, man.manufacturer_name, em.model_number, eu.unit_number,
+                s.id, s.date_entered, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.model_number, eu.unit_number,
                 CASE
                     WHEN su.servicelog_id IS NOT NULL THEN 'SMR Update'
                     WHEN pm.servicelog_id IS NOT NULL THEN 'PM Service'
@@ -72,6 +72,8 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id " . $append_query);
 
         if ($servicelog_id <> 0) {
+            $service_logs[0]['serviced_by'] = $this->getServicedBy($servicelog_id);
+            
             if ($service_logs[0]['entry_type']=='SMR Update') {
                 $service_logs[0]['update_detail'] = $this->getSMRUpdateDetail($servicelog_id);
             }
@@ -209,6 +211,17 @@ class Report_model extends CI_Model {
             WHERE cc.servicelog_id = '" . $servicelog_id . "'");
 
         return $detail[0];
+    }
+    
+    public function getServicedBy($servicelog_id = 0) {
+        $detail = R::getAll(
+            "SELECT
+                u.first_name, u.last_name
+            FROM servicelogservicedby sb
+            LEFT JOIN user u ON u.id = sb.user_id
+            WHERE sb.servicelog_id = '" . $servicelog_id . "'");
+
+        return $detail;
     }
 
 }

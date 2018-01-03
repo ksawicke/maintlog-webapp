@@ -34,6 +34,7 @@
 <script>
   $(document).ready(function() {
     $('#serviceLogsReport').DataTable({
+        "order": [],
         "columns": [
             null,
             null,
