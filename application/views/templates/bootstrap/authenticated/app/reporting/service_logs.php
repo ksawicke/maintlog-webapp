@@ -1,3 +1,5 @@
+<?php echo $reports_navigation; ?>
+
 <h3>Service Logs Report</h3>
 
 <table id="serviceLogsReport" class="table table-bordered table-striped">

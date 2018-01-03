@@ -721,6 +721,8 @@ class App extends MY_Controller {
                 break;
         }
         
+        $data['report_type'] = $report_type;
+        $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
                 
         $this->template->load('authenticated_default', null, $data);

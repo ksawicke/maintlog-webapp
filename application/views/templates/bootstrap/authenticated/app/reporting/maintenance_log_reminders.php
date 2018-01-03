@@ -1,3 +1,5 @@
+<?php echo $reports_navigation; ?>
+
 <h3>Maintenance Log Reminders Report</h3>
 
 <table id="maintenanceLogRemindersReport" class="table table-bordered table-striped">
