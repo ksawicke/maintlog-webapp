@@ -5,3 +5,7 @@
 <a href="<?php echo base_url('app/reporting/service_logs'); ?>">
     <button type="button" class="btn btn-<?php echo ($report_type=='service_logs' || $report_type=='service_log_detail' ? 'success' : 'default'); ?>">Service Logs</button>
 </a>
+
+<a href="<?php echo base_url('app/reporting/pmservice_reminders'); ?>">
+    <button type="button" class="btn btn-<?php echo ($report_type=='pmservice_reminders' ? 'success' : 'default'); ?>">PM Service Reminders</button>
+</a>

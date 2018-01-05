@@ -312,10 +312,38 @@ class Report_model extends CI_Model {
     public function findPMServiceReminders() {
         $pmservicereminders = R::getAll(
             "SELECT
-                s.date_entered, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name,
+                u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name,
                 man.manufacturer_name, em.model_number, eu.unit_number,
-                r.emails, r.pm_type, r.quantity, r.units, r.date, r.sent,
-                ps.pm_type, ps.pm_level, ps.current_smr, ps.due_units, ps.notes
+                r.emails, 
+                CASE r.pm_type
+                    WHEN 'mileage_based' THEN 'Mileage based'
+                    WHEN 'smr_based' THEN 'SMR based'
+                    WHEN 'time_based' THEN 'Time based'
+                    ELSE -1
+                END AS reminder_pm_type,
+                r.quantity AS warn_on_quantity,
+                CASE r.units
+                    WHEN 'days' THEN 'Days'
+                    WHEN 'smr' THEN 'SMR'
+                    WHEN 'miles' THEN 'Miles'
+                    ELSE -1
+                END AS warn_on_units,
+                CASE ps.pm_type
+                    WHEN 'mileage_based' THEN 'Mileage based'
+                    WHEN 'smr_based' THEN 'SMR based'
+                    WHEN 'time_based' THEN 'Time based'
+                    ELSE -1
+                END AS pmservice_pm_type,
+                CASE ps.pm_type
+                    WHEN 'smr_based' THEN smr.smr_choice
+                    WHEN 'mileage_based' THEN mileage.mileage_choice
+                    WHEN 'time_based' THEN time.time_choice
+                    ELSE -1
+                END AS pmservice_pm_level,
+                ps.current_smr AS pmservice_current_smr,
+                ps.due_units AS pmservice_due_quantity,
+                ps.notes AS pmservice_notes,
+                r.date AS reminder_date_created, r.sent AS reminder_date_sent
              FROM pmservicereminder r
              LEFT JOIN pmservice ps ON ps.id = r.pmservice_id
              LEFT JOIN servicelog s ON s.id = ps.servicelog_id
@@ -323,6 +351,9 @@ class Report_model extends CI_Model {
 	     LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
 	     LEFT JOIN manufacturer man on man.id = em.manufacturer_id
              LEFT JOIN user u on u.id = s.entered_by
+             LEFT OUTER JOIN smrchoice smr ON (smr.id = ps.pm_level AND ps.pm_type = 'smr_based')
+	     LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = ps.pm_level AND ps.pm_type = 'mileage_based')
+             LEFT OUTER JOIN timechoice time ON (time.id = ps.pm_level AND ps.pm_type = 'time_based')
              ORDER BY r.date DESC, r.id DESC");
 
         return $pmservicereminders;
