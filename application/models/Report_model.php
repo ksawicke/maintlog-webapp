@@ -13,7 +13,7 @@ class Report_model extends CI_Model {
     }
 
     /**
-     * Finds Maintenance Log Reminder objects.
+     * Finds Maintenance Log Reminder objects
      * 
      * @param type $smrchoice_id
      * @return type
@@ -40,6 +40,12 @@ class Report_model extends CI_Model {
         return $reminders;
     }
 
+    /**
+     * Find service log objects
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function findServiceLogs($servicelog_id = 0) {
         $append_query = " WHERE su.servicelog_id <> 'UNKNOWN'
                           OR pm.servicelog_id <> 'UNKNOWN'
@@ -51,7 +57,17 @@ class Report_model extends CI_Model {
             $append_query = " WHERE s.id = '" . $servicelog_id . "'";
         }
 
-        $service_logs = R::getAll(
+        $service_logs = $this->getAllServiceLogs($append_query);
+
+        if ($servicelog_id <> 0) {
+            $service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs);
+        }
+
+        return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
+    }
+    
+    private function getAllServiceLogs($append_query) {
+        return R::getAll(
             "SELECT DISTINCT
                 s.id, s.date_entered, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.model_number, eu.unit_number,
                 CASE
@@ -70,30 +86,45 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN pmservice pm ON pm.servicelog_id = s.id
                 LEFT OUTER JOIN fluidentry fe ON fe.servicelog_id = s.id
                 LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id " . $append_query);
-
-        if ($servicelog_id <> 0) {
-            $service_logs[0]['serviced_by'] = $this->getServicedBy($servicelog_id);
+    }
+    
+    /**
+     * Appends child objects to service logs
+     * 
+     * @param type $servicelog_id
+     * @param type $service_logs
+     * @return type
+     */
+    private function appendServiceLogChildren($servicelog_id, $service_logs) {
+        $service_logs[0]['serviced_by'] = $this->getServicedBy($servicelog_id);
             
-            if ($service_logs[0]['entry_type']=='SMR Update') {
+        switch($service_logs[0]) {
+            case 'SMR Update':
                 $service_logs[0]['update_detail'] = $this->getSMRUpdateDetail($servicelog_id);
-            }
-
-            if ($service_logs[0]['entry_type']=='PM Service') {
-                $service_logs[0]['update_detail'] = $this->getPMServiceDetail($servicelog_id);
-            }
+                break;
             
-            if ($service_logs[0]['entry_type']=='Fluid Entry') {
+            case 'PM Service':
+                $service_logs[0]['update_detail'] = $this->getPMServiceDetail($servicelog_id);
+                break;
+            
+            case 'Fluid Entry':
                 $service_logs[0]['update_detail'] = $this->getFluidEntryDetail($servicelog_id);
-            }
-
-            if ($service_logs[0]['entry_type']=='Component Change') {
+                break;
+            
+            case 'Component Change':
                 $service_logs[0]['update_detail'] = $this->getComponentChangeDetail($servicelog_id);
-            }
+                break;
         }
-
-        return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
+        
+        return $service_logs;
     }
 
+    /**
+     * Determines if a service log is an SMR Update
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function isSMRUpdate($servicelog_id = 0) {
         $counts = R::getAll(
             "SELECT count(*) as smrupdates
@@ -102,6 +133,12 @@ class Report_model extends CI_Model {
         return($counts[0]['smrupdates'] == 0 ? false : true);
     }
 
+    /**
+     * Determines if a service log is a Fluid Entry
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function isFluidEntry($servicelog_id = 0) {
         $counts = R::getAll(
             "SELECT count(*) as fluid_entries
@@ -118,6 +155,12 @@ class Report_model extends CI_Model {
         return($counts[0]['pmservices'] == 0 ? false : true);
     }
 
+    /**
+     * Determines if a service log is a Component Change
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function isComponentChange($servicelog_id = 0) {
         $counts = R::getAll(
             "SELECT count(*) as component_changes
@@ -126,6 +169,12 @@ class Report_model extends CI_Model {
         return ($counts[0]['component_changes'] == 0 ? false : true);
     }
 
+    /**
+     * Gets SMR Update object
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function getSMRUpdateDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -136,6 +185,12 @@ class Report_model extends CI_Model {
         return $detail[0];
     }
 
+    /**
+     * Gets Fluid Entry object
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function getFluidEntryDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -147,6 +202,12 @@ class Report_model extends CI_Model {
         return $detail;
     }
 
+    /**
+     * Gets PM Service Detail
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function getPMServiceDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -171,6 +232,12 @@ class Report_model extends CI_Model {
         return $detail[0];
     }
 
+    /**
+     * Gets PM Service Notes
+     * 
+     * @param type $pmservice_id
+     * @return type
+     */
     public function getPMServiceNotes($pmservice_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -181,6 +248,12 @@ class Report_model extends CI_Model {
         return $detail;
     }
 
+    /**
+     * Gets PM Service Reminder
+     * 
+     * @param type $pmservice_id
+     * @return type
+     */
     public function getPMServiceReminder($pmservice_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -201,6 +274,12 @@ class Report_model extends CI_Model {
         return $detail;
     }
 
+    /**
+     * Gets Component Change Detail
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function getComponentChangeDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -213,6 +292,12 @@ class Report_model extends CI_Model {
         return $detail[0];
     }
     
+    /**
+     * Gets Serviced By Detail
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
     public function getServicedBy($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
@@ -222,6 +307,25 @@ class Report_model extends CI_Model {
             WHERE sb.servicelog_id = '" . $servicelog_id . "'");
 
         return $detail;
+    }
+    
+    public function findPMServiceReminders() {
+        $pmservicereminders = R::getAll(
+            "SELECT
+                s.date_entered, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name,
+                man.manufacturer_name, em.model_number, eu.unit_number,
+                r.emails, r.pm_type, r.quantity, r.units, r.date, r.sent,
+                ps.pm_type, ps.pm_level, ps.current_smr, ps.due_units, ps.notes
+             FROM pmservicereminder r
+             LEFT JOIN pmservice ps ON ps.id = r.pmservice_id
+             LEFT JOIN servicelog s ON s.id = ps.servicelog_id
+             LEFT JOIN equipmentunit eu ON eu.id = s.unit_number
+	     LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
+	     LEFT JOIN manufacturer man on man.id = em.manufacturer_id
+             LEFT JOIN user u on u.id = s.entered_by
+             ORDER BY r.date DESC, r.id DESC");
+
+        return $pmservicereminders;
     }
 
 }

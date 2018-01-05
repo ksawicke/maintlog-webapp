@@ -16,19 +16,6 @@ class App extends MY_Controller {
 
     function __construct() {
         parent::__construct();
-        
-//        $this->load->helper('url');
-//        $this->load->library('session');
-        
-//        $this->load->model('Project_model');
-//        $this->load->model('Client_model');
-//        $this->load->model('Website_model');
-        
-//        $this->appDir = ($_SERVER['HTTP_HOST']=='projects.rinconmountaintech.com' ? '' : '/project');
-//        
-//        if(!array_key_exists('username', $_SESSION) || !array_key_exists('role', $_SESSION)) {
-//            redirect('/auth/index', 'refresh');
-//        }
     }
     
     /**
@@ -52,6 +39,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Enter a service log
+     */
     public function log_entry()
     {
         $data = [
@@ -64,11 +54,9 @@ class App extends MY_Controller {
         $this->load->library('template');
         $this->load->model('Equipmenttype_model');
         $this->load->model('Fluidtype_model');
-//        $this->load->model('Appsetting_model');
         
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['fluidtypes'] = $this->Fluidtype_model->findAll();
-//        $appsetting = $this->Appsetting_model->findOne(15000);
         
         $data['flashdata'] = $this->session->flashdata();
         
@@ -77,31 +65,7 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
-    public function log_entry2()
-    {
-        $data = [
-            'applicationName' => 'Komatsu NA Maintenance Log',
-            'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
-            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
-        ];
-
-        $this->load->library('template');
-        $this->load->model('Equipmenttype_model');
-        $this->load->model('Fluidtype_model');
-//        $this->load->model('Appsetting_model');
-        
-        $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
-        $data['fluidtypes'] = $this->Fluidtype_model->findAll();
-//        $appsetting = $this->Appsetting_model->findOne(15000);
-        
-        $data['flashdata'] = $this->session->flashdata();
-        
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/log_entry2', $data, true);
-                
-        $this->template->load('authenticated_default', null, $data);
-    }
-    
+    /*
     public function employees()
     {
         $data = [
@@ -118,8 +82,11 @@ class App extends MY_Controller {
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/employees/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
-    }
+    }*/
     
+    /**
+     * View users
+     */
     public function users()
     {
         $data = [
@@ -141,6 +108,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add user to access the system
+     * 
+     * @param type $user_id
+     */
     public function addUser($user_id = null)
     {
         $data = [
@@ -168,6 +140,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View manufacturers
+     */
     public function manufacturers()
     {
         $data = [
@@ -188,6 +163,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add a manufacturer
+     * 
+     * @param type $manufacturer_id
+     */
     public function addManufacturer($manufacturer_id = null)
     {
         $data = [
@@ -212,6 +192,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View equipment units
+     */
     public function equipmentunit()
     {
         $data = [
@@ -232,6 +215,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add an equipment unit
+     * 
+     * @param type $equipmentunit_id
+     */
     public function addEquipmentunit($equipmentunit_id = null)
     {
         $data = [
@@ -280,6 +268,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View equipment models
+     */
     public function equipmentmodel()
     {
         $data = [
@@ -299,7 +290,12 @@ class App extends MY_Controller {
                 
         $this->template->load('authenticated_default', null, $data);
     }
-    
+
+    /**
+     * Add an equipment model
+     * 
+     * @param type $equipment_id
+     */
     public function addEquipmentmodel($equipment_id = null)
     {
         $data = [
@@ -330,6 +326,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View equipment types
+     */
     public function equipmentTypes()
     {
         $data = [
@@ -350,6 +349,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add an equipment type
+     * 
+     * @param type $equipmenttype_id
+     */
     public function addEquipmentType($equipmenttype_id = null)
     {
         $data = [
@@ -372,6 +376,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View fluid type choices
+     */
     public function fluidTypes()
     {
         $data = [
@@ -392,6 +399,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add fluid type choice
+     * 
+     * @param type $fluidtype_id
+     */
     public function addFluidType($fluidtype_id = null)
     {
         $data = [
@@ -414,6 +426,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View component type choices
+     */
     public function componentTypes()
     {
         $data = [
@@ -434,6 +449,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add component choice
+     * 
+     * @param type $component_id
+     */
     public function addComponent($component_id = null)
     {
         $data = [
@@ -456,6 +476,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View component choices
+     */
     public function components()
     {
         $data = [
@@ -476,6 +499,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add a component type choice
+     * 
+     * @param type $componenttype_id
+     */
     public function addComponentType($componenttype_id = null)
     {
         $data = [
@@ -498,6 +526,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View SMR choices
+     */
     public function smrChoices()
     {
         $data = [
@@ -518,6 +549,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add an SMR choice
+     * 
+     * @param type $smrchoice_id
+     */
     public function addSmrChoice($smrchoice_id = null)
     {
         $data = [
@@ -540,6 +576,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View mileage choices
+     */
     public function mileageChoices()
     {
         $data = [
@@ -560,6 +599,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add a mileage choice
+     * 
+     * @param type $mileagechoice_id
+     */
     public function addMileageChoice($mileagechoice_id = null)
     {
         $data = [
@@ -582,6 +626,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View time choices
+     */
     public function timeChoices()
     {
         $data = [
@@ -602,6 +649,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add a time choice
+     * 
+     * @param type $timechoice_id
+     */
     public function addTimeChoice($timechoice_id = null)
     {
         $data = [
@@ -624,6 +676,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View reminder recipients
+     */
     public function reminderRecipients()
     {
         $data = [
@@ -644,6 +699,11 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Add reminder recipient
+     * 
+     * @param type $reminderrecipient_id
+     */
     public function addReminderRecipient($reminderrecipient_id = null)
     {
         $data = [
@@ -666,6 +726,9 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View app settings
+     */
     public function appSettings()
     {
         $data = [
@@ -691,6 +754,12 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * View reporting screen
+     * 
+     * @param string $report_type
+     * @param type $id
+     */
     public function reporting($report_type = 'index', $id = 0)
     {
         $data = [
@@ -713,6 +782,10 @@ class App extends MY_Controller {
             
             case 'service_log_detail':
                 $data['service_log'] = $this->Report_model->findServiceLogs($id);
+                break;
+            
+            case 'pmservice_reminders':
+                $data['pmservice_reminders'] = $this->Report_model->findPMServiceReminders();
                 break;
             
             case 'maintenance_log_reminders':
