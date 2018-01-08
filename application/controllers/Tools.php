@@ -15,6 +15,7 @@
 class Tools extends CI_Controller {
 
     function __construct() {
+        parent::__construct();
         if(!is_cli()) {
             die("This script can not be run via a URL.");
         }
@@ -27,4 +28,14 @@ class Tools extends CI_Controller {
     /**
      * Create a new function to send PM Service Reminders.
      */
+    public function send_service_reminders() {
+        $CI =& get_instance();
+        
+        $CI->load->model('Report_model');
+        $pmservice_reminders = $CI->Report_model->findPMServiceReminders();
+        
+        echo '<pre>';
+        var_dump($pmservice_reminders);
+        exit();
+    }
 }

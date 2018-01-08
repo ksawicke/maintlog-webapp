@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ($_SERVER['HTTP_HOST']=='test.rinconmountaintech.com' ? 'http://test.rinconmountaintech.com/sites/komatsuna' : '');
+$config['base_url'] = (array_key_exists('HTTP_HOST', $_SERVER) && $_SERVER['HTTP_HOST']=='test.rinconmountaintech.com' ? 'http://test.rinconmountaintech.com/sites/komatsuna' : '');
 
 /*
 |--------------------------------------------------------------------------

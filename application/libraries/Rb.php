@@ -8,7 +8,7 @@ class Rb {
          
         // Get Redbean
         include(APPPATH.'/third_party/rb/rb.php');
-         
+        
         // Database data
         $host = $db[$active_group]['hostname'];
         $user = $db[$active_group]['username'];
