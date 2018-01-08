@@ -9,10 +9,9 @@
             <th>Model Name</th>
             <th>Unit Number</th>
             <th>Email Address</th>
-            <th>Reminder PM Type</th>
-            <th>Last Quantity</th>
-            <th>PM Service Due At</th>
             <th>Warn At</th>
+            <th>Last SMR Recorded</th>
+            <th>PM Service Due At</th>
             <th>Email Sent On</th>
         </tr>
     </thead>
@@ -22,10 +21,9 @@
             <th>Model Name</th>
             <th>Unit Number</th>
             <th>Email Address</th>
-            <th>Reminder PM Type</th>
-            <th>Last Quantity</th>
-            <th>PM Service Due At</th>
             <th>Warn At</th>
+            <th>Last SMR Recorded</th>
+            <th>PM Service Due At</th>
             <th>Email Sent On</th>
         </tr>
     </tfoot>
@@ -36,11 +34,10 @@
                 <td><?php echo $reminder['model_number']; ?></td>
                 <td><?php echo $reminder['unit_number']; ?></td>
                 <td><?php echo $reminder['emails']; ?></td>
-                <td><?php echo $reminder['reminder_pm_type']; ?></td>
-                <td><?php echo $reminder['pmservice_current_smr']; ?></td>
+                <td><?php echo $reminder['warn_on_quantity'] . " " . $reminder['warn_on_units']; ?></td>
+                <td><?php echo ($reminder['last_smr_recorded']!="NULL" ? $reminder['last_smr_recorded'] : ''); ?></td>
                 <td><?php echo $reminder['pmservice_due_quantity']; ?></td>
-                <td><?php echo $reminder['warn_on_quantity']; ?></td>
-                <td></td>
+                <td><?php echo (!empty($reminder['sent_on']) ? date('m/d/Y h:i:s', strtotime($reminder['sent_on'])) : ''); ?></td>
             </tr>
         <?php } ?>
     </tbody>
@@ -70,7 +67,6 @@
                 });
             },
             "columns": [
-                null,
                 null,
                 null,
                 null,

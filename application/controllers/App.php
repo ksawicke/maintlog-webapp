@@ -785,7 +785,7 @@ class App extends MY_Controller {
                 break;
             
             case 'pmservice_reminders':
-                $data['pmservice_reminders'] = $this->Report_model->findPMServiceReminders();
+                $data['pmservice_reminders'] = $this->Report_model->findPMServiceEmailReminders();
                 break;
             
             case 'maintenance_log_reminders':
