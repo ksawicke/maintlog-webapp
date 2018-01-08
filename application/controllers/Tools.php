@@ -27,16 +27,29 @@ class Tools extends CI_Controller {
     public function send_service_reminders() {
         $CI =& get_instance();
         $CI->load->model('Report_model');
-        $pmservice_reminders = $CI->Report_model->findPMServiceReminders("send_emails_now");
+        $pmservicereminders = $CI->Report_model->findPMServiceReminders("send_emails_now");
         
-        
-        foreach($pmservice_reminders as $ctr => $reminder) {
+        foreach($pmservicereminders as $ctr => $reminder) {
             $send_email = 0;
             
-            if($reminder['warn_on_units']=="Days" && $reminder['reminder_date_sent']==0) {
-                if(date("Y-m-d") >= date('Y-m-d', strtotime($reminder['reminder_date_created']. ' + ' . $reminder['warn_on_quantity'] . ' days'))) {
-                    $send_email = 1;
-                }
+            if($reminder['reminder_date_sent']==0 &&
+               $reminder['warn_on_units']=="Days" &&
+               date("Y-m-d") >= date('Y-m-d', strtotime($reminder['reminder_date_created']. ' + ' . $reminder['warn_on_quantity'] . ' days'))) {
+                $send_email = 1;
+            }
+            
+            if($reminder['reminder_date_sent']==0 &&
+               $reminder['warn_on_units']=="Miles" &&
+               date("Y-m-d") >= date('Y-m-d', strtotime($reminder['reminder_date_created']. ' + ' . $reminder['warn_on_quantity'] . ' days'))) {
+                // Compare $reminder['warn_on_quantity']
+                
+                $send_email = 1;
+            }
+            
+            if($reminder['reminder_date_sent']==0 &&
+               $reminder['warn_on_units']=="SMR" &&
+               date("Y-m-d") >= date('Y-m-d', strtotime($reminder['reminder_date_created']. ' + ' . $reminder['warn_on_quantity'] . ' days'))) {
+                $send_email = 1;
             }
             
             if($send_email) {
@@ -49,7 +62,7 @@ class Tools extends CI_Controller {
         }
         
         echo '<pre>';
-        var_dump($pmservice_reminders);
+        var_dump($pmservicereminders);
         exit();
     }
     

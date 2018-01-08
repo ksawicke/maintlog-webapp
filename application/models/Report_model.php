@@ -373,6 +373,17 @@ class Report_model extends CI_Model {
              " . $where . "
              ORDER BY r.date DESC, r.id DESC");
 
+        foreach($pmservicereminders as $ctr => $reminder) {
+            $unit_number = $reminder['unit_number'];
+            $smrrecords = R::getAll(
+                "SELECT smr.smr last_smr_recorded, s.unit_number
+                 FROM smrupdate smr
+                 LEFT JOIN servicelog s ON smr.servicelog_id = s.id
+                 LEFT JOIN equipmentunit eu ON eu.id = s.unit_number 
+                 WHERE eu.unit_number = '" . $unit_number . "'");
+            $pmservicereminders[$ctr]['last_smr_recorded'] = (count($smrrecords)==0 ? 'NULL' : $smrrecords[0]['last_smr_recorded']);
+        }
+        
         return $pmservicereminders;
     }
 
