@@ -8,7 +8,7 @@
 *
 * @package  Maintenance Log Application
 * @author   Kevin Sawicke <kevin@rinconmountaintech.com>
-* @version  $Revision: 0.2 $
+* @version  $Revision: Tag Alpha1 $
 * @access   public
 * @see https://codeigniter.com/user_guide/general/cli.html?highlight=cron
 */
@@ -26,31 +26,60 @@ class Tools extends CI_Controller {
      */
     public function send_service_reminders() {
         $CI =& get_instance();
-        
         $CI->load->model('Report_model');
-        $pmservice_reminders = $CI->Report_model->findPMServiceReminders();
+        $pmservice_reminders = $CI->Report_model->findPMServiceReminders("send_emails_now");
         
         
-        $message = '<html><head><title>Komatsu Maintenance Log App</title></head><body>This is a test of a message.<br />' . 
-                'sadljkakfajsdlfajslfaksjfkalsjfasf<br /><br />' .
-                'asdfasdfsdfsdafas</body></html>';
+        foreach($pmservice_reminders as $ctr => $reminder) {
+            $send_email = 0;
+            
+            if($reminder['warn_on_units']=="Days" && $reminder['reminder_date_sent']==0) {
+                if(date("Y-m-d") >= date('Y-m-d', strtotime($reminder['reminder_date_created']. ' + ' . $reminder['warn_on_quantity'] . ' days'))) {
+                    $send_email = 1;
+                }
+            }
+            
+            if($send_email) {
+                $to = $reminder['emails'];
+                $unit = $reminder['manufacturer_name'] . " " . $reminder['model_number'] . " " . $reminder['unit_number'];
+                if($this->send_email_of_service_reminder($to, $unit)) {
+                    $CI->Report_model->markPMServiceReminderAsSent($reminder['reminder_id']);
+                }
+            }
+        }
+        
+        echo '<pre>';
+        var_dump($pmservice_reminders);
+        exit();
+    }
+    
+    protected function send_email_of_service_reminder($to, $unit) {
+        $CI =& get_instance();
+        
+        $header = '<html><head><title>Komatsu Maintenance Log App</title></head><body>';
+        $footer = '</body></html>';
+        
+        $body = 'THIS EMAIL WAS AUTO-GENERATED. PLEASE DO NOT REPLY TO THIS EMAIL.<br/ ><br />
+                 =================================================================
+                 <br />
+                 This is a PM Service Reminder for the following unit:<br /><br />
+                 ' . $unit . '<br /><br />
+                 =================================================================';
+        
+        $message = $header . $body . $footer;
         
         $CI->load->library('email');
 
         $CI->email->from('komatsumaintenancelogapp@rinconmountaintech.com', 'Komatsu NA Maintenance Log App');
         $CI->email->to('kevin@rinconmountaintech.com');
-        $CI->email->cc('kevinsawicke@gmail.com');
+//        $CI->email->cc('someemail@email.com');
 
         $CI->email->set_header('MIME-Version', '1.0; charset=utf-8');
         $CI->email->set_header('Content-type', 'text/html');
         
-        $CI->email->subject('Email Test');
+        $CI->email->subject('PM Service Reminder for: ' . $unit);
         $CI->email->message($message);
         
-        $CI->email->send();
-        
-        echo '<pre>';
-        var_dump($pmservice_reminders);
-        exit();
+        return ($CI->email->send());
     }
 }

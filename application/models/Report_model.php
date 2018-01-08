@@ -309,7 +309,22 @@ class Report_model extends CI_Model {
         return $detail;
     }
     
-    public function findPMServiceReminders() {
+    public function markPMServiceReminderAsSent($id) {
+        $now = date('Y-m-d h:i:s');
+        
+        $pmservicereminder = R::load('pmservicereminder', $id);
+        $pmservicereminder->sent = 1;
+        $pmservicereminder->sent_on = $now;
+        
+        R::store($pmservicereminder);
+    }
+    
+    public function findPMServiceReminders($return = "all") {
+        $where = "";
+//        if($return=="send_emails_now") {
+//            $where = " WHERE pmservice_current_smr >= warn_on_quantity";
+//        }
+        
         $pmservicereminders = R::getAll(
             "SELECT
                 u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name,
@@ -343,7 +358,8 @@ class Report_model extends CI_Model {
                 ps.current_smr AS pmservice_current_smr,
                 ps.due_units AS pmservice_due_quantity,
                 ps.notes AS pmservice_notes,
-                r.date AS reminder_date_created, r.sent AS reminder_date_sent
+                r.date AS reminder_date_created, r.sent AS reminder_date_sent, 
+                r.id AS reminder_id
              FROM pmservicereminder r
              LEFT JOIN pmservice ps ON ps.id = r.pmservice_id
              LEFT JOIN servicelog s ON s.id = ps.servicelog_id
@@ -354,6 +370,7 @@ class Report_model extends CI_Model {
              LEFT OUTER JOIN smrchoice smr ON (smr.id = ps.pm_level AND ps.pm_type = 'smr_based')
 	     LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = ps.pm_level AND ps.pm_type = 'mileage_based')
              LEFT OUTER JOIN timechoice time ON (time.id = ps.pm_level AND ps.pm_type = 'time_based')
+             " . $where . "
              ORDER BY r.date DESC, r.id DESC");
 
         return $pmservicereminders;
