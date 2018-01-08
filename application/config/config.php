@@ -521,3 +521,16 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/**
+ * Mail
+ */
+$config['protocol'] = 'smtp';
+$config['mailpath'] = '/usr/sbin/sendmail';
+$config['charset'] = 'iso-8859-1';
+$config['wordwrap'] = TRUE;
+$config['mailtype'] = 'html';
+$config['smtp_host'] = 'mail.rinconmountaintech.com';
+$config['smtp_user'] = 'komatsumaintenancelogapp@rinconmountaintech.com';
+$config['smtp_pass'] = 'letmein2018';
+$config['smtp_port'] = '25';
