@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 12, 2017 at 11:42 PM
+-- Generation Time: Jan 08, 2018 at 05:29 PM
 -- Server version: 5.6.36-cll-lve
 -- PHP Version: 5.6.30
 
@@ -193,22 +193,23 @@ CREATE TABLE `equipmentunit` (
   `person_responsible` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modified_by` tinyint(1) UNSIGNED DEFAULT NULL,
-  `track_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `track_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipmentunit`
 --
 
-INSERT INTO `equipmentunit` (`id`, `equipmentmodel_id`, `unit_number`, `created`, `created_by`, `person_responsible`, `modified`, `modified_by`, `track_type`) VALUES
-(1, 15, '123', '2017-12-05 05:58:56', 1, '2', '2017-12-07 11:07:48', 1, 'miles'),
-(2, 15, '1111', '2017-12-05 05:59:06', 1, '4|3', '2017-12-12 03:05:19', 1, 'smr'),
-(3, 9, 'AVC', '2017-12-05 07:36:24', 1, '3', '2017-12-07 11:08:17', 1, 'smr'),
-(4, 14, '08962321', '2017-12-05 07:36:36', 1, '3', '2017-12-07 11:08:10', 1, 'smr'),
-(5, 12, '11111111111111111', '2017-12-05 07:36:46', 1, '2', '2017-12-07 11:08:27', 1, 'miles'),
-(6, 15, '123123123', '2017-12-06 08:47:39', 1, '1', '2017-12-07 11:07:52', 1, 'time'),
-(7, 15, '455455455', '2017-12-06 08:49:21', 1, '1', '2017-12-07 11:07:57', 1, 'miles'),
-(8, 15, '888888888888888', '2017-12-07 10:56:40', 1, '2', '2017-12-07 11:08:01', 1, 'time');
+INSERT INTO `equipmentunit` (`id`, `equipmentmodel_id`, `unit_number`, `created`, `created_by`, `person_responsible`, `modified`, `modified_by`, `track_type`, `active`) VALUES
+(1, 15, '123', '2017-12-05 05:58:56', 1, '2', '2018-01-03 03:53:18', 1, 'miles', '0'),
+(2, 15, '1111', '2017-12-05 05:59:06', 1, '4|3', '2018-01-03 03:29:45', 1, 'smr', '1'),
+(3, 9, 'AVC', '2017-12-05 07:36:24', 1, '3', '2017-12-07 11:08:17', 1, 'smr', '1'),
+(4, 14, '08962321', '2017-12-05 07:36:36', 1, '3', '2017-12-07 11:08:10', 1, 'smr', '1'),
+(5, 12, '11111111111111111', '2017-12-05 07:36:46', 1, '2', '2017-12-07 11:08:27', 1, 'miles', '1'),
+(6, 15, '123123123', '2017-12-06 08:47:39', 1, '1', '2017-12-07 11:07:52', 1, 'time', '1'),
+(7, 15, '455455455', '2017-12-06 08:49:21', 1, '1', '2017-12-07 11:07:57', 1, 'miles', '1'),
+(8, 15, '888888888888888', '2017-12-07 10:56:40', 1, '2', '2017-12-07 11:08:01', 1, 'time', '1');
 
 -- --------------------------------------------------------
 
@@ -330,7 +331,7 @@ CREATE TABLE `pmservice` (
 --
 
 INSERT INTO `pmservice` (`id`, `servicelog_id`, `pm_type`, `pm_level`, `current_smr`, `due_units`, `notes`) VALUES
-(1, 6, 'smr_based', 2, 234234234, 333, 'asdf'),
+(1, 6, 'time_based', 2, 234234234, 333, 'asdf'),
 (2, 7, 'smr_based', 2, 545, 555, 'asdfadsf'),
 (3, 8, 'smr_based', 4, 9, 9999, 'l'),
 (4, 9, 'smr_based', 3, 455, 334, 'asdfdsafdsfdsf'),
@@ -346,7 +347,11 @@ INSERT INTO `pmservice` (`id`, `servicelog_id`, `pm_type`, `pm_level`, `current_
 (14, 19, 'smr_based', 4, 444, 345, 'asdfasdf'),
 (15, 20, 'smr_based', 2, 5643, 435, 'dfgdgfsgf'),
 (16, 21, 'smr_based', 2, 554, 444, 'asdf'),
-(17, 24, 'smr_based', 2, 44, 223532, 'sdafdasfs');
+(17, 24, 'smr_based', 2, 44, 223532, 'sdafdasfs'),
+(18, 26, 'smr_based', 4, 12345, 124214214, 'sdaf'),
+(19, 27, 'smr_based', 2, 12345, 321321, 'fggfsd'),
+(20, 28, 'mileage_based', 2, 12345, 15666, 'asdfsdaf'),
+(21, 29, 'time_based', 1, 124, 1444, 'sdaf');
 
 -- --------------------------------------------------------
 
@@ -365,7 +370,14 @@ CREATE TABLE `pmservicenote` (
 --
 
 INSERT INTO `pmservicenote` (`id`, `pmservice_id`, `note`) VALUES
-(1, 17, 'sadfadsfsf');
+(1, 17, 'sadfadsfsf'),
+(2, 18, '1) sadifasjdflsdajflasdj'),
+(3, 18, '2) sadlfas lfsdjlfjalsdf'),
+(4, 19, 'one'),
+(5, 19, 'two'),
+(6, 19, 'three'),
+(7, 20, 'asdfsad'),
+(8, 21, 'sadf');
 
 -- --------------------------------------------------------
 
@@ -382,16 +394,26 @@ CREATE TABLE `pmservicereminder` (
   `quantity` int(11) UNSIGNED DEFAULT NULL,
   `units` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `sent` int(11) UNSIGNED DEFAULT NULL
+  `sent` int(11) UNSIGNED DEFAULT NULL,
+  `sent_on` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pmservicereminder`
 --
 
-INSERT INTO `pmservicereminder` (`id`, `pmservice_id`, `emails`, `pm_type`, `pm_level`, `quantity`, `units`, `date`, `sent`) VALUES
-(1, 17, 'eguin@komatsuna.com', 'smr_based', 3, 4, 'days', '2017-12-12', 0),
-(2, 17, 'npjohnson@komatsuna.com', 'smr_based', 3, 4, 'days', '2017-12-12', 0);
+INSERT INTO `pmservicereminder` (`id`, `pmservice_id`, `emails`, `pm_type`, `pm_level`, `quantity`, `units`, `date`, `sent`, `sent_on`) VALUES
+(1, 17, 'eguin@komatsuna.com', 'smr_based', 3, 4, 'days', '2017-12-12', 1, '2018-01-08 05:27:40'),
+(2, 17, 'npjohnson@komatsuna.com', 'smr_based', 3, 4, 'days', '2017-12-12', 1, '2018-01-08 05:27:40'),
+(3, 18, 'eguin@komatsuna.com', 'mileage_based', 1, 3444, 'smr', '2018-01-02', 1, '2018-01-08 05:27:40'),
+(4, 18, 'kevin@rinconmountaintech.com', 'mileage_based', 1, 3444, 'smr', '2018-01-02', 1, '2018-01-08 05:27:40'),
+(5, 19, 'eguin@komatsuna.com', 'smr_based', 4, 111111, 'smr', '2018-01-03', 1, '2018-01-08 05:27:40'),
+(6, 19, 'jleonetti@komatsuna.com', 'smr_based', 4, 111111, 'smr', '2018-01-03', 1, '2018-01-08 05:27:40'),
+(7, 19, 'kevin@rinconmountaintech.com', 'smr_based', 4, 111111, 'smr', '2018-01-03', 1, '2018-01-08 05:27:40'),
+(8, 20, 'eguin@komatsuna.com', 'mileage_based', 5, 10000, 'miles', '2018-01-05', 0, NULL),
+(9, 20, 'bwjohnson@komatsuna.com', 'mileage_based', 5, 10000, 'miles', '2018-01-05', 0, NULL),
+(10, 21, 'eguin@komatsuna.com', 'time_based', 3, 3, 'days', '2018-01-08', 0, NULL),
+(11, 21, 'bwjohnson@komatsuna.com', 'time_based', 3, 3, 'days', '2018-01-08', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -457,7 +479,13 @@ INSERT INTO `servicelog` (`id`, `date_entered`, `entered_by`, `unit_number`, `cr
 (22, '2017-12-12', 1, 2, '2017-12-12 11:37:44'),
 (23, '2017-12-12', 1, 1, '2017-12-12 11:38:19'),
 (24, '2017-12-12', 1, 1, '2017-12-12 11:38:55'),
-(25, '2017-12-12', 1, 3, '2017-12-12 11:39:54');
+(25, '2017-12-12', 1, 3, '2017-12-12 11:39:54'),
+(26, '2018-01-02', 1, 6, '2018-01-02 08:02:28'),
+(27, '2018-01-03', 1, 1, '2018-01-03 01:41:12'),
+(28, '2018-01-05', 1, 2, '2018-01-05 09:15:17'),
+(29, '2018-01-08', 1, 2, '2018-01-08 01:11:10'),
+(30, '2018-01-08', 1, 6, '2018-01-08 03:13:50'),
+(31, '2018-01-08', 1, 2, '2018-01-08 03:14:15');
 
 -- --------------------------------------------------------
 
@@ -483,7 +511,14 @@ INSERT INTO `servicelogservicedby` (`id`, `servicelog_id`, `user_id`) VALUES
 (5, 23, 6),
 (6, 23, 2),
 (7, 24, 4),
-(8, 25, 4);
+(8, 25, 4),
+(9, 26, 6),
+(10, 27, 6),
+(11, 27, 7),
+(12, 28, 6),
+(13, 29, 6),
+(14, 30, 6),
+(15, 31, 6);
 
 -- --------------------------------------------------------
 
@@ -527,7 +562,9 @@ CREATE TABLE `smrupdate` (
 --
 
 INSERT INTO `smrupdate` (`id`, `servicelog_id`, `smr`) VALUES
-(1, 22, 235);
+(1, 22, 235),
+(2, 30, 1000000),
+(3, 31, 2000000);
 
 -- --------------------------------------------------------
 
@@ -583,7 +620,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `first_name`, `last_name`, `email_address`, `pin`, `active`, `role`, `created`, `modified`, `created_by`, `modified_by`) VALUES
 (1, 'ksawic', 'Kevin', 'Sawicke', 'kevin@rinconmountaintech.com', '$2y$10$X8nS3FQYOYeutGdidds23u9TeHX8S5Zof7LvdR3V366Zu8SxwUES6', 1, 'admin', '2017-09-20 09:14:01', '2017-11-27 09:39:55', NULL, 1),
 (2, 'npjohnson', 'Neil', 'Johnson', 'npjohnson@komatsuna.com', '$2y$10$KbsjY24kqNqXEq332ZB4mO1x.gX1kI8VZKYJyG7yzVpQ6jkaplHP2', 1, 'admin', '2017-09-20 09:14:01', '2017-11-27 09:47:46', NULL, 1),
-(3, 'jleonetti', 'John', 'Leonetti', 'jleonetti@komatsuna.com', '$2y$10$vdXnbSwnzHn2r/vRypqTkeuRepkqoUslOld5ubHAvdDH7vt82OdCW', 1, 'user', '2017-09-20 09:14:02', '2017-11-27 09:47:55', NULL, 1),
+(3, 'jleonetti', 'John', 'Leonetti', 'jleonetti@komatsuna.com', '$2y$10$tKXWJcBKA5aMSBXJjpS8auCJmMbuq/ShjgQcTFb3.bs4QlQ3ep9GK', 1, 'user', '2017-09-20 09:14:02', '2017-12-14 07:23:22', NULL, 1),
 (4, 'bwjohnson', 'Bret', 'Johnson', 'bwjohnson@komatsuna.com', '$2y$10$9d/yQ4KGkNe.8jXGfsVZDuwB6MKWfTJwQnBUoUZMZ.n576eZk.jD.', 1, 'admin', '2017-09-20 09:14:02', '2017-11-27 09:47:39', NULL, 1),
 (6, 'eguin', 'Eric', 'Guin', 'eguin@komatsuna.com', '$2y$10$rYyPjxibbdCeczWZScgffOmDF1irVMECxE2ojbsREUSFmeCk3vyny', 1, 'admin', '2017-11-27 09:41:20', '2017-11-27 09:52:18', 1, 1),
 (7, 'awolf', 'Adam', 'Wolf', 'awolf@komatsuna.com', '$2y$10$zuBdxB2Rr7e8jUHhoD7kte7cxtiP4S5iHBR2xs1xvCLQIswWwJXZy', 1, 'user', '2017-11-27 09:41:59', '2017-11-27 09:48:08', 1, 1);
@@ -793,17 +830,17 @@ ALTER TABLE `mileagechoice`
 -- AUTO_INCREMENT for table `pmservice`
 --
 ALTER TABLE `pmservice`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `pmservicenote`
 --
 ALTER TABLE `pmservicenote`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `pmservicereminder`
 --
 ALTER TABLE `pmservicereminder`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `reminderrecipient`
 --
@@ -813,12 +850,12 @@ ALTER TABLE `reminderrecipient`
 -- AUTO_INCREMENT for table `servicelog`
 --
 ALTER TABLE `servicelog`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `servicelogservicedby`
 --
 ALTER TABLE `servicelogservicedby`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `smrchoice`
 --
@@ -828,7 +865,7 @@ ALTER TABLE `smrchoice`
 -- AUTO_INCREMENT for table `smrupdate`
 --
 ALTER TABLE `smrupdate`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `timechoice`
 --
