@@ -23,7 +23,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = (array_key_exists('HTTP_HOST', $_SERVER) && $_SERVER['HTTP_HOST']=='test.rinconmountaintech.com' ? 'http://test.rinconmountaintech.com/sites/komatsuna' : '');
+switch($_SERVER['SERVER_NAME']) {
+    case '10.132.146.48':
+        $config['base_url'] = 'http://10.132.146.48/maintlog';
+        break;
+    
+    case 'test.rinconmountaintech.com':
+    default:
+        $config['base_url'] = 'http://test.rinconmountaintech.com/sites/komatsuna';
+        break;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -530,7 +539,20 @@ $config['mailpath'] = '/usr/sbin/sendmail';
 $config['charset'] = 'iso-8859-1';
 $config['wordwrap'] = TRUE;
 $config['mailtype'] = 'html';
-$config['smtp_host'] = 'mail.rinconmountaintech.com';
-$config['smtp_user'] = 'komatsumaintenancelogapp@rinconmountaintech.com';
-$config['smtp_pass'] = 'letmein2018';
-$config['smtp_port'] = '25';
+
+switch($_SERVER['SERVER_NAME']) {
+    case '10.132.146.48':
+        $config['smtp_host'] = 'relay.komatsuamerica.com';
+        $config['smtp_user'] = 'jleonetti@komatsuna.com';
+        $config['smtp_pass'] = '';
+        $config['smtp_port'] = '25';
+        break;
+    
+    case 'test.rinconmountaintech.com':
+    default:
+        $config['smtp_host'] = 'mail.rinconmountaintech.com';
+        $config['smtp_user'] = 'komatsumaintenancelogapp@rinconmountaintech.com';
+        $config['smtp_pass'] = 'letmein2018';
+        $config['smtp_port'] = '25';
+        break;
+}

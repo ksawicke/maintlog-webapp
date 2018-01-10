@@ -9,7 +9,16 @@ class MY_Controller extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         
-        $this->appDir = ($_SERVER['HTTP_HOST']=='test.rinconmountaintech.com' ? '/sites/komatsuna' : '/project');
+        switch($_SERVER['SERVER_NAME']) {
+            case '10.132.146.48':
+                $this->appDir = '/maintlog';
+                break;
+            
+            case 'test.rinconmountaintech.com':
+            default:
+                $this->appDir = '/sites/komatsuna';
+                break;
+        }
         
         if(!array_key_exists('username', $_SESSION) || !array_key_exists('role', $_SESSION)) {
             redirect('/auth/index', 'refresh');

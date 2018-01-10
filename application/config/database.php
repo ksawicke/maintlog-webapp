@@ -70,10 +70,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'main';
+
+switch($_SERVER['SERVER_NAME']) {
+    case '10.132.146.48':
+        $active_group = 'production';
+        break;
+    
+    case 'test.rinconmountaintech.com':
+    default:
+        $active_group = 'development';
+        break;
+}
+
 $query_builder = TRUE;
 
-$db['main'] = array(
+$db['production'] = array(
+	'dsn'	=> '',
+	'hostname' => '10.132.146.48',
+	'username' => 'root',
+	'password' => 'azpg',
+	'database' => 'maintlog',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+$db['development'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'rinconmo_komatsu',

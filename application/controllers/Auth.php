@@ -22,7 +22,16 @@ class Auth extends CI_Controller {
         $this->load->library('session');
         $this->load->model('User_model');
         
-        $this->appDir = ($_SERVER['HTTP_HOST']=='test.rinconmountaintech.com' ? '/sites/komatsuna' : '/project');
+        switch($_SERVER['SERVER_NAME']) {
+            case '10.132.146.48':
+                $this->appDir = '/maintlog';
+                break;
+            
+            case 'test.rinconmountaintech.com':
+            default:
+                $this->appDir = '/sites/komatsuna';
+                break;
+        }
     }
     
     /**
