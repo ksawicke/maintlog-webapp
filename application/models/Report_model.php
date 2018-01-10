@@ -98,7 +98,7 @@ class Report_model extends CI_Model {
     private function appendServiceLogChildren($servicelog_id, $service_logs) {
         $service_logs[0]['serviced_by'] = $this->getServicedBy($servicelog_id);
             
-        switch($service_logs[0]) {
+        switch($service_logs[0]['entry_type']) {
             case 'SMR Update':
                 $service_logs[0]['update_detail'] = $this->getSMRUpdateDetail($servicelog_id);
                 break;

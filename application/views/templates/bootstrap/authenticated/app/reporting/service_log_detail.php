@@ -126,19 +126,17 @@
             }
             ?>
         
-            <ul>
-                <li>
-                    <label><?php echo $pmservicereminder['emails']; ?></label>
-                    <ul>
-                        <li><strong>PM Type</strong> <?php echo $pm_type; ?></li>
-                        <li><strong>PM Level</strong> <?php echo $pmservicereminder['pm_level']; ?></li>
-                        <li><strong>Quantity</strong> <?php echo $pmservicereminder['quantity']; ?></li>
-                        <li><strong>Units</strong> <?php echo $pmservicereminder['units']; ?></li>
-                        <li><strong>Date</strong> <?php echo date('m/d/Y', strtotime($pmservicereminder['date'])); ?></li>
-                        <li><strong>Email Status</strong> <?php echo ($pmservicereminder['sent']=="1" ? 'SENT' : 'SCHEDULED'); ?></li>
-                    </ul>
-                </li>
-            </ul>
+            <li>
+                <?php echo $pmservicereminder['emails']; ?>
+                <ul>
+                    <li><strong>PM Type</strong> <?php echo $pm_type; ?></li>
+                    <li><strong>PM Level</strong> <?php echo $pmservicereminder['pm_level']; ?></li>
+                    <li><strong>Quantity</strong> <?php echo $pmservicereminder['quantity']; ?></li>
+                    <li><strong>Units</strong> <?php echo $pmservicereminder['units']; ?></li>
+                    <li><strong>Date</strong> <?php echo date('m/d/Y', strtotime($pmservicereminder['date'])); ?></li>
+                    <li><strong>Email Status</strong> <?php echo ($pmservicereminder['sent']=="1" ? 'SENT' : 'SCHEDULED'); ?></li>
+                </ul>
+            </li>
         <?php } ?>
     </ul>
 
@@ -147,16 +145,12 @@
     
 <?php if($service_log['entry_type']=='Fluid Entry') { ?>
 
+    <label>Fluid Entry</label>
+    <ul>
     <?php foreach($service_log['update_detail'] as $ctr => $fluid) { ?>
-        <ul>
-            <li>
-                <label>Fluid Entry</label>
-                <ul>
-                    <li><strong>Fluid Type</strong> <?php echo $fluid['fluid_type']; ?></li>
-                    <li><strong>Amount</strong> <?php echo $fluid['quantity']; ?> <?php echo $fluid['units']; ?></li>
-                </ul>
-        </ul>
+        <li><?php echo $fluid['quantity']; ?> <?php echo $fluid['units']; ?> <?php echo $fluid['fluid_type']; ?></li>
     <?php } ?>
+    </ul>
     
 <?php } ?>    
     
@@ -184,7 +178,3 @@
     </ul>
 
 <?php } ?>
-
-<!--pre>
-<?php //var_dump($service_log); ?>
-</pre-->
