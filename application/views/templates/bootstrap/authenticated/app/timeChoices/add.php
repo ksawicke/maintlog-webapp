@@ -1,4 +1,4 @@
-<form id="addTimeChoice" action="<?php echo base_url('timechoices/save'); ?>" method="post">
+<form id="addTimeChoice" action="<?php echo base_url('index.php/timechoices/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

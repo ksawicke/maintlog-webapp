@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('app/addComponentType'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Component Type</button></a><br /><br />
+<a href="<?php echo base_url('index.php/app/addComponentType'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Component Type</button></a><br /><br />
 
 <table id="componentTypeList" class="table table-bordered table-striped">
     <thead>
@@ -11,7 +11,7 @@
         <?php foreach($componenttypes as $componenttype) { ?>
         <tr>
             <td><?php echo $componenttype->component_type; ?></td>
-            <td><a href="<?php echo base_url('app/addComponentType/' . $componenttype->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<a href="<?php echo base_url('componenttypes/delete/' . $componenttype->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            <td><a href="<?php echo base_url('index.php/app/addComponentType/' . $componenttype->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<a href="<?php echo base_url('index.php/componenttypes/delete/' . $componenttype->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <?php } ?>
     </tbody>

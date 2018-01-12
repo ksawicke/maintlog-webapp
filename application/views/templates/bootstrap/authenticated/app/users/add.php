@@ -1,4 +1,4 @@
-<form id="addUser" action="<?php echo base_url('users/save'); ?>" method="post">
+<form id="addUser" action="<?php echo base_url('index.php/users/save'); ?>" method="post">
     
     <div class="form-group">
         <label for="first_name" class="control-label lb-lg">First Name</label>

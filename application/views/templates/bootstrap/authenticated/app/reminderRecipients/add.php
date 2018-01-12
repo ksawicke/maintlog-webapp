@@ -1,4 +1,4 @@
-<form id="addReminderRecipient" action="<?php echo base_url('reminderrecipients/save'); ?>" method="post">
+<form id="addReminderRecipient" action="<?php echo base_url('index.php/reminderrecipients/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

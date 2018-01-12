@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('app/addSmrChoice'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add SMR Choice</button></a><br /><br />
+<a href="<?php echo base_url('index.php/app/addSmrChoice'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add SMR Choice</button></a><br /><br />
 
 <table id="smrChoiceList" class="table table-bordered table-striped">
     <thead>
@@ -11,7 +11,7 @@
         <?php foreach($smrchoices as $smrchoice) { ?>
         <tr>
             <td><?php echo $smrchoice->smr_choice; ?></td>
-            <td><a href="<?php echo base_url('app/addSmrChoice/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<a href="<?php echo base_url('smrchoices/delete/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            <td><a href="<?php echo base_url('index.php/app/addSmrChoice/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;<a href="<?php echo base_url('index.php/smrchoices/delete/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
         </tr>
         <?php } ?>
     </tbody>

@@ -1,4 +1,4 @@
-<form id="addComponentType" action="<?php echo base_url('componenttypes/save'); ?>" method="post">
+<form id="addComponentType" action="<?php echo base_url('index.php/componenttypes/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

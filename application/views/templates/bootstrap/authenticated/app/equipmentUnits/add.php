@@ -1,4 +1,4 @@
-<form id="addEquipmentUnit" action="<?php echo base_url('equipmentunits/save'); ?>" method="post">
+<form id="addEquipmentUnit" action="<?php echo base_url('index.php/equipmentunits/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

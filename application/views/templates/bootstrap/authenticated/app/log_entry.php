@@ -24,7 +24,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section show-prev show-next">
-        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="entered_by"
                 name="entered_by"
                 class="form-control input-lg"
@@ -34,7 +34,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error entered_by_errors"></p>
         
-        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="serviced_by"
                 name="serviced_by"
                 class="form-control input-lg"
@@ -65,7 +65,7 @@ $maxNotes = 5;
                     <?php } ?>
                 </select>
 
-                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="equipmentmodel_id"
                         name="equipmentmodel_id"
                         class="form-control input-lg"
@@ -75,7 +75,7 @@ $maxNotes = 5;
                         disabled>
                 </select>
 
-                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="unit_number"
                         name="unit_number"
                         class="form-control input-lg"
@@ -255,7 +255,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_smr_based_pm_level"
                 name="pss_smr_based_pm_level"
                 class="form-control input-lg pss_smr_based">
@@ -313,7 +313,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error pss_reminder_pm_type_errors"></p>
         
-        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_reminder_pm_level"
                 name="pss_reminder_pm_level"
                 class="form-control input-lg"
@@ -344,7 +344,7 @@ $maxNotes = 5;
     <div class="form-section subflow pss show-prev show-review">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_reminder_recipients"
                         name="pss_reminder_recipients"
                         class="form-control input-lg"
@@ -357,7 +357,7 @@ $maxNotes = 5;
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_responsible_reminder_recipients"
                         name="pss_responsible_reminder_recipients"
                         class="form-control input-lg"
@@ -369,7 +369,7 @@ $maxNotes = 5;
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_additional_reminder_recipients"
                         name="pss_additional_reminder_recipients"
                         class="form-control input-lg"
@@ -416,7 +416,7 @@ $maxNotes = 5;
     
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component_type"
                 name="ccs_component_type"
                 class="form-control input-lg"
@@ -428,7 +428,7 @@ $maxNotes = 5;
     </div>
     
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component"
                 name="ccs_component"
                 class="form-control input-lg"
@@ -438,7 +438,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error ccs_component_errors"></p>
         
-        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <input
                id="ccs_component_data"
                name="ccs_component_data"

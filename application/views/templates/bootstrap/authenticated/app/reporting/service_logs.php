@@ -35,7 +35,7 @@
                 <td><?php echo $log['unit_number']; ?></td>
                 <td><?php echo $log['entry_type']; ?></td>
                 <td>
-                    <a href="<?php echo base_url('app/reporting/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
+                    <a href="<?php echo base_url('index.php/app/reporting/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
                 </td>
             </tr>
         <?php } ?>

@@ -1,4 +1,4 @@
-<form id="addFluidType" action="<?php echo base_url('fluidtypes/save'); ?>" method="post">
+<form id="addFluidType" action="<?php echo base_url('index.php/fluidtypes/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">
