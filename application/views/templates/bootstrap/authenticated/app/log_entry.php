@@ -24,7 +24,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section show-prev show-next">
-        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="entered_by"
                 name="entered_by"
                 class="form-control input-lg"
@@ -34,7 +34,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error entered_by_errors"></p>
         
-        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="serviced_by"
                 name="serviced_by"
                 class="form-control input-lg"
@@ -65,7 +65,7 @@ $maxNotes = 5;
                     <?php } ?>
                 </select>
 
-                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="equipmentmodel_id"
                         name="equipmentmodel_id"
                         class="form-control input-lg"
@@ -75,7 +75,7 @@ $maxNotes = 5;
                         disabled>
                 </select>
 
-                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="unit_number"
                         name="unit_number"
                         class="form-control input-lg"
@@ -255,7 +255,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_smr_based_pm_level"
                 name="pss_smr_based_pm_level"
                 class="form-control input-lg pss_smr_based">
@@ -313,7 +313,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error pss_reminder_pm_type_errors"></p>
         
-        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_reminder_pm_level"
                 name="pss_reminder_pm_level"
                 class="form-control input-lg"
@@ -344,7 +344,7 @@ $maxNotes = 5;
     <div class="form-section subflow pss show-prev show-review">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_reminder_recipients"
                         name="pss_reminder_recipients"
                         class="form-control input-lg"
@@ -357,7 +357,7 @@ $maxNotes = 5;
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_responsible_reminder_recipients"
                         name="pss_responsible_reminder_recipients"
                         class="form-control input-lg"
@@ -369,7 +369,7 @@ $maxNotes = 5;
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_additional_reminder_recipients"
                         name="pss_additional_reminder_recipients"
                         class="form-control input-lg"
@@ -416,7 +416,7 @@ $maxNotes = 5;
     
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component_type"
                 name="ccs_component_type"
                 class="form-control input-lg"
@@ -428,7 +428,7 @@ $maxNotes = 5;
     </div>
     
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component"
                 name="ccs_component"
                 class="form-control input-lg"
@@ -438,7 +438,7 @@ $maxNotes = 5;
         </select>
         <p class="form-error ccs_component_errors"></p>
         
-        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="http://test.rinconmountaintech.com/sites/komatsuna/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <input
                id="ccs_component_data"
                name="ccs_component_data"
@@ -601,7 +601,7 @@ $maxNotes = 5;
             // field, we will pre-select the logged in user, but still allow the
             // user to change the value.
             if(index===1) {
-                populateUserData("/sites/komatsuna/users/getUsers",
+                populateUserData("<?php echo base_url(); ?>users/getUsers",
                     $("#entered_by"));
             }
         }
@@ -991,7 +991,7 @@ $maxNotes = 5;
         }
         
         function saveServiceLog() {
-            var serviceUrl = '/sites/komatsuna/servicelog/save',
+            var serviceUrl = '<?php echo base_url(); ?>servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
             
 //            console.log("-------------------");
@@ -1074,9 +1074,9 @@ $maxNotes = 5;
         $(document).on("change", "#subflow", function () {
             setCurrentSubflow();
             if($('#subflow :selected').val()==="ccs") {
-                populateComponentTypeDropdownWithData("/sites/komatsuna/componenttypes/getComponentTypes",
+                populateComponentTypeDropdownWithData("<?php echo base_url(); ?>componenttypes/getComponentTypes",
                     $("#ccs_component_type"));
-                populateComponentDropdownWithData("/sites/komatsuna/components/getComponents",
+                populateComponentDropdownWithData("<?php echo base_url(); ?>components/getComponents",
                     $("#ccs_component"));
             }
         });
@@ -1107,7 +1107,7 @@ $maxNotes = 5;
             }
             $("label[for = flu_units]").text(fluUnitslabelText);
             
-            populateReminderRecipientsWithData("/sites/komatsuna/users/getUsers");
+            populateReminderRecipientsWithData("<?php echo base_url(); ?>users/getUsers");
         });
         
         $(document).on('change', '#pss_reminder_pm_type', function() {
@@ -1116,19 +1116,19 @@ $maxNotes = 5;
                 
             switch(thisSelection) {
                 case 'smr_based':
-                    populatePMServiceReminderPMLevelDropdownWithSMRChoiceData("/sites/komatsuna/smrchoices/getSMRChoices",
+                    populatePMServiceReminderPMLevelDropdownWithSMRChoiceData("<?php echo base_url(); ?>smrchoices/getSMRChoices",
                         $("#pss_reminder_pm_level"));
                     pssdueunitslabelText = 'SMR Due';
                     break;
                     
                 case 'mileage_based':
-                    populatePMServiceReminderPMLevelDropdownWithMileageChoiceData("/sites/komatsuna/mileagechoices/getMileageChoices",
+                    populatePMServiceReminderPMLevelDropdownWithMileageChoiceData("<?php echo base_url(); ?>mileagechoices/getMileageChoices",
                         $("#pss_reminder_pm_level"));
                     pssdueunitslabelText = 'Mileage Due';
                     break;
 
                 case 'time_based':
-                    populatePMServiceReminderPMLevelDropdownWithTimeChoiceData("/sites/komatsuna/timechoices/getTimeChoices",
+                    populatePMServiceReminderPMLevelDropdownWithTimeChoiceData("<?php echo base_url(); ?>timechoices/getTimeChoices",
                         $("#pss_reminder_pm_level"));
                     pssdueunitslabelText = 'Time Due';
                     break;
@@ -1148,7 +1148,7 @@ $maxNotes = 5;
             switch(thisSelection) {
                 case 'smr_based':
                     // Populate #pss_smr_based_pm_level via ajax with SMR Choices
-                    populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/smrchoices/getSMRChoices",
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>smrchoices/getSMRChoices",
                         $("#pss_smr_based_pm_level"), 'smr_based');
                     
                     $('.pss_smr_based').removeClass("hide-me");
@@ -1158,7 +1158,7 @@ $maxNotes = 5;
                     break;
                     
                 case 'mileage_based':
-                    populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/mileagechoices/getMileageChoices",
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>mileagechoices/getMileageChoices",
                         $("#pss_smr_based_pm_level"), 'mileage_based');
                     $('.pss_mileage_based').removeClass("hide-me");
                     $('.pss_smr_based_notes2').addClass("hide-me");
@@ -1167,7 +1167,7 @@ $maxNotes = 5;
                     break;
 
                 case 'time_based':
-                    populateSMRBasedPMLevelDropdownWithData("/sites/komatsuna/timechoices/getTimeChoices",
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>timechoices/getTimeChoices",
                         $("#pss_smr_based_pm_level"), 'time_based');
                     $('.pss_time_based').removeClass("hide-me");
                     $('.pss_smr_based_notes2').addClass("hide-me");
@@ -1233,13 +1233,13 @@ $maxNotes = 5;
                 
         $("#equipment_type").on('change', function() {
             $("#equipmentmodel_id").prop('disabled', false);
-            populateEquipmentModelDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
+            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>equipmentmodel/getEquipmentByType",
                 $("#equipmentmodel_id"));
         });
         
         $("#equipmentmodel_id").on('change', function() {
             $("#unit_number").prop('disabled', false);
-            populateUnitNumberDropdownWithData("/sites/komatsuna/equipmentunits/getUnitByModelId",
+            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>equipmentunits/getUnitByModelId",
                 $("#unit_number"));
         });
                 

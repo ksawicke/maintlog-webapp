@@ -67,7 +67,8 @@ class Report_model extends CI_Model {
     }
     
     private function getAllServiceLogs($append_query) {
-        return R::getAll(
+        try {
+            $results = R::getAll(
             "SELECT DISTINCT
                 s.id, s.date_entered, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.model_number, eu.unit_number,
                 CASE
@@ -86,6 +87,10 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN pmservice pm ON pm.servicelog_id = s.id
                 LEFT OUTER JOIN fluidentry fe ON fe.servicelog_id = s.id
                 LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id " . $append_query);
+        } catch (Exception $ex) {
+            $results = [];
+        }
+        return $results;
     }
     
     /**

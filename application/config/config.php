@@ -25,12 +25,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 switch($_SERVER['SERVER_NAME']) {
     case '10.132.146.48':
-        $config['base_url'] = 'http://10.132.146.48/maintlog';
+        $config['base_url'] = 'http://10.132.146.48/maintlog/index.php/';
+        $config['index_page'] = '';
         break;
     
     case 'test.rinconmountaintech.com':
     default:
-        $config['base_url'] = 'http://test.rinconmountaintech.com/sites/komatsuna';
+        $config['base_url'] = 'http://test.rinconmountaintech.com/sites/komatsuna/index.php/';
+        $config['index_page'] = '';
         break;
 }
 
@@ -44,7 +46,7 @@ switch($_SERVER['SERVER_NAME']) {
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+
 
 /*
 |--------------------------------------------------------------------------

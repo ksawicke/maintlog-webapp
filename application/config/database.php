@@ -86,9 +86,9 @@ $query_builder = TRUE;
 
 $db['production'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.132.146.48',
-	'username' => 'root',
-	'password' => 'azpg',
+	'hostname' => 'localhost',
+	'username' => 'asterisk',
+	'password' => '',
 	'database' => 'maintlog',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
