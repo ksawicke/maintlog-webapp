@@ -601,7 +601,7 @@ $maxNotes = 5;
             // field, we will pre-select the logged in user, but still allow the
             // user to change the value.
             if(index===1) {
-                populateUserData("<?php echo base_url(); ?>users/getUsers",
+                populateUserData("<?php echo base_url(); ?>index.php/users/getUsers",
                     $("#entered_by"));
             }
         }
@@ -991,7 +991,7 @@ $maxNotes = 5;
         }
         
         function saveServiceLog() {
-            var serviceUrl = '<?php echo base_url(); ?>servicelog/save',
+            var serviceUrl = '<?php echo base_url(); ?>index.php/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
             
 //            console.log("-------------------");
@@ -1074,9 +1074,9 @@ $maxNotes = 5;
         $(document).on("change", "#subflow", function () {
             setCurrentSubflow();
             if($('#subflow :selected').val()==="ccs") {
-                populateComponentTypeDropdownWithData("<?php echo base_url(); ?>componenttypes/getComponentTypes",
+                populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
                     $("#ccs_component_type"));
-                populateComponentDropdownWithData("<?php echo base_url(); ?>components/getComponents",
+                populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
                     $("#ccs_component"));
             }
         });
@@ -1107,7 +1107,7 @@ $maxNotes = 5;
             }
             $("label[for = flu_units]").text(fluUnitslabelText);
             
-            populateReminderRecipientsWithData("<?php echo base_url(); ?>users/getUsers");
+            populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
         });
         
         $(document).on('change', '#pss_reminder_pm_type', function() {
@@ -1116,19 +1116,19 @@ $maxNotes = 5;
                 
             switch(thisSelection) {
                 case 'smr_based':
-                    populatePMServiceReminderPMLevelDropdownWithSMRChoiceData("<?php echo base_url(); ?>smrchoices/getSMRChoices",
+                    populatePMServiceReminderPMLevelDropdownWithSMRChoiceData("<?php echo base_url(); ?>index.php/smrchoices/getSMRChoices",
                         $("#pss_reminder_pm_level"));
                     pssdueunitslabelText = 'SMR Due';
                     break;
                     
                 case 'mileage_based':
-                    populatePMServiceReminderPMLevelDropdownWithMileageChoiceData("<?php echo base_url(); ?>mileagechoices/getMileageChoices",
+                    populatePMServiceReminderPMLevelDropdownWithMileageChoiceData("<?php echo base_url(); ?>index.php/mileagechoices/getMileageChoices",
                         $("#pss_reminder_pm_level"));
                     pssdueunitslabelText = 'Mileage Due';
                     break;
 
                 case 'time_based':
-                    populatePMServiceReminderPMLevelDropdownWithTimeChoiceData("<?php echo base_url(); ?>timechoices/getTimeChoices",
+                    populatePMServiceReminderPMLevelDropdownWithTimeChoiceData("<?php echo base_url(); ?>index.php/timechoices/getTimeChoices",
                         $("#pss_reminder_pm_level"));
                     pssdueunitslabelText = 'Time Due';
                     break;
@@ -1148,7 +1148,7 @@ $maxNotes = 5;
             switch(thisSelection) {
                 case 'smr_based':
                     // Populate #pss_smr_based_pm_level via ajax with SMR Choices
-                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>smrchoices/getSMRChoices",
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/smrchoices/getSMRChoices",
                         $("#pss_smr_based_pm_level"), 'smr_based');
                     
                     $('.pss_smr_based').removeClass("hide-me");
@@ -1158,7 +1158,7 @@ $maxNotes = 5;
                     break;
                     
                 case 'mileage_based':
-                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>mileagechoices/getMileageChoices",
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/mileagechoices/getMileageChoices",
                         $("#pss_smr_based_pm_level"), 'mileage_based');
                     $('.pss_mileage_based').removeClass("hide-me");
                     $('.pss_smr_based_notes2').addClass("hide-me");
@@ -1167,7 +1167,7 @@ $maxNotes = 5;
                     break;
 
                 case 'time_based':
-                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>timechoices/getTimeChoices",
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/timechoices/getTimeChoices",
                         $("#pss_smr_based_pm_level"), 'time_based');
                     $('.pss_time_based').removeClass("hide-me");
                     $('.pss_smr_based_notes2').addClass("hide-me");
@@ -1233,13 +1233,13 @@ $maxNotes = 5;
                 
         $("#equipment_type").on('change', function() {
             $("#equipmentmodel_id").prop('disabled', false);
-            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>equipmentmodel/getEquipmentByType",
+            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
                 $("#equipmentmodel_id"));
         });
         
         $("#equipmentmodel_id").on('change', function() {
             $("#unit_number").prop('disabled', false);
-            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>equipmentunits/getUnitByModelId",
+            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
         });
                 

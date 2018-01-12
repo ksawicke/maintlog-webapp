@@ -55,7 +55,7 @@
 
   <body>
 
-    <div id="wrapper" class="toggled">
+    <div id="wrapper">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -66,57 +66,57 @@
                     </a>
                 </li-->
                 <li>
-                    <a href="<?php echo base_url('app/index'); ?>">Home</a>
+                    <a href="<?php echo base_url('index.php/app/index'); ?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('app/log_entry'); ?>">Enter Service Log</a>
+                    <a href="<?php echo base_url('index.php/app/log_entry'); ?>">Enter Service Log</a>
                 </li>
                 <?php if($_SESSION['role']==='admin') { ?>
+                    <!--li>
+                        <a href="<?php //echo base_url('index.php/app/employees/index'); ?>">Edit Employees</a>
+                    </li-->
                     <li>
-                        <a href="<?php echo base_url('app/employees/index'); ?>">Edit Employees</a>
+                        <a href="<?php echo base_url('index.php/app/users/index'); ?>">Edit Users</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/users/index'); ?>">Edit Users</a>
+                        <a href="<?php echo base_url('index.php/app/manufacturers/index'); ?>">Edit Manufacturers</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/manufacturers/index'); ?>">Edit Manufacturers</a>
+                        <a href="<?php echo base_url('index.php/app/equipmentunit/index'); ?>">Edit Equipment Units</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/equipmentunit/index'); ?>">Edit Equipment Units</a>
+                        <a href="<?php echo base_url('index.php/app/equipmentmodel/index'); ?>">Edit Equipment Models</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/equipmentmodel/index'); ?>">Edit Equipment Models</a>
+                        <a href="<?php echo base_url('index.php/app/equipmentTypes/index'); ?>">Edit Equipment Types</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/equipmentTypes/index'); ?>">Edit Equipment Types</a>
+                        <a href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">Edit Fluid Types</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/fluidTypes/index'); ?>">Edit Fluid Types</a>
+                        <a href="<?php echo base_url('index.php/app/componentTypes/index'); ?>">Edit Component Types</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/componentTypes/index'); ?>">Edit Component Types</a>
+                        <a href="<?php echo base_url('index.php/app/components/index'); ?>">Edit Components</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/components/index'); ?>">Edit Components</a>
+                        <a href="<?php echo base_url('index.php/app/smrChoices/index'); ?>">Edit SMR Choices</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/smrChoices/index'); ?>">Edit SMR Choices</a>
+                        <a href="<?php echo base_url('index.php/app/mileageChoices/index'); ?>">Edit Mileage Choices</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/mileageChoices/index'); ?>">Edit Mileage Choices</a>
+                        <a href="<?php echo base_url('index.php/app/timeChoices/index'); ?>">Edit Time Choices</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/timeChoices/index'); ?>">Edit Time Choices</a>
+                        <a href="<?php echo base_url('index.php/app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('app/reporting/index'); ?>">Reporting</a>
+                        <a href="<?php echo base_url('index.php/app/reporting/index'); ?>">Reporting</a>
                     </li>
                 <?php } ?>
                 <li>
-                    <a href="<?php echo base_url('auth/logout'); ?>">Log Out</a>
+                    <a href="<?php echo base_url('index.php/auth/logout'); ?>">Log Out</a>
                 </li>
             </ul>
         </div>
@@ -147,7 +147,7 @@
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-4">
                         
-                        Logged in as <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.&nbsp;&nbsp;<a class="smallCaps" href="<?php echo base_url('/auth/logout'); ?>">Log out</a>
+                        Logged in as <strong><?php echo $_SESSION['first_name']; ?> <?php echo $_SESSION['last_name']; ?></strong>.&nbsp;&nbsp;<a class="smallCaps" href="<?php echo base_url('index.php/auth/logout'); ?>">Log out</a>
                         
                     </div>
                 </div>
@@ -199,7 +199,7 @@
     <!-- Menu Toggle Script -->
     <script>
     $(function () {
-//       $("#wrapper").toggleClass("toggled");
+        
     });
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
