@@ -72,9 +72,6 @@
                     <a href="<?php echo base_url('index.php/app/log_entry'); ?>">Enter Service Log</a>
                 </li>
                 <?php if($_SESSION['role']==='admin') { ?>
-                    <!--li>
-                        <a href="<?php //echo base_url('index.php/app/employees/index'); ?>">Edit Employees</a>
-                    </li-->
                     <li>
                         <a href="<?php echo base_url('index.php/app/users/index'); ?>">Edit Users</a>
                     </li>
@@ -111,10 +108,10 @@
                     <li>
                         <a href="<?php echo base_url('index.php/app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
                     </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/reporting/index'); ?>">Reporting</a>
-                    </li>
                 <?php } ?>
+                <li>
+                    <a href="<?php echo base_url('index.php/app/reporting/index'); ?>">Reporting</a>
+                </li>
                 <li>
                     <a href="<?php echo base_url('index.php/auth/logout'); ?>">Log Out</a>
                 </li>
