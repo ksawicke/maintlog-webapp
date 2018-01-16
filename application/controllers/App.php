@@ -769,6 +769,21 @@ class App extends MY_Controller {
                 $data['fluid_types'] = json_encode($fluid_types);
                 break;
             
+            case 'service_log_edit':
+                $this->load->model('User_model');
+                $this->load->model('Equipmenttype_model');
+                $this->load->model('Fluidtype_model');
+                $this->load->model('Componenttype_model');
+                $this->load->model('Component_model');
+                
+                $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+                $data['fluidtypes'] = $this->Fluidtype_model->findAll();
+                $data['componenttypes'] = $this->Componenttype_model->findAll();
+                $data['components'] = $this->Component_model->findAll();
+                $data['users'] = (object) $this->User_model->findAll();
+                $data['service_log'] = $this->Report_model->findServiceLogs($id);
+                break;    
+                
             case 'service_log_detail':
                 $data['service_log'] = $this->Report_model->findServiceLogs($id);
                 break;

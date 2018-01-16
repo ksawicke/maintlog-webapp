@@ -1,0 +1,8 @@
+ALTER TABLE `smrupdate` ADD CONSTRAINT `fk_smrupdate` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog`(`id`) ON DELETE CASCADE;
+ALTER TABLE `componentchange` ADD CONSTRAINT `fk_componentchange` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog`(`id`) ON DELETE CASCADE;
+ALTER TABLE `pmservice` ADD CONSTRAINT `fk_pmservice` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog`(`id`) ON DELETE CASCADE;
+ALTER TABLE `fluidentry` ADD CONSTRAINT `fk_fluidentry` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog`(`id`) ON DELETE CASCADE;
+ALTER TABLE `servicelogservicedby` ADD CONSTRAINT `fk_servicelogservicedby` FOREIGN KEY (`servicelog_id`) REFERENCES `servicelog`(`id`) ON DELETE CASCADE;
+
+ALTER TABLE `pmservicenote` ADD CONSTRAINT `fk_pmservicenote` FOREIGN KEY (`pmservice_id`) REFERENCES `pmservice`(`id`) ON DELETE CASCADE;
+ALTER TABLE `pmservicereminder` ADD CONSTRAINT `fk_pmservicereminder` FOREIGN KEY (`pmservice_id`) REFERENCES `pmservice`(`id`) ON DELETE CASCADE;

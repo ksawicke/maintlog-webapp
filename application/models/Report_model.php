@@ -74,7 +74,7 @@ class Report_model extends CI_Model {
         try {
             $results = R::getAll(
             "SELECT DISTINCT
-                s.id, s.date_entered, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.model_number, eu.unit_number,
+                s.id, s.date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.model_number, eu.unit_number,
                 CASE
                     WHEN su.servicelog_id IS NOT NULL THEN 'SMR Update'
                     WHEN pm.servicelog_id IS NOT NULL THEN 'PM Service'
@@ -333,7 +333,7 @@ class Report_model extends CI_Model {
     public function getServicedBy($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
-                u.first_name, u.last_name
+                u.first_name, u.last_name, sb.user_id
             FROM servicelogservicedby sb
             LEFT JOIN user u ON u.id = sb.user_id
             WHERE sb.servicelog_id = '" . $servicelog_id . "'");
