@@ -44,4 +44,25 @@ class Servicelog extends MY_Controller {
         
         $this->Servicelog_model->store($post);
     }
+    
+    public function deleteServiceLog() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $servicelog = [];
+        
+        if(!$this->input->is_ajax_request() && !array_key_exists('action', $post) && is_int($post['servicelogid']) && $post['tokenCheck']!='CBxjkc6b32cb2ccy23b!8acbac%5654@6sdsassf') {
+            http_response_code(404);
+            $servicelog = ['success' => false, 'message' => 'There was an error deleting this service log. Please try again.'];
+        } else {
+            $servicelog = $this->Servicelog_model->deleteServiceLogAndChildren($post['servicelogid']);
+        }
+        
+        if($servicelog['success']) {
+            http_response_code(200);
+        } else {
+            http_response_code(404);
+        }
+        
+        echo json_encode($servicelog);
+        exit();
+    }
 }

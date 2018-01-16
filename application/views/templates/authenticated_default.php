@@ -55,7 +55,7 @@
 
   <body>
 
-    <div id="wrapper">
+    <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
@@ -150,7 +150,7 @@
                 </div>
                 
                 <div class="row app-content-wrapper">
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
                         
                         <?php echo $body; ?>
                         

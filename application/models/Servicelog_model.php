@@ -129,5 +129,16 @@ class Servicelog_model extends CI_Model {
 //        
 //        R::store($equipment);
     }
+    
+    public function deleteServiceLogAndChildren($servicelogid) {
+        try {
+            $servicelog = R::load('servicelog', $servicelogid);
+            R::trash($servicelog);
+        } catch (Exception $ex) {
+            return ['success' => false, 'message' => $ex->getMessage()];
+        }
+        
+        return ['success' => true, 'message' => 'Deleted records successfully.'];
+    }
 
 }

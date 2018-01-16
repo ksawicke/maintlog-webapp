@@ -62,6 +62,10 @@ class Report_model extends CI_Model {
         if ($servicelog_id <> 0) {
             $service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs);
         }
+        
+        if ($servicelog_id == 0) {
+            $service_logs = $this->appendFluidsAdministered($service_logs);
+        }
 
         return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
     }
@@ -77,7 +81,9 @@ class Report_model extends CI_Model {
                     WHEN fe.servicelog_id IS NOT NULL THEN 'Fluid Entry'
                     WHEN cc.servicelog_id IS NOT NULL THEN 'Component Change'
                     ELSE 'UNKNOWN'
-                END AS entry_type
+                END AS entry_type,
+                su.smr,
+                ct.component_type
             FROM servicelog s
                 LEFT JOIN equipmentunit eu ON eu.id = s.unit_number
 		LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
@@ -86,11 +92,29 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN smrupdate su ON su.servicelog_id = s.id
                 LEFT OUTER JOIN pmservice pm ON pm.servicelog_id = s.id
                 LEFT OUTER JOIN fluidentry fe ON fe.servicelog_id = s.id
-                LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id " . $append_query);
+                LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id 
+                LEFT JOIN componenttype ct ON ct.id = cc.component_type " . $append_query);
         } catch (Exception $ex) {
             $results = [];
         }
         return $results;
+    }
+    
+    private function appendFluidsAdministered($service_logs) {
+        foreach($service_logs as $ctr => $service_log) {
+            $results = R::getAll(
+                    "SELECT '" . $service_log['id'] . "' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid
+                    FROM (
+                        SELECT ft.fluid_type ftentries
+                        FROM fluidentry fe
+                        LEFT JOIN fluidtype ft ON ft.id = fe.type
+                        WHERE fe.servicelog_id = " . $service_log['id'] . " 
+                    ) temp");
+            
+            $service_logs[$ctr]['typeoffluid'] = $results[0]['typeoffluid'];
+        }
+        
+        return $service_logs;
     }
     
     /**
