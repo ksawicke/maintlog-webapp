@@ -83,7 +83,9 @@ class Report_model extends CI_Model {
                     ELSE 'UNKNOWN'
                 END AS entry_type,
                 su.smr,
-                ct.component_type
+                ct.component_type,
+                c.component,
+                cc.component_data
             FROM servicelog s
                 LEFT JOIN equipmentunit eu ON eu.id = s.unit_number
 		LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
@@ -93,7 +95,8 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN pmservice pm ON pm.servicelog_id = s.id
                 LEFT OUTER JOIN fluidentry fe ON fe.servicelog_id = s.id
                 LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id 
-                LEFT JOIN componenttype ct ON ct.id = cc.component_type " . $append_query);
+                LEFT JOIN componenttype ct ON ct.id = cc.component_type
+                LEFT JOIN component c ON c.id = cc.component " . $append_query);
         } catch (Exception $ex) {
             $results = [];
         }

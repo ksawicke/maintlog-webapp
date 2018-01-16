@@ -758,7 +758,15 @@ class App extends MY_Controller {
         
         switch($report_type) {
             case 'service_logs':
+                $this->load->model('Fluidtype_model');
                 $data['service_logs'] = $this->Report_model->findServiceLogs();
+                $fluid_types_tmp = $this->Fluidtype_model->findAll();
+                $fluid_types = [];
+                foreach($fluid_types_tmp as $fluid_type_tmp) {
+                    $val = $fluid_type_tmp['fluid_type'];
+                    $fluid_types[$val] = $val;
+                }
+                $data['fluid_types'] = json_encode($fluid_types);
                 break;
             
             case 'service_log_detail':

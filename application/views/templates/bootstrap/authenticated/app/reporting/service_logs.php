@@ -2,10 +2,6 @@
 
 <h3>Service Logs Report</h3>
 
-<!--pre>
-<?php //var_dump($service_logs); ?>
-</pre-->
-
 <table id="serviceLogsReport" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -17,6 +13,8 @@
             <th>Entry Type</th>
             <th>SMR</th>
             <th>Component Type</th>
+            <th>Component</th>
+            <th>Component Data</th>
             <th>Type of Fluid</th>
             <th>Actions</th>
         </tr>
@@ -31,6 +29,8 @@
             <th>Entry Type</th>
             <th>SMR</th>
             <th>Component Type</th>
+            <th>Component</th>
+            <th>Component Data</th>
             <th>Type of Fluid</th>
             <th>Actions</th>
         </tr>
@@ -46,11 +46,15 @@
                 <td><?php echo $log['entry_type']; ?></td>
                 <td><?php echo $log['smr']; ?></td>
                 <td><?php echo $log['component_type']; ?></td>
+                <td><?php echo $log['component']; ?></td>
+                <td><?php echo $log['component_data']; ?></td>
                 <td><?php echo $log['typeoffluid']; ?></td>
                 <td>
                     <a href="<?php echo base_url('index.php/app/reporting/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
                     
+                    <?php if($_SESSION['role']==='admin') { ?>
                     <a href="#"><button data-servicelogid="<?php echo $log['id']; ?>" type="button" class="deleteServiceLog btn btn-sm btn-primary" title="Delete"><i class="fa fa-minus-circle" aria-hidden="true"></i></button></a>
+                    <?php } ?>
                     
                 </td>
             </tr>
@@ -80,6 +84,8 @@
                 preventDefault: true,
                 preloadAudio: false
         });
+        
+        var fluidTypes = <?php echo $fluid_types; ?>;
         
         function deleteServiceLog(servicelogid) {
             var jqxhr = $.ajax({
@@ -125,40 +131,72 @@
                                         $(this).val()
                                         );
 
-                                column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
+                                if(column.index() != 10) {
+                                    column
+                                            .search(val ? '^' + val + '$' : '', true, false)
+                                            .draw();
+                                } else {
+                                    /* Search for Fluid Entry */
+                                    column
+                                            .search(val ? '^' + val : '', true, false)
+                                            .draw();
+                                }
                                 
                                 if(column.index()==5) {
                                     switch(val) {
                                         case 'SMR Update':
                                             dataTable.column(6).visible(true);
+                                            dataTable.column(7).visible(false);
+                                            dataTable.column(8).visible(false);
+                                            dataTable.column(9).visible(false);
+                                            dataTable.column(9).visible(false);
                                             break;
                                             
                                         case 'Component Change':
+                                            dataTable.column(6).visible(false);
                                             dataTable.column(7).visible(true);
+                                            dataTable.column(8).visible(true);
+                                            dataTable.column(9).visible(true);
+                                            dataTable.column(10).visible(false);
                                             break;
 
                                         case 'Fluid Entry':
-                                            dataTable.column(8).visible(true);
+                                            dataTable.column(6).visible(false);
+                                            dataTable.column(7).visible(false);
+                                            dataTable.column(8).visible(false);
+                                            dataTable.column(9).visible(false);
+                                            dataTable.column(10).visible(true);
                                             break;
                                             
                                         default:
                                             dataTable.column(6).visible(false);
                                             dataTable.column(7).visible(false);
                                             dataTable.column(8).visible(false);
+                                            dataTable.column(9).visible(false);
+                                            dataTable.column(10).visible(false);
                                             break;
                                     }
                                 }
                             });
 
-                    column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
+                    if(column.index() != 10) {
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                    } else {
+                        /* Populate dropdown for Fluid Entry filter */
+                        column.each(function (d, j) {
+                            $.each(fluidTypes, function(key, value) {
+                                select.append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        } );
+                    }
                 });
             },
             "order": [],
             "columns": [
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -175,5 +213,7 @@
         dataTable.column(6).visible(false);
         dataTable.column(7).visible(false);
         dataTable.column(8).visible(false);
+        dataTable.column(9).visible(false);
+        dataTable.column(10).visible(false);
     });
 </script>
