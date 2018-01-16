@@ -127,13 +127,11 @@
                         
                         <table>
                             <tr>
-                                <?php if($_SESSION['role']==='admin') { ?>
                                 <td>
                                     <a href="#" id="menu-toggle" class="btn btn-sm">
                                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                                     </a>
                                 </td>
-                                <?php } ?>
                                 <td>
                                     <img src="<?php echo $assetDirectoryCustom; ?>img/025_Gloria_blue_nega_r.jpg">
                                     <h5>Maintenance Log Application</h5>
