@@ -136,27 +136,27 @@ foreach($service_log['serviced_by'] as $ctr => $sb) {
 
 <?php if($service_log['entry_type']=='PM Service') { ?>
 
-    <?php
-    $pm_type = "";
-    switch($service_log['update_detail']['pm_type']) {
-        case 'smr_based':
-            $pm_type = 'SMR based';
-            break;
-        
-        case 'mileage_based':
-            $pm_type = 'Mileage based';
-            break;
-        
-        case 'time_based':
-            $pm_type = 'Time based';
-            break;
-    }
-    ?>
-
-    <label>PM Type</label>
-    <ul>
-        <li><?php echo $pm_type; ?></li>
-    </ul>
+    <label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
+    <select id="pss_pm_type"
+            name="pss_pm_type"
+            class="form-control input-lg"
+            data-parsley-required="true"
+            data-parsley-error-message="Please select the PM type"
+            data-parsley-errors-container=".pss_pm_type_errors">
+        <option value="">Select one:</option>
+        <option value="smr_based"<?php echo ($service_log['update_detail']['pm_type']=='smr_based' ? ' selected' : ''); ?>>SMR based</option>
+        <option value="mileage_based"<?php echo ($service_log['update_detail']['pm_type']=='mileage_based' ? ' selected' : ''); ?>>Mileage based</option>
+        <option value="time_based"<?php echo ($service_log['update_detail']['pm_type']=='time_based' ? ' selected' : ''); ?>>Time based</option>
+    </select>
+    <p class="form-error pss_pm_type_errors"></p>
+    
+    
+    <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label>
+    <select id="pss_smr_based_pm_level"
+            name="pss_smr_based_pm_level"
+            class="form-control input-lg pss_smr_based">
+    </select>
+    <p class="form-error pss_smr_based_pm_level_errors"></p>
     
     <label>PM Level</label>
     <ul>

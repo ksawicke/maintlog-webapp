@@ -775,12 +775,18 @@ class App extends MY_Controller {
                 $this->load->model('Fluidtype_model');
                 $this->load->model('Componenttype_model');
                 $this->load->model('Component_model');
-                
+                $this->load->model('Smrchoice_model');
+                $this->load->model('Timechoice_model');
+                $this->load->model('Mileagechoice_model');
+        
                 $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
                 $data['fluidtypes'] = $this->Fluidtype_model->findAll();
                 $data['componenttypes'] = $this->Componenttype_model->findAll();
                 $data['components'] = $this->Component_model->findAll();
                 $data['users'] = (object) $this->User_model->findAll();
+                $data['smrchoices'] = $this->Smrchoice_model->findAll();
+                $data['timechoices'] = $this->Timechoice_model->findAll();
+                $data['mileagechoices'] = $this->Mileagechoice_model->findAll();
                 $data['service_log'] = $this->Report_model->findServiceLogs($id);
                 break;    
                 
