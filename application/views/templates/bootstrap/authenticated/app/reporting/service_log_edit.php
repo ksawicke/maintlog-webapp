@@ -3,6 +3,11 @@
 <h3>Edit Service Log <?php echo $service_log['id']; ?></h3>
 
 
+<pre style="font-size:12px;">
+<?php var_dump($service_log); ?>
+</pre>
+
+
 <label for="date_entered" class="control-label lb-lg">Date Entered</label>
 <div class="input-group date">
     <div class="input-group-addon">
@@ -72,7 +77,7 @@ foreach($service_log['serviced_by'] as $ctr => $sb) {
         data-parsley-errors-container=".equipment_type_errors">
     <option value="">Select one:</option>
     <?php foreach($equipmenttypes as $equipmenttype) { ?>
-        <option value="<?php echo $equipmenttype->id; ?>"><?php echo $equipmenttype->equipment_type; ?></option>
+        <option value="<?php echo $equipmenttype->id; ?>"<?php echo ($equipmenttype->id==$service_log['equipmenttype_id'] ? ' selected' : ''); ?>><?php echo $equipmenttype->equipment_type; ?></option>
     <?php } ?>
 </select>
 

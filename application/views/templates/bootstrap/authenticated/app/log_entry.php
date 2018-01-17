@@ -508,6 +508,8 @@ $maxNotes = 5;
 
 <script type="text/javascript">
     $(function () {
+        var servicelog = {};
+        
         var $sections = $('.form-section'),
                 subflowSelected = false,
                 currentSubflow = '',
@@ -1055,6 +1057,66 @@ $maxNotes = 5;
             $("#reviewScreen").show();            
         }
         
+        function checkFormMode() {
+            console.log("Check form mode here...");
+            
+            <?php if(array_key_exists('id', $_REQUEST)) { ?>
+            
+            var jqxhr = $.ajax({
+                url: '<?php echo base_url(); ?>index.php/app/reporting/service_log_detail_ajax/<?php echo $_REQUEST['id']; ?>',
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({}), // no need to send data, just get it
+                contentType: "application/json"
+            }).done(function(object) {
+                // Save data to local object.
+                localStorage.setItem("servicelog", JSON.stringify(object));
+                
+//                var test2 = localStorage.getItem("test");
+//                console.log(test2); //Logs "{"test":"thing","test2":"thing2","test3":[0,2,44]}"
+//                test = JSON.parse(test2); //var test is now re-loaded!
+                
+//                console.log("TEST");
+//                console.log(servicelog.id)
+//
+//                $("#date_entered").val('01/02/2018');
+            });
+            
+            var servicelog2 = localStorage.getItem("servicelog");
+            servicelog = JSON.parse(servicelog2);
+            
+            <?php } ?>
+            
+            console.log(servicelog);
+            
+            
+//            $("#entered_by").val();
+//            $("#serviced_by").val();
+//            $("#equipment_type").val();
+//            $("#equipmentmodel_id").val();
+//            $("#unit_number").val();
+            
+//            switch(currentSubflow) {
+//                case 'sus':
+//                    
+//                    break;
+//                    
+//                case 'flu':
+//                    
+//                    break;
+//                    
+//                case 'pss':
+//
+//                    break;
+//                    
+//                case 'ccs':
+//                    
+//                    break;
+//            }
+            
+            $('.serviceLog-form').parsley().validate();
+        }
+        
         $(document).on("click", "#reviewButton", function () {
             showReview();
         });
@@ -1218,7 +1280,7 @@ $maxNotes = 5;
                 navigateTo(goToIndex);
             });
         });
-
+        
         // Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
         $sections.each(function (index, section) {
             $(section).find(':input').attr('data-parsley-group', 'block-' + index);
@@ -1281,6 +1343,8 @@ $maxNotes = 5;
                     })
                     .removeClass('hideButton').hide().css("display","block");
             });
+            
+            checkFormMode();
         });
         
     });
