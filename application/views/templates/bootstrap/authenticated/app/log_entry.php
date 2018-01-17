@@ -508,7 +508,7 @@ $maxNotes = 5;
 
 <script type="text/javascript">
     $(function () {
-        var servicelog = {};
+        var log_entry_data = {};
         
         var $sections = $('.form-section'),
                 subflowSelected = false,
@@ -667,6 +667,10 @@ $maxNotes = 5;
         }
         
         function populateEnteredByDropdownWithData(object) {
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log = log_entry_data.service_log;
+            
             // Populate dropdown via ajax.
             $.each(object.data, function(id, userData) {
                 var id = userData.id,
@@ -675,12 +679,28 @@ $maxNotes = 5;
                     active = userData.active;
 
                 if(active==="1") {
-                    $('#entered_by').append('<option value="' + id + '"' + (current==='1' ? ' selected' : '') + '>' + value + '</option>');
+                    var selected = '';
+                    <?php if(array_key_exists('id', $_REQUEST)) { ?>
+                    if(service_log.entered_by==id) {
+                        selected = ' selected';
+                    }
+                    <?php } else { ?>
+                        if(current==='1') {
+                            selected = ' selected';
+                        }
+                    <?php } ?>
+                    $('#entered_by').append('<option value="' + id + '"' + selected + '>' + value + '</option>');
                 }
             });
+            
+            $('.serviceLog-form').parsley().validate();
         }
         
         function populateServicedByDropdownWithData(object) {
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log = log_entry_data.service_log;
+            
             // Populate multiselect using loaded object.
             $.each(object.data, function(id, userData) {
                 var id = userData.id,
@@ -690,13 +710,25 @@ $maxNotes = 5;
                     active = userData.active;
 
                 if(active==="1") {
-                    $("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
+                    var selected = '';
+                    for(i = 0; i <= service_log.serviced_by.length-1; i++) {
+                        if(service_log.serviced_by[i].user_id==id) {
+                            selected = ' selected';
+                        }
+                    }
+                    $("#serviced_by").append('<option value="' + id + '"' + selected + '>' + display + '</option>');
                 }
             });
+            
+            $('.serviceLog-form').parsley().validate();
         }
         
         function populateEquipmentModelDropdownWithData(serviceUrl, field) {
             $("#loading_equipmentmodel_id").show();
+            
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log = log_entry_data.service_log;
             
             var jqxhr = $.ajax({
                 url: serviceUrl,
@@ -715,11 +747,15 @@ $maxNotes = 5;
                     var id = unitData.equipmentmodel_id,
                         value = unitData.manufacturer_name + " " + unitData.model_number;
                         
-                    $('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
+                    var selectMe = ((service_log.equipmentmodel_id == id) ? ' selected' : '');
+                        
+                    $('#equipmentmodel_id').append('<option value="' + id + '"' + selectMe + '>' + value + '</option>');
                 });
                 
                 $("#loading_equipmentmodel_id").hide();
             });
+            
+            $('.serviceLog-form').parsley().validate();
         }
         
         function populateUnitNumberDropdownWithData(serviceUrl, field) {
@@ -1060,6 +1096,7 @@ $maxNotes = 5;
         function checkFormMode() {
             console.log("Check form mode here...");
             
+            //http://test.rinconmountaintech.com/sites/komatsuna/index.php/app/log_entry?id=39
             <?php if(array_key_exists('id', $_REQUEST)) { ?>
             
             var jqxhr = $.ajax({
@@ -1070,7 +1107,7 @@ $maxNotes = 5;
                 contentType: "application/json"
             }).done(function(object) {
                 // Save data to local object.
-                localStorage.setItem("servicelog", JSON.stringify(object));
+                localStorage.setItem("log_entry_data_obj", JSON.stringify(object));
                 
 //                var test2 = localStorage.getItem("test");
 //                console.log(test2); //Logs "{"test":"thing","test2":"thing2","test3":[0,2,44]}"
@@ -1082,12 +1119,34 @@ $maxNotes = 5;
 //                $("#date_entered").val('01/02/2018');
             });
             
-            var servicelog2 = localStorage.getItem("servicelog");
-            servicelog = JSON.parse(servicelog2);
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
             
+            var service_log = log_entry_data.service_log;
+            
+            // Fill in data into form
+            $("#date_entered").val(service_log.date_entered);
+            $("#entered_by").val(service_log.entered_by); // TODO
+            
+            console.log("Serviced by count: ");
+            console.log(service_log.serviced_by.length);
+
+            
+            //$("#serviced_by").val(); // TODO
+            $("#equipment_type").val(service_log.equipmenttype_id);
+            
+            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
+                $("#equipmentmodel_id"));
+            $("#equipmentmodel_id").prop('disabled', false);
+            $('[name=equipmentmodel_id]').val(service_log.equipmentmodel_id);
+            
+            $("#unit_number").val();
+            
+            // Validate it!
+            $('.serviceLog-form').parsley().validate();
             <?php } ?>
             
-            console.log(servicelog);
+            console.log(log_entry_data);
             
             
 //            $("#entered_by").val();
@@ -1114,7 +1173,7 @@ $maxNotes = 5;
 //                    break;
 //            }
             
-            $('.serviceLog-form').parsley().validate();
+            
         }
         
         $(document).on("click", "#reviewButton", function () {

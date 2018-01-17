@@ -814,7 +814,7 @@ class App extends MY_Controller {
                 return $this->output
                     ->set_content_type('application/json')
                     ->set_status_header(200)
-                    ->set_output(json_encode($data));
+                    ->set_output(json_encode($data, JSON_NUMERIC_CHECK));
                 break;
             
             case 'service_log_detail':

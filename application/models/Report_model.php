@@ -74,7 +74,7 @@ class Report_model extends CI_Model {
         try {
             $results = R::getAll(
             "SELECT DISTINCT
-                s.id, DATE_FORMAT(s.date_entered, '%m/%d/%Y') date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.equipmenttype_id, em.model_number, eu.unit_number,
+                s.id, DATE_FORMAT(s.date_entered, '%m/%d/%Y') date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.equipmenttype_id, em.id equipmentmodel_id, em.model_number, eu.unit_number,
                 CASE
                     WHEN su.servicelog_id IS NOT NULL THEN 'SMR Update'
                     WHEN pm.servicelog_id IS NOT NULL THEN 'PM Service'
