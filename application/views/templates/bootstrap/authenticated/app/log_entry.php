@@ -761,11 +761,27 @@ $maxNotes = 5;
         function populateUnitNumberDropdownWithData(serviceUrl, field) {
             $("#loading_unit_number").show();
             
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log = log_entry_data.service_log;
+            
+            console.log("equipmentmodel_id: " + $("#equipmentmodel_id").val());
+            console.log("service_log.equipmentmodel_id: " + service_log.equipmentmodel_id);
+            
+            json = '{"id": ' + service_log.equipmentmodel_id + '}';
+            
+            <?php
+            
+            if(!array_key_exists('id', $_REQUEST)) { ?>
+                json = '{"id": ' + $("#equipmentmodel_id").val() + '}';
+            <?php }
+            ?>      
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify({"id": $("#equipmentmodel_id").val()}),
+                data: JSON.stringify(json),
                 contentType: "application/json"
             }).done(function(object) {
                 // Clear dropdown first.
@@ -780,12 +796,16 @@ $maxNotes = 5;
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
+                    var selectMe = ((service_log.equipmentunit_id == id) ? ' selected' : '');
+                        
                     if(active==="1") {
-                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
+                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + selectMe + '>' + value + '</option>');
                     }
                 });
                 
                 $("#loading_unit_number").hide();
+                
+                $('.serviceLog-form').parsley().validate();
             });
         }
         
@@ -1093,8 +1113,8 @@ $maxNotes = 5;
             $("#reviewScreen").show();            
         }
         
-        function checkFormMode() {
-            console.log("Check form mode here...");
+        function initLogEntryData() {
+            console.log("Initialize data here...");
             
             //http://test.rinconmountaintech.com/sites/komatsuna/index.php/app/log_entry?id=39
             <?php if(array_key_exists('id', $_REQUEST)) { ?>
@@ -1140,7 +1160,13 @@ $maxNotes = 5;
             $("#equipmentmodel_id").prop('disabled', false);
             $('[name=equipmentmodel_id]').val(service_log.equipmentmodel_id);
             
-            $("#unit_number").val();
+            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
+                $("#unit_number"));
+                
+            // KS 1/17/18 TODO: Finish the rest of the fields
+            $("#subflow").val(service_log.subflow);
+            setCurrentSubflow();
+            
             
             // Validate it!
             $('.serviceLog-form').parsley().validate();
@@ -1403,7 +1429,7 @@ $maxNotes = 5;
                     .removeClass('hideButton').hide().css("display","block");
             });
             
-            checkFormMode();
+            initLogEntryData();
         });
         
     });

@@ -28,12 +28,14 @@ class Equipmentunits extends MY_Controller {
         $post = json_decode(file_get_contents('php://input'), true);
         $equipmentunit = [];
         
+        $post = json_decode($post);
+        
         if(!array_key_exists('id', $post)) {
             http_response_code(404);
             echo json_encode(['success' => false]);
         } else {
             http_response_code(200);
-            $equipmentunit = $this->Equipmentunit_model->findAllByModelId($post['id']);
+            $equipmentunit = $this->Equipmentunit_model->findAllByModelId($post->id);
             echo json_encode(['success' => true, 'data' => $equipmentunit]);
         }
         
