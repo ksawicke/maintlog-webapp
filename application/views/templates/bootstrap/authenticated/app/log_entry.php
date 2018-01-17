@@ -1,7 +1,15 @@
 <?php
 $maxFluidEntries = 10;
 $maxNotes = 5;
+
+if(array_key_exists('id', $_REQUEST)) {
 ?>
+
+<div class="alert alert-warning" role="alert">
+    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> <strong>Note!</strong> You are currently edting Service Log #<?php echo $_REQUEST['id']; ?>
+</div>
+
+<?php } ?>
 
 <form class="serviceLog-form">
     <div class="form-section show-next">
@@ -962,6 +970,10 @@ $maxNotes = 5;
         function populateComponentTypeDropdownWithData(serviceUrl, field) {
             $("#loading_ccs_component_type").show();
             
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log = log_entry_data.service_log;
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -978,7 +990,9 @@ $maxNotes = 5;
                     var id = choiceData.id,
                         choice = choiceData.component_type;
                         
-                    $('#ccs_component_type').append('<option value="' + id + '">' + choice + '</option>');
+                    var selected = (service_log.update_detail.component_type==choice ? ' selected' : '');    
+                        
+                    $('#ccs_component_type').append('<option value="' + id + '"' + selected + '>' + choice + '</option>');
                 });
                 
                 $("#loading_ccs_component_type").hide();
@@ -1025,6 +1039,10 @@ $maxNotes = 5;
         function populateComponentDropdownWithData(serviceUrl, field) {
             $("#loading_ccs_component").show();
             
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log = log_entry_data.service_log;
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -1041,7 +1059,9 @@ $maxNotes = 5;
                     var id = choiceData.id,
                         choice = choiceData.component;
                         
-                    $('#ccs_component').append('<option value="' + id + '">' + choice + '</option>');
+                    var selected = (service_log.update_detail.component==choice ? ' selected' : '');
+                        
+                    $('#ccs_component').append('<option value="' + id + '"' + selected + '>' + choice + '</option>');
                 });
                 
                 $("#loading_ccs_component").hide();
@@ -1167,6 +1187,28 @@ $maxNotes = 5;
             $("#subflow").val(service_log.subflow);
             setCurrentSubflow();
             
+            switch(service_log.subflow) {
+                case 'sus':  // SMR Update. Flow for editing an existing one is complete.
+                    $("#sus_current_smr").val(service_log.smr);
+                    break;
+                    
+                case 'flu':
+
+                    break;
+                    
+                case 'pss':
+
+                    break;
+                    
+                case 'ccs': // Component Change. Flow for editing an existing one is complete.
+                    populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
+                        $("#ccs_component_type"));
+                    populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
+                        $("#ccs_component"));
+                    $("#ccs_component_data").val(service_log.update_detail.component_data);
+                    $("#ccs_notes").val(service_log.update_detail.notes);
+                    break;
+            }
             
             // Validate it!
             $('.serviceLog-form').parsley().validate();
