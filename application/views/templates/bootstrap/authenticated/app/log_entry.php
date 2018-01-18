@@ -773,7 +773,7 @@ if(array_key_exists('id', $_REQUEST)) {
             log_entry_data = JSON.parse(log_entry_data_obj);
             var service_log = log_entry_data.service_log;
             
-            console.log("equipmentmodel_id: " + $("#equipmentmodel_id").val());
+//            console.log("equipmentmodel_id: " + $("#equipmentmodel_id").val());
             console.log("service_log.equipmentmodel_id: " + service_log.equipmentmodel_id);
             
             json = '{"id": ' + service_log.equipmentmodel_id + '}';
@@ -804,9 +804,9 @@ if(array_key_exists('id', $_REQUEST)) {
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
-                    var selectMe = ((service_log.equipmentunit_id == id) ? ' selected' : '');
-                        
                     if(active==="1") {
+                        var selectMe = ((service_log.equipmentunit_id == id) ? ' selected' : '');
+                        console.log(":::: " + selectMe + " ::::");
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + selectMe + '>' + value + '</option>');
                     }
                 });

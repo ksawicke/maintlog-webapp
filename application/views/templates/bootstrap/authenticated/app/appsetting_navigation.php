@@ -7,7 +7,7 @@
 </a>
 
 <a href="<?php echo base_url('index.php/app/components/index'); ?>">
-    <button type="button" class="btn btn-<?php echo ($navigation_highlight=='components' ? 'primary' : 'default'); ?>">Manage Components
+    <button type="button" class="btn btn-<?php echo ($navigation_highlight=='components' ? 'primary' : 'default'); ?>">Manage Components</button>
 </a>
 
 <a href="<?php echo base_url('index.php/app/smrChoices/index'); ?>">
