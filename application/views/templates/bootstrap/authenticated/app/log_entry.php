@@ -1210,6 +1210,9 @@ if(array_key_exists('id', $_REQUEST)) {
                     break;
             }
             
+            // TODO: 1/17/18 Disable submit button on edit for now.
+            $("#submitButton").attr("disabled", "disabled");
+            
             // Validate it!
             $('.serviceLog-form').parsley().validate();
             <?php } ?>
