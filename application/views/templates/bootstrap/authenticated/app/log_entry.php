@@ -785,6 +785,8 @@ if(array_key_exists('id', $_REQUEST)) {
             <?php }
             ?>      
             
+            console.log(json);
+            
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -804,11 +806,11 @@ if(array_key_exists('id', $_REQUEST)) {
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
-                    if(active==="1") {
+//                    if(active==1) {
                         var selectMe = ((service_log.equipmentunit_id == id) ? ' selected' : '');
-                        console.log(":::: " + selectMe + " ::::");
+                        console.log(service_log.equipmentunit_id + " :: " + id);
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + selectMe + '>' + value + '</option>');
-                    }
+//                    }
                 });
                 
                 $("#loading_unit_number").hide();
@@ -1197,7 +1199,7 @@ if(array_key_exists('id', $_REQUEST)) {
                     break;
                     
                 case 'pss':
-
+                    $("#pss_pm_type").val(service_log.update_detail_pm_type);
                     break;
                     
                 case 'ccs': // Component Change. Flow for editing an existing one is complete.

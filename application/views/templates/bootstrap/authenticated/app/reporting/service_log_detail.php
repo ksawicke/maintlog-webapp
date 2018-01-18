@@ -5,7 +5,7 @@
 
 <label>Service Log ID</label>
 <ul>
-    <li><?php echo $service_log['id']; ?></li>
+    <li>23 <a href="<?php echo base_url('index.php/app/log_entry?id=') . $service_log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log">Edit</button></a></li>
 </ul>
 
 <label>Date Entered</label>

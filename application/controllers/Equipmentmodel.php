@@ -34,7 +34,7 @@ class Equipmentmodel extends MY_Controller {
         } else {
             http_response_code(200);
             $equipmentmodel = $this->Equipmentmodel_model->findAllByEquipmentType($post['id']);
-            echo json_encode(['success' => true, 'data' => $equipmentmodel]);
+            echo json_encode(['success' => true, 'data' => $equipmentmodel], JSON_NUMERIC_CHECK);
         }
         
         exit();

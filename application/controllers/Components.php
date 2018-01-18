@@ -35,7 +35,7 @@ class Components extends MY_Controller {
             echo json_encode(['success' => false]);
         } else {
             http_response_code(200);
-            echo json_encode(['success' => true, 'data' => $componentmodel]);
+            echo json_encode(['success' => true, 'data' => $componentmodel], JSON_NUMERIC_CHECK);
         }
         
         exit();

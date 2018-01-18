@@ -35,7 +35,7 @@ class Smrchoices extends MY_Controller {
             echo json_encode(['success' => false]);
         } else {
             http_response_code(200);
-            echo json_encode(['success' => true, 'data' => $smrchoicemodel]);
+            echo json_encode(['success' => true, 'data' => $smrchoicemodel], JSON_NUMERIC_CHECK);
         }
         
         exit();

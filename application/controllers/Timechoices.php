@@ -35,7 +35,7 @@ class Timechoices extends MY_Controller {
             echo json_encode(['success' => false]);
         } else {
             http_response_code(200);
-            echo json_encode(['success' => true, 'data' => $timechoicemodel]);
+            echo json_encode(['success' => true, 'data' => $timechoicemodel], JSON_NUMERIC_CHECK);
         }
         
         exit();
