@@ -5,7 +5,7 @@
 
 <label>Service Log ID</label>
 <ul>
-    <li>23 <a href="<?php echo base_url('index.php/app/log_entry?id=') . $service_log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log">Edit</button></a></li>
+    <li>23 <?php if($_SESSION['role']==='admin') { ?><a href="<?php echo base_url('index.php/app/log_entry?id=') . $service_log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log">Edit</button></a><?php } ?></li>
 </ul>
 
 <label>Date Entered</label>

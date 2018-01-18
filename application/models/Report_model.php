@@ -258,6 +258,12 @@ class Report_model extends CI_Model {
                         WHEN 'time_based' THEN time.time_choice
                         ELSE -1
                 END AS pm_level,
+                CASE pm.pm_type
+                        WHEN 'smr_based' THEN smr.id
+                        WHEN 'mileage_based' THEN mileage.id
+                        WHEN 'time_based' THEN time.id
+                        ELSE -1
+                END AS pm_id,
                 pm.current_smr, pm.due_units, pm.notes
             FROM pmservice pm
             LEFT OUTER JOIN smrchoice smr ON (smr.id = pm.pm_level AND pm.pm_type = 'smr_based')

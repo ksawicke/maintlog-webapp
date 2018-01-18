@@ -15,7 +15,7 @@ class Servicelog_model extends CI_Model {
     /**
      * Creates or modifies record
      */
-    public function store($post) {        
+    public function store($post) {
         $now = date('Y-m-d h:i:s');
 
         $servicelog = R::dispense('servicelog');
