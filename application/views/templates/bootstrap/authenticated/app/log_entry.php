@@ -779,7 +779,6 @@ if(array_key_exists('id', $_REQUEST)) {
             json = '{"id": ' + service_log.equipmentmodel_id + '}';
             
             <?php
-            
             if(!array_key_exists('id', $_REQUEST)) { ?>
                 json = '{"id": ' + $("#equipmentmodel_id").val() + '}';
             <?php }
@@ -806,11 +805,18 @@ if(array_key_exists('id', $_REQUEST)) {
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
-//                    if(active==1) {
+                    <?php
+                    if(!array_key_exists('id', $_REQUEST)) { ?>    
+                    if(active==1) {
+                    <?php } ?>
                         var selectMe = ((service_log.equipmentunit_id == id) ? ' selected' : '');
-                        console.log(service_log.equipmentunit_id + " :: " + id);
+                        
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + selectMe + '>' + value + '</option>');
-//                    }
+                        
+                    <?php
+                    if(!array_key_exists('id', $_REQUEST)) { ?>    
+                    }
+                    <?php } ?>
                 });
                 
                 $("#loading_unit_number").hide();
@@ -1170,10 +1176,6 @@ if(array_key_exists('id', $_REQUEST)) {
             $("#date_entered").val(service_log.date_entered);
             $("#entered_by").val(service_log.entered_by); // TODO
             
-            console.log("Serviced by count: ");
-            console.log(service_log.serviced_by.length);
-
-            
             //$("#serviced_by").val(); // TODO
             $("#equipment_type").val(service_log.equipmenttype_id);
             
@@ -1195,11 +1197,18 @@ if(array_key_exists('id', $_REQUEST)) {
                     break;
                     
                 case 'flu':
-
+                    for(i = 0; i <= service_log.update_detail.length-1; i++) {
+                        $('#flu_fluid_type_' + (i+1)).val(service_log.update_detail[i].id);
+                        $("#flu_quantity_" + (i+1)).val(service_log.update_detail[i].quantity);
+                        $("#flu_units_" + (i+1)).val(service_log.update_detail[i].units);
+                    }
+                    for(i = 1; i < service_log.update_detail.length; i++) {
+                        $('*[data-show-fluid-entry="' + (i+1) + '"]').click();
+                    }
                     break;
                     
                 case 'pss':
-                    $("#pss_pm_type").val(service_log.update_detail_pm_type);
+                    $("#pss_pm_type").val(service_log.update_detail.pm_type);
                     break;
                     
                 case 'ccs': // Component Change. Flow for editing an existing one is complete.
