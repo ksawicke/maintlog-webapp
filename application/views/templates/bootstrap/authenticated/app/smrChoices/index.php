@@ -1,3 +1,5 @@
+<?php echo $appsetting_navigation; ?>
+
 <a href="<?php echo base_url('index.php/app/addSmrChoice'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add SMR Choice</button></a><br /><br />
 
 <table id="smrChoiceList" class="table table-bordered table-striped">

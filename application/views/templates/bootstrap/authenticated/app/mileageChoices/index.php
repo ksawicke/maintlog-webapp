@@ -1,3 +1,5 @@
+<?php echo $appsetting_navigation; ?>
+
 <a href="<?php echo base_url('index.php/app/addMileageChoice'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Milage Choice</button></a><br /><br />
 
 <table id="mileageChoiceList" class="table table-bordered table-striped">

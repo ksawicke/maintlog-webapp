@@ -139,6 +139,8 @@ class App extends MY_Controller {
         $data['manufacturers'] = $this->Manufacturer_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'manufacturers';
+        $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -191,6 +193,8 @@ class App extends MY_Controller {
         $data['equipmentunits'] = $this->Equipmentunit_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'equipmentunit';
+        $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -267,6 +271,8 @@ class App extends MY_Controller {
         $data['equipmentmodel'] = $this->Equipmentmodel_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'equipmentmodel';
+        $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -325,6 +331,8 @@ class App extends MY_Controller {
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'equipmentTypes';
+        $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -375,6 +383,8 @@ class App extends MY_Controller {
         $data['fluidtypes'] = $this->Fluidtype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
                 
+        $data['navigation_highlight'] = 'fluidTypes';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -425,6 +435,8 @@ class App extends MY_Controller {
         $data['componenttypes'] = $this->Componenttype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'componentTypes';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -475,6 +487,8 @@ class App extends MY_Controller {
         $data['components'] = $this->Component_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'components';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -525,6 +539,8 @@ class App extends MY_Controller {
         $data['smrchoices'] = $this->Smrchoice_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'smrChoices';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -575,6 +591,8 @@ class App extends MY_Controller {
         $data['mileagechoices'] = $this->Mileagechoice_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'mileageChoices';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -625,6 +643,8 @@ class App extends MY_Controller {
         $data['timechoices'] = $this->Timechoice_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
+        $data['navigation_highlight'] = 'timeChoices';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -702,35 +722,9 @@ class App extends MY_Controller {
         $data['reminderrecipient_id'] = (!is_null($reminderrecipient_id) ? $reminderrecipient_id : 0);
         $data['reminderrecipient_reminder_recipient'] = (!empty($reminderrecipient) ? $reminderrecipient->reminder_recipient : '');
         
+        $data['navigation_highlight'] = 'addReminderRecipient';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/add', $data, true);
-                
-        $this->template->load('authenticated_default', null, $data);
-    }
-    
-    /**
-     * View app settings
-     */
-    public function appSettings()
-    {
-        $data = [
-            'applicationName' => 'Komatsu NA Maintenance Log',
-            'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
-            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
-        ];
-
-        $this->load->library('template');
-        $this->load->model('Appsetting_model');
-        
-        $data['flashdata'] = $this->session->flashdata();
-        $appsetting = $this->Appsetting_model->findOne(15000);
-        
-        $data['smr_based_choices'] = $appsetting->smr_based_choices;
-        $data['mileage_based_choices'] = $appsetting->mileage_based_choices;
-        $data['time_based_choices'] = $appsetting->time_based_choices;
-        $data['additional_email_reminder_recipient'] = $appsetting->additional_email_reminder_recipient;
-        
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/appsettings/edit', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
     }

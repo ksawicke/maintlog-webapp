@@ -1,3 +1,5 @@
+<?php echo $appsetting_navigation; ?>
+
 <a href="<?php echo base_url('index.php/app/addComponent'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Component</button></a><br /><br />
 
 <table id="componentList" class="table table-bordered table-striped">

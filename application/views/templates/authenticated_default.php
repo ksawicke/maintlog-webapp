@@ -73,40 +73,13 @@
                 </li>
                 <?php if($_SESSION['role']==='admin') { ?>
                     <li>
-                        <a href="<?php echo base_url('index.php/app/users/index'); ?>">Edit Users</a>
+                        <a href="<?php echo base_url('index.php/app/users/index'); ?>">Manage Users</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('index.php/app/manufacturers/index'); ?>">Edit Manufacturers</a>
+                        <a href="<?php echo base_url('index.php/app/equipmentunit/index'); ?>">Manage Equipment</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('index.php/app/equipmentunit/index'); ?>">Edit Equipment Units</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/equipmentmodel/index'); ?>">Edit Equipment Models</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/equipmentTypes/index'); ?>">Edit Equipment Types</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">Edit Fluid Types</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/componentTypes/index'); ?>">Edit Component Types</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/components/index'); ?>">Edit Components</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/smrChoices/index'); ?>">Edit SMR Choices</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/mileageChoices/index'); ?>">Edit Mileage Choices</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/timeChoices/index'); ?>">Edit Time Choices</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('index.php/app/addReminderRecipient'); ?>">Edit Reminder Recipients</a>
+                        <a href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">Manage App Settings</a>
                     </li>
                 <?php } ?>
                 <li>

@@ -1,3 +1,5 @@
+<?php echo $appsetting_navigation; ?>
+
 <form id="addReminderRecipient" action="<?php echo base_url('index.php/reminderrecipients/save'); ?>" method="post">
     
     <div class="group mainFlow">
