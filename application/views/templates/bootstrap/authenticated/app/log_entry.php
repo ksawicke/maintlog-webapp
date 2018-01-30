@@ -1,8 +1,6 @@
 <?php
 $maxFluidEntries = 10;
 $maxNotes = 5;
-
-if(array_key_exists('id', $_REQUEST)) {
 ?>
 
 <form class="serviceLog-form">
@@ -26,7 +24,7 @@ if(array_key_exists('id', $_REQUEST)) {
     </div>
 
     <div class="form-section show-prev show-next">
-        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="entered_by"
                 name="entered_by"
                 class="form-control input-lg"
@@ -36,7 +34,7 @@ if(array_key_exists('id', $_REQUEST)) {
         </select>
         <p class="form-error entered_by_errors"></p>
         
-        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="serviced_by" class="control-label lb-lg">Serviced By</label><img id="loading_serviced_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="serviced_by"
                 name="serviced_by"
                 class="form-control input-lg"
@@ -67,7 +65,7 @@ if(array_key_exists('id', $_REQUEST)) {
                     <?php } ?>
                 </select>
 
-                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="equipmentmodel_id"
                         name="equipmentmodel_id"
                         class="form-control input-lg"
@@ -77,7 +75,7 @@ if(array_key_exists('id', $_REQUEST)) {
                         disabled>
                 </select>
 
-                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="unit_number"
                         name="unit_number"
                         class="form-control input-lg"
@@ -257,7 +255,7 @@ if(array_key_exists('id', $_REQUEST)) {
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_smr_based_pm_level"
                 name="pss_smr_based_pm_level"
                 class="form-control input-lg pss_smr_based">
@@ -315,7 +313,7 @@ if(array_key_exists('id', $_REQUEST)) {
         </select>
         <p class="form-error pss_reminder_pm_type_errors"></p>
         
-        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="pss_reminder_pm_level"
                 name="pss_reminder_pm_level"
                 class="form-control input-lg"
@@ -346,7 +344,7 @@ if(array_key_exists('id', $_REQUEST)) {
     <div class="form-section subflow pss show-prev show-review">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_reminder_recipients"
                         name="pss_reminder_recipients"
                         class="form-control input-lg"
@@ -359,7 +357,7 @@ if(array_key_exists('id', $_REQUEST)) {
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_responsible_reminder_recipients"
                         name="pss_responsible_reminder_recipients"
                         class="form-control input-lg"
@@ -371,7 +369,7 @@ if(array_key_exists('id', $_REQUEST)) {
         
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+                <label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
                 <select id="pss_additional_reminder_recipients"
                         name="pss_additional_reminder_recipients"
                         class="form-control input-lg"
@@ -418,7 +416,7 @@ if(array_key_exists('id', $_REQUEST)) {
     
     <!-- COMPONENT CHANGE SUBFLOW -->
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component_type"
                 name="ccs_component_type"
                 class="form-control input-lg"
@@ -430,7 +428,7 @@ if(array_key_exists('id', $_REQUEST)) {
     </div>
     
     <div class="form-section subflow ccs show-prev show-next">
-        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <select id="ccs_component"
                 name="ccs_component"
                 class="form-control input-lg"
@@ -440,7 +438,7 @@ if(array_key_exists('id', $_REQUEST)) {
         </select>
         <p class="form-error ccs_component_errors"></p>
         
-        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>index.php/assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+        <label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
         <input
                id="ccs_component_data"
                name="ccs_component_data"
@@ -510,8 +508,6 @@ if(array_key_exists('id', $_REQUEST)) {
 
 <script type="text/javascript">
     $(function () {
-        var log_entry_data = {};
-        
         var $sections = $('.form-section'),
                 subflowSelected = false,
                 currentSubflow = '',
@@ -522,9 +518,9 @@ if(array_key_exists('id', $_REQUEST)) {
                 
         /** Handle pop up content **/
         var windowWidth = $(window).width(),
-            dialogWidth = windowWidth * 0.4,
+            dialogWidth = windowWidth * 0.65,
             windowHeight = $(window).height(),
-            dialogHeight = windowHeight * 0.4;
+            dialogHeight = windowHeight * 0.65;
             
         var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="cancelSubmitLogEntryForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitLogEntryForm" type="button">Yes</button></div>';
         var confirmSubmitJBox = new jBox('Modal', {
@@ -619,6 +615,8 @@ if(array_key_exists('id', $_REQUEST)) {
             var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>';
             
             var json = getJsonObject(currentSubflow);
+            
+            console.log(json);
             
             for(var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -744,7 +742,9 @@ if(array_key_exists('id', $_REQUEST)) {
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
-                    if(active==="1") {
+                    console.log(unitData);    
+                        
+                    if(active===1) {
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
                     }
                 });
@@ -961,15 +961,13 @@ if(array_key_exists('id', $_REQUEST)) {
                     }
                     $("#pss_additional_reminder_recipients").append('<option value="' + email_address + '">' + display + '</option>');
                 });
+                
+//                $("#loading_ccs_component_type").hide();
             });
         }
         
         function populateComponentDropdownWithData(serviceUrl, field) {
             $("#loading_ccs_component").show();
-            
-            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
-            log_entry_data = JSON.parse(log_entry_data_obj);
-            var service_log = log_entry_data.service_log;
             
             var jqxhr = $.ajax({
                 url: serviceUrl,
@@ -997,6 +995,11 @@ if(array_key_exists('id', $_REQUEST)) {
         function saveServiceLog() {
             var serviceUrl = '<?php echo base_url(); ?>index.php/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow);
+            
+//            console.log("-------------------");
+//            console.log("Before we submit let's check the data.");
+//            console.log(jsonData);
+//            console.log("End.");
             
             $.ajax({
                 url: serviceUrl,
@@ -1052,133 +1055,6 @@ if(array_key_exists('id', $_REQUEST)) {
             printReviewScreen();
             
             $("#reviewScreen").show();            
-        }
-        
-        function initPssSMRBasedPMLevel(pmType) {
-            switch(pmType) {
-                case 'smr_based':
-                    // Populate #pss_smr_based_pm_level via ajax with SMR Choices
-                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/smrchoices/getSMRChoices",
-                        $("#pss_smr_based_pm_level"), 'smr_based');
-                    
-                    $('.pss_smr_based').removeClass("hide-me");
-                    $('.pss_smr_based_notes2').addClass("hide-me");
-                    $('.pss_smr_based_notes3').addClass("hide-me");
-                    $('.showPssSmrBasedNote3').addClass("hideButton");
-                    break;
-                    
-                case 'mileage_based':
-                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/mileagechoices/getMileageChoices",
-                        $("#pss_smr_based_pm_level"), 'mileage_based');
-                    $('.pss_mileage_based').removeClass("hide-me");
-                    $('.pss_smr_based_notes2').addClass("hide-me");
-                    $('.pss_smr_based_notes3').addClass("hide-me");
-                    $('.showPssSmrBasedNote3').addClass("hideButton");
-                    break;
-
-                case 'time_based':
-                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/timechoices/getTimeChoices",
-                        $("#pss_smr_based_pm_level"), 'time_based');
-                    $('.pss_time_based').removeClass("hide-me");
-                    $('.pss_smr_based_notes2').addClass("hide-me");
-                    $('.pss_smr_based_notes3').addClass("hide-me");
-                    $('.showPssSmrBasedNote3').addClass("hideButton");
-                    break;
-            }
-        }
-        
-        function initLogEntryData() {
-            <?php if(array_key_exists('id', $_REQUEST)) { ?>
-            
-            var jqxhr = $.ajax({
-                url: '<?php echo base_url(); ?>index.php/app/reporting/service_log_detail_ajax/<?php echo $_REQUEST['id']; ?>',
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify({}), // no need to send data, just get it
-                contentType: "application/json"
-            }).done(function(object) {
-                // Save data to local object.
-                localStorage.setItem("log_entry_data_obj", JSON.stringify(object));
-            });
-            
-            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
-            log_entry_data = JSON.parse(log_entry_data_obj);
-            
-            var service_log = log_entry_data.service_log;
-            
-            // Fill in data into form
-            $("#date_entered").val(service_log.date_entered);
-            $("#entered_by").val(service_log.entered_by); // TODO
-            
-            //$("#serviced_by").val(); // TODO
-            $("#equipment_type").val(service_log.equipmenttype_id);
-            
-            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
-                $("#equipmentmodel_id"));
-            $("#equipmentmodel_id").prop('disabled', false);
-            $('[name=equipmentmodel_id]').val(service_log.equipmentmodel_id);
-            
-            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
-                $("#unit_number"));
-                
-            $("#subflow").val(service_log.subflow);
-            setCurrentSubflow();
-            
-            switch(service_log.subflow) {
-                case 'sus':  // SMR Update.
-                    $("#sus_current_smr").val(service_log.smr);
-                    break;
-                    
-                case 'flu':  // Fluid Entry
-                    for(i = 0; i <= service_log.update_detail.length-1; i++) {
-                        $('#flu_fluid_type_' + (i+1)).val(service_log.update_detail[i].id);
-                        $("#flu_quantity_" + (i+1)).val(service_log.update_detail[i].quantity);
-                        $("#flu_units_" + (i+1)).val(service_log.update_detail[i].units);
-                    }
-                    for(i = 1; i < service_log.update_detail.length; i++) {
-                        $('*[data-show-fluid-entry="' + (i+1) + '"]').click();
-                    }
-                    break;
-                    
-                case 'pss':  // PM Service
-                    $("#pss_pm_type").val(service_log.update_detail.pm_type);
-                    initPssSMRBasedPMLevel(service_log.update_detail.pm_type);
-                    $("#pss_smr_based_current_smr").val(service_log.update_detail.current_smr);
-                    // TODO: loop thru service_log.update_detail.pmservicenotes
-//                    $("#pss_smr_based_notes1").val();
-
-                    $("#pss_reminder_pm_type").val(service_log.update_detail.pm_type);
-                    
-                    doPssReminderPMTypeStuff();
-                    $("#pss_due_units").val(service_log.update_detail.due_units);
-                    $("#pss_notes").val(service_log.update_detail.notes);
-                    $('.serviceLog-form').parsley().validate();
-                    
-                    populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
-                    $.each(service_log.update_detail.pmservicereminder, function(id, reminder) {
-                        $("#pss_additional_reminder_recipients").val(reminder.emails);
-                    });
-                    
-                    $("#pss_reminder_quantity").val(service_log.update_detail.pmservicereminder[0].quantity);
-                    $("#pss_reminder_units").val(service_log.update_detail.pmservicereminder[0].units);
-                    break;
-                    
-                case 'ccs': // Component Change.
-                    populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
-                        $("#ccs_component_type"));
-                    populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
-                        $("#ccs_component"));
-                    $("#ccs_component_data").val(service_log.update_detail.component_data);
-                    $("#ccs_notes").val(service_log.update_detail.notes);
-                    break;
-            }
-            
-            // TODO: 1/17/18 Disable submit button on edit for now.
-            $("#submitButton").attr("disabled", "disabled");
-            
-            // Validate it!
-            $('.serviceLog-form').parsley().validate();
-            <?php } ?>
         }
         
         $(document).on("click", "#reviewButton", function () {
@@ -1237,10 +1113,6 @@ if(array_key_exists('id', $_REQUEST)) {
         });
         
         $(document).on('change', '#pss_reminder_pm_type', function() {
-            doPssReminderPMTypeStuff();
-        });
-       
-        function doPssReminderPMTypeStuff() {
             var pssdueunitslabelText = '',
                 thisSelection = $('#pss_reminder_pm_type :selected').val();
                 
@@ -1320,6 +1192,7 @@ if(array_key_exists('id', $_REQUEST)) {
                 var goToIndex = parseInt(thisIndex) + 1;
                 var startAtIndex = 4;
                 
+                /****/
                 $sections.each(function (index, section) {
                     // clear section index
                     if(index>=4) {
@@ -1347,7 +1220,7 @@ if(array_key_exists('id', $_REQUEST)) {
                 navigateTo(goToIndex);
             });
         });
-        
+
         // Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
         $sections.each(function (index, section) {
             $(section).find(':input').attr('data-parsley-group', 'block-' + index);
@@ -1378,6 +1251,7 @@ if(array_key_exists('id', $_REQUEST)) {
             <?php } ?>
                 
             $(".hideButton").hide();
+//            $(".hide_me").hide();
 
             <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
             $(document).on('click', '.showFluidEntry', function(e) {
@@ -1540,6 +1414,9 @@ if(array_key_exists('id', $_REQUEST)) {
                 
             case 'flu':
                 json.push({ "label": "Entry Selection", "value": "Fluid Entry" });
+                
+                console.log($("#flu_quantity_1").val());
+                console.log($("#flu_units_1 option[value='" + $("#flu_units_1").val() + "']").text());
                 
                 // Fluid entry 1
                 objectPush(json, "Fluid Type", "flu_fluid_type_1", true);

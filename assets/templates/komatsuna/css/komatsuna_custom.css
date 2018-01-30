@@ -174,3 +174,30 @@ li.paginate_button {
     margin-bottom:2px;
     display:none;
 }
+
+/* Enter Service Log */
+#goBackButton,
+#reviewButton,
+#submitButton,
+#reviewScreen {
+    display: none;
+}
+.form-section {
+    display: none;
+}
+.form-section.current {
+    display: inherit;
+}
+.btn-info, .btn-default, .btn {
+    margin-top: 10px;
+}
+.form-error {
+    padding-top:5px;
+    font-weight: bold;
+    color: red;
+}
+.hide_me,
+.hideButton {
+    display: none;
+}
+/* /Enter Service Log */
