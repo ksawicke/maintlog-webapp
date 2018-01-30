@@ -22,6 +22,7 @@
 <script>
   $(document).ready(function() {
     $('#manufacturerList').DataTable({
+        responsive: true,
         "columns": [
             null,
             {"width": "80px", "orderable": false}

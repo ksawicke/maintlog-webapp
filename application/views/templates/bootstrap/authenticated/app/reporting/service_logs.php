@@ -123,6 +123,7 @@
         });
         
         var dataTable = $('#serviceLogsReport').DataTable({
+            responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {
                     var column = this;
@@ -208,7 +209,7 @@
                 null,
                 null,
                 null,
-                {"width": "110px", "orderable": false}
+                {"width": "140px", "orderable": false}
             ]
         });
         

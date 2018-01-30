@@ -46,6 +46,7 @@
 <script>
     $(document).ready(function () {
         $('#pmserviceRemindersReport').DataTable({
+            responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {
                     var column = this;

@@ -303,10 +303,10 @@ class App extends MY_Controller {
         
         $equipmentmodel = (!is_null($equipment_id) ? $this->Equipmentmodel_model->findOne($equipment_id) : []);
         $data['equipment_id'] = (!is_null($equipment_id) ? $equipment_id : 0);
-        $data['equipment_unit_number'] = (!empty($equipmentmodel) ? $equipment->unit_number : '');
-        $data['equipment_manufacturer_id'] = (!empty($equipmentmodel) ? $equipment->manufacturer_id : '');
-        $data['equipment_model_number'] = (!empty($equipmentmodel) ? $equipment->model_number : '');
-        $data['equipment_equipmenttype_id'] = (!empty($equipmentmodel) ? $equipment->equipmenttype_id : '');
+        $data['equipment_unit_number'] = (!empty($equipmentmodel) ? $equipmentmodel->unit_number : '');
+        $data['equipment_manufacturer_id'] = (!empty($equipmentmodel) ? $equipmentmodel->manufacturer_id : '');
+        $data['equipment_model_number'] = (!empty($equipmentmodel) ? $equipmentmodel->model_number : '');
+        $data['equipment_equipmenttype_id'] = (!empty($equipmentmodel) ? $equipmentmodel->equipmenttype_id : '');
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/add', $data, true);
                 

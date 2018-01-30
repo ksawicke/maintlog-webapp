@@ -43,6 +43,7 @@
 <script>
     $(document).ready(function () {
         $('#maintenanceLogRemindersReport').DataTable({
+            responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {
                     var column = this;
