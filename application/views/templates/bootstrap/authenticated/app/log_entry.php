@@ -14,7 +14,7 @@ $maxNotes = 5;
                    name="date_entered"
                    type="text"
                    class="form-control input-lg"
-                   value="<?php echo date("m/d/Y"); ?>"
+                   value=""
                    data-parsley-required="true"
                    data-parsley-pattern="/(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/"
                    data-parsley-pattern-message="Date must be in MM/DD/YYYY format"
@@ -641,7 +641,7 @@ $maxNotes = 5;
             $("#submitButton").show();
         }
         
-        function populateUserData(serviceUrl, field) {      
+        function populateUserData(serviceUrl, field) {
             $("#loading_entered_by").show();
             $("#loading_serviced_by").show();
             
@@ -665,6 +665,8 @@ $maxNotes = 5;
         }
         
         function populateEnteredByDropdownWithData(object) {
+            var service_log_object = getServiceLogData();
+            
             // Populate dropdown via ajax.
             $.each(object.data, function(id, userData) {
                 var id = userData.id,
@@ -672,13 +674,17 @@ $maxNotes = 5;
                     current = userData.current,
                     active = userData.active;
 
-                if(active==="1") {
+                if(active==="1" && !empty(service_log_object)) {
+                    $('#entered_by').append('<option value="' + id + '"' + (id==service_log_object.entered_by ? ' selected' : '') + '>' + value + '</option>');
+                } else if(active==="1" && empty(service_log_object)) {
                     $('#entered_by').append('<option value="' + id + '"' + (current==='1' ? ' selected' : '') + '>' + value + '</option>');
                 }
             });
         }
         
         function populateServicedByDropdownWithData(object) {
+            var service_log_object = getServiceLogData();
+            
             // Populate multiselect using loaded object.
             $.each(object.data, function(id, userData) {
                 var id = userData.id,
@@ -687,7 +693,16 @@ $maxNotes = 5;
                     current = userData.current,
                     active = userData.active;
 
-                if(active==="1") {
+                if(active==="1" && !empty(service_log_object)) {
+                    var selectMe = 0;
+                    $.each(service_log_object.serviced_by, function(servicedbyId, servicedbyData) {
+                        if(selectMe===0 && servicedbyData.user_id==id) {
+                            selectMe = 1;
+                        }
+                    });
+                    
+                    $("#serviced_by").append('<option value="' + id + '"' + (selectMe==1 ? ' selected' : '') + '>' + display + '</option>');
+                } else if(active==="1" && empty(service_log_object)) {
                     $("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
                 }
             });
@@ -1070,9 +1085,24 @@ $maxNotes = 5;
             return (typeof x === 'number') && (x % 1 === 0);
         }
         
-        function initLogEntryData(servicelog_id) {
+        function clearServiceLogData() {
+            localStorage.setItem("log_entry_data_obj", "{}");
+        }
+        
+        function getServiceLogData() {
+            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+            log_entry_data = JSON.parse(log_entry_data_obj);
+            
+            return log_entry_data.service_log;
+        }
+        
+        function initLogEntryData(servicelog_id) {            
             if(servicelog_id===0) {
-                console.log("not loading data, no servicelog_id passed in.");
+                clearServiceLogData();
+                
+                var today = moment().format('MM/DD/YYYY');
+                
+                $("#date_entered").val(today);
                 return;
             }
             
@@ -1087,14 +1117,16 @@ $maxNotes = 5;
                 localStorage.setItem("log_entry_data_obj", JSON.stringify(object));
             });
             
-            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
-            log_entry_data = JSON.parse(log_entry_data_obj);
+            var service_log_object = getServiceLogData();
             
-            var service_log = log_entry_data.service_log;
+//            console.log(service_log_object.date_entered);
+            $("#date_entered").val(service_log_object.date_entered);
             
+            <?php /*******************************
             // Fill in data into form
             $("#date_entered").val(service_log.date_entered);
-            $("#entered_by").val(service_log.entered_by); // TODO
+            $('#entered_by option[value=' + service_log.entered_by + ']').attr('selected','selected');
+//            $("#entered_by").val(service_log.entered_by); // TODO
             
             //$("#serviced_by").val(); // TODO
             $("#equipment_type").val(service_log.equipmenttype_id);
@@ -1164,6 +1196,7 @@ $maxNotes = 5;
             
             // Validate it!
             $('.serviceLog-form').parsley().validate();
+            **************************************************/ ?>
         }
         
         $(document).on("click", "#reviewButton", function () {
