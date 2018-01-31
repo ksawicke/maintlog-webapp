@@ -329,7 +329,7 @@ $maxNotes = 5;
     </div>
 
     <div class="form-section subflow pss show-prev show-next">
-        <label for="pss_notes" class="control-label lb-lg">Notes</label>
+        <label for="pss_notes"class="control-label lb-lg">Notes</label>
         <textarea type="text"
                class="form-control input-lg"
                id="pss_notes"
@@ -1057,115 +1057,6 @@ $maxNotes = 5;
             $("#reviewScreen").show();            
         }
         
-        function getRequestVariable(name) {
-            var id = 0;
-            if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search)) {
-                id = Number(decodeURIComponent(name[1]));
-            }
-            
-            return (isInteger(id) ? id : 0);
-        }
-        
-        function isInteger(x) {
-            return (typeof x === 'number') && (x % 1 === 0);
-        }
-        
-        function initLogEntryData(servicelog_id) {
-            if(servicelog_id===0) {
-                console.log("not loading data, no servicelog_id passed in.");
-                return;
-            }
-            
-            var jqxhr = $.ajax({
-                url: '<?php echo base_url(); ?>index.php/app/reporting/service_log_detail_ajax/' + servicelog_id,
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify({}), // no need to send data, just get it
-                contentType: "application/json"
-            }).done(function(object) {
-                // Save data to local object.
-                localStorage.setItem("log_entry_data_obj", JSON.stringify(object));
-            });
-            
-            log_entry_data_obj = localStorage.getItem("log_entry_data_obj");
-            log_entry_data = JSON.parse(log_entry_data_obj);
-            
-            var service_log = log_entry_data.service_log;
-            
-            // Fill in data into form
-            $("#date_entered").val(service_log.date_entered);
-            $("#entered_by").val(service_log.entered_by); // TODO
-            
-            //$("#serviced_by").val(); // TODO
-            $("#equipment_type").val(service_log.equipmenttype_id);
-            
-            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
-                $("#equipmentmodel_id"));
-            $("#equipmentmodel_id").prop('disabled', false);
-            $('[name=equipmentmodel_id]').val(service_log.equipmentmodel_id);
-            
-            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
-                $("#unit_number"));
-                
-            $("#subflow").val(service_log.subflow);
-            setCurrentSubflow();
-            
-            switch(service_log.subflow) {
-                case 'sus':  // SMR Update.
-                    $("#sus_current_smr").val(service_log.smr);
-                    break;
-                    
-                case 'flu':  // Fluid Entry
-                    for(i = 0; i <= service_log.update_detail.length-1; i++) {
-                        $('#flu_fluid_type_' + (i+1)).val(service_log.update_detail[i].id);
-                        $("#flu_quantity_" + (i+1)).val(service_log.update_detail[i].quantity);
-                        $("#flu_units_" + (i+1)).val(service_log.update_detail[i].units);
-                    }
-                    for(i = 1; i < service_log.update_detail.length; i++) {
-                        $('*[data-show-fluid-entry="' + (i+1) + '"]').click();
-                    }
-                    break;
-                    
-                case 'pss':  // PM Service
-                    $("#pss_pm_type").val(service_log.update_detail.pm_type);
-                    initPssSMRBasedPMLevel(service_log.update_detail.pm_type);
-                    $("#pss_smr_based_current_smr").val(service_log.update_detail.current_smr);
-                    // TODO: loop thru service_log.update_detail.pmservicenotes
-//                    $("#pss_smr_based_notes1").val();
-
-                    $("#pss_reminder_pm_type").val(service_log.update_detail.pm_type);
-                    
-                    doPssReminderPMTypeStuff();
-                    $("#pss_due_units").val(service_log.update_detail.due_units);
-                    $("#pss_notes").val(service_log.update_detail.notes);
-                    $('.serviceLog-form').parsley().validate();
-                    
-                    populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
-                    $.each(service_log.update_detail.pmservicereminder, function(id, reminder) {
-                        $("#pss_additional_reminder_recipients").val(reminder.emails);
-                    });
-                    
-                    $("#pss_reminder_quantity").val(service_log.update_detail.pmservicereminder[0].quantity);
-                    $("#pss_reminder_units").val(service_log.update_detail.pmservicereminder[0].units);
-                    break;
-                    
-                case 'ccs': // Component Change.
-                    populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
-                        $("#ccs_component_type"));
-                    populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
-                        $("#ccs_component"));
-                    $("#ccs_component_data").val(service_log.update_detail.component_data);
-                    $("#ccs_notes").val(service_log.update_detail.notes);
-                    break;
-            }
-            
-            // TODO: 1/17/18 Disable submit button on edit for now.
-            $("#submitButton").attr("disabled", "disabled");
-            
-            // Validate it!
-            $('.serviceLog-form').parsley().validate();
-        }
-        
         $(document).on("click", "#reviewButton", function () {
             showReview();
         });
@@ -1392,9 +1283,6 @@ $maxNotes = 5;
                     })
                     .removeClass('hideButton').hide().css("display","block");
             });
-            
-            var servicelog_id = getRequestVariable('id');
-            initLogEntryData(servicelog_id);
         });
         
     });

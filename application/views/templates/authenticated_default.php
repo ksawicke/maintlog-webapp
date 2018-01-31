@@ -25,14 +25,14 @@
     <link href='https://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
     
     <!-- Custom styles for this template -->
-    <link href="<?php echo $assetDirectoryCustom; ?>simplesidebar/css/simple-sidebar.css" rel="stylesheet">
-    <link href="<?php echo $assetDirectoryCustom; ?>css/sticky-footer-navbar.css" rel="stylesheet">
-    <link href="<?php echo $assetDirectoryCustom; ?>css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet">
-    <link href="//code.jboxcdn.com/0.4.8/jBox.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.css"/>
-    <link href="<?php echo $assetDirectoryCustom; ?>css/parsley.css" rel="stylesheet">
-    <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet">
+    <link href="<?php echo $assetDirectoryCustom; ?>simplesidebar/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/sticky-footer-navbar.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/jBox.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/datatables.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/parsley.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -43,14 +43,13 @@
     <script src="<?php echo $assetDirectoryCustom; ?>js/jquery.min.js"></script>
     <script src="<?php echo $assetDirectoryCustom; ?>js/jquery-ui.min.js"></script>
     <script src="<?php echo $assetDirectoryCustom; ?>js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
-    <?php /***<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>***/?>
     
-    <script src="//code.jboxcdn.com/0.4.8/jBox.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/r-2.2.0/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/jBox.min.js"></script>
+    <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/datatables.min.js"></script>
+    <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.min.js"></script>
     <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/parsley.comparison.js"></script>
+    <script type="text/javascript" src="<?php echo $assetDirectoryCustom; ?>js/moment.min.js"></script>
   </head>
 
   <body>
