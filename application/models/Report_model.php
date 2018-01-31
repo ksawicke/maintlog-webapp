@@ -51,7 +51,7 @@ class Report_model extends CI_Model {
                           OR pm.servicelog_id <> 'UNKNOWN'
                           OR fe.servicelog_id <> 'UNKNOWN'
                           OR cc.servicelog_id <> 'UNKNOWN'
-                          ORDER BY s.created DESC";
+                          ORDER BY s.id DESC";
 
         if ($servicelog_id <> 0) {
             $append_query = " WHERE s.id = '" . $servicelog_id . "'";

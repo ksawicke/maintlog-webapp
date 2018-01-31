@@ -1612,7 +1612,7 @@ $maxNotes = 5;
                 }
                 
                 // Fluid entry 3
-                if(!empty($("#flu_quantity3").val())) {
+                if(!empty($("#flu_quantity_3").val())) {
                     objectPush(json, "Fluid Type", "flu_fluid_type_3", true);
                     json.push({ "label": "Quantity",
                                 "value": $("#flu_quantity_3").val() + " " + $("#flu_units_3 option[value='" + $("#flu_units_3").val() + "']").text()
@@ -1620,7 +1620,7 @@ $maxNotes = 5;
                 }
                 
                 // Fluid entry 4
-                if(!empty($("#flu_quantity4").val())) {
+                if(!empty($("#flu_quantity_4").val())) {
                     objectPush(json, "Fluid Type", "flu_fluid_type_4", true);
                     json.push({ "label": "Quantity",
                                 "value": $("#flu_quantity_4").val() + " " + $("#flu_units_4 option[value='" + $("#flu_units_4").val() + "']").text()
@@ -1628,7 +1628,7 @@ $maxNotes = 5;
                 }
                 
                 // Fluid entry 5
-                if(!empty($("#flu_quantity5").val())) {
+                if(!empty($("#flu_quantity_5").val())) {
                     objectPush(json, "Fluid Type", "flu_fluid_type_5", true);
                     json.push({ "label": "Quantity",
                                 "value": $("#flu_quantity_5").val() + " " + $("#flu_units_5 option[value='" + $("#flu_units_5").val() + "']").text()
