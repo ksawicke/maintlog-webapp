@@ -3,6 +3,11 @@ $maxFluidEntries = 10;
 $maxNotes = 5;
 ?>
 
+<div class="alert alert-warning alert-dismissible" id="editing_service_log">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4><i class="icon fa fa-exclamation-triangle"></i> You are currently editing Service Log ID <span id="editing_service_log_id"></span>.</h4>
+</div>
+
 <form class="serviceLog-form">
     <div class="form-section show-next">
         <label for="date_entered" class="control-label lb-lg">Date Entered</label>
@@ -480,6 +485,7 @@ $maxNotes = 5;
 </form>
 
 <style class="example">
+    #editing_service_log,
     #goBackButton,
     #reviewButton,
     #submitButton,
@@ -709,6 +715,8 @@ $maxNotes = 5;
         }
         
         function populateEquipmentModelDropdownWithData(serviceUrl, field) {
+            var service_log_object = getServiceLogData();
+            
             $("#loading_equipmentmodel_id").show();
             
             var jqxhr = $.ajax({
@@ -727,22 +735,30 @@ $maxNotes = 5;
                 $.each(object.data, function(id, unitData) {
                     var id = unitData.equipmentmodel_id,
                         value = unitData.manufacturer_name + " " + unitData.model_number;
-                        
-                    $('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
+                      
+                    if(!empty(service_log_object)) {
+                        $('#equipmentmodel_id').append('<option value="' + id + '"' + (service_log_object.equipmentmodel_id==id ? ' selected' : '') + '>' + value + '</option>');
+                    } else {
+                        $('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
+                    }
                 });
+                $('#equipmentmodel_id').attr('disabled', false);
                 
                 $("#loading_equipmentmodel_id").hide();
             });
         }
         
         function populateUnitNumberDropdownWithData(serviceUrl, field) {
+            var service_log_object = getServiceLogData();
+            var equipmentmodel_id = (!empty(service_log_object) ? service_log_object.equipmentmodel_id : $("#equipmentmodel_id").val());
+            
             $("#loading_unit_number").show();
             
             var jqxhr = $.ajax({
                 url: serviceUrl,
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify({"id": $("#equipmentmodel_id").val()}),
+                data: JSON.stringify({"id": equipmentmodel_id}),
                 contentType: "application/json"
             }).done(function(object) {
                 // Clear dropdown first.
@@ -757,12 +773,13 @@ $maxNotes = 5;
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
-                    console.log(unitData);    
-                        
-                    if(active===1) {
+                    if(active===1 && !empty(service_log_object)) {
+                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + (id==service_log_object.equipmentunit_id ? ' selected' : '') + '>' + value + '</option>');
+                    } else if(active===1 && empty(service_log_object)) {
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
                     }
                 });
+                $("#unit_number").attr('disabled', false);
                 
                 $("#loading_unit_number").hide();
             });
@@ -1106,6 +1123,9 @@ $maxNotes = 5;
                 return;
             }
             
+            $("#editing_service_log_id").html(servicelog_id);
+            $("#editing_service_log").show();
+            
             var jqxhr = $.ajax({
                 url: '<?php echo base_url(); ?>index.php/app/reporting/service_log_detail_ajax/' + servicelog_id,
                 type: "POST",
@@ -1119,8 +1139,22 @@ $maxNotes = 5;
             
             var service_log_object = getServiceLogData();
             
-//            console.log(service_log_object.date_entered);
+            console.log(service_log_object);
+            
             $("#date_entered").val(service_log_object.date_entered);
+            $("#equipment_type").val(service_log_object.equipmenttype_id);
+            
+            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
+                $("#equipmentmodel_id"));
+            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
+                $("#unit_number"));
+            
+            $("#subflow").val(service_log_object.subflow);
+            setCurrentSubflow();
+            
+            $("#sus_current_smr").val(service_log_object.update_detail.smr);
+            
+            $("#submitButton").attr("disabled", "disabled");
             
             <?php /*******************************
             // Fill in data into form
