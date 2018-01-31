@@ -53,7 +53,7 @@
                     <a href="<?php echo base_url('index.php/app/reporting/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
                     
                     <?php if($_SESSION['role']==='admin') { ?>
-                    <a href="<?php echo base_url('index.php/app/log_entry?id=') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                    <a href="<?php echo base_url('index.php/app/reporting/service_log_edit/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
                     
                     <a href="#"><button data-servicelogid="<?php echo $log['id']; ?>" type="button" class="deleteServiceLog btn btn-sm btn-primary" title="Delete"><i class="fa fa-minus-circle" aria-hidden="true"></i></button></a>
                     <?php } ?>
