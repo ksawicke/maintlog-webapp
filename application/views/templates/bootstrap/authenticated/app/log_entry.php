@@ -524,9 +524,9 @@ $maxNotes = 5;
                 
         /** Handle pop up content **/
         var windowWidth = $(window).width(),
-            dialogWidth = windowWidth * 0.65,
+            dialogWidth = windowWidth * 0.4,
             windowHeight = $(window).height(),
-            dialogHeight = windowHeight * 0.65;
+            dialogHeight = windowHeight * 0.4;
             
         var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="cancelSubmitLogEntryForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitLogEntryForm" type="button">Yes</button></div>';
         var confirmSubmitJBox = new jBox('Modal', {
@@ -781,8 +781,14 @@ $maxNotes = 5;
                 });
                 
                 if(!empty(service_log_object)) {
-                    populateFluUnits();
-                    $("#flu_units").val(service_log_object.smr);    
+                    if(service_log_object.subflow=="sus") {
+                        $("#sus_current_smr").val(service_log_object.smr);
+                    }
+                    
+                    if(service_log_object.subflow=="flu") {
+                        populateFluUnits();
+                        $("#flu_units").val(service_log_object.fluidentry_smr_detail.smr);
+                    }
                 }
                 
                 $("#unit_number").attr('disabled', false);
@@ -1167,9 +1173,6 @@ $maxNotes = 5;
         }
         
         function updateFluidEntryFieldsToEdit(object) {
-            console.log('TODO: Fluid Entry edit');
-            console.log(object.update_detail);
-            
             $.each(object.update_detail, function (index, data) {
                 var id = index + 1;
                 $("#flu_fluid_type_" + id).val(data.fluidtype_id);
@@ -1185,6 +1188,8 @@ $maxNotes = 5;
                     $('.fluidEntry' + id).show();
                 }
             });
+            
+            $("#flu_units").val(object.fluidentry_smr_detail.smr);
         }
         
         function updatePMServiceFieldsToEdit(object) {
@@ -1592,7 +1597,8 @@ $maxNotes = 5;
                       quantity: $("#flu_quantity_10").val(),
                       units: $("#flu_units_10").val()
                     }
-                ];            
+                ];
+                json.flu_current_smr = $("#flu_units").val();
                 break;
 
             case 'pss':

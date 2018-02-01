@@ -148,6 +148,7 @@ class Report_model extends CI_Model {
             
             case 'Fluid Entry':
                 $service_logs[0]['update_detail'] = $this->getFluidEntryDetail($servicelog_id);
+                $service_logs[0]['fluidentry_smr_detail'] = $this->getFluidEntrySMRUpdateDetail($servicelog_id);
                 break;
             
             case 'Component Change':
@@ -220,6 +221,22 @@ class Report_model extends CI_Model {
                 smr.smr
             FROM smrupdate smr
             WHERE smr.servicelog_id = '" . $servicelog_id . "'");
+
+        return $detail[0];
+    }
+    
+    /**
+     * Gets Fluide Entry SMR Update object
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
+    public function getFluidEntrySMRUpdateDetail($servicelog_id = 0) {
+        $detail = R::getAll(
+            "SELECT
+                fes.smr
+            FROM fluidentrysmrupdate fes
+            WHERE fes.servicelog_id = '" . $servicelog_id . "'");
 
         return $detail[0];
     }

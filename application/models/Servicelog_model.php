@@ -52,6 +52,11 @@ class Servicelog_model extends CI_Model {
                         R::store($fluidentry);
                     }
                 }
+                
+                $fluidentrysmrupdate = R::dispense('fluidentrysmrupdate');
+                $fluidentrysmrupdate->servicelog_id = $servicelog_id;
+                $fluidentrysmrupdate->smr = $post['flu_current_smr'];
+                R::store($fluidentrysmrupdate);
                 break;
             
             case 'pss':
