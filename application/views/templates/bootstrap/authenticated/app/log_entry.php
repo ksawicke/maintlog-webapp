@@ -622,8 +622,6 @@ $maxNotes = 5;
             
             var json = getJsonObject(currentSubflow);
             
-            console.log(json);
-            
             for(var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 var value = obj.value;
@@ -773,7 +771,7 @@ $maxNotes = 5;
                         person_responsible = unitData.person_responsible,
                         active = unitData.active;
                         
-                    if(active===1 && !empty(service_log_object)) {
+                    if(active===1 && !empty(service_log_object)) {                        
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + (id==service_log_object.equipmentunit_id ? ' selected' : '') + '>' + value + '</option>');
                     } else if(active===1 && empty(service_log_object)) {
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
@@ -980,7 +978,6 @@ $maxNotes = 5;
         }
         
         function populateReminderRecipientsWithData(serviceUrl) {
-            // TACO
             var service_log_object = getServiceLogData();
             
             var jqxhr = $.ajax({
@@ -1046,13 +1043,13 @@ $maxNotes = 5;
         }
         
         function saveServiceLog() {
+            var service_log_object = getServiceLogData();
+            var id = 0;
+            if(!empty(service_log_object)) {
+                id = service_log_object.id;
+            }
             var serviceUrl = '<?php echo base_url(); ?>index.php/servicelog/save',
-                jsonData = getJsonToSave(currentSubflow);
-            
-//            console.log("-------------------");
-//            console.log("Before we submit let's check the data.");
-//            console.log(jsonData);
-//            console.log("End.");
+                jsonData = getJsonToSave(currentSubflow, id);
             
             $.ajax({
                 url: serviceUrl,
@@ -1064,7 +1061,7 @@ $maxNotes = 5;
             
             confirmSubmitJBox.close();
             
-            location.reload(true);
+//            location.reload(true);
         }
         
         function goBack() {
@@ -1126,9 +1123,6 @@ $maxNotes = 5;
         function populateFluUnits() {
             var fluUnitslabelText = '',
                 thisTrackType = $("#unit_number").find(":selected").attr('data-track-type');
-
-            console.log($("#unit_number").find(":selected"));
-            console.log(thisTrackType);
 
             switch(thisTrackType) {
                 case 'smr':
@@ -1239,7 +1233,6 @@ $maxNotes = 5;
             initPssSMRBasedPMLevel(object.update_detail.pm_type);
             $("#pss_smr_based_current_smr").val(object.update_detail.current_smr);
             
-            // MACARONI
             $.each(object.update_detail.pmservicenotes, function(id, servicenote) {
                 var fieldid = id + 1;
                 $("#pss_smr_based_notes" + fieldid).val(servicenote.note);
@@ -1255,7 +1248,6 @@ $maxNotes = 5;
             });
 
             $("#pss_reminder_pm_type").val(object.update_detail.pm_type);
-            // pss_reminder_pm_level
             doPssReminderPMTypeStuff();
             $("#pss_due_units").val(object.update_detail.due_units);
             $("#pss_notes").val(object.update_detail.notes);
@@ -1295,10 +1287,7 @@ $maxNotes = 5;
             $("label[for = pss_due_units]").text(pssdueunitslabelText);
         }
         
-        function updateComponentChangeFieldsToEdit(object) {
-            console.log('TODO: Component Change edit');
-            console.log(object.update_detail);
-            
+        function updateComponentChangeFieldsToEdit(object) {            
             populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
                 $("#ccs_component_type"));
             populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
@@ -1333,8 +1322,6 @@ $maxNotes = 5;
             
             var service_log_object = getServiceLogData();
             
-            console.log(service_log_object);
-            
             $("#date_entered").val(service_log_object.date_entered);
             $("#equipment_type").val(service_log_object.equipmenttype_id);
             
@@ -1348,7 +1335,7 @@ $maxNotes = 5;
             
             updateSubflowFieldsToEdit(service_log_object);
             
-            $("#submitButton").attr("disabled", "disabled");
+//            $("#submitButton").attr("disabled", "disabled");
             
             <?php /*******************************
             // Fill in data into form
@@ -1644,15 +1631,15 @@ $maxNotes = 5;
     });
 </script>
 <script>
-    function getJsonToSave(currentSubflow) {
-        var json = { "date_entered": $("#date_entered").val(),
+    function getJsonToSave(currentSubflow, id) {
+        var json = { "id": id,
+                     "date_entered": $("#date_entered").val(),
                      "entered_by": $("#entered_by").val(),
                      "serviced_by": $("#serviced_by option:selected").map(function() {
                         return this.value;
                      }).get().join("|"),
                      "unit_number": $("#unit_number").val()
                    };
-        
         json.subflow = currentSubflow;
         
         switch(currentSubflow) {
@@ -1771,9 +1758,6 @@ $maxNotes = 5;
                 
             case 'flu':
                 json.push({ "label": "Entry Selection", "value": "Fluid Entry" });
-                
-                console.log($("#flu_quantity_1").val());
-                console.log($("#flu_units_1 option[value='" + $("#flu_units_1").val() + "']").text());
                 
                 // Fluid entry 1
                 objectPush(json, "Fluid Type", "flu_fluid_type_1", true);

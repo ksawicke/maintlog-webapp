@@ -21,6 +21,7 @@ class Servicelog extends MY_Controller {
         $this->load->library('session');
 
         $this->load->model('Servicelog_model');
+        $this->load->model('Report_model');
     }
     
     public function getEquipmentByType() {
@@ -42,7 +43,9 @@ class Servicelog extends MY_Controller {
     public function save() {
         $post = json_decode(file_get_contents('php://input'), true);
         
-        $this->Servicelog_model->store($post);
+        $prev_service_log = $this->Report_model->findServiceLogs($post['id'], 'compare');
+        
+        $this->Servicelog_model->store($post, $prev_service_log);
     }
     
     public function deleteServiceLog() {
