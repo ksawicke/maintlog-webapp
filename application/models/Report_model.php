@@ -233,7 +233,7 @@ class Report_model extends CI_Model {
     public function getFluidEntryDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
-                ft.id, ft.fluid_type, fe.quantity, fe.units
+                ft.id, ft.fluid_type, ft.id AS fluidtype_id, fe.quantity, fe.units
             FROM fluidentry fe
             LEFT JOIN fluidtype ft ON ft.id = fe.type
             WHERE fe.servicelog_id = '" . $servicelog_id . "'");

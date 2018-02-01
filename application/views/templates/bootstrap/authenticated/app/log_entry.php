@@ -779,6 +779,12 @@ $maxNotes = 5;
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
                     }
                 });
+                
+                if(!empty(service_log_object)) {
+                    populateFluUnits();
+                    $("#flu_units").val(service_log_object.smr);    
+                }
+                
                 $("#unit_number").attr('disabled', false);
                 
                 $("#loading_unit_number").hide();
@@ -1102,6 +1108,29 @@ $maxNotes = 5;
             return (typeof x === 'number') && (x % 1 === 0);
         }
         
+        function populateFluUnits() {
+            var fluUnitslabelText = '',
+                thisTrackType = $("#unit_number").find(":selected").attr('data-track-type');
+
+            console.log($("#unit_number").find(":selected"));
+            console.log(thisTrackType);
+
+            switch(thisTrackType) {
+                case 'smr':
+                    fluUnitslabelText = 'SMR';
+                    break;
+                    
+                case 'miles':
+                    fluUnitslabelText = 'Miles';
+                    break;
+
+                case 'time':
+                    fluUnitslabelText = 'Time';
+                    break;
+            }
+            $("label[for = flu_units]").text(fluUnitslabelText);
+        }
+        
         function clearServiceLogData() {
             localStorage.setItem("log_entry_data_obj", "{}");
         }
@@ -1111,6 +1140,61 @@ $maxNotes = 5;
             log_entry_data = JSON.parse(log_entry_data_obj);
             
             return log_entry_data.service_log;
+        }
+        
+        function updateSubflowFieldsToEdit(object) {
+            switch(object.subflow) {
+                case 'sus':  // SMR Update
+                    updateSMRUpdateSubflowFieldsToEdit(object);
+                    break;
+                    
+                case 'flu':  // Fluid Entry
+                    updateFluidEntryFieldsToEdit(object);
+                    break;
+                    
+                case 'pss':  // PM Service
+                    updatePMServiceFieldsToEdit(object);
+                    break;
+                    
+                case 'ccs': // Component Change
+                    updateComponentChangeFieldsToEdit(object);
+                    break;
+            }
+        }
+        
+        function updateSMRUpdateSubflowFieldsToEdit(object) {
+            $("#sus_current_smr").val(object.update_detail.smr);
+        }
+        
+        function updateFluidEntryFieldsToEdit(object) {
+            console.log('TODO: Fluid Entry edit');
+            console.log(object.update_detail);
+            
+            $.each(object.update_detail, function (index, data) {
+                var id = index + 1;
+                $("#flu_fluid_type_" + id).val(data.fluidtype_id);
+                $("#flu_quantity_" + id).val(data.quantity);
+                $("#flu_units_" + id).val(data.units);
+                
+                if(index>0) {
+                    $("#flu_fluid_type_" + id).show();
+                    $("#flu_quantity_" + id).show();
+                    $("#flu_units_" + id).show();
+                    $('*[data-show-fluid-entry="' + (index + 1) + '"]').hide();
+                    $('*[data-show-fluid-entry="' + (index + 2) + '"]').show();
+                    $('.fluidEntry' + id).show();
+                }
+            });
+        }
+        
+        function updatePMServiceFieldsToEdit(object) {
+            console.log('TODO: PM Service edit');
+            console.log(object.update_detail);
+        }
+        
+        function updateComponentChangeFieldsToEdit(object) {
+            console.log('TODO: Component Change edit');
+            console.log(object.update_detail);
         }
         
         function initLogEntryData(servicelog_id) {            
@@ -1152,7 +1236,7 @@ $maxNotes = 5;
             $("#subflow").val(service_log_object.subflow);
             setCurrentSubflow();
             
-            $("#sus_current_smr").val(service_log_object.update_detail.smr);
+            updateSubflowFieldsToEdit(service_log_object);
             
             $("#submitButton").attr("disabled", "disabled");
             
@@ -1267,24 +1351,7 @@ $maxNotes = 5;
         });
 
         $(document).on('change', '#unit_number', function() {
-            var fluUnitslabelText = '',
-                thisTrackType = $(this).find(":selected").attr('data-track-type');
-
-            switch(thisTrackType) {
-                case 'smr':
-                    fluUnitslabelText = 'SMR';
-                    break;
-                    
-                case 'miles':
-                    fluUnitslabelText = 'Miles';
-                    break;
-
-                case 'time':
-                    fluUnitslabelText = 'Time';
-                    break;
-            }
-            $("label[for = flu_units]").text(fluUnitslabelText);
-            
+            populateFluUnits();
             populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
         });
         
