@@ -948,6 +948,8 @@ $maxNotes = 5;
         }
         
         function populateComponentTypeDropdownWithData(serviceUrl, field) {
+            var service_log_object = getServiceLogData();
+            
             $("#loading_ccs_component_type").show();
             
             var jqxhr = $.ajax({
@@ -966,7 +968,7 @@ $maxNotes = 5;
                     var id = choiceData.id,
                         choice = choiceData.component_type;
                         
-                    $('#ccs_component_type').append('<option value="' + id + '">' + choice + '</option>');
+                    $('#ccs_component_type').append('<option value="' + id + '"' + ((!empty(service_log_object) && service_log_object.subflow=="ccs" && service_log_object.update_detail.component_type==choice) ? ' selected' : '') + '>' + choice + '</option>');
                 });
                 
                 $("#loading_ccs_component_type").hide();
@@ -1011,6 +1013,8 @@ $maxNotes = 5;
         }
         
         function populateComponentDropdownWithData(serviceUrl, field) {
+            var service_log_object = getServiceLogData();
+            
             $("#loading_ccs_component").show();
             
             var jqxhr = $.ajax({
@@ -1029,7 +1033,7 @@ $maxNotes = 5;
                     var id = choiceData.id,
                         choice = choiceData.component;
                         
-                    $('#ccs_component').append('<option value="' + id + '">' + choice + '</option>');
+                    $('#ccs_component').append('<option value="' + id + '"' + ((!empty(service_log_object) && service_log_object.subflow=="ccs" && service_log_object.update_detail.component==choice) ? ' selected' : '') + '>' + choice + '</option>');
                 });
                 
                 $("#loading_ccs_component").hide();
@@ -1200,6 +1204,13 @@ $maxNotes = 5;
         function updateComponentChangeFieldsToEdit(object) {
             console.log('TODO: Component Change edit');
             console.log(object.update_detail);
+            
+            populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
+                $("#ccs_component_type"));
+            populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
+                $("#ccs_component"));
+            $("#ccs_component_data").val(object.update_detail.component_data);
+            $("#ccs_notes").val(object.update_detail.notes);
         }
         
         function initLogEntryData(servicelog_id) {            
