@@ -876,6 +876,8 @@ $maxNotes = 5;
         }
         
         function populateSMRBasedPMLevelDropdownWithData(serviceUrl, field, type) {
+            var service_log_object = getServiceLogData();
+            
             $("#loading_pss_smr_based_pm_level").show();
             
             var jqxhr = $.ajax({
@@ -894,9 +896,9 @@ $maxNotes = 5;
                         // Populate dropdown via ajax.
                         $.each(object.data, function(id, smrchoiceData) {
                             var id = smrchoiceData.id,
-                                smr_choice = smrchoiceData.smr_choice;
+                                choice = smrchoiceData.smr_choice;
 
-                            $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + smr_choice + '</option>');
+                            $('#pss_smr_based_pm_level').append('<option value="' + id + '"' + (!empty(service_log_object) && service_log_object.update_detail.pm_level==choice ? ' selected' : '') + '>' + choice + '</option>');
                         });
                         break;
                     
@@ -906,7 +908,7 @@ $maxNotes = 5;
                             var id = choiceData.id,
                                 choice = choiceData.mileage_choice;
 
-                            $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                            $('#pss_smr_based_pm_level').append('<option value="' + id + '"' + (!empty(service_log_object) && service_log_object.update_detail.pm_level==choice ? ' selected' : '') + '>' + choice + '</option>');
                         });
                         break;
                         
@@ -916,7 +918,7 @@ $maxNotes = 5;
                             var id = choiceData.id,
                                 choice = choiceData.time_choice;
 
-                            $('#pss_smr_based_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                            $('#pss_smr_based_pm_level').append('<option value="' + id + '"' + (!empty(service_log_object) && service_log_object.update_detail.pm_level==choice ? ' selected' : '') + '>' + choice + '</option>');
                         });
                         break;
                 }
@@ -976,7 +978,8 @@ $maxNotes = 5;
         }
         
         function populateReminderRecipientsWithData(serviceUrl) {
-//            $("#loading_ccs_component_type").show();
+            // TACO
+            var service_log_object = getServiceLogData();
             
             var jqxhr = $.ajax({
                 url: serviceUrl,
@@ -1196,9 +1199,85 @@ $maxNotes = 5;
             $("#flu_units").val(object.fluidentry_smr_detail.smr);
         }
         
-        function updatePMServiceFieldsToEdit(object) {
-            console.log('TODO: PM Service edit');
-            console.log(object.update_detail);
+        function initPssSMRBasedPMLevel(pmType) {
+            switch(pmType) {
+                case 'smr_based':
+                    // Populate #pss_smr_based_pm_level via ajax with SMR Choices
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/smrchoices/getSMRChoices",
+                        $("#pss_smr_based_pm_level"), 'smr_based');
+                    
+                    $('.pss_smr_based').removeClass("hide-me");
+                    $('.pss_smr_based_notes2').addClass("hide-me");
+                    $('.pss_smr_based_notes3').addClass("hide-me");
+                    $('.showPssSmrBasedNote3').addClass("hideButton");
+                    break;
+                    
+                case 'mileage_based':
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/mileagechoices/getMileageChoices",
+                        $("#pss_smr_based_pm_level"), 'mileage_based');
+                    $('.pss_mileage_based').removeClass("hide-me");
+                    $('.pss_smr_based_notes2').addClass("hide-me");
+                    $('.pss_smr_based_notes3').addClass("hide-me");
+                    $('.showPssSmrBasedNote3').addClass("hideButton");
+                    break;
+
+                case 'time_based':
+                    populateSMRBasedPMLevelDropdownWithData("<?php echo base_url(); ?>index.php/timechoices/getTimeChoices",
+                        $("#pss_smr_based_pm_level"), 'time_based');
+                    $('.pss_time_based').removeClass("hide-me");
+                    $('.pss_smr_based_notes2').addClass("hide-me");
+                    $('.pss_smr_based_notes3').addClass("hide-me");
+                    $('.showPssSmrBasedNote3').addClass("hideButton");
+                    break;
+            }
+        }
+        
+        function updatePMServiceFieldsToEdit(object) {            
+            $("#pss_pm_type").val(object.update_detail.pm_type);
+            initPssSMRBasedPMLevel(object.update_detail.pm_type);
+            $("#pss_smr_based_current_smr").val(object.update_detail.current_smr);
+            // TODO: loop thru service_log.update_detail.pmservicenotes
+//                    $("#pss_smr_based_notes1").val();
+
+            $("#pss_reminder_pm_type").val(object.update_detail.pm_type);
+
+            doPssReminderPMTypeStuff();
+            $("#pss_due_units").val(object.update_detail.due_units);
+            $("#pss_notes").val(object.update_detail.notes);
+
+            populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
+            $.each(object.update_detail.pmservicereminder, function(id, reminder) {
+                $("#pss_additional_reminder_recipients").val(reminder.emails);
+            });
+
+            $("#pss_reminder_quantity").val(object.update_detail.pmservicereminder[0].quantity);
+            $("#pss_reminder_units").val(object.update_detail.pmservicereminder[0].units);
+        }
+        
+        function doPssReminderPMTypeStuff() {
+            var pssdueunitslabelText = '',
+                thisSelection = $('#pss_reminder_pm_type :selected').val();
+                
+            switch(thisSelection) {
+                case 'smr_based':
+                    populatePMServiceReminderPMLevelDropdownWithSMRChoiceData("<?php echo base_url(); ?>index.php/smrchoices/getSMRChoices",
+                        $("#pss_reminder_pm_level"));
+                    pssdueunitslabelText = 'SMR Due';
+                    break;
+                    
+                case 'mileage_based':
+                    populatePMServiceReminderPMLevelDropdownWithMileageChoiceData("<?php echo base_url(); ?>index.php/mileagechoices/getMileageChoices", $("#pss_reminder_pm_level"));
+                    pssdueunitslabelText = 'Mileage Due';
+                    break;
+
+                case 'time_based':
+                    populatePMServiceReminderPMLevelDropdownWithTimeChoiceData("<?php echo base_url(); ?>index.php/timechoices/getTimeChoices",
+                        $("#pss_reminder_pm_level"));
+                    pssdueunitslabelText = 'Time Due';
+                    break;
+            }
+            
+            $("label[for = pss_due_units]").text(pssdueunitslabelText);
         }
         
         function updateComponentChangeFieldsToEdit(object) {
