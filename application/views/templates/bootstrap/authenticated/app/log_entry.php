@@ -824,6 +824,8 @@ $maxNotes = 5;
         }
         
         function populatePMServiceReminderPMLevelDropdownWithMileageChoiceData(serviceUrl, field) {
+            var service_log_object = getServiceLogData();
+            
             $("#loading_pss_reminder_pm_level").show();
             
             var jqxhr = $.ajax({
@@ -842,7 +844,7 @@ $maxNotes = 5;
                     var id = choiceData.id,
                         choice = choiceData.mileage_choice;
                     
-                    $('#pss_reminder_pm_level').append('<option value="' + id + '">' + choice + '</option>');
+                    $('#pss_reminder_pm_level').append('<option value="' + id + '"' + (!empty(service_log_object) && service_log_object.update_detail.pmservicereminder[0].pm_level==choice ? ' selected' : '') + '>' + choice + '</option>');
                 });
                 
                 $("#loading_pss_reminder_pm_level").hide();
@@ -1236,11 +1238,24 @@ $maxNotes = 5;
             $("#pss_pm_type").val(object.update_detail.pm_type);
             initPssSMRBasedPMLevel(object.update_detail.pm_type);
             $("#pss_smr_based_current_smr").val(object.update_detail.current_smr);
-            // TODO: loop thru service_log.update_detail.pmservicenotes
-//                    $("#pss_smr_based_notes1").val();
+            
+            // MACARONI
+            $.each(object.update_detail.pmservicenotes, function(id, servicenote) {
+                var fieldid = id + 1;
+                $("#pss_smr_based_notes" + fieldid).val(servicenote.note);
+                
+                if(fieldid>1) {
+                    $("#pss_smr_based_notes" + fieldid).show();
+                }
+                
+                $(".showPssSmrBasedNote").find("[data-show-smr-based-note='" + (fieldid + 1) + "']").hide();
+                if(id==2) {
+                    $(".showPssSmrBasedNote").hide();
+                }
+            });
 
             $("#pss_reminder_pm_type").val(object.update_detail.pm_type);
-
+            // pss_reminder_pm_level
             doPssReminderPMTypeStuff();
             $("#pss_due_units").val(object.update_detail.due_units);
             $("#pss_notes").val(object.update_detail.notes);
