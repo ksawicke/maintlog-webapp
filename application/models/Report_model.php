@@ -63,6 +63,7 @@ class Report_model extends CI_Model {
 
         if ($servicelog_id <> 0) {
             $service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs);
+            $service_logs = $this->appendServiceLogReplacements($servicelog_id, $service_logs);
         }
         
         if ($servicelog_id == 0) {
@@ -125,6 +126,24 @@ class Report_model extends CI_Model {
             
             $service_logs[$ctr]['typeoffluid'] = $results[0]['typeoffluid'];
         }
+        
+        return $service_logs;
+    }
+    
+    /**
+     * Appends child objects to show updates made to service logs
+     * 
+     * @param type $servicelog_id
+     * @param type $service_logs
+     */
+    private function appendServiceLogReplacements($servicelog_id, $service_logs) {
+        $replacements = R::getAll(
+            "SELECT r.old_id, r.created, u.first_name, u.last_name
+                FROM servicelogreplacement r
+                LEFT JOIN user u ON u.id = r.entered_by
+                WHERE r.old_id = '" . $servicelog_id . "'");
+        
+        $service_logs[0]['replacements'] = $replacements;
         
         return $service_logs;
     }
