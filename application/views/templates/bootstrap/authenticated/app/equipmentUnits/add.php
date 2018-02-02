@@ -64,7 +64,6 @@
             <option value="1"<?php echo ($unit_active==1 ? " selected" : ""); ?>>Active</option>
             <option value="0"<?php echo ($unit_active==0 ? " selected" : ""); ?>>Inactive</option>
         </select>
-    </div>
     
     <input type="hidden" id="equipmentunit_id" name="equipmentunit_id" value="<?php echo $equipmentunit_id; ?>">
 
@@ -102,13 +101,13 @@
         
         $("#equipment_type").on('change', function() {
             $("#equipmentmodel_id").prop('disabled', false);
-            populateDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
+            populateDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
                 $("#equipmentmodel_id"));
         });
         
         <?php if(!empty($equipmentunit_id)) { ?>
             $("#equipmentmodel_id").prop('disabled', false);
-            populateDropdownWithData("/sites/komatsuna/equipmentmodel/getEquipmentByType",
+            populateDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
                 $("#equipmentmodel_id"));
         <?php } ?>
     });
