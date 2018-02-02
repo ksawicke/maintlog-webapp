@@ -1061,7 +1061,7 @@ $maxNotes = 5;
             
             confirmSubmitJBox.close();
             
-//            location.reload(true);
+            window.location.href = window.location.href.split('?')[0]; // Redirects to page to enter a new service log
         }
         
         function goBack() {

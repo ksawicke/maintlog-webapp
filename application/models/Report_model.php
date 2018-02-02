@@ -35,7 +35,8 @@ class Report_model extends CI_Model {
 		LEFT JOIN manufacturer man on man.id = em.manufacturer_id
 		LEFT OUTER JOIN smrchoice smr ON (smr.id = pm.pm_level AND pm.pm_type = 'smr_based')
 		LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = pm.pm_level AND pm.pm_type = 'mileage_based')
-                LEFT OUTER JOIN timechoice time ON (time.id = pm.pm_level AND pm.pm_type = 'time_based')");
+                LEFT OUTER JOIN timechoice time ON (time.id = pm.pm_level AND pm.pm_type = 'time_based')
+            WHERE s.new_id = 0");
 
         return $reminders;
     }
@@ -47,10 +48,11 @@ class Report_model extends CI_Model {
      * @return type
      */
     public function findServiceLogs($servicelog_id = 0) {
-        $append_query = " WHERE su.servicelog_id <> 'UNKNOWN'
+        $append_query = " WHERE (su.servicelog_id <> 'UNKNOWN'
                           OR pm.servicelog_id <> 'UNKNOWN'
                           OR fe.servicelog_id <> 'UNKNOWN'
-                          OR cc.servicelog_id <> 'UNKNOWN'
+                          OR cc.servicelog_id <> 'UNKNOWN')
+                          AND s.new_id = 0
                           ORDER BY s.id DESC";
 
         if ($servicelog_id <> 0) {

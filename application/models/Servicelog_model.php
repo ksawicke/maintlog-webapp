@@ -16,12 +16,6 @@ class Servicelog_model extends CI_Model {
      * Creates or modifies record
      */
     public function store($post, $prev_service_log) {
-        echo '<pre>';
-        var_dump($post);
-        var_dump($prev_service_log);
-        exit();
-        
-        
         $now = date('Y-m-d h:i:s');
 
         $servicelog = R::dispense('servicelog');
@@ -118,32 +112,46 @@ class Servicelog_model extends CI_Model {
                 break;
         }
         
-        
-        
-//        $equipment = ($post['equipment_id']==0 ? R::dispense('equipment') : R::load('equipment', $post['equipment_id']));
-//        $equipment->unit_number = $post['unit_number'];
-//        $equipment->manufacturer_id = $post['manufacturer_id'];
-//        $equipment->model_number = $post['model_number'];
-//        $equipment->equipmenttype_id = $post['equipmenttype_id'];
-//        
-//        if($post['equipment_id']==0) {
-//            $equipment->created = $now;
-//            $equipment->created_by = $_SESSION['user_id'];
-//        } else {
-//            $equipment->modified = $now;
-//            $equipment->modified_by = $_SESSION['user_id'];
-//        }
-//        
-////        echo '<pre>';
-////        var_dump($equipment);
-////        exit();
-//        
-//        R::store($equipment);
+        if($post['id']!=0) {
+            $first_check = R::getAll("SELECT new_id from servicelog WHERE id = " . $post['id']);
+            $old_id = $post['id'];
+            $new_id = $servicelog_id;
+            
+            if($first_check[0]['new_id']!=0) {
+                $second_check = R::getAll("SELECT id AS old_id from servicelog WHERE new_id = " . $old_id);
+                if(!empty($second_check)) {
+                    $old_id = $second_check[0]['old_id'];
+                }
+            }
+            
+            $servicelog = R::load('servicelog', $old_id);
+            $servicelog->new_id = $new_id;
+            
+            R::store($servicelog);            
+            
+            try {
+                $servicelogreplacement = R::dispense('servicelogreplacement');
+                $servicelogreplacement->old_id = $old_id;
+                $servicelogreplacement->new_id = $new_id;
+                $servicelogreplacement->entered_by = $_SESSION['user_id'];
+                $servicelogreplacement->created = $now;
+                R::store($servicelogreplacement);
+            } catch (Exception $ex) {
+                echo '<pre>';
+                var_dump($ex);
+            }
+        }
     }
     
-    public function deleteServiceLogAndChildren($servicelogid) {
+    /**
+     * Deletes a service log and its child records
+     * 
+     * @param type $servicelog_id
+     * @return type
+     */
+    public function deleteServiceLogAndChildren($servicelog_id) {
         try {
-            $servicelog = R::load('servicelog', $servicelogid);
+            $servicelog = R::load('servicelog', $servicelog_id);
             R::trash($servicelog);
         } catch (Exception $ex) {
             return ['success' => false, 'message' => $ex->getMessage()];
