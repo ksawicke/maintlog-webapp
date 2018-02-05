@@ -1,0 +1,1 @@
+ALTER TABLE `servicelog` ADD `new_id` INT(11) NOT NULL DEFAULT '0' AFTER `id`;

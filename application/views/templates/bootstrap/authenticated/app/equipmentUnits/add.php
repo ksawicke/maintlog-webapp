@@ -62,11 +62,11 @@
                     data-parsley-required="true"
                     data-parsley-error-message="Please select which fluid(s) are to be tracked for this unit"
                     data-parsley-errors-container=".fluids_tracked_errors">
-                
+                    <?php foreach($fluidtypes as $fid => $fluidData) { ?>
+                    <option value="<?php echo $fluidData['id']; ?>"<?php echo (($fluidData['fluids_tracked']==="1")?' selected':''); ?>><?php echo $fluidData['fluid_type']; ?></option>
+                <?php } ?>
             </select>
-            <?php foreach($fluidtypes as $fid => $fluidData) { echo '<pre>'; var_dump($fluidData); echo '</pre>'; /** ?>
-                    <option value="<?php echo $userData['id']; ?>"<?php echo (($userData['person_responsible']==="1")?' selected':''); ?>><?php echo $userData['last_name'] . ", " . $userData['first_name']; ?></option>
-                <?php **/} ?>
+            <?php /**echo '<pre>'; var_dump($fluidData); echo '</pre>'; **/ ?>
             <p class="form-error fluids_tracked_errors"></p>
         </div>
     </div>

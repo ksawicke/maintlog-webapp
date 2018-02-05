@@ -1,0 +1,1 @@
+ALTER TABLE `equipmentunit` ADD `fluids_tracked` varchar(200) NOT NULL DEFAULT '' AFTER `person_responsible`;

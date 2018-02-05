@@ -238,15 +238,25 @@ class App extends MY_Controller {
         $data['equipment_equipmenttype_id'] = (!empty($equipmentunit) ? $equipmentunit->equipment_type_id : '');
         $data['equipment_track_type'] = (!empty($equipmentunit) ? $equipmentunit->track_type : '');
         $data['equipment_person_responsible'] = (!empty($equipmentunit) ? $equipmentunit->person_responsible : '');
+        $data['equipment_fluids_tracked'] = (!empty($equipmentunit) ? $equipmentunit->fluids_tracked : '');
         $data['unit_active'] = (!empty($equipmentunit) ? $equipmentunit->active : 1);
         
         $personResponsibleThisUnit = explode("|", $data['equipment_person_responsible']);
+        $fluidsTrackedThisUnit = explode("|", $data['equipment_fluids_tracked']);
         
         foreach($data['users'] as $key => $personData) {
             if(in_array($personData['id'], $personResponsibleThisUnit)) {
                 $data['users'][$key]['person_responsible'] = "1";
             } else {
                 $data['users'][$key]['person_responsible'] = "0";
+            }
+        }
+        
+        foreach($data['fluidtypes'] as $key => $fluidData) {
+            if(in_array($fluidData['id'], $fluidsTrackedThisUnit)) {
+                $data['fluidtypes'][$key]['fluids_tracked'] = "1";
+            } else {
+                $data['fluidtypes'][$key]['fluids_tracked'] = "0";
             }
         }
         

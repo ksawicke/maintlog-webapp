@@ -769,12 +769,13 @@ $maxNotes = 5;
                         value = unitData.unit_number,
                         track_type = unitData.track_type,
                         person_responsible = unitData.person_responsible,
+                        fluids_tracked = unitData.fluids_tracked,
                         active = unitData.active;
                         
                     if(active===1 && !empty(service_log_object)) {                        
-                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '"' + (id==service_log_object.equipmentunit_id ? ' selected' : '') + '>' + value + '</option>');
+                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '"' + (id==service_log_object.equipmentunit_id ? ' selected' : '') + '>' + value + '</option>');
                     } else if(active===1 && empty(service_log_object)) {
-                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
+                        $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
                     }
                 });
                 
@@ -1296,6 +1297,10 @@ $maxNotes = 5;
             $("#ccs_notes").val(object.update_detail.notes);
         }
         
+        function adjustFluidEntryOptions(object) {
+            console.log(object.attr('data-fluids-tracked'));
+        }
+        
         function initLogEntryData(servicelog_id) {            
             if(servicelog_id===0) {
                 clearServiceLogData();
@@ -1450,6 +1455,8 @@ $maxNotes = 5;
         $(document).on('change', '#unit_number', function() {
             populateFluUnits();
             populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
+            console.log($("#unit_number :selected").attr('data-fluids-tracked'));
+//            adjustFluidEntryOptions($(this));
         });
         
         $(document).on('change', '#pss_reminder_pm_type', function() {
