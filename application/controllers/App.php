@@ -219,12 +219,14 @@ class App extends MY_Controller {
         $this->load->model('Equipmentunit_model');
         $this->load->model('Equipmentmodel_model');
         $this->load->model('Equipmenttype_model');
+        $this->load->model('Fluidtype_model');
         $this->load->model('User_model');
         
         $data['manufacturers'] = $this->Manufacturer_model->findAll();
         $data['equipmentmodels'] = $this->Equipmentmodel_model->findAll();
         $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
         $data['users'] = $this->User_model->findAll();
+        $data['fluidtypes'] = $this->Fluidtype_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
         
         $equipmentunit = (!is_null($equipmentunit_id) ? $this->Equipmentunit_model->findOne($equipmentunit_id) : []);

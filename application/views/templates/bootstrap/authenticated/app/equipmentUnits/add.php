@@ -53,7 +53,21 @@
                     <option value="<?php echo $userData['id']; ?>"<?php echo (($userData['person_responsible']==="1")?' selected':''); ?>><?php echo $userData['last_name'] . ", " . $userData['first_name']; ?></option>
                 <?php } ?>
             </select>
-            <p class="form-error person_responsible_errors"></p>
+            
+            <label for="fluids_tracked" class="control-label lb-lg">Fluids to Track for this Unit</label>
+            <select id="fluids_tracked"
+                    name="fluids_tracked[]"
+                    class="form-control input-lg"
+                    multiple
+                    data-parsley-required="true"
+                    data-parsley-error-message="Please select which fluid(s) are to be tracked for this unit"
+                    data-parsley-errors-container=".fluids_tracked_errors">
+                
+            </select>
+            <?php foreach($fluidtypes as $fid => $fluidData) { echo '<pre>'; var_dump($fluidData); echo '</pre>'; /** ?>
+                    <option value="<?php echo $userData['id']; ?>"<?php echo (($userData['person_responsible']==="1")?' selected':''); ?>><?php echo $userData['last_name'] . ", " . $userData['first_name']; ?></option>
+                <?php **/} ?>
+            <p class="form-error fluids_tracked_errors"></p>
         </div>
     </div>
     
