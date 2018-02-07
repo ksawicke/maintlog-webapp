@@ -41,4 +41,15 @@ class Fluidtypes extends MY_Controller {
         $this->session->set_flashdata('data_name', 'data_value');
         redirect('/app/fluidTypes', 'refresh');
     }
+    
+    public function getFilteredFluidTypes() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $filteredfluids = [];
+                
+        http_response_code(200);
+        $filteredfluids = $this->Fluidtype_model->findFiltered($post);
+        echo json_encode(['success' => true, 'data' => $filteredfluids], JSON_NUMERIC_CHECK);
+        
+        exit();
+    }
 }

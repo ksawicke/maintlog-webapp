@@ -35,6 +35,16 @@ class Fluidtype_model extends CI_Model {
         return $fluidtype;
     }
     
+    public function findFiltered($post) {
+        $filter = implode("|", $post);
+        $newFilter1 = explode("|", $filter);
+        $newFilter2 = implode(",", $newFilter1);        
+        
+        $filteredFluids = R::getAll('SELECT * FROM fluidtype WHERE id IN(' . $newFilter2 . ')');
+        
+        return $filteredFluids;
+    }
+    
     /**
      * Creates or modifies a fluid type object.
      */

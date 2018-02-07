@@ -1297,8 +1297,31 @@ $maxNotes = 5;
             $("#ccs_notes").val(object.update_detail.notes);
         }
         
-        function adjustFluidEntryOptions(object) {
-            console.log(object.attr('data-fluids-tracked'));
+        function adjustFluidEntryOptions(fluidsTrackedForSelectedUnit) {
+            var fluidTypeDropdowns = $('[id^="flu_fluid_type_"]'),
+                splitText = fluidsTrackedForSelectedUnit.split("|");
+            
+            console.log(splitText);
+            
+            $.each(fluidTypeDropdowns, function(id, dropdown) {
+                console.log(id);
+                console.log(dropdown);
+                
+                var jqxhr = $.ajax({
+                    url: "<?php echo base_url(); ?>index.php/fluidtypes/getFilteredFluidTypes",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify({"fluidsTrackedForSelectedUnit": fluidsTrackedForSelectedUnit}),
+                    contentType: "application/json"
+                }).done(function(object) {
+                    console.log(object);
+                });
+                
+//                dropdown.find('option').each(function(index,element) {
+//                    console.log(element);
+//                });
+//                $.inArray(
+            });
         }
         
         function initLogEntryData(servicelog_id) {            
@@ -1455,8 +1478,9 @@ $maxNotes = 5;
         $(document).on('change', '#unit_number', function() {
             populateFluUnits();
             populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
-            console.log($("#unit_number :selected").attr('data-fluids-tracked'));
-//            adjustFluidEntryOptions($(this));
+            var fluidsTrackedForSelectedUnit = $("#unit_number :selected").attr('data-fluids-tracked');
+            
+            adjustFluidEntryOptions(fluidsTrackedForSelectedUnit);
         });
         
         $(document).on('change', '#pss_reminder_pm_type', function() {
