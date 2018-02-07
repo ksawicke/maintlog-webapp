@@ -1298,30 +1298,31 @@ $maxNotes = 5;
         }
         
         function adjustFluidEntryOptions(fluidsTrackedForSelectedUnit) {
-            var fluidTypeDropdowns = $('[id^="flu_fluid_type_"]'),
-                splitText = fluidsTrackedForSelectedUnit.split("|");
-            
-            console.log(splitText);
-            
-            $.each(fluidTypeDropdowns, function(id, dropdown) {
-                console.log(id);
-                console.log(dropdown);
-                
-                var jqxhr = $.ajax({
-                    url: "<?php echo base_url(); ?>index.php/fluidtypes/getFilteredFluidTypes",
-                    type: "POST",
-                    dataType: "json",
-                    data: JSON.stringify({"fluidsTrackedForSelectedUnit": fluidsTrackedForSelectedUnit}),
-                    contentType: "application/json"
-                }).done(function(object) {
-                    console.log(object);
-                });
-                
-//                dropdown.find('option').each(function(index,element) {
-//                    console.log(element);
-//                });
-//                $.inArray(
+            var fluidTypeDropdownLength = $('[id^="flu_fluid_type_"]').length,
+                filteredChoices = new Object;
+        
+            var jqxhr = $.ajax({
+                url: "<?php echo base_url(); ?>index.php/fluidtypes/getFilteredFluidTypes",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({"fluidsTrackedForSelectedUnit": fluidsTrackedForSelectedUnit}),
+                contentType: "application/json"
+            }).done(function(object) {
+                adjustFluidEntryDropdowns(fluidTypeDropdownLength, object.data);
             });
+        }
+        
+        function adjustFluidEntryDropdowns(fluidTypeDropdownLength, filteredChoices) {
+            for(i=0; i<=fluidTypeDropdownLength - 1; i++) {
+                var thisDropdown = $('#flu_fluid_type_' + 1);
+                thisDropdown.empty();
+                thisDropdown.append('<option value="">Select one:</option>');
+                
+                $.each(filteredChoices, function(id, choice) {
+                    thisDropdown.append('<option value="' + choice.id + '">' + choice.fluid_type + '</option>');
+                    console.log(id + " :: " + choice.id + " :: " + choice.fluid_type);
+                });
+            }
         }
         
         function initLogEntryData(servicelog_id) {            

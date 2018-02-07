@@ -35,12 +35,24 @@ class Fluidtype_model extends CI_Model {
         return $fluidtype;
     }
     
+    /**
+     * Finds a list of filtered fluid types
+     * 
+     * @param type $post
+     * @return type
+     */
     public function findFiltered($post) {
-        $filter = implode("|", $post);
-        $newFilter1 = explode("|", $filter);
-        $newFilter2 = implode(",", $newFilter1);        
+        $filteredFluids = [];
         
-        $filteredFluids = R::getAll('SELECT * FROM fluidtype WHERE id IN(' . $newFilter2 . ')');
+        if(!empty($post['fluidsTrackedForSelectedUnit'])) {
+            $filter = implode("|", $post);
+            $newFilter1 = explode("|", $filter);
+            $newFilter2 = implode(",", $newFilter1);        
+
+            $filteredFluids = R::getAll('SELECT * FROM fluidtype WHERE id IN(' . $newFilter2 . ')');
+        } else {
+            $filteredFluids = R::getAll('SELECT * FROM fluidtype');
+        }
         
         return $filteredFluids;
     }
