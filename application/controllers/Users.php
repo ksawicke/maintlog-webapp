@@ -64,4 +64,30 @@ class Users extends MY_Controller {
         $this->session->set_flashdata('data_name', 'data_value');
         redirect('/app/users', 'refresh');
     }
+    
+    /**
+     * Ensure that the PIN being put in for a user is not used, is numeric, and 4 digits in length
+     */
+    public function validateUserData() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $response = '';
+        $pass = false;
+        $response = $this->User_model->findByPin($post['data']);
+                
+        if(is_null($response) && is_numeric($post['data']) && strlen($post['data'])==4) {
+            $pass = true;
+        } elseif(!is_null($response) && is_numeric($post['data']) && strlen($post['data'])==4 && $response->id==$post['compare']) {
+            $pass = true;
+        }
+        
+        if(!$pass) {
+            echo json_encode(['success' => false]);
+            http_response_code(404);
+        } else {
+            echo json_encode(['success' => true]);
+            http_response_code(200);
+        }
+        
+        exit();
+    }
 }
