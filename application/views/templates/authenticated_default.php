@@ -82,7 +82,7 @@
                     </li>
                 <?php } ?>
                 <li>
-                    <a href="<?php echo base_url('index.php/app/reporting/index'); ?>">Reporting</a>
+                    <a href="<?php echo base_url('index.php/reporting/output/screen/maintenance_log_reminders'); ?>">Reporting</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('index.php/auth/logout'); ?>">Log Out</a>
