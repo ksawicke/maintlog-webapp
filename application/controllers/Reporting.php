@@ -172,7 +172,7 @@ class Reporting extends MY_Controller {
     }
     
     public function output($method = 'screen', $report_type = 'maintenance_log_reminders', $id = 0) {
-        if($method=='screen') {
+        if($method=='screen' || $method=='ajax') {
             $datatmp = $this->initScreenReport();
         } elseif($method=='spreadsheet') {
             $this->initSpreadsheetReport();

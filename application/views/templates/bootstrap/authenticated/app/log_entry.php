@@ -1339,7 +1339,7 @@ $maxNotes = 5;
             $("#editing_service_log").show();
             
             var jqxhr = $.ajax({
-                url: '<?php echo base_url(); ?>index.php/app/reporting/service_log_detail_ajax/' + servicelog_id,
+                url: '<?php echo base_url(); ?>index.php/reporting/output/ajax/service_log_detail/' + servicelog_id,
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify({}), // no need to send data, just get it
