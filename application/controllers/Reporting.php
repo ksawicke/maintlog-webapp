@@ -22,6 +22,11 @@ class Reporting extends MY_Controller {
         parent::__construct();
     }
     
+    /**
+     * Initialize a screen report
+     * 
+     * @return type
+     */
     protected function initScreenReport() {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
@@ -39,6 +44,12 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
+    /**
+     * Output a screen report
+     * 
+     * @param type $report_type
+     * @param type $data
+     */
     protected function outputScreenReport($report_type, $data = []) {        
         $data['report_type'] = $report_type;
         $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
@@ -47,6 +58,11 @@ class Reporting extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    /**
+     * Initialize a spreadsheet report
+     * 
+     * @return type
+     */
     protected function initSpreadsheetReport() {
         $helper = new Sample();
         if ($helper->isCli()) {
@@ -56,6 +72,11 @@ class Reporting extends MY_Controller {
         }
     }
     
+    /**
+     * Output a spreadsheet report
+     * 
+     * @param type $spreadsheet
+     */
     protected function outputSpreadsheetReport($spreadsheet) {
         // Redirect output to a client’s web browser (Xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -75,6 +96,11 @@ class Reporting extends MY_Controller {
         exit;
     }
     
+    /**
+     * Output an AJAX report
+     * @param type $data
+     * @return type
+     */
     protected function outputAjaxReport($data) {
         return $this->output
                     ->set_content_type('application/json')
@@ -82,6 +108,11 @@ class Reporting extends MY_Controller {
                     ->set_output(json_encode($data, JSON_NUMERIC_CHECK));
     }
     
+    /**
+     * Get Service Logs data
+     * 
+     * @return type
+     */
     protected function getServiceLogsData() {
         $this->load->model('Fluidtype_model');
         $data['service_logs'] = $this->Report_model->findServiceLogs();
@@ -96,7 +127,13 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
-    protected function getEditServiceLogEdit($id = 0) {
+    /**
+     * Get Edit Service Log data
+     * 
+     * @param type $id
+     * @return type
+     */
+    protected function getEditServiceLogEditData($id = 0) {
         $this->load->model('User_model');
         $this->load->model('Equipmenttype_model');
         $this->load->model('Fluidtype_model');
@@ -119,7 +156,13 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
-    protected function getServiceLogDetail($id = 0) {
+    /**
+     * Get Service Log detail
+     * 
+     * @param type $id
+     * @return type
+     */
+    protected function getServiceLogDetailData($id = 0) {
         $this->load->model('Report_model');
         
         $data['service_log'] = $this->Report_model->findServiceLogs($id);
@@ -127,7 +170,11 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
-    protected function getPMServiceReminders() {
+    /**
+     * Get PM Service Reminders data
+     * @return type
+     */
+    protected function getPMServiceRemindersData() {
         $this->load->model('Report_model');
         
         $data['pmservice_reminders'] = $this->Report_model->findPMServiceEmailReminders();
@@ -135,7 +182,12 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
-    protected function getMaintenanceLogReminders() {
+    /**
+     * Get Maintenance Log Reminders Data
+     * 
+     * @return type
+     */
+    protected function getMaintenanceLogRemindersData() {
         $this->load->model('Report_model');
         
         $data['maintenance_log_reminders'] = $this->Report_model->findMaintenanceLogReminders();
@@ -143,6 +195,14 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
+    /**
+     * Get Report data
+     * 
+     * @param type $report_type
+     * @param type $datatmp
+     * @param type $id
+     * @return type
+     */
     protected function getReportData($report_type = 'maintenance_log_reminders', $datatmp = [], $id = 0) {
        switch($report_type) {
             case 'service_logs':
@@ -150,19 +210,19 @@ class Reporting extends MY_Controller {
                 break;
                 
             case 'service_log_edit':
-                $data = $this->getServiceLogEdit($id);
+                $data = $this->getServiceLogEditData($id);
                 break;
             
             case 'service_log_detail':
-                $data = $this->getServiceLogDetail($id);
+                $data = $this->getServiceLogDetailData($id);
                 break;
             
             case 'pmservice_reminders':
-                $data = $this->getPMServiceReminders();
+                $data = $this->getPMServiceRemindersData();
                 break;
             
             case 'maintenance_log_reminders':
-                $data = $this->getMaintenanceLogReminders();
+                $data = $this->getMaintenanceLogRemindersData();
                 break;
         }
 
@@ -171,22 +231,29 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
+    /**
+     * Output report
+     * 
+     * @param type $method
+     * @param type $report_type
+     * @param type $id
+     */
     public function output($method = 'screen', $report_type = 'maintenance_log_reminders', $id = 0) {
         if($method=='screen' || $method=='ajax') {
             $datatmp = $this->initScreenReport();
+            $data = $this->getReportData($report_type, $datatmp, $id);
         } elseif($method=='spreadsheet') {
             $this->initSpreadsheetReport();
+            $data = [];
         }
         
-        $data = $this->getReportData($report_type, $datatmp, $id);
-
         switch($method) {
             case 'screen':
                 $this->outputScreenReport($report_type, $data);
                 break;
             
             case 'spreadsheet':
-                $this->outputSpreadsheetReport($spreadsheet);
+                $this->outputSpreadsheetReport($data);
                 break;
             
             case 'ajax':
