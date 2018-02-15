@@ -220,7 +220,7 @@ class Reporting extends MY_Controller {
                   'description' => 'Report',
                   'keywords' => 'Komatsu NA',
                   'category' => 'Report',
-                  'sheetTitle' => 'BLAH BLAH'
+                  'sheetTitle' => $report_type
                 ]
         ];
         
