@@ -2,6 +2,8 @@
 
 <h3>PM Service Reminders Report</h3>
 
+<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/pmservice_reminders'); ?>"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:48px;height:48px;"></a>
+
 <table id="pmserviceRemindersReport" class="table table-bordered table-striped">
     <thead>
         <tr>

@@ -2,6 +2,8 @@
 
 <h3>Maintenance Log Reminders Report</h3>
 
+<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/maintenance_log_reminders'); ?>"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:48px;height:48px;"></a>
+
 <table id="maintenanceLogRemindersReport" class="table table-bordered table-striped">
     <thead>
         <tr>
