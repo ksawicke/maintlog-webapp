@@ -201,6 +201,14 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
+    /**
+     * Get spreadsheet report data
+     * 
+     * @param type $report_type
+     * @param type $data
+     * @param type $id
+     * @return type
+     */
     protected function getSpreadsheetReportData($report_type = 'maintenance_log_reminders', $data = [], $id) {
         $spreadsheetReportData = [
             'spreadsheetProperties' =>
@@ -212,20 +220,50 @@ class Reporting extends MY_Controller {
                   'keywords' => 'Komatsu NA',
                   'category' => 'Report',
                   'sheetTitle' => 'BLAH BLAH'
-                ],
-            'cellData' =>
-                [ 'A1' => 'asfafafasfd',
-                  'B2' => 'sadfdsafsadfasf',
-                  'C3' => 'asdfdsafdsafadsfasfsdafsdf'
                 ]
         ];
         
-        echo '<pre>';
-        var_dump($spreadsheetReportData);
-        var_dump($data);
-        exit();
+        switch($report_type) {
+            case 'maintenance_log_reminders':
+                $spreadsheetReportData['cellData'] = $this->getMaintenanceLogReminderCellData($data);
+                break;
+        }
         
         return $spreadsheetReportData;
+    }
+    
+    /**
+     * Get Maintenance Log Reminder Cell Data
+     * 
+     * @param type $data
+     */
+    protected function getMaintenanceLogReminderCellData($data) {
+        $cellData = [
+            'A1' => 'Last Entry Date',
+            'B1' => 'Last SMR',
+            'C1' => 'Manufacturer Name',
+            'D1' => 'Model Name',
+            'E1' => 'Unit Number',
+            'F1' => 'Notes',
+            'G1' => 'SMR Due'
+        ];
+        
+        $row = 2;
+        foreach($data['maintenance_log_reminders'] as $ctr => $d) {
+            $date = new DateTime($d['date_entered']);
+
+            $cellData['A'.$row] = $date->format('m/d/Y');
+            $cellData['B'.$row] = $d['current_smr'];
+            $cellData['C'.$row] = $d['manufacturer_name'];
+            $cellData['D'.$row] = $d['model_number'];
+            $cellData['E'.$row] = $d['unit_number'];
+            $cellData['F'.$row] = $d['notes'];
+            $cellData['G'.$row] = $d['due_units'];
+            
+            $row++;
+        }
+        
+        return $cellData;
     }
     
     protected function buildSpreadsheet($data) {
