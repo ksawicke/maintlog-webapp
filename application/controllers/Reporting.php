@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 *
 * @package  Maintenance Log Application
 * @author   Kevin Sawicke <kevin@rinconmountaintech.com>
-* @version  $Revision: Tag v2.0.0-alpha2 $
+* @version  $Revision: Tag v2.1 $
 * @access   public
 */
 class Reporting extends MY_Controller {
