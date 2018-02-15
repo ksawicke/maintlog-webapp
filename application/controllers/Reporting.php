@@ -201,16 +201,16 @@ class Reporting extends MY_Controller {
         return $data;
     }
     
-    protected function getSpreadsheetReportData($report_type = 'maintenance_log_reminders', $id) {
-        $data = [
+    protected function getSpreadsheetReportData($report_type = 'maintenance_log_reminders', $data = [], $id) {
+        $spreadsheetReportData = [
             'spreadsheetProperties' =>
                 [ 'creator' => 'Komatsu NA',
                   'lastModifiedBy' => 'Maintenance Log Application',
-                  'title' => 'Test Title',
-                  'subject' => 'Subject here',
-                  'description' => 'Here is a description',
-                  'keywords' => 'test 1 2 3',
-                  'category' => 'category',
+                  'title' => 'Report',
+                  'subject' => 'Report',
+                  'description' => 'Report',
+                  'keywords' => 'Komatsu NA',
+                  'category' => 'Report',
                   'sheetTitle' => 'BLAH BLAH'
                 ],
             'cellData' =>
@@ -220,7 +220,12 @@ class Reporting extends MY_Controller {
                 ]
         ];
         
-        return $data;
+        echo '<pre>';
+        var_dump($spreadsheetReportData);
+        var_dump($data);
+        exit();
+        
+        return $spreadsheetReportData;
     }
     
     protected function buildSpreadsheet($data) {
@@ -309,8 +314,10 @@ class Reporting extends MY_Controller {
             $datatmp = $this->initScreenReport();
             $data = $this->getReportData($report_type, $datatmp, $id);
         } elseif($method=='spreadsheet') {
+            $datatmp = [];
             $this->initSpreadsheetReport();
-            $data = $this->getSpreadsheetReportData($report_type, $id);
+            $data = $this->getReportData($report_type, $datatmp = [], $id);
+            $data = $this->getSpreadsheetReportData($report_type, $data, $id);
             $spreadsheet = $this->buildSpreadsheet($data);
         }
         
