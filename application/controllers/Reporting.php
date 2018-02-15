@@ -120,6 +120,7 @@ class Reporting extends MY_Controller {
      * @return type
      */
     protected function getServiceLogsData() {
+        $this->load->model('Report_model');
         $this->load->model('Fluidtype_model');
         $data['service_logs'] = $this->Report_model->findServiceLogs();
         $fluid_types_tmp = $this->Fluidtype_model->findAll();
@@ -227,6 +228,14 @@ class Reporting extends MY_Controller {
             case 'maintenance_log_reminders':
                 $spreadsheetReportData['cellData'] = $this->getMaintenanceLogReminderCellData($data);
                 break;
+            
+            case 'service_logs':
+                $spreadsheetReportData['cellData'] = $this->getServiceLogsCellData($data);
+                break;
+            
+            case 'pmservice_reminders':
+                $spreadsheetReportData['cellData'] = $this->getPMServiceRemindersCellData($data);
+                break;
         }
         
         return $spreadsheetReportData;
@@ -266,6 +275,87 @@ class Reporting extends MY_Controller {
         return $cellData;
     }
     
+    /**
+     * Get Service Logs Cell Data
+     * 
+     * @param type $data
+     * @return type
+     */
+    protected function getServiceLogsCellData($data) {
+        $cellData = [
+            'A1' => 'Date Entered',
+            'B1' => 'Entered By',
+            'C1' => 'Manufacturer Name',
+            'D1' => 'Model Name',
+            'E1' => 'Unit Number',
+            'F1' => 'Entry Type'
+        ];
+        
+        $row = 2;
+        foreach($data['service_logs'] as $ctr => $d) {
+            $date = new DateTime($d['date_entered']);
+
+            $cellData['A'.$row] = $date->format('m/d/Y');
+            $cellData['B'.$row] = $d['enteredby_first_name'] . " " . $d['enteredby_last_name'];
+            $cellData['C'.$row] = $d['manufacturer_name'];
+            $cellData['D'.$row] = $d['model_number'];
+            $cellData['E'.$row] = $d['unit_number'];
+            $cellData['F'.$row] = $d['entry_type'];
+            
+            $row++;
+        }
+        
+        return $cellData;
+    }
+    
+    /**
+     * Get PM Service Reminders Cell Data
+     * 
+     * @param type $data
+     * @return string
+     */
+    protected function getPMServiceRemindersCellData($data) {
+        $cellData = [
+            'A1' => 'Manufacturer Name',
+            'B1' => 'Model Name',
+            'C1' => 'Unit Number',
+            'D1' => 'Email Address',
+            'E1' => 'Warn At',
+            'F1' => 'Last SMR Recorded',
+            'G1' => 'PM Service Due At',
+            'H1' => 'Email Sent On'
+        ];
+        
+        $row = 2;
+        foreach($data['pmservice_reminders'] as $ctr => $d) {
+            if(!is_null($d['sent_on'])) {
+                $date = new DateTime($d['sent_on']);
+                $sent_on = $date->format('m/d/Y');
+            } else {
+                $sent_on = '';
+            }
+            
+            $cellData['A'.$row] = $d['manufacturer_name'];
+            $cellData['B'.$row] = $d['model_number'];
+            $cellData['C'.$row] = $d['unit_number'];
+            $cellData['D'.$row] = $d['emails'];
+            $cellData['E'.$row] = $d['warn_on_quantity'] . " " . $d['warn_on_units'];
+            $cellData['F'.$row] = (!is_null($d['last_smr_recorded']) ? $d['last_smr_recorded'] : '');
+            $cellData['G'.$row] = $d['pmservice_due_quantity'];
+            $cellData['H'.$row] = $sent_on;
+            
+            $row++;
+        }
+        
+        return $cellData;
+    }
+    
+    /**
+     * Build spreadsheet
+     * 
+     * @param type $data
+     * @return Spreadsheet
+     */
     protected function buildSpreadsheet($data) {
         // Create new Spreadsheet object
         $spreadsheet = new Spreadsheet();
@@ -283,17 +373,6 @@ class Reporting extends MY_Controller {
         foreach($data['cellData'] as $cell => $cellData) {
             $spreadsheet->setActiveSheetIndex(0)->setCellValue($cell, $cellData);
         }
-        
-//        $spreadsheet->setActiveSheetIndex(0)
-//            ->setCellValue('A1', 'Hello')
-//            ->setCellValue('B2', 'world!')
-//            ->setCellValue('C1', 'Hello')
-//            ->setCellValue('D2', 'world!');
-//
-//        // Miscellaneous glyphs, UTF-8
-//        $spreadsheet->setActiveSheetIndex(0)
-//            ->setCellValue('A4', 'Miscellaneous glyphs')
-//            ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle($data['spreadsheetProperties']['sheetTitle']);
@@ -373,131 +452,4 @@ class Reporting extends MY_Controller {
                 break;
         }
     }
-    
-    /**
-     * View reporting screen
-     * 
-     * @param string $report_type
-     * @param type $id
-     */
-//    public function reporting($report_type = 'index', $id = 0)
-//    {
-//        
-//        
-//        switch($report_type) {
-//            case 'xlsx':
-//                // Create new Spreadsheet object
-//                $spreadsheet = new Spreadsheet();
-//
-//                // Set document properties
-//                $spreadsheet->getProperties()->setCreator('Maarten Balliauw')
-//                    ->setLastModifiedBy('Maarten Balliauw')
-//                    ->setTitle('Office 2007 XLSX Test Document')
-//                    ->setSubject('Office 2007 XLSX Test Document')
-//                    ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
-//                    ->setKeywords('office 2007 openxml php')
-//                    ->setCategory('Test result file');
-//
-//                // Add some data
-//                $spreadsheet->setActiveSheetIndex(0)
-//                    ->setCellValue('A1', 'Hello')
-//                    ->setCellValue('B2', 'world!')
-//                    ->setCellValue('C1', 'Hello')
-//                    ->setCellValue('D2', 'world!');
-//
-//                // Miscellaneous glyphs, UTF-8
-//                $spreadsheet->setActiveSheetIndex(0)
-//                    ->setCellValue('A4', 'Miscellaneous glyphs')
-//                    ->setCellValue('A5', 'éàèùâêîôûëïüÿäöüç');
-//
-//                // Rename worksheet
-//                $spreadsheet->getActiveSheet()->setTitle('Simple');
-//
-//                // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-//                $spreadsheet->setActiveSheetIndex(0);
-//
-//                
-//                break;
-//            
-//            case 'service_logs':
-//                $this->load->model('Fluidtype_model');
-//                $data['service_logs'] = $this->Report_model->findServiceLogs();
-//                $fluid_types_tmp = $this->Fluidtype_model->findAll();
-//                $fluid_types = [];
-//                foreach($fluid_types_tmp as $fluid_type_tmp) {
-//                    $val = $fluid_type_tmp['fluid_type'];
-//                    $fluid_types[$val] = $val;
-//                }
-//                $data['fluid_types'] = json_encode($fluid_types);
-//                break;
-            
-//            case 'service_log_edit':
-//                $this->load->model('User_model');
-//                $this->load->model('Equipmenttype_model');
-//                $this->load->model('Fluidtype_model');
-//                $this->load->model('Componenttype_model');
-//                $this->load->model('Component_model');
-//                $this->load->model('Smrchoice_model');
-//                $this->load->model('Timechoice_model');
-//                $this->load->model('Mileagechoice_model');
-//        
-//                $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
-//                $data['fluidtypes'] = $this->Fluidtype_model->findAll();
-//                $data['componenttypes'] = $this->Componenttype_model->findAll();
-//                $data['components'] = $this->Component_model->findAll();
-//                $data['users'] = (object) $this->User_model->findAll();
-//                $data['smrchoices'] = $this->Smrchoice_model->findAll();
-//                $data['timechoices'] = $this->Timechoice_model->findAll();
-//                $data['mileagechoices'] = $this->Mileagechoice_model->findAll();
-//                $data['service_log'] = $this->Report_model->findServiceLogs($id);
-//                break;    
-              
-//            case 'service_log_detail_ajax':
-//                $this->load->model('User_model');
-//                $this->load->model('Equipmenttype_model');
-//                $this->load->model('Fluidtype_model');
-//                $this->load->model('Componenttype_model');
-//                $this->load->model('Component_model');
-//                $this->load->model('Smrchoice_model');
-//                $this->load->model('Timechoice_model');
-//                $this->load->model('Mileagechoice_model');
-//        
-//                $data['id'] = $id;
-//                $data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
-//                $data['fluidtypes'] = $this->Fluidtype_model->findAll();
-//                $data['componenttypes'] = $this->Componenttype_model->findAll();
-//                $data['components'] = $this->Component_model->findAll();
-//                $data['users'] = (object) $this->User_model->findAll();
-//                $data['smrchoices'] = $this->Smrchoice_model->findAll();
-//                $data['timechoices'] = $this->Timechoice_model->findAll();
-//                $data['mileagechoices'] = $this->Mileagechoice_model->findAll();
-//                $data['service_log'] = $this->Report_model->findServiceLogs($id);
-//                
-//                return $this->output
-//                    ->set_content_type('application/json')
-//                    ->set_status_header(200)
-//                    ->set_output(json_encode($data, JSON_NUMERIC_CHECK));
-//                break;
-            
-//            case 'service_log_detail':
-//                $data['service_log'] = $this->Report_model->findServiceLogs($id);
-//                break;
-            
-//            case 'pmservice_reminders':
-//                $data['pmservice_reminders'] = $this->Report_model->findPMServiceEmailReminders();
-//                break;
-            
-//            case 'maintenance_log_reminders':
-//            default:
-//                $report_type = 'maintenance_log_reminders';
-//                $data['maintenance_log_reminders'] = $this->Report_model->findMaintenanceLogReminders();
-//                break;
-//        }
-//        
-//        $data['report_type'] = $report_type;
-//        $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
-//        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
-//                
-//        $this->template->load('authenticated_default', null, $data);
-//    }
 }
