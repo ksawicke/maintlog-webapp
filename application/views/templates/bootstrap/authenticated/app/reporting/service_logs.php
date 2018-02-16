@@ -52,7 +52,7 @@
                 <td><?php echo $log['component_data']; ?></td>
                 <td><?php echo $log['typeoffluid']; ?></td>
                 <td>
-                    <a href="<?php echo base_url('index.php/app/reporting/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
+                    <a href="<?php echo base_url('index.php/reporting/output/screen/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fa fa-search" aria-hidden="true"></i></button></a>
                     
                     <?php if($_SESSION['role']==='admin') { ?>
                     <a href="<?php echo base_url('index.php/app/log_entry?id=') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
