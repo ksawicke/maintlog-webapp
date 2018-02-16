@@ -1008,7 +1008,9 @@ $maxNotes = 5;
                     if(isPersonResponsibleForSelectedUnit!==-1 && !empty(email_address)) {
                         $("#pss_responsible_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
                     }
-                    $("#pss_additional_reminder_recipients").append('<option value="' + email_address + '">' + display + '</option>');
+                    if(!empty(email_address)) {
+                        $("#pss_additional_reminder_recipients").append('<option value="' + email_address + '">' + display + '</option>');
+                    }
                 });
                 
 //                $("#loading_ccs_component_type").hide();
