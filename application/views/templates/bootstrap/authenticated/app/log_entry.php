@@ -1002,10 +1002,10 @@ $maxNotes = 5;
                         logentry_reminderrecipient = userData.logentry_reminderrecipient;
                     var isPersonResponsibleForSelectedUnit = $.inArray(id, personResponsibleArray);
 
-                    if(logentry_reminderrecipient==="1") {
+                    if(logentry_reminderrecipient==="1" && !empty(email_address)) { 
                         $("#pss_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
                     }
-                    if(isPersonResponsibleForSelectedUnit!==-1) {
+                    if(isPersonResponsibleForSelectedUnit!==-1 && !empty(email_address)) {
                         $("#pss_responsible_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
                     }
                     $("#pss_additional_reminder_recipients").append('<option value="' + email_address + '">' + display + '</option>');
