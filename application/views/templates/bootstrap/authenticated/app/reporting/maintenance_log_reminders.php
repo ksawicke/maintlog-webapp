@@ -2,7 +2,7 @@
 
 <h3>Maintenance Log Reminders Report</h3>
 
-<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/maintenance_log_reminders'); ?>"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:48px;height:48px;"></a>
+<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/maintenance_log_reminders'); ?>"><button type="button" class="btn btn-default"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:16px;height:16px;"> Download as Excel file</button></a><br /><br />
 
 <table id="maintenanceLogRemindersReport" class="table table-bordered table-striped">
     <thead>
