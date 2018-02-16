@@ -54,7 +54,7 @@
             });
         }
         
-        populateUserData("/sites/komatsuna/users/getUsers",
+        populateUserData("<?php echo base_url(); ?>index.php/users/getUsers",
             $("#reminder_recipient"));
     });
 
