@@ -13,6 +13,8 @@
 
 </a>
 
+<br /><br />
+
 <table id="serviceLogsReport" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -103,10 +105,29 @@
         $("#downloadReportServiceLogs").on('click', function(e) {
             e.preventDefault();
 
-            var fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data', 'type_of_fluid', 'smr'],
+            var fields = [],
                 dataParams = {data: {}},
                 href = $("#downloadReportServiceLogs").attr("href"),
                 selects = $('#serviceLogsReport tfoot tr select');
+            
+            switch(selects[5].value) {
+                case 'Component Change':
+                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data'];
+                    break;
+
+                case 'Fluid Entry':
+                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'fluid_type'];
+                    break;
+
+                case 'SMR Update':
+                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'smr'];
+                    break;
+                    
+                case 'PM Service':
+                default:
+                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type'];
+                    break;
+            }
             
             $.map(fields, function(fieldName, i) {
                 var key = fieldName;

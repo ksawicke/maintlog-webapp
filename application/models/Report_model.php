@@ -22,7 +22,7 @@ class Report_model extends CI_Model {
         $customSearch = '';
         
         if(!empty($params) && array_key_exists('data', $params)) {
-            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . $params['data']['date_entered'] . "'" : "");
+            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
             $customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
             $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
             $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
@@ -64,23 +64,35 @@ class Report_model extends CI_Model {
         $customSearch = '';
         
         if(!empty($params) && array_key_exists('data', $params)) {
-            echo '<pre>';
-            var_dump($params);
-            exit();
-//            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . $params['data']['date_entered'] . "'" : "");
-//            $customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
-//            $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
-//            $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
-//            $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
-//            $customSearch .= (!empty($params['data']['notes']) ? " AND pm.notes = '" . $params['data']['notes'] . "'" : "");
-//            $customSearch .= (!empty($params['data']['due_units']) ? " AND pm.due_units = '" . $params['data']['due_units'] . "'" : "");
+//            echo '<pre>';
+//            var_dump($params);
+//            exit();
+            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
+            $customSearch .= (!empty($params['data']['entered_by']) ? " AND CONCAT(u.first_name, ' ', u.last_name) = '" . $params['data']['entered_by'] . "'" : "");
+            $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+            $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
+            $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+            // ENTRY TYPE
+            
+            $customSearch .= (!empty($params['data']['component_type']) ? " AND ct.component_type = '" . $params['data']['component_type'] . "'" : "");
+            $customSearch .= (!empty($params['data']['component']) ? " AND c.component = '" . $params['data']['component'] . "'" : "");
+            $customSearch .= (!empty($params['data']['component_data']) ? " AND cc.component_data = '" . $params['data']['component_data'] . "'" : "");
+            // fluid_type
+            // 
+            $customSearch .= (!empty($params['data']['smr']) ? " AND su.smr = '" . $params['data']['smr'] . "'" : "");
+            // 
         }
+        
+//        echo '<pre>';
+//        var_dump($params);
+//        echo $customSearch;
+//        exit();
         
         $append_query = " WHERE (su.servicelog_id <> 'UNKNOWN'
                           OR pm.servicelog_id <> 'UNKNOWN'
                           OR fe.servicelog_id <> 'UNKNOWN'
                           OR cc.servicelog_id <> 'UNKNOWN')
-                          AND s.new_id = 0
+                          AND s.new_id = 0" . $customSearch . " 
                           ORDER BY s.id DESC";
 
         if ($servicelog_id <> 0) {
@@ -103,9 +115,8 @@ class Report_model extends CI_Model {
     
     private function getAllServiceLogs($append_query) {
         try {
-            $results = R::getAll(
-            "SELECT DISTINCT
-                s.id, DATE_FORMAT(s.date_entered, '%m/%d/%Y') date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, man.manufacturer_name, em.equipmenttype_id, em.id equipmentmodel_id, em.model_number, eu.id equipmentunit_id, eu.unit_number,
+            $sql = "SELECT DISTINCT
+                s.id, DATE_FORMAT(s.date_entered, '%m/%d/%Y') date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, CONCAT(u.first_name, ' ', u.last_name) AS enteredby_full_name, man.manufacturer_name, em.equipmenttype_id, em.id equipmentmodel_id, em.model_number, eu.id equipmentunit_id, eu.unit_number,
                 CASE
                     WHEN su.servicelog_id IS NOT NULL THEN 'sus'
                     WHEN pm.servicelog_id IS NOT NULL THEN 'pss'
@@ -134,7 +145,11 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN fluidentry fe ON fe.servicelog_id = s.id
                 LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id 
                 LEFT JOIN componenttype ct ON ct.id = cc.component_type
-                LEFT JOIN component c ON c.id = cc.component " . $append_query);
+                LEFT JOIN component c ON c.id = cc.component " . $append_query;
+            
+//            die($sql);
+            
+            $results = R::getAll($sql);
         } catch (Exception $ex) {
             $results = [];
         }
