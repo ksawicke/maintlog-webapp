@@ -61,39 +61,20 @@
             e.preventDefault();
 
             var fields = ['date_entered', 'current_smr', 'manufacturer_name', 'model_number', 'unit_number', 'notes', 'due_units'],
-                dataParams = {},
+                dataParams = {data: {}},
                 href = $("#downloadReportMaintenanceLogReminders").attr("href"),
                 selects = $('#maintenanceLogRemindersReport tfoot tr select');
             
             $.map(fields, function(fieldName, i) {
                 var key = fieldName;
-                dataParams[key] = selects[i].value;
+                dataParams.data[key] = selects[i].value;
             });
             
-            dynamicallyLoadExcelSpreadsheet(href, dataParams);
+            loadSpreadsheet(href + "?" + $.param(dataParams));
         });
         
-        $("#clickMe").on('click', function() {
-            $("#excelLink").attr("href", "http://rinconmountaintech.com");
-        });
-        
-        function dynamicallyLoadExcelSpreadsheet(href, dataParams) {            
-            $.ajax( { type: 'post',
-                url: href,
-                dataType: 'json',
-                data: dataParams, //JSON.stringify( dataParams ),
-                success: function(data) {
-                      /**
-                       * Dynamically load the Excel spreadsheet.
-                       */
-                      var $a = $("<a>");
-                      $a.attr( "href", data.fileContents );
-                      $( "body" ).append( $a );
-                      $a.attr( "download", data.fileName );
-                      $a[0].click();
-                      $a.remove();
-                }
-            } );
+        function loadSpreadsheet(href) {
+            window.open(href, '_blank');
         }
         
         $('#maintenanceLogRemindersReport').DataTable({

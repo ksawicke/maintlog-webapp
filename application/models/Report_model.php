@@ -18,10 +18,21 @@ class Report_model extends CI_Model {
      * @param type $smrchoice_id
      * @return type
      */
-    public function findMaintenanceLogReminders() {
-        $reminders = R::getAll(
-            "SELECT
-                s.date_entered, pm.current_smr, man.manufacturer_name, em.model_number, eu.unit_number, pm.pm_type,  pm.due_units, pm.notes,
+    public function findMaintenanceLogReminders($params) {
+        $customSearch = '';
+        
+        if(!empty($params) && array_key_exists('data', $params)) {
+            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . $params['data']['date_entered'] . "'" : "");
+            $customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
+            $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+            $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
+            $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+            $customSearch .= (!empty($params['data']['notes']) ? " AND pm.notes = '" . $params['data']['notes'] . "'" : "");
+            $customSearch .= (!empty($params['data']['due_units']) ? " AND pm.due_units = '" . $params['data']['due_units'] . "'" : "");
+        }
+        
+        $customSql = "SELECT
+                s.date_entered, pm.current_smr, man.manufacturer_name, em.model_number, eu.unit_number, pm.pm_type, pm.due_units, pm.notes,
                 CASE pm.pm_type
                     WHEN 'smr_based' THEN smr.smr_choice
                     WHEN 'mileage_based' THEN mileage.mileage_choice
@@ -36,7 +47,9 @@ class Report_model extends CI_Model {
 		LEFT OUTER JOIN smrchoice smr ON (smr.id = pm.pm_level AND pm.pm_type = 'smr_based')
 		LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = pm.pm_level AND pm.pm_type = 'mileage_based')
                 LEFT OUTER JOIN timechoice time ON (time.id = pm.pm_level AND pm.pm_type = 'time_based')
-            WHERE s.new_id = 0");
+            WHERE s.new_id = 0" . $customSearch;
+        
+        $reminders = R::getAll($customSql);
 
         return $reminders;
     }

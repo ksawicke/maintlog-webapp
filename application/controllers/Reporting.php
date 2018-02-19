@@ -197,7 +197,7 @@ class Reporting extends MY_Controller {
     protected function getMaintenanceLogRemindersData() {
         $this->load->model('Report_model');
         
-        $data['maintenance_log_reminders'] = $this->Report_model->findMaintenanceLogReminders();
+        $data['maintenance_log_reminders'] = $this->Report_model->findMaintenanceLogReminders($_REQUEST);
         
         return $data;
     }
@@ -409,7 +409,7 @@ class Reporting extends MY_Controller {
                 $data = $this->getPMServiceRemindersData();
                 break;
             
-            case 'maintenance_log_reminders':
+            case 'maintenance_log_reminders':                
                 $data = $this->getMaintenanceLogRemindersData();
                 break;
         }
@@ -426,7 +426,7 @@ class Reporting extends MY_Controller {
      * @param type $report_type
      * @param type $id
      */
-    public function output($method = 'screen', $report_type = 'maintenance_log_reminders', $id = 0) {
+    public function output($method = 'screen', $report_type = 'maintenance_log_reminders', $id = 0) {        
         if($method=='screen' || $method=='ajax') {
             $datatmp = $this->initScreenReport();
             $data = $this->getReportData($report_type, $datatmp, $id);
