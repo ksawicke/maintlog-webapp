@@ -122,7 +122,7 @@ class Reporting extends MY_Controller {
     protected function getServiceLogsData() {
         $this->load->model('Report_model');
         $this->load->model('Fluidtype_model');
-        $data['service_logs'] = $this->Report_model->findServiceLogs();
+        $data['service_logs'] = $this->Report_model->findServiceLogs(0, $_REQUEST);
         $fluid_types_tmp = $this->Fluidtype_model->findAll();
         $fluid_types = [];
         foreach($fluid_types_tmp as $fluid_type_tmp) {

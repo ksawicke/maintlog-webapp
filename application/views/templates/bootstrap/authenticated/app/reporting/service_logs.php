@@ -2,7 +2,16 @@
 
 <h3>Service Logs Report</h3>
 
-<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/service_logs'); ?>"><button type="button" class="btn btn-default"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:16px;height:16px;"> Download as Excel file</button></a><br /><br />
+<a id="downloadReportServiceLogs"
+    href="<?php echo base_url('index.php/reporting/output/spreadsheet/service_logs'); ?>"
+    class="buttonLink">
+    
+    <button type="button" class="btn btn-default"><img
+    class="excelIconMargin"
+    src="<?php echo base_url('/assets/templates/komatsuna/img/excel_logo_24x24.png'); ?>">&nbsp;&nbsp;Download
+        Report in Excel</button>
+
+</a>
 
 <table id="serviceLogsReport" class="table table-bordered table-striped">
     <thead>
@@ -90,6 +99,26 @@
         });
         
         var fluidTypes = <?php echo $fluid_types; ?>;
+        
+        $("#downloadReportServiceLogs").on('click', function(e) {
+            e.preventDefault();
+
+            var fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data', 'type_of_fluid', 'smr'],
+                dataParams = {data: {}},
+                href = $("#downloadReportServiceLogs").attr("href"),
+                selects = $('#serviceLogsReport tfoot tr select');
+            
+            $.map(fields, function(fieldName, i) {
+                var key = fieldName;
+                dataParams.data[key] = selects[i].value;
+            });
+            
+            loadSpreadsheet(href + "?" + $.param(dataParams));
+        });
+        
+        function loadSpreadsheet(href) {
+            window.open(href, '_blank');
+        }
         
         function deleteServiceLog(servicelogid) {
             var jqxhr = $.ajax({

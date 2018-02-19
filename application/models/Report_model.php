@@ -18,7 +18,7 @@ class Report_model extends CI_Model {
      * @param type $smrchoice_id
      * @return type
      */
-    public function findMaintenanceLogReminders($params) {
+    public function findMaintenanceLogReminders($params = []) {
         $customSearch = '';
         
         if(!empty($params) && array_key_exists('data', $params)) {
@@ -60,7 +60,22 @@ class Report_model extends CI_Model {
      * @param type $servicelog_id
      * @return type
      */
-    public function findServiceLogs($servicelog_id = 0) {
+    public function findServiceLogs($servicelog_id = 0, $params = []) {
+        $customSearch = '';
+        
+        if(!empty($params) && array_key_exists('data', $params)) {
+            echo '<pre>';
+            var_dump($params);
+            exit();
+//            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . $params['data']['date_entered'] . "'" : "");
+//            $customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
+//            $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+//            $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
+//            $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+//            $customSearch .= (!empty($params['data']['notes']) ? " AND pm.notes = '" . $params['data']['notes'] . "'" : "");
+//            $customSearch .= (!empty($params['data']['due_units']) ? " AND pm.due_units = '" . $params['data']['due_units'] . "'" : "");
+        }
+        
         $append_query = " WHERE (su.servicelog_id <> 'UNKNOWN'
                           OR pm.servicelog_id <> 'UNKNOWN'
                           OR fe.servicelog_id <> 'UNKNOWN'
