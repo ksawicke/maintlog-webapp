@@ -59,17 +59,15 @@
     $(document).ready(function () {
         $("#downloadReportMaintenanceLogReminders").on('click', function(e) {
             e.preventDefault();
-            
-//            var tfoot = $("#maintenanceLogRemindersReport").parent().next().find('> tfoot > tr > select');
-//            console.log(tfoot);
 
-            var dataParams = {},
+            var fields = ['date_entered', 'current_smr', 'manufacturer_name', 'model_number', 'unit_number', 'notes', 'due_units'],
+                dataParams = {},
                 href = $("#downloadReportMaintenanceLogReminders").attr("href"),
-                i = 0;
-                
-            $('#maintenanceLogRemindersReport tfoot tr select').each(function () {
-                dataParams[i] = $(this).val();
-                i++;
+                selects = $('#maintenanceLogRemindersReport tfoot tr select');
+            
+            $.map(fields, function(fieldName, i) {
+                var key = fieldName;
+                dataParams[key] = selects[i].value;
             });
             
             dynamicallyLoadExcelSpreadsheet(href, dataParams);
@@ -79,15 +77,11 @@
             $("#excelLink").attr("href", "http://rinconmountaintech.com");
         });
         
-        function dynamicallyLoadExcelSpreadsheet(href, dataParams) {
-            console.log("href: " + href);
-            console.log("dataParams");
-            console.log(dataParams);
-            
+        function dynamicallyLoadExcelSpreadsheet(href, dataParams) {            
             $.ajax( { type: 'post',
                 url: href,
                 dataType: 'json',
-                data: JSON.stringify( dataParams ),
+                data: dataParams, //JSON.stringify( dataParams ),
                 success: function(data) {
                       /**
                        * Dynamically load the Excel spreadsheet.
