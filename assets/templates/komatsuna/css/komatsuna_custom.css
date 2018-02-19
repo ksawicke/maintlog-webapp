@@ -17,6 +17,10 @@ body {
     color: #22252A;
 }
 
+.buttonLink {
+    text-decoration: none;
+}
+
 .app-content-wrapper {
     margin-top:35px;
 }

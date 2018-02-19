@@ -2,7 +2,20 @@
 
 <h3>Maintenance Log Reminders Report</h3>
 
-<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/maintenance_log_reminders'); ?>"><button type="button" class="btn btn-default"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:16px;height:16px;"> Download as Excel file</button></a><br /><br />
+<a id="downloadReportMaintenanceLogReminders"
+    href="<?php echo base_url('index.php/reporting/output/spreadsheet/maintenance_log_reminders'); ?>"
+    class="buttonLink">
+    
+    <button type="button" class="btn btn-default"><img
+    class="excelIconMargin"
+    src="<?php echo base_url('/assets/templates/komatsuna/img/excel_logo_24x24.png'); ?>">&nbsp;&nbsp;Download
+        Report in Excel</button>
+
+</a>
+
+<br /><br />
+
+<a id="clickMe">Click Me!</a>
 
 <table id="maintenanceLogRemindersReport" class="table table-bordered table-striped">
     <thead>
@@ -44,6 +57,51 @@
 
 <script>
     $(document).ready(function () {
+        $("#downloadReportMaintenanceLogReminders").on('click', function(e) {
+            e.preventDefault();
+            
+//            var tfoot = $("#maintenanceLogRemindersReport").parent().next().find('> tfoot > tr > select');
+//            console.log(tfoot);
+
+            var dataParams = {},
+                href = $("#downloadReportMaintenanceLogReminders").attr("href"),
+                i = 0;
+                
+            $('#maintenanceLogRemindersReport tfoot tr select').each(function () {
+                dataParams[i] = $(this).val();
+                i++;
+            });
+            
+            dynamicallyLoadExcelSpreadsheet(href, dataParams);
+        });
+        
+        $("#clickMe").on('click', function() {
+            $("#excelLink").attr("href", "http://rinconmountaintech.com");
+        });
+        
+        function dynamicallyLoadExcelSpreadsheet(href, dataParams) {
+            console.log("href: " + href);
+            console.log("dataParams");
+            console.log(dataParams);
+            
+            $.ajax( { type: 'post',
+                url: href,
+                dataType: 'json',
+                data: JSON.stringify( dataParams ),
+                success: function(data) {
+                      /**
+                       * Dynamically load the Excel spreadsheet.
+                       */
+                      var $a = $("<a>");
+                      $a.attr( "href", data.fileContents );
+                      $( "body" ).append( $a );
+                      $a.attr( "download", data.fileName );
+                      $a[0].click();
+                      $a.remove();
+                }
+            } );
+        }
+        
         $('#maintenanceLogRemindersReport').DataTable({
             responsive: true,
             initComplete: function () {
