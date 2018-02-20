@@ -83,6 +83,10 @@ class Report_model extends CI_Model {
                         $customSearch .= (!empty($params['data']['component_data']) ? " AND cc.component_data = '" . $params['data']['component_data'] . "'" : "");
                         break;
                     
+                    case 'PM Service':
+                        $customSearch .= " AND pm.servicelog_id IS NOT NULL";
+                        break;
+                    
                     case 'SMR Update':
                         $customSearch .= " AND su.servicelog_id IS NOT NULL";
                         break;
