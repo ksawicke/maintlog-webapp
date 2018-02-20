@@ -74,9 +74,18 @@ class Report_model extends CI_Model {
             $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
             // ENTRY TYPE
             
-            $customSearch .= (!empty($params['data']['component_type']) ? " AND ct.component_type = '" . $params['data']['component_type'] . "'" : "");
-            $customSearch .= (!empty($params['data']['component']) ? " AND c.component = '" . $params['data']['component'] . "'" : "");
-            $customSearch .= (!empty($params['data']['component_data']) ? " AND cc.component_data = '" . $params['data']['component_data'] . "'" : "");
+            if(!empty($params['data']['entry_type'])) {
+                switch($params['data']['entry_type']) {
+                    case 'Component Change':
+                        $customSearch .= " AND cc.servicelog_id IS NOT NULL";
+                        $customSearch .= (!empty($params['data']['component_type']) ? " AND ct.component_type = '" . $params['data']['component_type'] . "'" : "");
+                        $customSearch .= (!empty($params['data']['component']) ? " AND c.component = '" . $params['data']['component'] . "'" : "");
+                        $customSearch .= (!empty($params['data']['component_data']) ? " AND cc.component_data = '" . $params['data']['component_data'] . "'" : "");
+                        break;
+                }
+            }
+            
+            
             // fluid_type
             // 
             $customSearch .= (!empty($params['data']['smr']) ? " AND su.smr = '" . $params['data']['smr'] . "'" : "");
@@ -102,7 +111,7 @@ class Report_model extends CI_Model {
         $service_logs = $this->getAllServiceLogs($append_query);
 
         if ($servicelog_id <> 0) {
-            $service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs);
+            $service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs, $params);
             $service_logs = $this->appendServiceLogReplacements($servicelog_id, $service_logs);
         }
         
@@ -198,10 +207,16 @@ class Report_model extends CI_Model {
      * @param type $service_logs
      * @return type
      */
-    private function appendServiceLogChildren($servicelog_id, $service_logs) {
+    private function appendServiceLogChildren($servicelog_id, $service_logs, $params = []) {
         $service_logs[0]['serviced_by'] = $this->getServicedBy($servicelog_id);
+        $entry_type = '';
+        if(!empty($params) && array_key_exists($params['data'])) {
+            $entry_type = $params['data']['entry_type'];
+        } else {
+            $entry_type = $service_logs[0]['entry_type'];
+        }
             
-        switch($service_logs[0]['entry_type']) {
+        switch($entry_type) {
             case 'SMR Update':
                 $service_logs[0]['update_detail'] = $this->getSMRUpdateDetail($servicelog_id);
                 break;

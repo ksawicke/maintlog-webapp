@@ -291,16 +291,32 @@ class Reporting extends MY_Controller {
             'F1' => 'Entry Type'
         ];
         
+        switch($data['service_logs'][0]['entry_type']) {
+            case 'Component Change':
+                $cellData['G1'] = 'Component Type';
+                $cellData['H1'] = 'Component';
+                $cellData['I1'] = 'Component Data';
+                break;
+        }
+        
         $row = 2;
         foreach($data['service_logs'] as $ctr => $d) {
             $date = new DateTime($d['date_entered']);
 
-            $cellData['A'.$row] = $date->format('m/d/Y');
-            $cellData['B'.$row] = $d['enteredby_first_name'] . " " . $d['enteredby_last_name'];
-            $cellData['C'.$row] = $d['manufacturer_name'];
-            $cellData['D'.$row] = $d['model_number'];
-            $cellData['E'.$row] = $d['unit_number'];
-            $cellData['F'.$row] = $d['entry_type'];
+            $cellData['A' . $row] = $date->format('m/d/Y');
+            $cellData['B' . $row] = $d['enteredby_first_name'] . " " . $d['enteredby_last_name'];
+            $cellData['C' . $row] = $d['manufacturer_name'];
+            $cellData['D' . $row] = $d['model_number'];
+            $cellData['E' . $row] = $d['unit_number'];
+            $cellData['F' . $row] = $d['entry_type'];
+            
+            switch($data['service_logs'][$ctr]['entry_type']) {
+                case 'Component Change':
+                    $cellData['G' . $row] = $d['component_type'];
+                    $cellData['H' . $row] = $d['component'];
+                    $cellData['I' . $row] = $d['component_data'];
+                    break;
+            }
             
             $row++;
         }
