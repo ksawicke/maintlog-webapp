@@ -297,6 +297,10 @@ class Reporting extends MY_Controller {
                 $cellData['H1'] = 'Component';
                 $cellData['I1'] = 'Component Data';
                 break;
+            
+            case 'SMR Update':
+                $cellData['G1'] = 'SMR';
+                break;
         }
         
         $row = 2;
@@ -315,6 +319,10 @@ class Reporting extends MY_Controller {
                     $cellData['G' . $row] = $d['component_type'];
                     $cellData['H' . $row] = $d['component'];
                     $cellData['I' . $row] = $d['component_data'];
+                    break;
+                
+                case 'SMR Update':
+                    $cellData['G' . $row] = $d['smr'];
                     break;
             }
             
