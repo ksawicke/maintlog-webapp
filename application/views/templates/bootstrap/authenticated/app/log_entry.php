@@ -123,7 +123,7 @@ $maxNotes = 5;
                        name="sus_previous_smr"
                        type="text"
                        class="form-control input-lg"
-                       value="99"
+                       value=""
                        disabled>
             </div>
         </div>
@@ -1359,6 +1359,10 @@ $maxNotes = 5;
                 $("#equipmentmodel_id"));
             populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
+                
+            //taco  sus_previous_smr
+            //populatePreviousSMR("<?php echo base_url(); ?>index.php/equipmentunits/getLastSMRByUnitId",
+            //    $("#sus_previous_smr"));
             
             $("#subflow").val(service_log_object.subflow);
             setCurrentSubflow();

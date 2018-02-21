@@ -40,6 +40,24 @@ class Equipmentunits extends MY_Controller {
         exit();
     }
     
+    public function getLastSMRByUnitId() {
+        $post = json_decode(file_get_contents('php://input'), true);
+        $smrdata = [];
+                
+        if(!array_key_exists('id', $post)) {
+            http_response_code(404);
+            echo json_encode(['success' => false]);
+        } else {
+            http_response_code(200);
+            
+            $smrdata = $this->Equipmentunit_model->findLastSMR($post['id']);
+            
+            echo json_encode(['success' => true, 'data' => $smrdata], JSON_NUMERIC_CHECK);
+        }
+        
+        exit();
+    }
+    
     public function save() {
         $this->Equipmentunit_model->store($this->input->post());
         
