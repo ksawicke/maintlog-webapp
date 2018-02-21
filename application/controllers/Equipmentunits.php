@@ -50,9 +50,9 @@ class Equipmentunits extends MY_Controller {
         } else {
             http_response_code(200);
             
-            $smrdata = $this->Equipmentunit_model->findLastSMR($post['id']);
+            $last_smr = $this->Equipmentunit_model->findLastSMR($post['id']);
             
-            echo json_encode(['success' => true, 'data' => $smrdata], JSON_NUMERIC_CHECK);
+            echo json_encode(['success' => true, 'last_smr' => $last_smr], JSON_NUMERIC_CHECK);
         }
         
         exit();

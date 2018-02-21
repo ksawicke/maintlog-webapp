@@ -70,11 +70,13 @@ FROM equipmentunit
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
                         WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues";
         
-        $values = R::exec($sql);
+        $values = R::getAll($sql);
         
-        echo '<pre>';
-        var_dump($values);
-        exit();
+        return $values[0]['last_smr'];
+        
+//        echo '<pre>';
+//        var_dump($values);
+//        exit();
         
         /*
          * Get Max SMR from fluidentrysmrupdate table

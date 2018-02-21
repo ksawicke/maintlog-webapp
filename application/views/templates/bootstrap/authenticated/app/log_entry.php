@@ -123,7 +123,6 @@ $maxNotes = 5;
                        name="sus_previous_smr"
                        type="text"
                        class="form-control input-lg"
-                       value=""
                        disabled>
             </div>
         </div>
@@ -746,6 +745,21 @@ $maxNotes = 5;
             });
         }
         
+        function populatePreviousSMR(serviceUrl, field) {
+            var service_log_object = getServiceLogData();
+            var unit_number = (!empty(service_log_object) ? service_log_object.unit_number : $("#unit_number").val());
+            
+            var jqxhr = $.ajax({
+                url: serviceUrl,
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({"id": unit_number}),
+                contentType: "application/json"
+            }).done(function(object) {
+                $("#sus_previous_smr").val(object.last_smr);
+            });
+        }
+        
         function populateUnitNumberDropdownWithData(serviceUrl, field) {
             var service_log_object = getServiceLogData();
             var equipmentmodel_id = (!empty(service_log_object) ? service_log_object.equipmentmodel_id : $("#equipmentmodel_id").val());
@@ -1359,10 +1373,8 @@ $maxNotes = 5;
                 $("#equipmentmodel_id"));
             populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
-                
-            //taco  sus_previous_smr
-            //populatePreviousSMR("<?php echo base_url(); ?>index.php/equipmentunits/getLastSMRByUnitId",
-            //    $("#sus_previous_smr"));
+            populatePreviousSMR("<?php echo base_url(); ?>index.php/equipmentunits/getLastSMRByUnitId",
+                $("#sus_previous_smr"));
             
             $("#subflow").val(service_log_object.subflow);
             setCurrentSubflow();
@@ -1406,6 +1418,8 @@ $maxNotes = 5;
         $(document).on('change', '#unit_number', function() {
             populateFluUnits();
             populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
+            populatePreviousSMR("<?php echo base_url(); ?>index.php/equipmentunits/getLastSMRByUnitId",
+                $("#sus_previous_smr"));
             var fluidsTrackedForSelectedUnit = $("#unit_number :selected").attr('data-fluids-tracked');
             
             adjustFluidEntryOptions(fluidsTrackedForSelectedUnit);
