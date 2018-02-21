@@ -335,7 +335,7 @@ class Report_model extends CI_Model {
             FROM smrupdate smr
             WHERE smr.servicelog_id = '" . $servicelog_id . "'");
 
-        return $detail[0];
+        return (!empty($detail) ? $detail[0] : []);
     }
     
     /**
@@ -351,7 +351,7 @@ class Report_model extends CI_Model {
             FROM fluidentrysmrupdate fes
             WHERE fes.servicelog_id = '" . $servicelog_id . "'");
 
-        return $detail[0];
+        return (!empty($detail) ? $detail[0] : []);
     }
 
     /**
