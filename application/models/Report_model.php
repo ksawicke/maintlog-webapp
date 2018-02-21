@@ -65,15 +65,11 @@ class Report_model extends CI_Model {
         $fluidType = '';
         
         if(!empty($params) && array_key_exists('data', $params)) {
-//            echo '<pre>';
-//            var_dump($params);
-//            exit();
             $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
             $customSearch .= (!empty($params['data']['entered_by']) ? " AND CONCAT(u.first_name, ' ', u.last_name) = '" . $params['data']['entered_by'] . "'" : "");
             $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
             $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
             $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
-            // ENTRY TYPE
             
             if(!empty($params['data']['entry_type'])) {
                 switch($params['data']['entry_type']) {
@@ -121,7 +117,6 @@ class Report_model extends CI_Model {
         }
         
         if ($servicelog_id == 0) {
-//            die($fluidType);
             $service_logs = $this->appendFluidsAdministered($service_logs, $fluidType);
         }
         
@@ -134,10 +129,6 @@ class Report_model extends CI_Model {
         }
         sort($service_logs);
         
-//        echo '<pre>';
-//        var_dump($service_logs);
-//        exit();
-
         return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
     }
     
@@ -175,13 +166,7 @@ class Report_model extends CI_Model {
                 LEFT JOIN componenttype ct ON ct.id = cc.component_type
                 LEFT JOIN component c ON c.id = cc.component " . $append_query;
             
-//            die($sql);
-            
             $results = R::getAll($sql);
-            
-//            echo '<pre>';
-//            var_dump($results);
-//            exit();
         } catch (Exception $ex) {
             $results = [];
         }
@@ -199,20 +184,10 @@ class Report_model extends CI_Model {
                         WHERE fe.servicelog_id = " . $service_log['id'] . " ) temp" .
                    (!empty($fluidType) ? ") temp2 WHERE typeoffluid LIKE '%" . $fluidType . "%'" : "");
             
-            // phpMyAdmin
-            //SELECT * FROM (SELECT '50' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid FROM ( SELECT ft.fluid_type ftentries FROM fluidentry fe LEFT JOIN fluidtype ft ON ft.id = fe.type WHERE fe.servicelog_id = 50 ) temp) temp2 WHERE typeoffluid LIKE '%Die%'
-            
-            //SELECT * FROM (SELECT '50' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid FROM ( SELECT ft.fluid_type ftentries FROM fluidentry fe LEFT JOIN fluidtype ft ON ft.id = fe.type WHERE fe.servicelog_id = 50 ) temp) temp2) WHERE typeoffluid LIKE '%Diesel - Off Highway%'
-            
-//            die($sql);
             $results = R::getAll($sql);
             
             $service_logs[$ctr]['typeoffluid'] = (!empty($results) ? $results[0]['typeoffluid'] : '');
         }
-        
-//        echo '<pre>';
-//        var_dump($service_logs);
-//        exit();
         
         return $service_logs;
     }

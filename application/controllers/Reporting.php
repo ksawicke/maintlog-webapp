@@ -50,11 +50,7 @@ class Reporting extends MY_Controller {
      * @param type $report_type
      * @param type $data
      */
-    protected function outputScreenReport($report_type, $data = []) {
-//        echo '<pre>';
-//        var_dump($data);
-//        exit();
-        
+    protected function outputScreenReport($report_type, $data = []) {        
         $data['report_type'] = $report_type;
         $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
@@ -234,9 +230,6 @@ class Reporting extends MY_Controller {
                 break;
             
             case 'service_logs':
-//                echo '<pre>';
-//                var_dump($data);
-//                exit();
                 $spreadsheetReportData['cellData'] = $this->getServiceLogsCellData($data);
                 break;
             
@@ -410,10 +403,6 @@ class Reporting extends MY_Controller {
             ->setDescription($data['spreadsheetProperties']['description'])
             ->setKeywords($data['spreadsheetProperties']['keywords'])
             ->setCategory($data['spreadsheetProperties']['category']);
-
-//        echo '<pre>';
-//        var_dump($data['cellData']);
-//        exit();
         
         // Add some data
         foreach($data['cellData'] as $cell => $cellData) {
@@ -481,18 +470,8 @@ class Reporting extends MY_Controller {
             $this->initSpreadsheetReport();
             $data = $this->getReportData($report_type, $datatmp, $id);
             
-//            echo '<pre>';
-//            var_dump($data);
-//            echo '</pre>';
-            
             $data = $this->getSpreadsheetReportData($report_type, $data, $id);
-            
-//            echo '<pre>';
-//            var_dump($data);
-//            echo '</pre>';
-//            
-//            exit();
-            
+           
             $spreadsheet = $this->buildSpreadsheet($data);
         }
         

@@ -195,11 +195,8 @@
                                             .search(val ? '^' + val + '$' : '', true, false)
                                             .draw();
                                 } else {
-                                    /* Search for Fluid Entry */
-//                                    var someStr = escapeRegExp('((?!+).)');
-//                                    XYZ.search('^' + someStr + '*$');
+                                    /* Search for Fluid Entry like val */
                                     column
-//                                            .search(val ? '^' + val : '', true, false)
                                         .search(val ? '^.*' + val + '.*$' : '', true, false)
                                         .draw();
                                 }
