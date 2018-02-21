@@ -480,7 +480,19 @@ class Reporting extends MY_Controller {
             $datatmp = [];
             $this->initSpreadsheetReport();
             $data = $this->getReportData($report_type, $datatmp, $id);
+            
+//            echo '<pre>';
+//            var_dump($data);
+//            echo '</pre>';
+            
             $data = $this->getSpreadsheetReportData($report_type, $data, $id);
+            
+//            echo '<pre>';
+//            var_dump($data);
+//            echo '</pre>';
+//            
+//            exit();
+            
             $spreadsheet = $this->buildSpreadsheet($data);
         }
         

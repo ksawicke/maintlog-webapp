@@ -174,6 +174,10 @@
             confirmSubmitJBox.close();
         });
         
+        function escapeRegExp(string) {
+            return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+        }
+        
         var dataTable = $('#serviceLogsReport').DataTable({
             responsive: true,
             initComplete: function () {
@@ -192,9 +196,12 @@
                                             .draw();
                                 } else {
                                     /* Search for Fluid Entry */
+//                                    var someStr = escapeRegExp('((?!+).)');
+//                                    XYZ.search('^' + someStr + '*$');
                                     column
-                                            .search(val ? '^' + val : '', true, false)
-                                            .draw();
+//                                            .search(val ? '^' + val : '', true, false)
+                                        .search(val ? '^.*' + val + '.*$' : '', true, false)
+                                        .draw();
                                 }
                                 
                                 if(column.index()==5) {

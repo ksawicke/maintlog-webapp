@@ -132,6 +132,7 @@ class Report_model extends CI_Model {
                 unset($service_logs[$ctr]);
             }
         }
+        sort($service_logs);
         
 //        echo '<pre>';
 //        var_dump($service_logs);
