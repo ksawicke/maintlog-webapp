@@ -457,7 +457,7 @@ $maxNotes = 5;
     </div>
     
     <div class="form-section subflow ccs show-prev show-review">
-        <label for="ccs_notes"class="control-label lb-lg">Notes</label>
+        <label for="ccs_notes" class="control-label lb-lg">Notes</label>
         <textarea type="text"
                class="form-control input-lg"
                id="ccs_notes"
@@ -484,7 +484,7 @@ $maxNotes = 5;
 
 </form>
 
-<style class="example">
+<style type="text/css">
     #editing_service_log,
     #goBackButton,
     #reviewButton,
@@ -1315,14 +1315,13 @@ $maxNotes = 5;
         }
         
         function adjustFluidEntryDropdowns(fluidTypeDropdownLength, filteredChoices) {
-            for(i=0; i<=fluidTypeDropdownLength - 1; i++) {
-                var thisDropdown = $('#flu_fluid_type_' + 1);
+            for(i=1; i<=fluidTypeDropdownLength; i++) {
+                var thisDropdown = $('#flu_fluid_type_' + i);
                 thisDropdown.empty();
                 thisDropdown.append('<option value="">Select one:</option>');
                 
                 $.each(filteredChoices, function(id, choice) {
                     thisDropdown.append('<option value="' + choice.id + '">' + choice.fluid_type + '</option>');
-                    console.log(id + " :: " + choice.id + " :: " + choice.fluid_type);
                 });
             }
         }
@@ -1365,84 +1364,6 @@ $maxNotes = 5;
             setCurrentSubflow();
             
             updateSubflowFieldsToEdit(service_log_object);
-            
-//            $("#submitButton").attr("disabled", "disabled");
-            
-            <?php /*******************************
-            // Fill in data into form
-            $("#date_entered").val(service_log.date_entered);
-            $('#entered_by option[value=' + service_log.entered_by + ']').attr('selected','selected');
-//            $("#entered_by").val(service_log.entered_by); // TODO
-            
-            //$("#serviced_by").val(); // TODO
-            $("#equipment_type").val(service_log.equipmenttype_id);
-            
-            populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
-                $("#equipmentmodel_id"));
-            $("#equipmentmodel_id").prop('disabled', false);
-            $('[name=equipmentmodel_id]').val(service_log.equipmentmodel_id);
-            
-            populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
-                $("#unit_number"));
-                
-            $("#subflow").val(service_log.subflow);
-            setCurrentSubflow();
-            
-            switch(service_log.subflow) {
-                case 'sus':  // SMR Update.
-                    $("#sus_current_smr").val(service_log.smr);
-                    break;
-                    
-                case 'flu':  // Fluid Entry
-                    for(i = 0; i <= service_log.update_detail.length-1; i++) {
-                        $('#flu_fluid_type_' + (i+1)).val(service_log.update_detail[i].id);
-                        $("#flu_quantity_" + (i+1)).val(service_log.update_detail[i].quantity);
-                        $("#flu_units_" + (i+1)).val(service_log.update_detail[i].units);
-                    }
-                    for(i = 1; i < service_log.update_detail.length; i++) {
-                        $('*[data-show-fluid-entry="' + (i+1) + '"]').click();
-                    }
-                    break;
-                    
-                case 'pss':  // PM Service
-                    $("#pss_pm_type").val(service_log.update_detail.pm_type);
-                    initPssSMRBasedPMLevel(service_log.update_detail.pm_type);
-                    $("#pss_smr_based_current_smr").val(service_log.update_detail.current_smr);
-                    // TODO: loop thru service_log.update_detail.pmservicenotes
-//                    $("#pss_smr_based_notes1").val();
-
-                    $("#pss_reminder_pm_type").val(service_log.update_detail.pm_type);
-                    
-                    doPssReminderPMTypeStuff();
-                    $("#pss_due_units").val(service_log.update_detail.due_units);
-                    $("#pss_notes").val(service_log.update_detail.notes);
-                    $('.serviceLog-form').parsley().validate();
-                    
-                    populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
-                    $.each(service_log.update_detail.pmservicereminder, function(id, reminder) {
-                        $("#pss_additional_reminder_recipients").val(reminder.emails);
-                    });
-                    
-                    $("#pss_reminder_quantity").val(service_log.update_detail.pmservicereminder[0].quantity);
-                    $("#pss_reminder_units").val(service_log.update_detail.pmservicereminder[0].units);
-                    break;
-                    
-                case 'ccs': // Component Change.
-                    populateComponentTypeDropdownWithData("<?php echo base_url(); ?>index.php/componenttypes/getComponentTypes",
-                        $("#ccs_component_type"));
-                    populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
-                        $("#ccs_component"));
-                    $("#ccs_component_data").val(service_log.update_detail.component_data);
-                    $("#ccs_notes").val(service_log.update_detail.notes);
-                    break;
-            }
-            
-            // TODO: 1/17/18 Disable submit button on edit for now.
-            $("#submitButton").attr("disabled", "disabled");
-            
-            // Validate it!
-            $('.serviceLog-form').parsley().validate();
-            **************************************************/ ?>
         }
         
         $(document).on("click", "#reviewButton", function () {
@@ -1566,7 +1487,6 @@ $maxNotes = 5;
                 var goToIndex = parseInt(thisIndex) + 1;
                 var startAtIndex = 4;
                 
-                /****/
                 $sections.each(function (index, section) {
                     // clear section index
                     if(index>=4) {
@@ -1625,7 +1545,6 @@ $maxNotes = 5;
             <?php } ?>
                 
             $(".hideButton").hide();
-//            $(".hide_me").hide();
 
             <?php for($fluidEntryCounter = 3; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
             $(document).on('click', '.showFluidEntry', function(e) {
