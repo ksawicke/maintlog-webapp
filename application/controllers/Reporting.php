@@ -375,7 +375,7 @@ class Reporting extends MY_Controller {
             $cellData['C'.$row] = $d['unit_number'];
             $cellData['D'.$row] = $d['emails'];
             $cellData['E'.$row] = $d['warn_on_quantity'] . " " . $d['warn_on_units'];
-            $cellData['F'.$row] = (!is_null($d['last_smr_recorded']) ? $d['last_smr_recorded'] : '');
+            $cellData['F'.$row] = (($d['last_smr_recorded']!='NULL') ? $d['last_smr_recorded'] : '');
             $cellData['G'.$row] = $d['pmservice_due_quantity'];
             $cellData['H'.$row] = $sent_on;
             
@@ -470,8 +470,13 @@ class Reporting extends MY_Controller {
             $this->initSpreadsheetReport();
             $data = $this->getReportData($report_type, $datatmp, $id);
             
+//            echo '<pre>';
+//            var_dump($data);
+//            echo '</pre>';
+//            exit();
+            
             $data = $this->getSpreadsheetReportData($report_type, $data, $id);
-           
+            
             $spreadsheet = $this->buildSpreadsheet($data);
         }
         

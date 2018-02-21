@@ -78,6 +78,8 @@
         }
         
         $('#maintenanceLogRemindersReport').DataTable({
+            /* Disable initial sort */
+            "aaSorting": [],
             responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {

@@ -2,7 +2,18 @@
 
 <h3>PM Service Reminders Report</h3>
 
-<a href="<?php echo base_url('index.php/reporting/output/spreadsheet/pmservice_reminders'); ?>"><button type="button" class="btn btn-default"><img src="<?php echo base_url('/assets/templates/komatsuna/img/ms-excel.png'); ?>" style="width:16px;height:16px;"> Download as Excel file</button></a><br /><br />
+<a id="downloadPMServiceReminders"
+    href="<?php echo base_url('index.php/reporting/output/spreadsheet/pmservice_reminders'); ?>"
+    class="buttonLink">
+    
+    <button type="button" class="btn btn-default"><img
+    class="excelIconMargin"
+    src="<?php echo base_url('/assets/templates/komatsuna/img/excel_logo_24x24.png'); ?>">&nbsp;&nbsp;Download
+        Report in Excel</button>
+
+</a>
+
+<br /><br />
 
 <table id="pmserviceRemindersReport" class="table table-bordered table-striped">
     <thead>
@@ -47,7 +58,32 @@
 
 <script>
     $(document).ready(function () {
+        
+        $("#downloadPMServiceReminders").on('click', function(e) {
+            e.preventDefault();
+
+            var fields = [],
+                dataParams = {data: {}},
+                href = $("#downloadPMServiceReminders").attr("href"),
+                selects = $('#pmserviceRemindersReport tfoot tr select');
+            
+            fields = ['manufacturer_name', 'model_number', 'unit_number', 'emails', 'warning', 'last_smr_recorded', 'pmservice_due_quantity', 'sent_on'];
+            
+            $.map(fields, function(fieldName, i) {
+                var key = fieldName;
+                dataParams.data[key] = selects[i].value;
+            });
+            
+            loadSpreadsheet(href + "?" + $.param(dataParams));
+        });
+        
+        function loadSpreadsheet(href) {
+            window.open(href, '_blank');
+        }
+        
         $('#pmserviceRemindersReport').DataTable({
+            /* Disable initial sort */
+            "aaSorting": [],
             responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {
