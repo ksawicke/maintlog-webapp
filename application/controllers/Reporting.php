@@ -50,7 +50,11 @@ class Reporting extends MY_Controller {
      * @param type $report_type
      * @param type $data
      */
-    protected function outputScreenReport($report_type, $data = []) {        
+    protected function outputScreenReport($report_type, $data = []) {
+//        echo '<pre>';
+//        var_dump($data);
+//        exit();
+        
         $data['report_type'] = $report_type;
         $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
@@ -230,6 +234,9 @@ class Reporting extends MY_Controller {
                 break;
             
             case 'service_logs':
+//                echo '<pre>';
+//                var_dump($data);
+//                exit();
                 $spreadsheetReportData['cellData'] = $this->getServiceLogsCellData($data);
                 break;
             
@@ -291,6 +298,8 @@ class Reporting extends MY_Controller {
             'F1' => 'Entry Type'
         ];
         
+        sort($data['service_logs']);
+        
         switch($data['service_logs'][0]['entry_type']) {
             case 'Fluid Entry':
                 $cellData['G1'] = 'Type of Fluid';
@@ -309,10 +318,6 @@ class Reporting extends MY_Controller {
         
         $row = 2;
         
-//        echo '<pre>';
-//        var_dump($data['service_logs']);
-//        exit();
-        
         foreach($data['service_logs'] as $ctr => $d) {
             $date = new DateTime($d['date_entered']);
 
@@ -325,8 +330,7 @@ class Reporting extends MY_Controller {
             
             switch($data['service_logs'][$ctr]['entry_type']) {
                 case 'Fluid Entry':
-//                    $cellData['G' . $row] = $d['typeoffluid'];
-                    $cellData['G' . $row] = 'test';
+                    $cellData['G' . $row] = $d['typeoffluid'];
                     break;
                 
                 case 'Component Change':
@@ -475,7 +479,7 @@ class Reporting extends MY_Controller {
         } elseif($method=='spreadsheet') {
             $datatmp = [];
             $this->initSpreadsheetReport();
-            $data = $this->getReportData($report_type, $datatmp = [], $id);
+            $data = $this->getReportData($report_type, $datatmp, $id);
             $data = $this->getSpreadsheetReportData($report_type, $data, $id);
             $spreadsheet = $this->buildSpreadsheet($data);
         }

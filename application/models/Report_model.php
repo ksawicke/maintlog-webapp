@@ -124,6 +124,18 @@ class Report_model extends CI_Model {
 //            die($fluidType);
             $service_logs = $this->appendFluidsAdministered($service_logs, $fluidType);
         }
+        
+        foreach($service_logs as $ctr => $sl) {
+            if (!empty($fluidType) && strpos($sl['typeoffluid'], $fluidType) !== false) {
+                // Do nothing
+            } elseif(!empty($fluidType)) {
+                unset($service_logs[$ctr]);
+            }
+        }
+        
+//        echo '<pre>';
+//        var_dump($service_logs);
+//        exit();
 
         return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
     }
@@ -131,7 +143,7 @@ class Report_model extends CI_Model {
     private function getAllServiceLogs($append_query) {
         try {
             $sql = "SELECT DISTINCT
-                s.id, DATE_FORMAT(s.date_entered, '%m/%d/%Y') date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, CONCAT(u.first_name, ' ', u.last_name) AS enteredby_full_name, man.manufacturer_name, em.equipmenttype_id, em.id equipmentmodel_id, em.model_number, eu.id equipmentunit_id, eu.unit_number,
+                s.id, s.new_id, DATE_FORMAT(s.date_entered, '%m/%d/%Y') date_entered, s.entered_by, u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name, CONCAT(u.first_name, ' ', u.last_name) AS enteredby_full_name, man.manufacturer_name, em.equipmenttype_id, em.id equipmentmodel_id, em.model_number, eu.id equipmentunit_id, eu.unit_number,
                 CASE
                     WHEN su.servicelog_id IS NOT NULL THEN 'sus'
                     WHEN pm.servicelog_id IS NOT NULL THEN 'pss'
@@ -176,6 +188,7 @@ class Report_model extends CI_Model {
     }
     
     private function appendFluidsAdministered($service_logs = [], $fluidType = '') {
+        $fluidType = '';
         foreach($service_logs as $ctr => $service_log) {
             $sql = (!empty($fluidType) ? "SELECT * FROM (" : "") . "SELECT '" . $service_log['id'] . "' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid
                     FROM (
@@ -193,7 +206,7 @@ class Report_model extends CI_Model {
 //            die($sql);
             $results = R::getAll($sql);
             
-            $service_logs[$ctr]['typeoffluid'] = (!empty($results) ? $results[0]['typeoffluid'] : []);
+            $service_logs[$ctr]['typeoffluid'] = (!empty($results) ? $results[0]['typeoffluid'] : '');
         }
         
 //        echo '<pre>';
