@@ -292,6 +292,10 @@ class Reporting extends MY_Controller {
         ];
         
         switch($data['service_logs'][0]['entry_type']) {
+            case 'Fluid Entry':
+                $cellData['G1'] = 'Type of Fluid';
+                break;
+            
             case 'Component Change':
                 $cellData['G1'] = 'Component Type';
                 $cellData['H1'] = 'Component';
@@ -304,6 +308,11 @@ class Reporting extends MY_Controller {
         }
         
         $row = 2;
+        
+//        echo '<pre>';
+//        var_dump($data['service_logs']);
+//        exit();
+        
         foreach($data['service_logs'] as $ctr => $d) {
             $date = new DateTime($d['date_entered']);
 
@@ -315,6 +324,11 @@ class Reporting extends MY_Controller {
             $cellData['F' . $row] = $d['entry_type'];
             
             switch($data['service_logs'][$ctr]['entry_type']) {
+                case 'Fluid Entry':
+//                    $cellData['G' . $row] = $d['typeoffluid'];
+                    $cellData['G' . $row] = 'test';
+                    break;
+                
                 case 'Component Change':
                     $cellData['G' . $row] = $d['component_type'];
                     $cellData['H' . $row] = $d['component'];
@@ -393,6 +407,10 @@ class Reporting extends MY_Controller {
             ->setKeywords($data['spreadsheetProperties']['keywords'])
             ->setCategory($data['spreadsheetProperties']['category']);
 
+//        echo '<pre>';
+//        var_dump($data['cellData']);
+//        exit();
+        
         // Add some data
         foreach($data['cellData'] as $cell => $cellData) {
             $spreadsheet->setActiveSheetIndex(0)->setCellValue($cell, $cellData);

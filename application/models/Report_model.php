@@ -62,6 +62,7 @@ class Report_model extends CI_Model {
      */
     public function findServiceLogs($servicelog_id = 0, $params = []) {
         $customSearch = '';
+        $fluidType = '';
         
         if(!empty($params) && array_key_exists('data', $params)) {
 //            echo '<pre>';
@@ -76,6 +77,11 @@ class Report_model extends CI_Model {
             
             if(!empty($params['data']['entry_type'])) {
                 switch($params['data']['entry_type']) {
+                    case 'Fluid Entry':
+                        $customSearch .= " AND fe.servicelog_id IS NOT NULL AND su.smr IS NULL";
+                        $fluidType = $params['data']['fluid_type'];
+                        break;
+                    
                     case 'Component Change':
                         $customSearch .= " AND cc.servicelog_id IS NOT NULL";
                         $customSearch .= (!empty($params['data']['component_type']) ? " AND ct.component_type = '" . $params['data']['component_type'] . "'" : "");
@@ -93,17 +99,8 @@ class Report_model extends CI_Model {
                 }
             }
             
-            
-            // fluid_type
-            // 
             $customSearch .= (!empty($params['data']['smr']) ? " AND su.smr = '" . $params['data']['smr'] . "'" : "");
-            // 
         }
-        
-//        echo '<pre>';
-//        var_dump($params);
-//        echo $customSearch;
-//        exit();
         
         $append_query = " WHERE (su.servicelog_id <> 'UNKNOWN'
                           OR pm.servicelog_id <> 'UNKNOWN'
@@ -124,7 +121,8 @@ class Report_model extends CI_Model {
         }
         
         if ($servicelog_id == 0) {
-            $service_logs = $this->appendFluidsAdministered($service_logs);
+//            die($fluidType);
+            $service_logs = $this->appendFluidsAdministered($service_logs, $fluidType);
         }
 
         return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
@@ -167,25 +165,40 @@ class Report_model extends CI_Model {
 //            die($sql);
             
             $results = R::getAll($sql);
+            
+//            echo '<pre>';
+//            var_dump($results);
+//            exit();
         } catch (Exception $ex) {
             $results = [];
         }
         return $results;
     }
     
-    private function appendFluidsAdministered($service_logs) {
+    private function appendFluidsAdministered($service_logs = [], $fluidType = '') {
         foreach($service_logs as $ctr => $service_log) {
-            $results = R::getAll(
-                    "SELECT '" . $service_log['id'] . "' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid
+            $sql = (!empty($fluidType) ? "SELECT * FROM (" : "") . "SELECT '" . $service_log['id'] . "' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid
                     FROM (
                         SELECT ft.fluid_type ftentries
                         FROM fluidentry fe
                         LEFT JOIN fluidtype ft ON ft.id = fe.type
-                        WHERE fe.servicelog_id = " . $service_log['id'] . " 
-                    ) temp");
+                        WHERE fe.servicelog_id = " . $service_log['id'] . " ) temp" .
+                   (!empty($fluidType) ? ") temp2 WHERE typeoffluid LIKE '%" . $fluidType . "%'" : "");
             
-            $service_logs[$ctr]['typeoffluid'] = $results[0]['typeoffluid'];
+            // phpMyAdmin
+            //SELECT * FROM (SELECT '50' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid FROM ( SELECT ft.fluid_type ftentries FROM fluidentry fe LEFT JOIN fluidtype ft ON ft.id = fe.type WHERE fe.servicelog_id = 50 ) temp) temp2 WHERE typeoffluid LIKE '%Die%'
+            
+            //SELECT * FROM (SELECT '50' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid FROM ( SELECT ft.fluid_type ftentries FROM fluidentry fe LEFT JOIN fluidtype ft ON ft.id = fe.type WHERE fe.servicelog_id = 50 ) temp) temp2) WHERE typeoffluid LIKE '%Diesel - Off Highway%'
+            
+//            die($sql);
+            $results = R::getAll($sql);
+            
+            $service_logs[$ctr]['typeoffluid'] = (!empty($results) ? $results[0]['typeoffluid'] : []);
         }
+        
+//        echo '<pre>';
+//        var_dump($service_logs);
+//        exit();
         
         return $service_logs;
     }
