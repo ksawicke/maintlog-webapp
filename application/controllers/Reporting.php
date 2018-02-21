@@ -25,7 +25,7 @@ class Reporting extends MY_Controller {
     /**
      * Initialize a screen report
      * 
-     * @return type
+     * @return array
      */
     protected function initScreenReport() {
         $data = [
@@ -47,10 +47,10 @@ class Reporting extends MY_Controller {
     /**
      * Output a screen report
      * 
-     * @param type $report_type
-     * @param type $data
+     * @param string $report_type
+     * @param array $data
      */
-    protected function outputScreenReport($report_type, $data = []) {        
+    protected function outputScreenReport($report_type = '', $data = []) {        
         $data['report_type'] = $report_type;
         $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
@@ -61,7 +61,7 @@ class Reporting extends MY_Controller {
     /**
      * Initialize a spreadsheet report
      * 
-     * @return type
+     * @return null
      */
     protected function initSpreadsheetReport() {
         $helper = new Sample();
@@ -72,6 +72,12 @@ class Reporting extends MY_Controller {
         }
     }
     
+    /**
+     * Create Spreadsheet filename with report type and date/time
+     * 
+     * @param string $report_type
+     * @return string
+     */
     protected function createSpreadsheetFilename($report_type) {
         return $report_type . "_" . date('m-d-Y_His') . '.xlsx';
     }
@@ -79,7 +85,7 @@ class Reporting extends MY_Controller {
     /**
      * Output a spreadsheet report
      * 
-     * @param type $spreadsheet
+     * @param object $spreadsheet
      */
     protected function outputSpreadsheetReport($spreadsheet, $report_type) {
         $filename = $this->createSpreadsheetFilename($report_type);
@@ -104,10 +110,10 @@ class Reporting extends MY_Controller {
     
     /**
      * Output an AJAX report
-     * @param type $data
-     * @return type
+     * @param array $data
+     * @return object
      */
-    protected function outputAjaxReport($data) {
+    protected function outputAjaxReport($data = []) {
         return $this->output
                     ->set_content_type('application/json')
                     ->set_status_header(200)
@@ -117,7 +123,7 @@ class Reporting extends MY_Controller {
     /**
      * Get Service Logs data
      * 
-     * @return type
+     * @return array
      */
     protected function getServiceLogsData() {
         $this->load->model('Report_model');
@@ -137,8 +143,8 @@ class Reporting extends MY_Controller {
     /**
      * Get Edit Service Log data
      * 
-     * @param type $id
-     * @return type
+     * @param integer $id
+     * @return array
      */
     protected function getEditServiceLogEditData($id = 0) {
         $this->load->model('User_model');
@@ -166,8 +172,8 @@ class Reporting extends MY_Controller {
     /**
      * Get Service Log detail
      * 
-     * @param type $id
-     * @return type
+     * @param integer $id
+     * @return array
      */
     protected function getServiceLogDetailData($id = 0) {
         $this->load->model('Report_model');
@@ -179,7 +185,7 @@ class Reporting extends MY_Controller {
     
     /**
      * Get PM Service Reminders data
-     * @return type
+     * @return array
      */
     protected function getPMServiceRemindersData() {
         $this->load->model('Report_model');
@@ -192,7 +198,7 @@ class Reporting extends MY_Controller {
     /**
      * Get Maintenance Log Reminders Data
      * 
-     * @return type
+     * @return array
      */
     protected function getMaintenanceLogRemindersData() {
         $this->load->model('Report_model');
@@ -203,12 +209,25 @@ class Reporting extends MY_Controller {
     }
     
     /**
+     * Get Maintenance Log Reminders Data
+     * 
+     * @return string
+     */
+    protected function getEquipmentListData() {
+        $this->load->model('Report_model');
+        
+        $data['equipment_list'] = $this->Report_model->getEquipmentList();
+        
+        return $data;
+    }
+    
+    /**
      * Get spreadsheet report data
      * 
-     * @param type $report_type
-     * @param type $data
-     * @param type $id
-     * @return type
+     * @param string $report_type
+     * @param array $data
+     * @param integer $id
+     * @return array
      */
     protected function getSpreadsheetReportData($report_type = 'maintenance_log_reminders', $data = [], $id) {
         $spreadsheetReportData = [
@@ -236,9 +255,38 @@ class Reporting extends MY_Controller {
             case 'pmservice_reminders':
                 $spreadsheetReportData['cellData'] = $this->getPMServiceRemindersCellData($data);
                 break;
+            
+            case 'equipment_list':
+                $spreadsheetReportData['cellData'] = $this->getEquipmentListCellData($data);
+                break;
         }
         
         return $spreadsheetReportData;
+    }
+    
+    /**
+     * Get Equipment List Cell data
+     * 
+     * @param array $data
+     * @return array
+     */
+    protected function getEquipmentListCellData($data) {
+        $cellData = [
+            'A1' => 'Manufacturer Name',
+            'B1' => 'Model Name',
+            'C1' => 'Unit Number'
+        ];
+        
+        $row = 2;
+        foreach($data['equipment_list'] as $ctr => $e) {
+            $cellData['A'.$row] = $e['manufacturer_name'];
+            $cellData['B'.$row] = $e['model_number'];
+            $cellData['C'.$row] = $e['unit_number'];
+            
+            $row++;
+        }
+        
+        return $cellData;
     }
     
     /**
@@ -346,7 +394,7 @@ class Reporting extends MY_Controller {
     /**
      * Get PM Service Reminders Cell Data
      * 
-     * @param type $data
+     * @param array $data
      * @return string
      */
     protected function getPMServiceRemindersCellData($data) {
@@ -389,7 +437,7 @@ class Reporting extends MY_Controller {
      * Build spreadsheet
      * 
      * @param type $data
-     * @return Spreadsheet
+     * @return object
      */
     protected function buildSpreadsheet($data) {
         // Create new Spreadsheet object
@@ -447,6 +495,10 @@ class Reporting extends MY_Controller {
             case 'maintenance_log_reminders':                
                 $data = $this->getMaintenanceLogRemindersData();
                 break;
+            
+            case 'equipment_list':
+                $data = $this->getEquipmentListData();
+                break;
         }
 
         $data = array_merge($data, $datatmp);
@@ -457,9 +509,9 @@ class Reporting extends MY_Controller {
     /**
      * Output report
      * 
-     * @param type $method
-     * @param type $report_type
-     * @param type $id
+     * @param string $method
+     * @param string $report_type
+     * @param integer $id
      */
     public function output($method = 'screen', $report_type = 'maintenance_log_reminders', $id = 0) {        
         if($method=='screen' || $method=='ajax') {
@@ -469,11 +521,6 @@ class Reporting extends MY_Controller {
             $datatmp = [];
             $this->initSpreadsheetReport();
             $data = $this->getReportData($report_type, $datatmp, $id);
-            
-//            echo '<pre>';
-//            var_dump($data);
-//            echo '</pre>';
-//            exit();
             
             $data = $this->getSpreadsheetReportData($report_type, $data, $id);
             

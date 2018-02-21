@@ -9,3 +9,7 @@
 <a href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>">
     <button type="button" class="btn btn-<?php echo ($report_type=='pmservice_reminders' ? 'primary' : 'default'); ?>">PM Service Reminders</button>
 </a>
+
+<a href="<?php echo base_url('index.php/reporting/output/screen/equipment_list'); ?>">
+    <button type="button" class="btn btn-<?php echo ($report_type=='equipment_list' ? 'primary' : 'default'); ?>">Equipment List</button>
+</a>

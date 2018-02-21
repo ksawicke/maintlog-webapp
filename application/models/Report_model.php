@@ -533,5 +533,18 @@ class Report_model extends CI_Model {
         
         return $pmservicereminders;
     }
+    
+    public function getEquipmentList() {
+        $sql = "SELECT
+            man.manufacturer_name, em.model_number, eu.unit_number
+            FROM equipmentunit eu
+            LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
+	    LEFT JOIN manufacturer man on man.id = em.manufacturer_id
+            ORDER BY manufacturer_name, model_number, unit_number";
+        
+        $equipment_list = R::getAll($sql);
+        
+        return $equipment_list;
+    }
 
 }
