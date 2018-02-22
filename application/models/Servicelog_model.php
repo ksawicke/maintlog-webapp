@@ -37,6 +37,7 @@ class Servicelog_model extends CI_Model {
             case 'sus':
                 $smrupdate = R::dispense('smrupdate');
                 $smrupdate->servicelog_id = $servicelog_id;
+                $smrupdate->previous_smr = $post['sus_previous_smr'];
                 $smrupdate->smr = $post['sus_current_smr'];
                 R::store($smrupdate);
                 break;
@@ -55,6 +56,7 @@ class Servicelog_model extends CI_Model {
                 
                 $fluidentrysmrupdate = R::dispense('fluidentrysmrupdate');
                 $fluidentrysmrupdate->servicelog_id = $servicelog_id;
+                $fluidentrysmrupdate->previous_smr = $post['flu_previous_smr'];
                 $fluidentrysmrupdate->smr = $post['flu_current_smr'];
                 R::store($fluidentrysmrupdate);
                 break;
@@ -64,6 +66,7 @@ class Servicelog_model extends CI_Model {
                 $pmservice->servicelog_id = $servicelog_id;
                 $pmservice->pm_type = $post['pss_pm_type'];
                 $pmservice->pm_level = $post['pss_smr_based_pm_level'];
+                $pmservice->previous_smr = $post['pss_smr_based_previous_smr'];
                 $pmservice->current_smr = $post['pss_smr_based_current_smr'];
                 $pmservice->due_units = $post['pss_due_units'];
                 $pmservice->notes = $post['pss_notes'];
