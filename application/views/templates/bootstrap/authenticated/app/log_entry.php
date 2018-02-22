@@ -1836,6 +1836,7 @@ $maxNotes = 5;
                     });
                 }
 
+                objectPush(json, $("label[for = flu_previous_smr]").text(), "flu_previous_smr", false);
                 objectPush(json, $("label[for = flu_units]").text(), "flu_units", false);
                 break;
 
@@ -1844,6 +1845,7 @@ $maxNotes = 5;
                 
                 objectPush(json, "PM Type", "pss_pm_type", true);
                 objectPush(json, "PM Level", "pss_smr_based_pm_level", true);
+                objectPush(json, "Previous SMR", "pss_smr_based_previous_smr", false);
                 objectPush(json, "Current SMR", "pss_smr_based_current_smr", false);
                 objectPush(json, "Notes", "pss_smr_based_notes1", false);
                 
