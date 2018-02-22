@@ -282,6 +282,14 @@ $maxNotes = 5;
         </select>
         <p class="form-error pss_smr_based_pm_level_errors"></p>
         
+        <label for="pss_smr_based_previous_smr" class="control-label lb-lg">Previous SMR</label>
+        <input 
+               id="pss_smr_based_previous_smr"
+               name="pss_smr_based_previous_smr"
+               type="text"
+               class="form-control input-lg"
+               disabled>
+        
         <label for="pss_smr_based_current_smr" class="control-label lb-lg pss_smr_based">Current SMR</label>
         <input
                id="pss_smr_based_current_smr"
@@ -774,6 +782,7 @@ $maxNotes = 5;
             }).done(function(object) {
                 $("#sus_previous_smr").val(object.last_smr);
                 $("#flu_previous_smr").val(object.last_smr);
+                $("#pss_smr_based_previous_smr").val(object.last_smr);
             });
         }
         
