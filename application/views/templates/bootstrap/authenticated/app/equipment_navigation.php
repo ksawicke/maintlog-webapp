@@ -1,17 +1,17 @@
 <a href="<?php echo base_url('index.php/app/equipmentTypes/index'); ?>">
-    <button type="button" class="btn btn-<?php echo ($navigation_highlight=='equipmentTypes' ? 'primary' : 'default'); ?>">Manage Equipment Types</button>
+    <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='equipmentTypes' ? 'active' : ''); ?>">Manage Equipment Types</button>
 </a>
 
 <a href="<?php echo base_url('index.php/app/manufacturers/index'); ?>">
-    <button type="button" class="btn btn-<?php echo ($navigation_highlight=='manufacturers' ? 'primary' : 'default'); ?>">Manage Equipment Manufacturers</button>
+    <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='manufacturers' ? 'active' : ''); ?>">Manage Equipment Manufacturers</button>
 </a>
 
 <a href="<?php echo base_url('index.php/app/equipmentmodel/index'); ?>">
-    <button type="button" class="btn btn-<?php echo ($navigation_highlight=='equipmentmodel' ? 'primary' : 'default'); ?>">Manage Equipment Model Names</button>
+    <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='equipmentmodel' ? 'active' : ''); ?>">Manage Equipment Model Names</button>
 </a>
 
 <a href="<?php echo base_url('index.php/app/equipmentunit/index'); ?>">
-    <button type="button" class="btn btn-<?php echo ($navigation_highlight=='equipmentunit' ? 'primary' : 'default'); ?>">Manage Equipment Units</button>
+    <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='equipmentunit' ? 'active' : ''); ?>">Manage Equipment Units</button>
 </a>
 
 <br /><br />
