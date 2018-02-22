@@ -4,9 +4,9 @@
 
 <a id="downloadReportServiceLogs"
     href="<?php echo base_url('index.php/reporting/output/spreadsheet/service_logs'); ?>"
-    class="buttonLink">
+    class="buttonLink nounderline">
     
-    <button type="button" class="btn btn-default"><img
+    <button type="button" class="btn btn-maintlog-default"><img
     class="excelIconMargin"
     src="<?php echo base_url('/assets/templates/komatsuna/img/excel_logo_24x24.png'); ?>">&nbsp;&nbsp;Download
         Report in Excel</button>

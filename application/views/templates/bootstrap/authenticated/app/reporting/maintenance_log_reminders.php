@@ -4,9 +4,9 @@
 
 <a id="downloadReportMaintenanceLogReminders"
     href="<?php echo base_url('index.php/reporting/output/spreadsheet/maintenance_log_reminders'); ?>"
-    class="buttonLink">
+    class="buttonLink nounderline">
     
-    <button type="button" class="btn btn-default"><img
+    <button type="button" class="btn btn-maintlog-default"><img
     class="excelIconMargin"
     src="<?php echo base_url('/assets/templates/komatsuna/img/excel_logo_24x24.png'); ?>">&nbsp;&nbsp;Download
         Report in Excel</button>
@@ -14,8 +14,6 @@
 </a>
 
 <br /><br />
-
-<a id="clickMe">Click Me!</a>
 
 <table id="maintenanceLogRemindersReport" class="table table-bordered table-striped">
     <thead>
