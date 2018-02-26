@@ -11,7 +11,9 @@
 
         <title>Komatsu NA Maintenance Log</title>
 
-        <link rel="stylesheet" href="assets/jstree/themes/default/style.min.css" />
+        <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>        
+        <link rel="stylesheet" href="assets/jstree/themes/default/style.css" />
+        <link rel="stylesheet" href="assets/jstree/themes/default/komatsu_custom.css" />
 
         <script src="assets/templates/komatsuna/js/jquery.min.js"></script>
         <script src="assets/jstree/jstree.min.js"></script>
