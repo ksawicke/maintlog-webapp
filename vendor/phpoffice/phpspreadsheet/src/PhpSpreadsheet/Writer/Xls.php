@@ -630,7 +630,7 @@ class Xls extends BaseWriter
         ++$dataSection_NumProps;
 
         // GKPIDDSI_DOCSPARTS
-        // MS-OSHARED p75 (2.3.3.2.2.1)
+        // MS-OSHARED p75 (2.3.3.2.2.1.1)
         // Structure is VtVecUnalignedLpstrValue (2.3.3.1.9)
         // cElements
         $dataProp = pack('v', 0x0001);

@@ -1243,7 +1243,7 @@ class PHPUnit_Framework_MockObject_Generator
      *
      * @return bool
      *
-     * @since  Method available since Release 2.2.1
+     * @since  Method available since Release 2.2.1.1
      */
     private function isVariadic(ReflectionParameter $parameter)
     {
