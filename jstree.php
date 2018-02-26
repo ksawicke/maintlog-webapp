@@ -48,6 +48,8 @@
 
                 /** DIRECT DATA **/
                 $('#jstree_demo_div').jstree({'core': {
+                        "animation" : 0,
+                        "check_callback" : true,
                         'themes': [
                             {
                                 'dots': false,
@@ -131,7 +133,12 @@
                                 ]
                             }
                         ]
-                    }});
+                    },
+                    "plugins" : [
+                      "contextmenu", "dnd", "search",
+                      "state", "types", "wholerow"
+                    ]
+                });
                 
                 /** FUNCTION **/
                 // function
