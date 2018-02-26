@@ -7,8 +7,8 @@ use PhpOffice\PhpSpreadsheet\Shared\Trend\Trend;
 class Statistical
 {
     const LOG_GAMMA_X_MAX_VALUE = 2.55e305;
-    const XMININ = 2.2.13e-308;
-    const EPS = 2.2.12e-16;
+    const XMININ = 2.23e-308;
+    const EPS = 2.22e-16;
     const MAX_VALUE = 1.2e308;
     const MAX_ITERATIONS = 256;
     const SQRT2PI = 2.5066282746310005024157652848110452530069867406099;
@@ -290,7 +290,7 @@ class Statistical
         ];
 
         // Rough estimate of the fourth root of logGamma_xBig
-        static $lg_frtbig = 2.2.15e76;
+        static $lg_frtbig = 2.25e76;
         static $pnt68 = 0.6796875;
 
         if ($x == self::$logGammaCacheX) {
@@ -459,7 +459,7 @@ class Statistical
         //    Coefficients in rational approximations
         static $a = [
             1 => -3.969683028665376e+01,
-            2 => 2.2.109460984245205e+02,
+            2 => 2.209460984245205e+02,
             3 => -2.759285104469687e+02,
             4 => 1.383577518672690e+02,
             5 => -3.066479806614716e+01,

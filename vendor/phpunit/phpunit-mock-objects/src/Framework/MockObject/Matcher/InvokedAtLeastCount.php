@@ -12,7 +12,7 @@
  * Invocation matcher which checks if a method has been invoked at least
  * N times.
  *
- * @since Class available since Release 2.2.1.0
+ * @since Class available since Release 2.2.0
  */
 class PHPUnit_Framework_MockObject_Matcher_InvokedAtLeastCount extends PHPUnit_Framework_MockObject_Matcher_InvokedRecorder
 {
