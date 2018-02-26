@@ -35,7 +35,26 @@
 
                 console.log("YEEEEEE HAWWWW");
 
+                /** AJAX **/
+//                $('#tree').jstree({
+//                    'core' : {
+//                        'data' : {
+//                        'url' : '/get/children/',
+//                                'data' : function (node) {
+//                                return { 'id' : node.id };
+//                                }
+//                    }
+//                });
+
+                /** DIRECT DATA **/
                 $('#jstree_demo_div').jstree({'core': {
+                        'themes': [
+                            {
+                                'dots': false,
+                                'icons': false,
+                                'responsive': true
+                            }
+                        ],
                         'data': [
                             {
                                 'text': 'Pre-Start',
@@ -113,6 +132,15 @@
                             }
                         ]
                     }});
+                
+                /** FUNCTION **/
+                // function
+//                $('#tree').jstree({
+//                    'core' : {
+//                        'data' : function (obj, callback) {
+//                            callback.call(this, ['Root 1', 'Root 2']);
+//                        }
+//                    });
 
                 $('#jstree_demo_div').on("changed.jstree", function (e, data) {
                     console.log(data.selected);

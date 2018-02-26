@@ -15,4 +15,11 @@ html {
     font-size: 15px;
     margin: 0px;
     color: #22252A;
+    padding: 0px 10px;
+}
+
+.jstree-default .jstree-clicked, .jstree-hovered {
+    background: orange !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
 }
