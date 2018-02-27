@@ -48,8 +48,8 @@
 
                 /** DIRECT DATA **/
                 $('#jstree_demo_div').jstree({'core': {
-                        "animation" : 0,
-                        "check_callback" : true,
+                        "animation": 0,
+                        "check_callback": true,
                         'themes': [
                             {
                                 'dots': false,
@@ -154,12 +154,12 @@
                             }
                         ]
                     },
-                    "plugins" : [
-                      "contextmenu", "dnd", "search",
-                      "state", "types", "wholerow"
+                    "plugins": [
+                        "contextmenu", "dnd", "search",
+                        "state", "types", "wholerow"
                     ]
                 });
-                
+
                 /** FUNCTION **/
                 // function
 //                $('#tree').jstree({
@@ -174,15 +174,15 @@
 //                    console.log(data.selected);
 ////                    blah();
 //                });
-                
+
                 $('#jstree_demo_div').on("move_node.jstree", function (data) {
                     consoleTreeJson();
                 });
-                
+
                 function consoleTreeJson() {
-                    var v = $('#jstree_demo_div').jstree(true).get_json('#', {flat:true})
+                    var v = $('#jstree_demo_div').jstree(true).get_json('#', {flat: true})
 //                    var mytext = JSON.stringify(v);
-                    
+
                     console.log(v);
 //                    console.log(mytext);
                 }
