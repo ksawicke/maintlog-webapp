@@ -762,7 +762,24 @@ class App extends MY_Controller {
     }
     
     public function addChecklistCategory($checklistCategoryId = null) {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Checklistcategory_model');
         
+        $checklistcategory = (!is_null($checklistCategoryId) ? $this->Checklistcategory_model->findOne($checklistCategoryId) : []);
+        $data['checklistcategory_id'] = (!is_null($checklistCategoryId) ? $checklistCategoryId : 0);
+        $data['checklistcategory_category'] = (!is_null($checklistCategoryId) ? $checklistcategory->category : '');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistCategories/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
     }
     
     public function checklistItems() {
