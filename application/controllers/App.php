@@ -803,7 +803,24 @@ class App extends MY_Controller {
     }
     
     public function addChecklistItem($checklistItemId = null) {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Checklistitem_model');
         
+        $checklistcategory = (!is_null($checklistItemId) ? $this->Checklistitem_model->findOne($checklistItemId) : []);
+        $data['checklistitem_id'] = (!is_null($checklistItemId) ? $checklistItemId : 0);
+        $data['checklistitem_item'] = (!is_null($checklistItemId) ? $checklistcategory->item : '');
+        
+        $data['flashdata'] = $this->session->flashdata();
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/add', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
     }
     
     /**
