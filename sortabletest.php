@@ -11,8 +11,7 @@
 
         <title>Komatsu NA Maintenance Log</title>
 
-        <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>        
-        <link rel="stylesheet" href="assets/jstree/themes/default/style.css" />
+        <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="assets/jstree/themes/default/komatsu_custom.css" />
 
@@ -41,6 +40,12 @@
                 font-size: 1.2em;
                 width: 120px;
             }
+            
+            .whatMatters .ui-state-highlight, .whatMatters .ui-widget-content .ui-state-highlight, .whatMatters .ui-widget-header .ui-state-highlight {
+                border: 1px solid #dad55e;
+                background: orange !important;
+                color: #777620;
+            }
         </style>
 
         <script src="assets/templates/komatsuna/js/jquery.min.js"></script>
@@ -54,19 +59,9 @@
             <div id="demo">
 
                 <ul id="sortable1" class="whatMatters connectedSortable">
-                    <li class="ui-state-default" id="1">Item 1</li>
-                    <li class="ui-state-default" id="2">Item 2</li>
-                    <li class="ui-state-default" id="3">Item 3</li>
-                    <li class="ui-state-default" id="4">Item 4</li>
-                    <li class="ui-state-default" id="5">Item 5</li>
                 </ul>
 
                 <ul id="sortable2" class="connectedSortable">
-                    <li class="ui-state-highlight" id="asdf">Item 1</li>
-                    <li class="ui-state-highlight" id="asdfasd">Item 2</li>
-                    <li class="ui-state-highlight" id="x3125">Item 3</li>
-                    <li class="ui-state-highlight" id="asdfsadf">Item 4</li>
-                    <li class="ui-state-highlight" id="141412414">Item 5</li>
                 </ul>
 
             </div>
@@ -95,6 +90,14 @@
                         console.log(sortedIds);
                     }
                 }).disableSelection();
+                
+                function loadEmUp() {
+                    for(i=1; i <= 10; i++) {
+                        $("#sortable2").append('<li class="ui-state-highlight" id="' + i + '">Item ' + i + '</li>');
+                    }
+                }
+                
+                loadEmUp();
 
             });
 
