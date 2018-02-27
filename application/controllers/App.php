@@ -741,6 +741,50 @@ class App extends MY_Controller {
         $this->template->load('authenticated_default', null, $data);
     }
     
+    public function checklistCategories() {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Checklistcategory_model');
+        
+        $data['checklistcategories'] = $this->Checklistcategory_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistcategories/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addChecklistCategory($checklistCategoryId = null) {
+        
+    }
+    
+    public function checklistItems() {
+        $data = [
+            'applicationName' => 'Komatsu NA Maintenance Log',
+            'title' => 'Komatsu NA Maintenance Log',
+            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
+        ];
+
+        $this->load->library('template');
+        $this->load->model('Checklistitem_model');
+        
+        $data['checklistitems'] = $this->Checklistitem_model->findAll();
+        $data['flashdata'] = $this->session->flashdata();
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistitems/index', $data, true);
+                
+        $this->template->load('authenticated_default', null, $data);
+    }
+    
+    public function addChecklistItem($checklistItemId = null) {
+        
+    }
+    
     /**
      * View reporting screen
      * 
