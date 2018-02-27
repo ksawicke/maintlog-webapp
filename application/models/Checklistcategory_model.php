@@ -30,14 +30,29 @@ class Checklistcategory_model extends CI_Model {
      * @return array
      */
     public function findAll() {
-        return [];
+        $checklistcategories = R::findAll('checklistcategory', ' ORDER BY category ASC');
+        
+        return $checklistcategories;
     }
     
     /**
      * Creates or modifies a checklist category object.
      */
-    public function store($post) {        
-        //
+    public function store($post) {
+        $now = date('Y-m-d h:i:s');
+
+        $checklistcategory = ($post['checklistcategory_id']==0 ? R::dispense('checklistcategory') : R::load('checklistcategory', $post['checklistcategory_id']));
+        $checklistcategory->category = $post['category'];
+
+        if($post['checklistcategory_id']==0) {
+            $checklistcategory->created = $now;
+            $checklistcategory->created_by = $_SESSION['user_id'];
+        } else {
+            $checklistcategory->modified = $now;
+            $checklistcategory->modified_by = $_SESSION['user_id'];
+        }
+
+        R::store($checklistcategory);
     }
     
     /**
