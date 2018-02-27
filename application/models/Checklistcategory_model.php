@@ -58,10 +58,13 @@ class Checklistcategory_model extends CI_Model {
     /**
      * Deletes a checklist category type object.
      * 
-     * @param integer $checklistitem_id
+     * @param integer $checklistcategory_id
      */
     public function delete($checklistcategory_id = null) {
-        //
+        if(!is_null($checklistcategory_id)) {
+            $checklistcategory = R::load('checklistcategory', $checklistcategory_id);
+            R::trash($checklistcategory);
+        }
     }
 
 }
