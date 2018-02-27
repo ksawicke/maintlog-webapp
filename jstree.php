@@ -33,7 +33,7 @@
 
             $(function () {
 
-                console.log("YEEEEEE HAWWWW");
+//                console.log("YEEEEEE HAWWWW");
 
                 /** AJAX **/
 //                $('#tree').jstree({
@@ -59,6 +59,7 @@
                         ],
                         'data': [
                             {
+                                'id': 'A',
                                 'text': 'Pre-Start',
                                 'state': {
                                     'opened': true,
@@ -66,45 +67,58 @@
                                 },
                                 'children': [
                                     {
+                                        'id': 1,
                                         'text': 'Suspension'
                                     },
                                     {
+                                        'id': 2,
                                         'text': 'Tires'
                                     },
                                     {
+                                        'id': 3,
                                         'text': 'Horn/Alarm/Lights'
                                     },
                                     {
+                                        'id': 4,
                                         'text': 'Leak Evidence'
                                     },
                                     {
+                                        'id': 5,
                                         'text': 'Seat Belt'
                                     },
                                     {
+                                        'id': 6,
                                         'text': 'Mirrors'
                                     },
                                     {
+                                        'id': 7,
                                         'text': 'Fire Extinguishers'
                                     },
                                     {
+                                        'id': 8,
                                         'text': 'Windows/Wipers'
                                     },
                                     {
+                                        'id': 9,
                                         'text': 'Test Instruments'
                                     },
                                     {
+                                        'id': 10,
                                         'text': 'Doors & Latches'
                                     },
                                     {
+                                        'id': 11,
                                         'text': 'First Aid Kit'
                                     },
                                     {
+                                        'id': 12,
                                         'text': 'Visibility Flag Whip'
                                     }
 
                                 ]
                             },
                             {
+                                'id': 'B',
                                 'text': 'Post-Start',
                                 'state': {
                                     'opened': true,
@@ -112,21 +126,27 @@
                                 },
                                 'children': [
                                     {
+                                        'id': 1,
                                         'text': 'Steering'
                                     },
                                     {
+                                        'id': 2,
                                         'text': 'Brakes'
                                     },
                                     {
+                                        'id': 3,
                                         'text': 'Seat Controls'
                                     },
                                     {
+                                        'id': 4,
                                         'text': 'Air Conditioner'
                                     },
                                     {
+                                        'id': 5,
                                         'text': 'Dash Controls'
                                     },
                                     {
+                                        'id': 6,
                                         'text': 'Displays/Gauges'
                                     }
 
@@ -149,9 +169,23 @@
 //                        }
 //                    });
 
-                $('#jstree_demo_div').on("changed.jstree", function (e, data) {
-                    console.log(data.selected);
+//                $('#jstree_demo_div').on("changed.jstree", function (e, data) {
+////                    console.log(e);
+//                    console.log(data.selected);
+////                    blah();
+//                });
+                
+                $('#jstree_demo_div').on("move_node.jstree", function (data) {
+                    consoleTreeJson();
                 });
+                
+                function consoleTreeJson() {
+                    var v = $('#jstree_demo_div').jstree(true).get_json('#', {flat:true})
+//                    var mytext = JSON.stringify(v);
+                    
+                    console.log(v);
+//                    console.log(mytext);
+                }
 
                 /**
                  * The three examples below do exactly the same thing
