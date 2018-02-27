@@ -26,6 +26,13 @@
     <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='addReminderRecipient' ? 'active' : ''); ?>">Manage Reminder Recipients</button>
 </a>
 
+<a href="<?php echo base_url('index.php/app/checklistCategories'); ?>" class="nounderline">
+    <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='checklistCategories' ? 'active' : ''); ?>">Manage Checklist Categories</button>
+</a>
+
+<a href="<?php echo base_url('index.php/app/checklistItems'); ?>" class="nounderline">
+    <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='checklistItems' ? 'active' : ''); ?>">Manage Checklist Items</button>
+</a>
 
 
 <br /><br />
