@@ -2,7 +2,7 @@
 
 <a href="<?php echo base_url('index.php/app/addChecklistCategory'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Checklist Category</button></a><br /><br />
 
-<table id="componentList" class="table table-bordered table-striped">
+<table id="checklistCategoryList" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Category Name</th>

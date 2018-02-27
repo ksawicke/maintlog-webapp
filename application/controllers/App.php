@@ -754,6 +754,8 @@ class App extends MY_Controller {
         
         $data['checklistcategories'] = $this->Checklistcategory_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
+        $data['navigation_highlight'] = 'checklistCategories';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistCategories/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
@@ -776,6 +778,8 @@ class App extends MY_Controller {
         
         $data['checklistitems'] = $this->Checklistitem_model->findAll();
         $data['flashdata'] = $this->session->flashdata();
+        $data['navigation_highlight'] = 'checklistItems';
+        $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/index', $data, true);
                 
         $this->template->load('authenticated_default', null, $data);
