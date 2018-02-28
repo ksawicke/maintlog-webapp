@@ -21,12 +21,22 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-3 col-md-3 col-lg-3">
-			<ul id="sortable1" class="whatMatters connectedSortable">
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			<br />
+			<strong>Pre-Start</strong>
+			<ul id="preStartSortableItemList" class="preStart connectedSortable">
 			</ul>
 		</div>
-		<div class="col-sm-3 col-sm-3 col-lg-3">
-			<ul id="sortable2" class="connectedSortable">
+		<div class="col-sm-4 col-sm-4 col-lg-4">
+			<br />
+			<strong>Available Items</strong>
+			<ul id="availableItemSortableItemList" class="connectedSortable">
+			</ul>
+		</div>
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			<br />
+			<strong>Post-Start</strong>
+			<ul id="postStartSortableItemList" class="postStart connectedSortable">
 			</ul>
 		</div>
 	</div>
@@ -41,24 +51,30 @@
 
 	$(function () {
 
-		$("#sortable1, #sortable2").sortable({
+		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").sortable({
 			connectWith: ".connectedSortable",
-			change: function( event, ui ) {
+			update: function( event, ui ) {
 				console.log("Something changed...");
 				console.log(event);
 				console.log(ui);
 
-				var sorted = $( ".whatMatters" ).sortable( "serialize", { key: "sort" } );
-				var sortedIds = $( ".whatMatters" ).sortable( "toArray" );
+				var sorted = $( ".preStart" ).sortable( "serialize", { key: "sort" } );
+				var sortedIds = $( ".preStart" ).sortable( "toArray" );
+
+				var sorted2 = $( ".postStart" ).sortable( "serialize", { key: "sort" } );
+				var sortedIds2 = $( ".postStart" ).sortable( "toArray" );
 
 				console.log(sorted);
 				console.log(sortedIds);
+
+				console.log(sorted2);
+				console.log(sortedIds2);
 			}
 		}).disableSelection();
 
 		function loadEmUp() {
 			for(i=1; i <= 10; i++) {
-				$("#sortable2").append('<li class="ui-state-highlight" id="' + i + '">Item ' + i + '</li>');
+				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + i + '">Item ' + i + '</li>');
 			}
 		}
 

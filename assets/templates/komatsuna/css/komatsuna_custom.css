@@ -268,7 +268,7 @@ table {
 	background-position: top;
 }
 
-#sortable1, #sortable2 {
+#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList {
 	border: 1px solid #eee !important;
 	width: 100% !important;
 	min-height: 20px !important;
@@ -278,14 +278,15 @@ table {
 	float: left !important;
 	margin-right: 10px !important;
 }
-#sortable1 li, #sortable2 li {
+#preStartSortableItemList li, #availableItemSortableItemList li, #postStartSortableItemList li {
 	margin: 10px 12px 10px 12px !important;
 	/*padding: 5px !important;*/
 	font-size: 1.2em !important;
 	/*width: 100% !important;*/
 }
 
-.whatMatters .ui-state-highlight, .whatMatters .ui-widget-content .ui-state-highlight, .whatMatters .ui-widget-header .ui-state-highlight {
+.preStart .ui-state-highlight, .preStart .ui-widget-content .ui-state-highlight, .preStart .ui-widget-header .ui-state-highlight,
+.postStart .ui-state-highlight, .postStart .ui-widget-content .ui-state-highlight, .postStart .ui-widget-header .ui-state-highlight {
 	border: 1px solid #dad55e !important;
 	background: orange !important;
 	color: #777620 !important;
