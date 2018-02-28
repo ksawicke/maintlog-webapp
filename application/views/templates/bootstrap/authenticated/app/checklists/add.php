@@ -53,6 +53,7 @@
 	</div>
 
 	<input type="hidden" id="checklist_id" name="checklist_id" value="<?php echo $checklist_id; ?>">
+	<input type="hidden" id="checklist_json" name="checklist_json" value="<?php echo $checklist_json; ?>">
 
 	<button id="btnSubmit" type="submit" class="btn btn-lg btn-primary" disabled>Submit</button>
 
@@ -65,21 +66,28 @@
 		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").sortable({
 			connectWith: ".connectedSortable",
 			update: function( event, ui ) {
-				console.log("Something changed...");
-				console.log(event);
-				console.log(ui);
+				// console.log("Something changed...");
+				// console.log(event);
+				// console.log(ui);
 
-				var sorted = $( ".preStart" ).sortable( "serialize", { key: "sort" } );
-				var sortedIds = $( ".preStart" ).sortable( "toArray" );
+				// var sorted = $( ".preStart" ).sortable( "serialize", { key: "sort" } );
+				// var sortedIds = $( ".preStart" ).sortable( "toArray" );
+                //
+				// var sorted2 = $( ".postStart" ).sortable( "serialize", { key: "sort" } );
+				// var sortedIds2 = $( ".postStart" ).sortable( "toArray" );
 
-				var sorted2 = $( ".postStart" ).sortable( "serialize", { key: "sort" } );
-				var sortedIds2 = $( ".postStart" ).sortable( "toArray" );
+				// console.log(sorted);
+				// console.log(sortedIds);
+                //
+				// console.log(sorted2);
+				// console.log(sortedIds2);
 
-				console.log(sorted);
-				console.log(sortedIds);
+				var preStartData = $(".preStart").sortable( "toArray" );
+				var postStartData = $(".postStart").sortable( "toArray" );
+				var checklist_json = JSON.stringify({preStartData: preStartData, postStartData: postStartData});
 
-				console.log(sorted2);
-				console.log(sortedIds2);
+				$("#checklist_json").val(checklist_json);
+				console.log($("#checklist_json").val());
 			}
 		}).disableSelection();
 
