@@ -20,6 +20,17 @@
 		</select>
 	</div>
 
+	<br />
+
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class="alert alert-info">
+				<h4><i class="icon fa fa-info-circle"></i> Note:</h4>
+				Click and drag items in the order you need under Pre-Start and Post-Start
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-sm-4 col-md-4 col-lg-4">
 			<br />
