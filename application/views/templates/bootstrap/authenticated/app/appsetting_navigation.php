@@ -34,5 +34,8 @@
     <button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='checklistItems' ? 'active' : ''); ?>">Manage Checklist Items</button>
 </a>
 
+<a href="<?php echo base_url('index.php/app/checklists'); ?>" class="nounderline">
+	<button type="button" class="btn btn-primary <?php echo ($navigation_highlight=='checklists' ? 'active' : ''); ?>">Manage Checklists</button>
+</a>
 
 <br /><br />

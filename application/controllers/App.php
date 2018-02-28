@@ -740,6 +740,50 @@ class App extends MY_Controller {
                 
         $this->template->load('authenticated_default', null, $data);
     }
+
+	public function checklists() {
+		$data = [
+			'applicationName' => 'Komatsu NA Maintenance Log',
+			'title' => 'Komatsu NA Maintenance Log',
+			'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+			'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/'
+		];
+
+		$this->load->library('template');
+		$this->load->model('Checklist_model');
+
+		$data['checklists'] = $this->Checklist_model->findAll();
+		$data['flashdata'] = $this->session->flashdata();
+		$data['navigation_highlight'] = 'checklists';
+		$data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
+		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/index', $data, true);
+
+		$this->template->load('authenticated_default', null, $data);
+	}
+
+	public function addChecklist($checklistId = null) {
+		$data = [
+			'applicationName' => 'Komatsu NA Maintenance Log',
+			'title' => 'Komatsu NA Maintenance Log',
+			'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+			'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/'
+		];
+
+		$this->load->library('template');
+		$this->load->model('Checklist_model');
+		$this->load->model('Equipmenttype_model');
+
+		$checklistcategory = (!is_null($checklistId) ? $this->Checklist_model->findOne($checklistId) : []);
+		$data['checklist_id'] = (!is_null($checklistId) ? $checklistId : 0);
+		$data['checklist_category_id'] = (!is_null($checklistId) ? $checklist->checklistcategory_id : '');
+		$data['checklist_equipmenttype_id'] = (!is_null($checklistId) ? $checklist->equipmenttype_id : '');
+		$data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+
+		$data['flashdata'] = $this->session->flashdata();
+		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/add', $data, true);
+
+		$this->template->load('authenticated_default', null, $data);
+	}
     
     public function checklistCategories() {
         $data = [

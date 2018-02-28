@@ -18,8 +18,8 @@ class Checklistitem_model extends CI_Model {
      * @param type $equipmenttype_id
      * @return array
      */
-    public function findOne($equipmenttype_id) {
-        $checklistitem = R::findOne('checklistitem', ' id = :checklistitem_id ', [':checklistitem_id' => $checklistitem]);
+    public function findOne($checklistitem_id) {
+        $checklistitem = R::findOne('checklistitem', ' id = :checklistitem_id ', [':checklistitem_id' => $checklistitem_id]);
         
         return $checklistitem;
     }

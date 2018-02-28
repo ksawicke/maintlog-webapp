@@ -257,5 +257,36 @@ fieldset[disabled] .btn-primary.active {
   background-color: #FFFFFF !important; 
 }
 
+/**
+ * Sortable
+ */
+table {
+	font-size: 1em;
+}
 
-/* /Enter Service Log */
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+
+#sortable1, #sortable2 {
+	border: 1px solid #eee !important;
+	width: 100% !important;
+	min-height: 20px !important;
+	list-style-type: none !important;
+	margin: 0 !important;
+	padding: 5px 0 0 0 !important;
+	float: left !important;
+	margin-right: 10px !important;
+}
+#sortable1 li, #sortable2 li {
+	margin: 10px 12px 10px 12px !important;
+	/*padding: 5px !important;*/
+	font-size: 1.2em !important;
+	/*width: 100% !important;*/
+}
+
+.whatMatters .ui-state-highlight, .whatMatters .ui-widget-content .ui-state-highlight, .whatMatters .ui-widget-header .ui-state-highlight {
+	border: 1px solid #dad55e !important;
+	background: orange !important;
+	color: #777620 !important;
+}
