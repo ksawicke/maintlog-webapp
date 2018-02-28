@@ -19,9 +19,9 @@ class Checklistcategory_model extends CI_Model {
      * @return array
      */
     public function findOne($checklistcategory_id) {
-        $user = R::findOne('checklistcategory', ' id = :checklistcategory_id ', [':checklistcategory_id' => $checklistcategory_id]);
+        $checklistcategory = R::findOne('checklistcategory', ' id = :checklistcategory_id ', [':checklistcategory_id' => $checklistcategory_id]);
         
-        return $user;
+        return $checklistcategory;
     }
     
     /**

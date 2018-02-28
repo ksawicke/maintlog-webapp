@@ -27,7 +27,7 @@ class Checklistitems extends MY_Controller {
     /**
      * Get checklist items
      */
-    public function getChecklistCategories() {
+    public function getChecklistItems() {
         $post = json_decode(file_get_contents('php://input'), true);
         $checklistitemmodel = [];
         

@@ -12,8 +12,8 @@
     <tbody>
         <?php foreach($checklistitems as $item) { ?>
         <tr>
-            <td><?php echo $item->name; ?></td>
-            <td><a href="<?php echo base_url('index.php/app/addChecklistItem/' . $item->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a>&nbsp;<a href="<?php echo base_url('index.php/checklistItems/delete/' . $item->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a></td>
+            <td><?php echo $item->item; ?></td>
+            <td><a href="<?php echo base_url('index.php/app/addChecklistItem/' . $item->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a>&nbsp;<a href="<?php echo base_url('index.php/checklistitems/delete/' . $item->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a></td>
         </tr>
         <?php } ?>
     </tbody>

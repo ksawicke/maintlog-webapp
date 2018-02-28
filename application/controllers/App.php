@@ -811,11 +811,12 @@ class App extends MY_Controller {
         ];
 
         $this->load->library('template');
+        $this->load->model('Checklistcategory_model');
         $this->load->model('Checklistitem_model');
         
-        $checklistcategory = (!is_null($checklistItemId) ? $this->Checklistitem_model->findOne($checklistItemId) : []);
-        $data['checklistitem_id'] = (!is_null($checklistItemId) ? $checklistItemId : 0);
-        $data['checklistitem_item'] = (!is_null($checklistItemId) ? $checklistcategory->item : '');
+        $checklistitem = (!is_null($checklistItemId) ? $this->Checklistitem_model->findOne($checklistItemId) : []);
+        $data['checklistitem_item'] = (!empty($checklistitem) ? $checklistitem->item : '');
+        $data['checklistitem_id'] = (!empty($checklistitem) ? $checklistitem->id : '');
         
         $data['flashdata'] = $this->session->flashdata();
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/add', $data, true);
