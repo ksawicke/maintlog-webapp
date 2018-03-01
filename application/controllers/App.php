@@ -777,7 +777,7 @@ class App extends MY_Controller {
 		$data['checklist_id'] = (!is_null($checklistId) ? $checklistId : 0);
 		$data['checklist_category_id'] = (!is_null($checklistId) ? $checklist->checklistcategory_id : '');
 		$data['checklist_equipmenttype_id'] = (!is_null($checklistId) ? $checklist->equipmenttype_id : '');
-		$data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+		$data['equipmenttypes'] = $this->Equipmenttype_model->findAllWithoutChecklistDefined();
 		$data['checklist_json'] = '{"preStartData":[],"postStartData":[]}';
 		$data['flashdata'] = $this->session->flashdata();
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/add', $data, true);

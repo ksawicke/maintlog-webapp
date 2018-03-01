@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Handles checklist object interactions.
+ * Handles checklist item object interactions.
  */
 class Checklist_model extends CI_Model {
 
@@ -15,7 +15,7 @@ class Checklist_model extends CI_Model {
 	/**
 	 * Finds a single checklist object.
 	 *
-	 * @param integer $checklist_id
+	 * @param type $checklist_id
 	 * @return array
 	 */
 	public function findOne($checklist_id) {
@@ -30,9 +30,9 @@ class Checklist_model extends CI_Model {
 	 * @return array
 	 */
 	public function findAll() {
-		$checklists = R::findAll('checklist', ' ORDER BY id ASC');
+		$result = R::getAll("SELECT c.id, et.equipment_type FROM checklist c LEFT JOIN equipmenttype et ON et.id = c.equipmenttype_id");
 
-		return $checklists;
+		return $result;
 	}
 
 	/**
@@ -42,7 +42,8 @@ class Checklist_model extends CI_Model {
 		$now = date('Y-m-d h:i:s');
 
 		$checklist = ($post['checklist_id']==0 ? R::dispense('checklist') : R::load('checklist', $post['checklist_id']));
-		$checklist->equipment_type = $post['equipment_type'];
+		$checklist->equipmenttype_id = $post['equipmenttype_id'];
+		$checklist->checklist_json = $post['checklist_json'];
 
 		if($post['checklist_id']==0) {
 			$checklist->created = $now;

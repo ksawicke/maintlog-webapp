@@ -6,16 +6,16 @@
 <!--			<input type="text" id="category" name="category" class="form-control input-lg" value="--><?php //echo $checklist_category_id; ?><!--">-->
 <!--		</div>-->
 
-		<label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
-		<select id="equipment_type"
-				name="equipment_type"
+		<label for="equipmenttype_id" class="control-label lb-lg">Equipment Type</label>
+		<select id="equipmenttype_id"
+				name="equipmenttype_id"
 				class="form-control input-lg"
 				data-parsley-required="true"
 				data-parsley-error-message="Please select the Equipment Type"
-				data-parsley-errors-container=".equipment_type_errors">
+				data-parsley-errors-container=".equipmenttype_id_errors">
 			<option value="">Select one:</option>
-			<?php foreach($equipmenttypes as $equipmenttype) { ?>
-				<option value="<?php echo $equipmenttype->id; ?>"<?php echo ($checklist_equipmenttype_id==$equipmenttype->id ? ' selected' : ''); ?>><?php echo $equipmenttype->equipment_type; ?></option>
+			<?php foreach($equipmenttypes as $ctr => $equipmenttype) { ?>
+				<option value="<?php echo $equipmenttype['id']; ?>"<?php echo ($checklist_equipmenttype_id==$equipmenttype['id'] ? ' selected' : ''); ?>><?php echo $equipmenttype['equipment_type']; ?></option>
 			<?php } ?>
 		</select>
 	</div>
@@ -52,7 +52,7 @@
 	<input type="hidden" id="checklist_id" name="checklist_id" value="<?php echo $checklist_id; ?>">
 	<input type="hidden" id="checklist_json" name="checklist_json" value='<?php echo $checklist_json; ?>'>
 
-	<button id="btnSubmit" type="submit" class="btn btn-lg btn-primary" disabled>Submit</button>
+	<button id="btnSubmit" type="submit" class="btn btn-lg btn-primary">Submit</button>
 
 </form>
 

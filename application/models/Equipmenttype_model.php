@@ -34,6 +34,12 @@ class Equipmenttype_model extends CI_Model {
         
         return $equipmenttype;
     }
+
+    public function findAllWithoutChecklistDefined() {
+		$equipmenttype = R::getAll("SELECT et.id, et.equipment_type, c.equipmenttype_id FROM equipmenttype et LEFT JOIN checklist c ON c.equipmenttype_id = et.id WHERE c.equipmenttype_id IS NULL");
+
+		return $equipmenttype;
+	}
     
     /**
      * Creates or modifies an equipment type object.
