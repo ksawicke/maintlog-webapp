@@ -11,9 +11,9 @@ html {
 }
 
 body {
-    font-family: 'PT Sans Caption';
+	font-family: 'PT Sans Caption', sans-serif;
     font-size: 15px;
-    margin: 0px;
+    margin: 0;
     color: #22252A;
 }
 
@@ -140,7 +140,7 @@ div.jBox-title > div.jBox-closeButton.jBox-noDrag > svg > path:hover {
 .jBoxContentBodyText {
    font-size:24px;
    line-height:30px;
-   padding: 30px 0px;
+   padding: 30px 0;
 }
 
 .tt-menu {
@@ -158,8 +158,8 @@ li {
 }
 
 li.paginate_button {
-    padding-left: 0px !important;
-    text-indent: 0px !important;
+    padding-left: 0 !important;
+    text-indent: 0 !important;
 }
 
 .smallCaps {
@@ -223,7 +223,7 @@ li.paginate_button {
 .btn-primary.active, 
 .open .dropdown-toggle.btn-primary { 
   color: #FFFFFF !important; 
-  background-color: #E0851D !important; 
+  background-color: #E0851D !important;
   border-color: #FFFFFF !important; 
 } 
  
@@ -269,25 +269,34 @@ table {
 }
 
 #preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList {
-	border: 1px solid #eee !important;
-	width: 100% !important;
-	min-height: 20px !important;
-	list-style-type: none !important;
-	margin: 0 !important;
-	padding: 5px 0 0 0 !important;
-	float: left !important;
-	margin-right: 10px !important;
+	color: #555;
+	border: 1px solid #cccccc;
+	border-radius: 6px;
+	width: 100%;
+	min-height: 54px;
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 0 0 10px;
+	float: left;
+	margin-right: 10px;
 }
 #preStartSortableItemList li, #availableItemSortableItemList li, #postStartSortableItemList li {
-	margin: 10px 12px 10px 12px !important;
-	/*padding: 5px !important;*/
-	font-size: 1.2em !important;
-	/*width: 100% !important;*/
+	margin: 10px 12px 10px 12px;
+	/*padding: 5px;*/
+	font-size: 1.2em;
+	/*width: 100%;*/
 }
 
-.preStart .ui-state-highlight, .preStart .ui-widget-content .ui-state-highlight, .preStart .ui-widget-header .ui-state-highlight,
-.postStart .ui-state-highlight, .postStart .ui-widget-content .ui-state-highlight, .postStart .ui-widget-header .ui-state-highlight {
-	border: 1px solid #dad55e !important;
-	background: orange !important;
-	color: #777620 !important;
+#availableItemSortableItemList li {
+	border-color: 1px solid #cccccc;
+	background: #dcdcdc !imporant;
+}
+
+.preStartSelected .ui-state-highlight, .preStartSelected .ui-widget-content .ui-state-highlight, .preStartSelected .ui-widget-header .ui-state-highlight,
+.postStartSelected .ui-state-highlight, .postStartSelected .ui-widget-content .ui-state-highlight, .postStartSelected .ui-widget-header .ui-state-highlight {
+	background: #ffffff;
+}
+
+.ui-sortable-helper  { /* Item being dragged */
+	background-color: #b7ff71;
 }
