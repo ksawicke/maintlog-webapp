@@ -32,14 +32,14 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-4 col-md-4 col-lg-4">
-			<label for="preStartSortableItemList" class="control-label lb-lg">Pre-Start</label>
-			<ul id="preStartSortableItemList" class="preStartSelected connectedSortable">
-			</ul>
-		</div>
 		<div class="col-sm-4 col-sm-4 col-lg-4">
 			<label for="availableItemSortableItemList" class="control-label lb-lg">Available Items</label>
 			<ul id="availableItemSortableItemList" class="connectedSortable">
+			</ul>
+		</div>
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			<label for="preStartSortableItemList" class="control-label lb-lg">Pre-Start</label>
+			<ul id="preStartSortableItemList" class="preStartSelected connectedSortable">
 			</ul>
 		</div>
 		<div class="col-sm-4 col-md-4 col-lg-4">
@@ -60,6 +60,8 @@
 
 	$(function () {
 
+		var getChecklistItemUrl = '<?php echo base_url(); ?>index.php/checklistitems/getChecklistItems';
+
 		function updateChecklistJson(object, checklist_json) {
 			if(object[0].id!='availableItemSortableItemList') {
 				$("#checklist_json").val(checklist_json);
@@ -67,10 +69,40 @@
 			}
 		}
 
+		function getChecklistItems() {
+			var getChecklistItemsPromise = $.ajax({
+				url: getChecklistItemUrl,
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify({}), // no need to send data, just get it
+				contentType: "application/json"
+			});
+
+			$.when(getChecklistItemsPromise).done(function(object) {
+				// $.each( object.data, function( key, value ) {
+				// 	console.log("key: " + key);
+				// 	console.log(value);
+				// });
+				return object.data;
+			});
+		}
+
 		function populateAvailableItems() {
-			for(i=1; i <= 10; i++) {
-				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + i + '">Item ' + i + '</li>');
-			}
+			$.ajax({
+				url: getChecklistItemUrl,
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify({}), // no need to send data, just get it
+				contentType: "application/json"
+			}).done(function(object) {
+				fillAvailableItemList(object.data);
+			});
+		}
+
+		function fillAvailableItemList(data) {
+			$.each( data, function( key, value ) {
+				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+			});
 		}
 
 		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").sortable({
