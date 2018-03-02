@@ -15,6 +15,14 @@
 	background-color: #000099 !important;
 }
 
+.dropdown-item {
+	padding: 0.25rem 3.5rem !important;
+}
+
+footer {
+	margin-top: 50px;
+}
+
 label {
 	font-weight: bold;
 }

@@ -31,7 +31,7 @@ class Reporting extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 

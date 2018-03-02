@@ -24,9 +24,9 @@
 <!--	<link href="--><?php //echo $assetDirectoryCustom; ?><!--css/sticky-footer-navbar.css" rel="stylesheet" type="text/css">-->
 	<link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo $assetDirectoryCustom; ?>css/jBox.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $assetDirectoryCustom; ?>css/datatables.min.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo $assetDirectoryCustom; ?>css/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo $assetDirectoryCustom; ?>css/parsley.css" rel="stylesheet" type="text/css">
-<!--	<link href="--><?php //echo $assetDirectoryCustom; ?><!--css/komatsuna_custom.css" rel="stylesheet" type="text/css">-->
+	<link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet" type="text/css">
 
 	<script src="<?php echo $assetDirectory; ?>jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="<?php echo $assetDirectoryCustom; ?>js/jquery-ui.min.js" type="text/javascript"></script>
@@ -34,11 +34,12 @@
 	<script src="<?php echo $assetDirectory; ?>popper/popper.min.js"></script>
 	<script src="<?php echo $assetDirectory; ?>bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="<?php echo $assetDirectoryCustom; ?>js/jBox.min.js" type="text/javascript"></script>
-<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/datatables.min.js" type="text/javascript"></script>-->
-<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/dataTables.responsive.min.js" type="text/javascript"></script>-->
-<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/parsley.min.js" type="text/javascript"></script>-->
-<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/parsley.comparison.js" type="text/javascript"></script>-->
-<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/moment.min.js" type="text/javascript"></script>-->
+	<script src="<?php echo $assetDirectoryCustom; ?>js/datatables.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectoryCustom; ?>js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectoryCustom; ?>js/dataTables.responsive.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectoryCustom; ?>js/parsley.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectoryCustom; ?>js/parsley.comparison.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectoryCustom; ?>js/moment.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -60,6 +61,17 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/maintenance_log_reminders'); ?>">Maintenance Log Reminders</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>">Service Logs</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>">PM Service Reminders</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/equipment_list'); ?>">Equipment List</a>
+
+					</div>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
@@ -108,7 +120,7 @@
 	</main>
 
 	<footer class="container">
-		<p>&copy; Komatsu NA <?php echo date("Y"); ?></p>
+<!--		<p>&copy; Komatsu NA --><?php //echo date("Y"); ?><!--</p>-->
 	</footer>
 
 </body>

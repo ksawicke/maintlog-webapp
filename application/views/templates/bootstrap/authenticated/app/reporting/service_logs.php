@@ -265,7 +265,7 @@
                 null,
                 null,
                 null,
-                {"width": "140px", "orderable": false}
+                {"orderable": false}
             ]
         });
         
