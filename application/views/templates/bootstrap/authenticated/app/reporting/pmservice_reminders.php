@@ -1,5 +1,3 @@
-<?php echo $reports_navigation; ?>
-
 <h3>PM Service Reminders Report</h3>
 
 <a id="downloadPMServiceReminders"

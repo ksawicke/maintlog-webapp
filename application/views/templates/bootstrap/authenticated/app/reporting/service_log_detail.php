@@ -1,5 +1,3 @@
-<?php echo $reports_navigation; ?>
-
 <h3>Service Log Detail</h3>
 
 

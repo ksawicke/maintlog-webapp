@@ -1,5 +1,3 @@
-<?php echo $reports_navigation; ?>
-
 <h3>Edit Service Log <?php echo $service_log['id']; ?></h3>
 
 

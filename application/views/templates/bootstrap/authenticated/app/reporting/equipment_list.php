@@ -1,5 +1,3 @@
-<?php echo $reports_navigation; ?>
-
 <h3>Equipment List</h3>
 
 <a id="downloadEquipmentList"

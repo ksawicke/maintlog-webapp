@@ -1,163 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
+	<!-- Required meta tags -->
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!--link rel="icon" href="../../favicon.ico"-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title><?php echo $title; ?></title>
 
 	<!-- Bootstrap core CSS -->
-	<link href="<?php echo $assetDirectory; ?>4.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-	<?php /***
-	 * <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	 * <!--link href="<?php echo $assetDirectory; ?>css/ie10-viewport-bug-workaround.css" rel="stylesheet"-->
-	 ***/ ?>
+	<link href="<?php echo $assetDirectory; ?>bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo $assetDirectory; ?>bootstrap/4.0.0/css/komatsu_custom.css" rel="stylesheet">
 
 	<!-- Custom Fonts -->
-	<link
-		href='https://fonts.googleapis.com/css?family=Libre+Franklin:400,100,100italic,200,200italic,300,300italic,400italic,500,600,500italic,600italic,700,700italic,800,900,800italic,900italic'
-		rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
+<!--	<link-->
+<!--		href='https://fonts.googleapis.com/css?family=Libre+Franklin:400,100,100italic,200,200italic,300,300italic,400italic,500,600,500italic,600italic,700,700italic,800,900,800italic,900italic'-->
+<!--		rel='stylesheet' type='text/css'>-->
+<!--	<link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>-->
+<!--	<link href='https://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>-->
 
 	<!-- Custom styles for this template -->
 <!--	<link href="--><?php //echo $assetDirectoryCustom; ?><!--simplesidebar/css/simple-sidebar.css" rel="stylesheet"-->
 <!--		  type="text/css">-->
 <!--	<link href="--><?php //echo $assetDirectoryCustom; ?><!--css/sticky-footer-navbar.css" rel="stylesheet" type="text/css">-->
-<!--	<link href="--><?php //echo $assetDirectoryCustom; ?><!--css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
+	<link href="<?php echo $assetDirectoryCustom; ?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo $assetDirectoryCustom; ?>css/jBox.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo $assetDirectoryCustom; ?>css/datatables.min.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo $assetDirectoryCustom; ?>css/parsley.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo $assetDirectoryCustom; ?>css/komatsuna_custom.css" rel="stylesheet" type="text/css">
+<!--	<link href="--><?php //echo $assetDirectoryCustom; ?><!--css/komatsuna_custom.css" rel="stylesheet" type="text/css">-->
 
-	<script src="<?php echo $assetDirectoryCustom; ?>js/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectory; ?>jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="<?php echo $assetDirectoryCustom; ?>js/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="<?php echo $assetDirectoryCustom; ?>js/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
-	<script src="<?php echo $assetDirectoryCustom; ?>js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+	<script src="<?php echo $assetDirectory; ?>popper/popper.min.js"></script>
+	<script src="<?php echo $assetDirectory; ?>bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="<?php echo $assetDirectoryCustom; ?>js/jBox.min.js" type="text/javascript"></script>
-	<script src="<?php echo $assetDirectoryCustom; ?>js/datatables.min.js" type="text/javascript"></script>
-	<script src="<?php echo $assetDirectoryCustom; ?>js/dataTables.responsive.min.js" type="text/javascript"></script>
-	<script src="<?php echo $assetDirectoryCustom; ?>js/parsley.min.js" type="text/javascript"></script>
-	<script src="<?php echo $assetDirectoryCustom; ?>js/parsley.comparison.js" type="text/javascript"></script>
-	<script src="<?php echo $assetDirectoryCustom; ?>js/moment.min.js" type="text/javascript"></script>
+<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/datatables.min.js" type="text/javascript"></script>-->
+<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/dataTables.responsive.min.js" type="text/javascript"></script>-->
+<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/parsley.min.js" type="text/javascript"></script>-->
+<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/parsley.comparison.js" type="text/javascript"></script>-->
+<!--	<script src="--><?php //echo $assetDirectoryCustom; ?><!--js/moment.min.js" type="text/javascript"></script>-->
 </head>
 
 <body>
 
-<div id="wrapper">
+	<nav class="navbar navbar-expand-md navbar-dark">
+		<a class="navbar-brand" href="#"><img src="<?php echo $assetDirectory; ?>img/komatsu-logo.png" style="height:25px;"></a>
+		<span class="application-name">Maintenance Log</span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-	<!-- Sidebar -->
-	<div id="sidebar-wrapper">
-		<ul class="sidebar-nav">
-			<!--li class="sidebar-brand">
-                <a href="#">
-                    Start Bootstrap
-                </a>
-            </li-->
-			<li>
-				<a href="<?php echo base_url('index.php/app/index'); ?>">Home</a>
-			</li>
-			<li>
-				<a href="<?php echo base_url('index.php/app/log_entry'); ?>">Enter Service Log</a>
-			</li>
-			<?php if ($_SESSION['role'] === 'admin') { ?>
-				<li>
-					<a href="<?php echo base_url('index.php/app/users/index'); ?>">Manage Users</a>
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 				</li>
-				<li>
-					<a href="<?php echo base_url('index.php/app/equipmentunit/index'); ?>">Manage Equipment</a>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
 				</li>
-				<li>
-					<a href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">Manage App Settings</a>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Disabled</a>
 				</li>
-			<?php } ?>
-			<li>
-				<a href="<?php echo base_url('index.php/reporting/output/screen/maintenance_log_reminders'); ?>">Reporting</a>
-			</li>
-			<li>
-				<a href="<?php echo base_url('index.php/auth/logout'); ?>">Log Out</a>
-			</li>
-		</ul>
-	</div>
-	<!-- /#sidebar-wrapper -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
 
-	<!-- Page Content -->
-	<div id="page-content-wrapper">
-		<div class="container-fluid">
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">App Settings</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/checklists'); ?>">Checklists</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/checklistItems'); ?>">Checklist Items</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/components/index'); ?>">Components</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/componentTypes/index'); ?>">Component Types</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/manufacturers/index'); ?>">Equipment Manufacturers</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/equipmentmodel/index'); ?>">Equipment Models</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/equipmentTypes/index'); ?>">Equipment Types</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/equipmentunit/index'); ?>">Equipment Units</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">Fluid Types</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/mileageChoices/index'); ?>">Mileage Choices</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/addReminderRecipient'); ?>">Reminder Recipients</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/smrChoices/index'); ?>">SMR Choices</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/timeChoices/index'); ?>">Time Choices</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/users/index'); ?>">Users</a>
+
+					</div>
+				</li>
+			</ul>
+			<span class="my-2 my-lg-0">
+				Logged in as <?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?></strong>.&nbsp;&nbsp;<a
+					class="smallCaps" href="<?php echo base_url('index.php/auth/logout'); ?>">Log Out</a>
+			</span>
+		</div>
+	</nav>
+
+	<main role="main">
+
+		<div class="container">
+			<!-- Example row of columns -->
 			<div class="row">
-				<div class="col-sm-8 col-md-8 col-lg-8">
-
-					<table>
-						<tr>
-							<td>
-								<a href="#" id="menu-toggle" class="btn btn-sm">
-									<span class="glyphicon glyphicon-menu-hamburger"></span>
-								</a>
-							</td>
-							<td>
-								<img src="<?php echo $assetDirectoryCustom; ?>img/025_Gloria_blue_nega_r.jpg">
-								<h5>Maintenance Log Application</h5>
-							</td>
-						</tr>
-					</table>
-
-				</div>
-				<div class="col-sm-8 col-md-8 col-lg-4">
-
-					Logged in as
-					<strong><?php echo $_SESSION['first_name']; ?><?php echo $_SESSION['last_name']; ?></strong>.&nbsp;&nbsp;<a
-						class="smallCaps" href="<?php echo base_url('index.php/auth/logout'); ?>">Log out</a>
-
-				</div>
-			</div>
-
-			<div class="row app-content-wrapper">
-				<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="col-sm-12 col-md-12 col-lg-12" style="margin-top:25px;">
 
 					<?php echo $body; ?>
 
 				</div>
 			</div>
 
-			<?php /***
-			 * <div class="row">
-			 * <div class="col-lg-12">
-			 *
-			 *
-			 * <p>&nbsp;</p>
-			 *
-			 * <div class="col-md-4 col-md-offset-4">
-			 *
-			 * <?php echo $body; ?>
-			 *
-			 * </div>
-			 * </div>
-			 * </div>
-			 ***/ ?>
+		</div> <!-- /container -->
 
-		</div>
-	</div>
-	<!-- /#page-content-wrapper -->
-	<?php /****
-	 * <footer class="footer">
-	 * <div class="container" style="padding-left:35px;padding-top:15px;">
-	 * <p>Copyright &copy; <?php echo date("Y"); ?> Komatsu NA. All Rights Reserved.</p>
-	 * </div>
-	 * </footer> ****/ ?>
-</div>
-<!-- /#wrapper -->
+	</main>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-<script src="<?php echo $assetDirectory; ?>js/bootstrap.min.js"></script>
+	<footer class="container">
+		<p>&copy; Komatsu NA <?php echo date("Y"); ?></p>
+	</footer>
 
 </body>
 </html>

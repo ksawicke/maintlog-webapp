@@ -26,7 +26,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -36,7 +36,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -47,7 +47,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -62,7 +62,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/log_entry', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -73,7 +73,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -86,7 +86,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -99,7 +99,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
         
@@ -118,7 +118,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -129,7 +129,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -143,7 +143,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -156,7 +156,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
         
@@ -172,7 +172,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -183,7 +183,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -197,7 +197,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -210,7 +210,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -262,7 +262,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -273,7 +273,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -287,7 +287,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
 
     /**
@@ -300,7 +300,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -322,7 +322,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -333,7 +333,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -347,7 +347,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -360,7 +360,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -374,7 +374,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -385,7 +385,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -399,7 +399,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -412,7 +412,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -426,7 +426,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -437,7 +437,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -451,7 +451,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -464,7 +464,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -478,7 +478,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -489,7 +489,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -503,7 +503,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -516,7 +516,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -530,7 +530,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -541,7 +541,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -555,7 +555,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -568,7 +568,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -582,7 +582,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -593,7 +593,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -607,7 +607,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -620,7 +620,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -634,7 +634,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -645,7 +645,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -659,7 +659,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -672,7 +672,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -686,7 +686,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -697,7 +697,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -709,7 +709,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**
@@ -722,7 +722,7 @@ class App extends MY_Controller {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -738,14 +738,14 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
 
 	public function checklists() {
 		$data = [
 			'applicationName' => 'Komatsu NA Maintenance Log',
 			'title' => 'Komatsu NA Maintenance Log',
-			'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+			'assetDirectory' => $this->appDir . '/assets/',
 			'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/'
 		];
 
@@ -758,14 +758,14 @@ class App extends MY_Controller {
 		$data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/index', $data, true);
 
-		$this->template->load('authenticated_default', null, $data);
+		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
 	}
 
 	public function addChecklist($checklistId = null) {
 		$data = [
 			'applicationName' => 'Komatsu NA Maintenance Log',
 			'title' => 'Komatsu NA Maintenance Log',
-			'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+			'assetDirectory' => $this->appDir . '/assets/',
 			'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/'
 		];
 
@@ -782,14 +782,14 @@ class App extends MY_Controller {
 		$data['flashdata'] = $this->session->flashdata();
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/add', $data, true);
 
-		$this->template->load('authenticated_default', null, $data);
+		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
 	}
     
     public function checklistCategories() {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -802,14 +802,14 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistCategories/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     public function addChecklistCategory($checklistCategoryId = null) {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -823,14 +823,14 @@ class App extends MY_Controller {
         $data['flashdata'] = $this->session->flashdata();
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistCategories/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     public function checklistItems() {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -843,14 +843,14 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/index', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     public function addChecklistItem($checklistItemId = null) {
         $data = [
             'applicationName' => 'Komatsu NA Maintenance Log',
             'title' => 'Komatsu NA Maintenance Log',
-            'assetDirectory' => $this->appDir . '/assets/templates/bootstrap/',
+            'assetDirectory' => $this->appDir . '/assets/',
             'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/' 
         ];
 
@@ -865,7 +865,7 @@ class App extends MY_Controller {
         $data['flashdata'] = $this->session->flashdata();
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/add', $data, true);
                 
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**

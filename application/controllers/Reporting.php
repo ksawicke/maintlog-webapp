@@ -55,7 +55,7 @@ class Reporting extends MY_Controller {
         $data['reports_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/reports_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reporting/' . $report_type, $data, true);
         
-        $this->template->load('authenticated_default', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
     
     /**

@@ -1,5 +1,3 @@
-<?php echo $reports_navigation; ?>
-
 <h3>Service Logs Report</h3>
 
 <a id="downloadReportServiceLogs"

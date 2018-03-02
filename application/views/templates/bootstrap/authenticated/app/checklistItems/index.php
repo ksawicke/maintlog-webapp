@@ -1,5 +1,3 @@
-<?php echo $appsetting_navigation; ?>
-
 <a href="<?php echo base_url('index.php/app/addChecklistItem'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Checklist Item</button></a><br /><br />
 
 <table id="checklistItemList" class="table table-bordered table-striped">

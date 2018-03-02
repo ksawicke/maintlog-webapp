@@ -1,5 +1,3 @@
-<?php echo $equipment_navigation; ?>
-
 <a href="<?php echo base_url('index.php/app/addEquipmentmodel'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment Model</button></a><br /><br />
 
 <table id="equipmentmodelList" class="table table-bordered table-striped display">

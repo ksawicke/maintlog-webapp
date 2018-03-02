@@ -1,5 +1,3 @@
-<?php echo $reports_navigation; ?>
-
 <h3>Maintenance Log Reminders Report</h3>
 
 <a id="downloadReportMaintenanceLogReminders"
