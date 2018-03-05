@@ -39,16 +39,6 @@ class Checklistitem_model extends CI_Model {
 			$checklist = R::findAll('checklist', ' equipmenttype_id = :equipmenttype_id ', [':equipmenttype_id' => $checklist_equipmenttype_id]);
 		}
 
-		/**
-		 * return array of available items as well
-		 */
-
-//		echo '<pre>';
-//		var_dump($checklistitems);
-//		echo '</pre>';
-
-
-
 		if (!empty($checklist)) {
 			foreach ($checklist as $key => $cldata) {
 				$checklist_json = $cldata['checklist_json'];
@@ -56,26 +46,13 @@ class Checklistitem_model extends CI_Model {
 
 			$checklist = (array) json_decode($checklist_json);
 			$checklistitems = (array) $checklistitems;
-//			echo '<pre>';
-//			var_dump($checklistitems);
-//			echo '</pre>';
-//
-//			exit();
 
 			foreach($checklistitems as $key => $clidata) {
-//				var_dump($clidata);
 				if(in_array($clidata->id, $checklist['preStartData']) OR in_array($clidata->id, $checklist['postStartData'])) {
 					unset($checklistitems[$key]);
 				}
 			}
 		}
-
-//		echo '<pre>';
-//		var_dump($checklistitems);
-//		echo '</pre>';
-////
-//		exit();
-
 
         return ['checklistitems' => $checklistitemsOrig, 'checklistitemsremaining' => $checklistitems, 'checklist' => $checklist];
     }

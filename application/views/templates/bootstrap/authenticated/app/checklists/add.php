@@ -96,11 +96,9 @@
 		}
 
 		function fillAvailableItemList(data) {
-			console.log(data);
-
-			// $.each( data, function( key, value ) {
-			// 	$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
-			// });
+			$.each( data.checklistitemsremaining, function( key, value ) {
+				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+			});
 		}
 
 		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").sortable({
