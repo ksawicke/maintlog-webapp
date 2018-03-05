@@ -1,4 +1,4 @@
-<form id="addChecklist" class="parsley-form" action="<?php echo base_url('index.php/checklists/save'); ?>" method="post">
+<form id="addChecklist" class="parsley-form" action="<?php echo base_url('index.php/checklists/save'); ?>" method="post" data-parsley-validate="">
 
 	<div class="form-group">
 		<label for="equipmenttype_id" class="control-label lb-lg">Equipment Type</label>
