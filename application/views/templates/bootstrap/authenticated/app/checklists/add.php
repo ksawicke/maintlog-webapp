@@ -15,7 +15,7 @@
 				data-parsley-errors-container=".equipmenttype_id_errors">
 			<option value="">Select one:</option>
 			<?php foreach($equipmenttypes as $ctr => $equipmenttype) { ?>
-				<option value="<?php echo $equipmenttype['id']; ?>"<?php echo ($checklist_equipmenttype_id==$equipmenttype['id'] ? ' selected' : ''); ?>><?php echo $equipmenttype['equipment_type']; ?></option>
+				<option value="<?php echo $equipmenttype['id']; ?>"<?php echo ($checklist_equipmenttype_id==$equipmenttype['id'] ? ' selected' : ''); ?>><?php echo $equipmenttype['equipment_type'] ; ?></option>
 			<?php } ?>
 		</select>
 	</div>
@@ -60,7 +60,7 @@
 
 	$(function () {
 
-		var getChecklistItemUrl = '<?php echo base_url(); ?>index.php/checklistitems/getChecklistItems';
+		var getChecklistItemUrl = '<?php echo base_url(); ?>index.php/checklistitems/getChecklistItems/<?php echo $checklist_equipmenttype_id; ?>';
 
 		function updateChecklistJson(object, checklist_json) {
 			if(object[0].id!='availableItemSortableItemList') {
@@ -74,15 +74,11 @@
 				url: getChecklistItemUrl,
 				type: "POST",
 				dataType: "json",
-				data: JSON.stringify({}), // no need to send data, just get it
+				data: JSON.stringify({}),
 				contentType: "application/json"
 			});
 
 			$.when(getChecklistItemsPromise).done(function(object) {
-				// $.each( object.data, function( key, value ) {
-				// 	console.log("key: " + key);
-				// 	console.log(value);
-				// });
 				return object.data;
 			});
 		}
@@ -100,9 +96,11 @@
 		}
 
 		function fillAvailableItemList(data) {
-			$.each( data, function( key, value ) {
-				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
-			});
+			console.log(data);
+
+			// $.each( data, function( key, value ) {
+			// 	$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+			// });
 		}
 
 		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").sortable({

@@ -27,11 +27,11 @@ class Checklistitems extends MY_Controller {
     /**
      * Get checklist items
      */
-    public function getChecklistItems() {
+    public function getChecklistItems($checklist_equipmenttype_id = '') {
         $post = json_decode(file_get_contents('php://input'), true);
         $checklistitemmodel = [];
         
-        $checklistitemmodel = $this->Checklistitem_model->findAll();
+        $checklistitemmodel = $this->Checklistitem_model->findAll($checklist_equipmenttype_id);
         
         if(empty($checklistitemmodel)) {
             http_response_code(404);

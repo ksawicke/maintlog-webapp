@@ -15,8 +15,8 @@ class Equipmenttype_model extends CI_Model {
     /**
      * Finds a single equipment type object.
      * 
-     * @param type $equipmenttype_id
-     * @return type
+     * @param integer $equipmenttype_id
+     * @return object
      */
     public function findOne($equipmenttype_id) {
         $equipmenttype = R::findOne('equipmenttype', ' id = :equipmenttype_id ', [':equipmenttype_id' => $equipmenttype_id]);
@@ -27,7 +27,7 @@ class Equipmenttype_model extends CI_Model {
     /**
      * Finds all equipment type objects.
      * 
-     * @return type
+     * @return object
      */
     public function findAll() {
         $equipmenttype = R::findAll('equipmenttype', ' ORDER BY equipment_type ASC');
@@ -35,8 +35,16 @@ class Equipmenttype_model extends CI_Model {
         return $equipmenttype;
     }
 
-    public function findAllWithoutChecklistDefined() {
-		$equipmenttype = R::getAll("SELECT et.id, et.equipment_type, c.equipmenttype_id FROM equipmenttype et LEFT JOIN checklist c ON c.equipmenttype_id = et.id WHERE c.equipmenttype_id IS NULL");
+	/**
+	 * Returns Checklists not defined, unless we pass in a checklist_equipmenttype_id.
+	 * So when we're editing a checklist, we return all checklists, otherwise, those
+	 * that are undefined.
+	 *
+	 * @param string $checklist_equipmenttype_id
+	 * @return array
+	 */
+    public function findAllWithoutChecklistDefined($checklist_equipmenttype_id = '') {
+		$equipmenttype = R::getAll("SELECT et.id, et.equipment_type, c.equipmenttype_id FROM equipmenttype et LEFT JOIN checklist c ON c.equipmenttype_id = et.id" . (empty($checklist_equipmenttype_id) ? " WHERE c.equipmenttype_id IS NULL" : ""));
 
 		return $equipmenttype;
 	}

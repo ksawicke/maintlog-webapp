@@ -45,7 +45,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-md navbar-dark">
-		<a class="navbar-brand" href="#"><img src="<?php echo $assetDirectory; ?>img/komatsu-logo.png" style="height:25px;"></a>
+		<a class="navbar-brand" href="<?php echo base_url('index.php/app/index'); ?>"><img src="<?php echo $assetDirectory; ?>img/komatsu-logo.png" style="height:25px;"></a>
 		<span class="application-name">Maintenance Log</span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -54,25 +54,9 @@
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="<?php echo base_url('index.php/app/index'); ?>">Home</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="#">Disabled</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reports</a>
-					<div class="dropdown-menu" aria-labelledby="dropdown01">
-
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/maintenance_log_reminders'); ?>">Maintenance Log Reminders</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>">Service Logs</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>">PM Service Reminders</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/equipment_list'); ?>">Equipment List</a>
-
-					</div>
-				</li>
+				<?php if ($_SESSION['role'] === 'admin') { ?>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -92,6 +76,18 @@
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/smrChoices/index'); ?>">SMR Choices</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/timeChoices/index'); ?>">Time Choices</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/users/index'); ?>">Users</a>
+
+					</div>
+				</li>
+				<?php } ?>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reporting</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/maintenance_log_reminders'); ?>">Maintenance Log Reminders</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>">Service Logs</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>">PM Service Reminders</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/equipment_list'); ?>">Equipment List</a>
 
 					</div>
 				</li>

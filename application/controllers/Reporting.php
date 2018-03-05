@@ -216,7 +216,7 @@ class Reporting extends MY_Controller {
     protected function getEquipmentListData() {
         $this->load->model('Report_model');
         
-        $data['equipment_list'] = $this->Report_model->getEquipmentList();
+        $data['equipment_list'] = $this->Report_model->getEquipmentList($_REQUEST);
         
         return $data;
     }

@@ -533,16 +533,37 @@ class Report_model extends CI_Model {
         
         return $pmservicereminders;
     }
-    
-    public function getEquipmentList() {
-        $sql = "SELECT
+
+	/**
+	 * @param array $params
+	 * @return array
+	 */
+	public function getEquipmentList($params = []) {
+		$customSearch = [];
+		$customSearchString = "";
+
+		if(!empty($params) && array_key_exists('data', $params)) {
+			$customSearch[] = (!empty($params['data']['manufacturer_name']) ? " man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+			$customSearch[] = (!empty($params['data']['model_number']) ? " em.model_number = '" . $params['data']['model_number'] . "'" : "");
+			$customSearch[] = (!empty($params['data']['unit_number']) ? " eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+		}
+
+		foreach($customSearch as $ctr => $search) {
+			if(empty($search)) {
+				unset($customSearch[$ctr]);
+			}
+		}
+
+		$customSearchString = join(' AND ', array_filter(array_merge(array(join(' AND ', array_slice($customSearch, 0, -1))), array_slice($customSearch, -1)), 'strlen'));
+
+		$customSql = "SELECT
             man.manufacturer_name, em.model_number, eu.unit_number
             FROM equipmentunit eu
             LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
-	    LEFT JOIN manufacturer man on man.id = em.manufacturer_id
+	    LEFT JOIN manufacturer man on man.id = em.manufacturer_id " . (!empty($customSearchString) ? " WHERE " . $customSearchString : "") . "
             ORDER BY manufacturer_name, model_number, unit_number";
-        
-        $equipment_list = R::getAll($sql);
+
+        $equipment_list = R::getAll($customSql);
         
         return $equipment_list;
     }
