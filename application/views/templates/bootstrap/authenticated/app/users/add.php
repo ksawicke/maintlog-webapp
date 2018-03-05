@@ -2,26 +2,56 @@
 
     <div class="form-group">
         <label for="first_name" class="control-label lb-lg">First Name</label>
-        <input type="text" id="first_name" name="first_name" class="form-control input-lg" value="<?php echo $user_first_name; ?>">
+        <input type="text"
+			   id="first_name"
+			   name="first_name"
+			   class="form-control input-lg"
+			   data-parsley-required="true"
+			   data-parsley-error-message="First name is required"
+			   data-parsley-errors-container=".first_name_errors"
+			   value="<?php echo $user_first_name; ?>">
     </div>
 
     <div class="form-group">
         <label for="last_name" class="control-label lb-lg">Last Name</label>
-        <input type="text" id="last_name" name="last_name" class="form-control input-lg" value="<?php echo $user_last_name; ?>">
+        <input type="text"
+			   id="last_name"
+			   name="last_name"
+			   class="form-control input-lg"
+			   data-parsley-required="true"
+			   data-parsley-error-message="Last name is required"
+			   data-parsley-errors-container=".last_name_errors"
+			   value="<?php echo $user_last_name; ?>">
+		<p class="form-error last_name_errors"></p>
     </div>
 
     <div class="form-group">
         <label for="email_address" class="control-label lb-lg">Email Address</label>
-        <input type="text" id="email_address" name="email_address" class="form-control input-lg" value="<?php echo $user_email_address; ?>">
+        <input type="text"
+			   id="email_address"
+			   name="email_address"
+			   class="form-control input-lg"
+			   data-parsley-required="true"
+			   data-parsley-type="email"
+			   data-parsley-error-message="Email address is required and must be a valid email address format"
+			   data-parsley-errors-container=".email_address_errors"
+			   value="<?php echo $user_email_address; ?>">
+		<p class="form-error email_address_errors"></p>
     </div>
 
     <div class="form-group">
         <label for="role" class="control-label lb-lg">Role</label>
-        <select id="role" name="role" class="form-control input-lg">
+        <select id="role"
+				name="role"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Role is required"
+				data-parsley-errors-container=".role_errors">
             <option value="">Select one:</option>
             <option value="user"<?php echo ($user_role == "user" ? " selected" : ""); ?>>General User</option>
             <option value="admin"<?php echo ($user_role == "admin" ? " selected" : ""); ?>>Admin</option>
         </select>
+		<p class="form-error role_errors"></p>
     </div>
 
     <div class="form-group">

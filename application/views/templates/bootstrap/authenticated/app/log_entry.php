@@ -8,7 +8,7 @@ $maxNotes = 5;
     <h4><i class="icon fa fa-exclamation-triangle"></i> You are currently editing Service Log ID <span id="editing_service_log_id"></span>.</h4>
 </div>
 
-<form class="serviceLog-form">
+<form class="serviceLog-form parsley-form">
     <div class="form-section show-next">
         <label for="date_entered" class="control-label lb-lg">Date Entered</label>
         <div class="input-group date">
