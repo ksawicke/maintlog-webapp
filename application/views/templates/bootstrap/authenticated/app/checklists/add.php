@@ -1,23 +1,24 @@
-<form id="addChecklist" action="<?php echo base_url('index.php/checklists/save'); ?>" method="post">
+<form id="addChecklist" class="parsley-form" action="<?php echo base_url('index.php/checklists/save'); ?>" method="post">
 
 	<div class="group mainFlow">
 <!--		<div class="form-group">-->
 <!--			<label for="category" class="control-label lb-lg">Category</label>-->
 <!--			<input type="text" id="category" name="category" class="form-control input-lg" value="--><?php //echo $checklist_category_id; ?><!--">-->
 <!--		</div>-->
-
-		<label for="equipmenttype_id" class="control-label lb-lg">Equipment Type</label>
-		<select id="equipmenttype_id"
-				name="equipmenttype_id"
-				class="form-control input-lg"
-				data-parsley-required="true"
-				data-parsley-error-message="Please select the Equipment Type"
-				data-parsley-errors-container=".equipmenttype_id_errors">
-			<option value="">Select one:</option>
-			<?php foreach($equipmenttypes as $ctr => $equipmenttype) { ?>
-				<option value="<?php echo $equipmenttype['id']; ?>"<?php echo ($checklist_equipmenttype_id==$equipmenttype['id'] ? ' selected' : ''); ?>><?php echo $equipmenttype['equipment_type'] ; ?></option>
-			<?php } ?>
-		</select>
+		<div class="form-group">
+			<label for="equipmenttype_id" class="control-label lb-lg">Equipment Type</label>
+			<select id="equipmenttype_id"
+					name="equipmenttype_id"
+					class="form-control input-lg"
+					data-parsley-required="true"
+					data-parsley-error-message="Please select the Equipment Type"
+					data-parsley-errors-container=".equipmenttype_id_errors">
+				<option value="">Select one:</option>
+				<?php foreach($equipmenttypes as $ctr => $equipmenttype) { ?>
+					<option value="<?php echo $equipmenttype['id']; ?>"<?php echo ($checklist_equipmenttype_id==$equipmenttype['id'] ? ' selected' : ''); ?>><?php echo $equipmenttype['equipment_type'] ; ?></option>
+				<?php } ?>
+			</select>
+		</div>
 	</div>
 
 	<br />
@@ -85,6 +86,8 @@
 		}
 
 		function populateAvailableItems() {
+			var checklist_json = '{"preStartData":[],"postStartData":[]}';
+
 			$.ajax({
 				url: getChecklistItemUrl,
 				type: "POST",
@@ -96,6 +99,12 @@
 				fillPreStartList(object.data);
 				fillPostStartList(object.data);
 
+				if(object.data.checklist.length !== 'undefined') {
+					checklist_json = JSON.stringify(object.data.checklist);
+					$("#checklist_json").val(checklist_json);
+				}
+
+				console.log($("#checklist_json").val());
 			});
 		}
 

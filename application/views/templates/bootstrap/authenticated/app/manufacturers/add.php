@@ -1,4 +1,4 @@
-<form id="addManufacturer" action="<?php echo base_url('index.php/manufacturers/save'); ?>" method="post">
+<form id="addManufacturer" class="parsley-form" action="<?php echo base_url('index.php/manufacturers/save'); ?>" method="post">
     
     <div class="form-group">
         <label for="manufacturer_name" class="control-label lb-lg">Manufacturer Name</label>

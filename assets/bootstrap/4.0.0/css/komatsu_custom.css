@@ -26,3 +26,9 @@ footer {
 label {
 	font-weight: bold;
 }
+
+.parsley-errors-list {
+	margin: 8px 0px 4px !important;
+	font-weight: bold;
+	color: #dc3545 !important;
+}

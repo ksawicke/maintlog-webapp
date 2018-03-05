@@ -1,4 +1,4 @@
-<form id="addComponentType" action="<?php echo base_url('index.php/componenttypes/save'); ?>" method="post">
+<form id="addComponentType" class="parsley-form" action="<?php echo base_url('index.php/componenttypes/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

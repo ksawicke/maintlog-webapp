@@ -1,4 +1,4 @@
-<form id="addMileageChoice" action="<?php echo base_url('index.php/mileagechoices/save'); ?>" method="post">
+<form id="addMileageChoice" class="parsley-form" action="<?php echo base_url('index.php/mileagechoices/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

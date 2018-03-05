@@ -1,4 +1,4 @@
-<form id="addSmrChoice" action="<?php echo base_url('index.php/smrchoices/save'); ?>" method="post">
+<form id="addSmrChoice" class="parsley-form" action="<?php echo base_url('index.php/smrchoices/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

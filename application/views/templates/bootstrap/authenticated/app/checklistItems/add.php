@@ -1,4 +1,4 @@
-<form id="addChecklistItem" action="<?php echo base_url('index.php/checklistitems/save'); ?>" method="post">
+<form id="addChecklistItem" class="parsley-form" action="<?php echo base_url('index.php/checklistitems/save'); ?>" method="post">
     
     <div class="group mainFlow">        
         <div class="form-group">            

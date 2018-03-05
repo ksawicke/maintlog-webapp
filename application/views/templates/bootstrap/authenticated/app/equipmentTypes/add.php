@@ -1,4 +1,4 @@
-<form id="addEquipmentType" action="<?php echo base_url('index.php/equipmenttypes/save'); ?>" method="post">
+<form id="addEquipmentType" class="parsley-form" action="<?php echo base_url('index.php/equipmenttypes/save'); ?>" method="post">
     
     <div class="group mainFlow">
         <div class="form-group">

@@ -1,4 +1,4 @@
-<form id="addUser" action="<?php echo base_url('index.php/users/save'); ?>" method="post" data-parsley-validate="">
+<form id="addUser" class="parsley-form" action="<?php echo base_url('index.php/users/save'); ?>" method="post" data-parsley-validate="">
 
     <div class="form-group">
         <label for="first_name" class="control-label lb-lg">First Name</label>
