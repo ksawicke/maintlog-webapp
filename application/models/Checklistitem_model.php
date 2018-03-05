@@ -31,9 +31,16 @@ class Checklistitem_model extends CI_Model {
      */
     public function findAll($checklist_equipmenttype_id = '')
 	{
-		$checklistitems = R::findAll('checklistitem', ' ORDER BY item ASC');
+		$checklistitems = R::getAll('SELECT * FROM checklistitem');
 		$checklistitemsOrig = $checklistitems;
+		$preStartItems = [];
+		$postStartItems = [];
 		$checklist = [];
+
+		/** Sorts by item ASC; we need to preserve order of checklist_json */
+		array_multisort(array_map(function($element) {
+			return $element['item'];
+		}, $checklistitemsOrig), SORT_ASC, $checklistitemsOrig);
 
 		if ($checklist_equipmenttype_id != '') {
 			$checklist = R::findAll('checklist', ' equipmenttype_id = :equipmenttype_id ', [':equipmenttype_id' => $checklist_equipmenttype_id]);
@@ -45,19 +52,27 @@ class Checklistitem_model extends CI_Model {
 			}
 
 			$checklist = (array) json_decode($checklist_json);
-			$checklistitems = (array) $checklistitems;
 
 			foreach($checklistitems as $key => $clidata) {
-				if(in_array($clidata->id, $checklist['preStartData']) OR in_array($clidata->id, $checklist['postStartData'])) {
+				if(in_array($clidata['id'], $checklist['preStartData'])) {
+					$preStartItems[$key] = $checklistitems[$key];
+					unset($checklistitems[$key]);
+				}
+				if(in_array($clidata['id'], $checklist['postStartData'])) {
+					$postStartItems[$key] = $checklistitems[$key];
 					unset($checklistitems[$key]);
 				}
 			}
 		}
 
-        return ['checklistitems' => $checklistitemsOrig, 'checklistitemsremaining' => $checklistitems, 'checklist' => $checklist];
+//		array_multisort(array_map(function($element) {
+//			return $element['item'];
+//		}, $checklistitems), SORT_ASC, $checklistitems);
+
+        return ['checklistitems' => $checklistitemsOrig, 'checklistitemsremaining' => $checklistitems, 'checklist' => $checklist, 'preStartItems' => $preStartItems, 'postStartItems' => $postStartItems];
     }
-    
-    /**
+
+	/**
      * Creates or modifies a checklist item object.
      */
     public function store($post) {        

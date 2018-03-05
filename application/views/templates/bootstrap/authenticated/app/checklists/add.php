@@ -65,7 +65,8 @@
 		function updateChecklistJson(object, checklist_json) {
 			if(object[0].id!='availableItemSortableItemList') {
 				$("#checklist_json").val(checklist_json);
-				console.log($("#checklist_json").val());
+
+				console.log(checklist_json);
 			}
 		}
 
@@ -92,6 +93,9 @@
 				contentType: "application/json"
 			}).done(function(object) {
 				fillAvailableItemList(object.data);
+				fillPreStartList(object.data);
+				fillPostStartList(object.data);
+
 			});
 		}
 
@@ -101,9 +105,28 @@
 			});
 		}
 
+		function fillPreStartList(data) {
+			$.each( data.preStartItems, function( key, value ) {
+				$("#preStartSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+			});
+		}
+
+		function fillPostStartList(data) {
+			$.each( data.postStartItems, function( key, value ) {
+				$("#postStartSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+			});
+		}
+
 		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").sortable({
 			connectWith: ".connectedSortable",
 			update: function( event, ui ) {
+				var preStartData = $(".preStartSelected").sortable( "toArray" );
+				var postStartData = $(".postStartSelected").sortable( "toArray" );
+				var checklist_json = JSON.stringify({preStartData: preStartData, postStartData: postStartData});
+
+				updateChecklistJson($(this), checklist_json);
+			},
+			beforeStop: function( event, ui ) {
 				var preStartData = $(".preStartSelected").sortable( "toArray" );
 				var postStartData = $(".postStartSelected").sortable( "toArray" );
 				var checklist_json = JSON.stringify({preStartData: preStartData, postStartData: postStartData});
