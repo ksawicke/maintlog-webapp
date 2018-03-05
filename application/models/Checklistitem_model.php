@@ -53,17 +53,42 @@ class Checklistitem_model extends CI_Model {
 
 			$checklist = (array) json_decode($checklist_json);
 
-			foreach($checklistitems as $key => $clidata) {
-				if(in_array($clidata['id'], $checklist['preStartData'])) {
-					$preStartItems[$key] = $checklistitems[$key];
-					unset($checklistitems[$key]);
-				}
-				if(in_array($clidata['id'], $checklist['postStartData'])) {
-					$postStartItems[$key] = $checklistitems[$key];
-					unset($checklistitems[$key]);
-				}
-			}
+//			foreach($checklistitems as $key => $clidata) {
+//				if(in_array($clidata['id'], $checklist['preStartData'])) {
+//					$preStartItems[$key] = $checklistitems[$key];
+//					unset($checklistitems[$key]);
+//				}
+//				if(in_array($clidata['id'], $checklist['postStartData'])) {
+//					$postStartItems[$key] = $checklistitems[$key];
+//					unset($checklistitems[$key]);
+//				}
+//			}
 		}
+
+		$ci = [];
+		foreach($checklistitems as $key => $clidata) {
+			$ci[$clidata['id']] = $clidata['item'];
+		}
+
+//		echo '<pre>';
+//		var_dump($ci);
+//
+//		echo '<pre>';
+//		var_dump($checklist['preStartData']);
+//
+//		echo '<pre>';
+//		var_dump($checklist['postStartData']);
+//
+//		exit();
+
+//		foreach($checklist['preStartData'] as $ctr => $preStartData) {
+//			$preStartItems[] = $ci[$preStartData];
+//		}
+//
+//		foreach($checklist['postStartData'] as $ctr => $postStartData) {
+//			$postStartItems[] = $ci[$postStartData];
+//		}
+//		exit();
 
 //		array_multisort(array_map(function($element) {
 //			return $element['item'];

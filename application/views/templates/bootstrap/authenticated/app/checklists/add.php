@@ -45,9 +45,16 @@
 			</ul>
 		</div>
 	</div>
+	<p class="form-error checklistitemspopulated_errors"></p>
 
 	<input type="hidden" id="checklist_id" name="checklist_id" value="<?php echo $checklist_id; ?>">
-	<input type="hidden" id="checklist_json" name="checklist_json" value='<?php echo $checklist_json; ?>'>
+	<input type="hidden"
+		   id="checklist_json"
+		   name="checklist_json"
+		   data-parsley-checklistitemspopulated=""
+		   data-parsley-error-message="Make sure you select at least one item for the Pre-Start and Post-Start checklists."
+		   data-parsley-errors-container=".checklistitemspopulated_errors"
+		   value='<?php echo $checklist_json; ?>'>
 
 	<button id="btnSubmit" type="submit" class="btn btn-lg btn-primary">Submit</button>
 
@@ -136,9 +143,18 @@
 				var postStartData = $(".postStartSelected").sortable( "toArray" );
 				var checklist_json = JSON.stringify({preStartData: preStartData, postStartData: postStartData});
 
+
+
 				updateChecklistJson($(this), checklist_json);
 			}
 		}).disableSelection();
+
+		window.Parsley.addValidator('checklistitemspopulated', function (value, requirement) {
+			var response = false;
+
+			return response;
+		}, 32)
+			.addMessage('en', 'checklist_json', '!!');
 
 		populateAvailableItems();
 	});

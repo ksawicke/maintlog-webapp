@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
 	$(document).ready(function () {
 		$(".parsley-form").parsley({
 			errorsContainer: function (ParsleyField) {
@@ -7,7 +7,7 @@
 			errorsWrapper: false
 		});
 		window.Parsley.on('field:error', function (fieldInstance) {
-			var messages = ParsleyUI.getErrorsMessages(fieldInstance);
+			var messages = fieldInstance.getErrorsMessages();
 			var errorMsg = messages.join(';');
 			fieldInstance.$element.tooltip('dispose');
 			fieldInstance.$element.tooltip({
