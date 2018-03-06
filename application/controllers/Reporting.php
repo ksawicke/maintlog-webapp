@@ -190,7 +190,7 @@ class Reporting extends MY_Controller {
     protected function getPMServiceRemindersData() {
         $this->load->model('Report_model');
         
-        $data['pmservice_reminders'] = $this->Report_model->findPMServiceEmailReminders();
+        $data['pmservice_reminders'] = $this->Report_model->findPMServiceEmailReminders($_REQUEST);
         
         return $data;
     }

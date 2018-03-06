@@ -79,7 +79,7 @@
             window.open(href, '_blank');
         }
         
-        $('#pmserviceRemindersReport').DataTable({
+        var dataTable = $('#pmserviceRemindersReport').DataTable({
             /* Disable initial sort */
             "aaSorting": [],
             responsive: true,
@@ -98,9 +98,11 @@
                                         .draw();
                             });
 
-                    column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
+					if(column.index() < 4) {
+						column.data().unique().sort().each(function (d, j) {
+							select.append('<option value="' + d + '">' + d + '</option>')
+						});
+					}
                 });
             },
             "columns": [
@@ -114,5 +116,10 @@
                 null
             ]
         });
+
+		$("#pmserviceRemindersReport > tfoot > tr > th:nth-child(5) > select").hide();
+		$("#pmserviceRemindersReport > tfoot > tr > th:nth-child(6) > select").hide();
+		$("#pmserviceRemindersReport > tfoot > tr > th:nth-child(7) > select").hide();
+		$("#pmserviceRemindersReport > tfoot > tr > th:nth-child(8) > select").hide();
     });
 </script>

@@ -473,9 +473,19 @@ class Report_model extends CI_Model {
         R::store($pmservicereminder);
     }
     
-    public function findPMServiceEmailReminders() {        
-        $pmservicereminders = R::getAll(
-            "SELECT
+    public function findPMServiceEmailReminders($params = []) {
+    	$customSearch = [];
+
+		if(!empty($params) && array_key_exists('data', $params)) {
+			$customSearch[] = (!empty($params['data']['manufacturer_name']) ? " man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+			$customSearch[] = (!empty($params['data']['model_number']) ? " em.model_number = '" . $params['data']['model_number'] . "'" : "");
+			$customSearch[] = (!empty($params['data']['unit_number']) ? " eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+			$customSearch[] = (!empty($params['data']['emails']) ? " r.emails = '" . $params['data']['emails'] . "'" : "");
+		}
+
+		$customSearchString = join(' AND ', array_filter($customSearch));
+
+		$sql = "SELECT
                 u.first_name AS enteredby_first_name, u.last_name AS enteredby_last_name,
                 man.manufacturer_name, em.model_number, eu.unit_number,
                 r.emails, r.sent_on,
@@ -518,8 +528,10 @@ class Report_model extends CI_Model {
              LEFT JOIN user u on u.id = s.entered_by
              LEFT OUTER JOIN smrchoice smr ON (smr.id = ps.pm_level AND ps.pm_type = 'smr_based')
 	     LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = ps.pm_level AND ps.pm_type = 'mileage_based')
-             LEFT OUTER JOIN timechoice time ON (time.id = ps.pm_level AND ps.pm_type = 'time_based')
-             ORDER BY r.date DESC, r.id DESC");
+             LEFT OUTER JOIN timechoice time ON (time.id = ps.pm_level AND ps.pm_type = 'time_based') " . (!empty($customSearchString) ? " WHERE " . $customSearchString : "") . " 
+             ORDER BY r.date DESC, r.id DESC";
+
+        $pmservicereminders = R::getAll($sql);
 
         foreach($pmservicereminders as $ctr => $reminder) {
             $unit_number = $reminder['unit_number'];
