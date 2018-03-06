@@ -63,10 +63,11 @@ class Report_model extends CI_Model {
     public function findServiceLogs($servicelog_id = 0, $params = []) {
         $customSearch = '';
         $fluidType = '';
-        
-        if(!empty($params) && array_key_exists('data', $params)) {
-            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
-            $customSearch .= (!empty($params['data']['entered_by']) ? " AND CONCAT(u.first_name, ' ', u.last_name) = '" . $params['data']['entered_by'] . "'" : "");
+		if(!empty($params) && array_key_exists('data', $params)) {
+			$name = explode(", ", $params['data']['entered_by']);
+
+			$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
+            $customSearch .= (!empty($params['data']['entered_by']) ? " AND u.last_name = '" . $name[0] . "' AND u.first_name = '" . $name[1] . "'" : "");
             $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
             $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
             $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
@@ -165,7 +166,7 @@ class Report_model extends CI_Model {
                 LEFT OUTER JOIN componentchange cc ON cc.servicelog_id = s.id 
                 LEFT JOIN componenttype ct ON ct.id = cc.component_type
                 LEFT JOIN component c ON c.id = cc.component " . $append_query;
-            
+
             $results = R::getAll($sql);
         } catch (Exception $ex) {
             $results = [];
