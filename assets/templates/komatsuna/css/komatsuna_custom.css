@@ -287,6 +287,10 @@ table {
 	/*width: 100%;*/
 }
 
+#preStartSortableItemList li:hover, #availableItemSortableItemList li:hover, #postStartSortableItemList li:hover {
+	cursor: pointer !important;
+}
+
 #availableItemSortableItemList li {
 	border-color: 1px solid #cccccc;
 	background: #dcdcdc !imporant;
@@ -298,5 +302,7 @@ table {
 }
 
 .ui-sortable-helper  { /* Item being dragged */
-	background-color: #b7ff71;
+	background-color: #b7ff71 !important;
+	width: 75% !important;
+	cursor: move !important;
 }
