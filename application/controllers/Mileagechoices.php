@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 *
 * @package  Maintenance Log Application
 * @author   Kevin Sawicke <kevin@rinconmountaintech.com>
-* @version  $Revision: Tag v2.2.1 $
+* @version  $Revision: Tag v2.3 $
 * @access   public
 */
 class Mileagechoices extends MY_Controller {
