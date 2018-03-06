@@ -112,20 +112,26 @@
 		}
 
 		function fillAvailableItemList(data) {
+			console.log("AVAILABLE LIST");
+			console.log(data);
 			$.each( data.checklistitemsremaining, function( key, value ) {
-				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + value.id + '">' + value.item + '</li>');
 			});
 		}
 
 		function fillPreStartList(data) {
+			console.log("PRESTART LIST");
+			console.log(data);
 			$.each( data.preStartItems, function( key, value ) {
-				$("#preStartSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+				$("#preStartSortableItemList").append('<li class="ui-state-highlight" id="' + value.id + '">' + value.item + '</li>');
 			});
 		}
 
 		function fillPostStartList(data) {
+			console.log("POSTSTART LIST");
+			console.log(data);
 			$.each( data.postStartItems, function( key, value ) {
-				$("#postStartSortableItemList").append('<li class="ui-state-highlight" id="' + key + '">' + value.item + '</li>');
+				$("#postStartSortableItemList").append('<li class="ui-state-highlight" id="' + value.id + '">' + value.item + '</li>');
 			});
 		}
 
@@ -142,8 +148,6 @@
 				var preStartData = $(".preStartSelected").sortable( "toArray" );
 				var postStartData = $(".postStartSelected").sortable( "toArray" );
 				var checklist_json = JSON.stringify({preStartData: preStartData, postStartData: postStartData});
-
-
 
 				updateChecklistJson($(this), checklist_json);
 			}

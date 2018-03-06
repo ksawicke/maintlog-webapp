@@ -36,6 +36,7 @@ class Checklistitem_model extends CI_Model {
 		$preStartItems = [];
 		$postStartItems = [];
 		$checklist = [];
+		$usedItems = [];
 
 		/** Sorts by item ASC; we need to preserve order of checklist_json */
 		array_multisort(array_map(function($element) {
@@ -52,47 +53,32 @@ class Checklistitem_model extends CI_Model {
 			}
 
 			$checklist = (array) json_decode($checklist_json);
-
-//			foreach($checklistitems as $key => $clidata) {
-//				if(in_array($clidata['id'], $checklist['preStartData'])) {
-//					$preStartItems[$key] = $checklistitems[$key];
-//					unset($checklistitems[$key]);
-//				}
-//				if(in_array($clidata['id'], $checklist['postStartData'])) {
-//					$postStartItems[$key] = $checklistitems[$key];
-//					unset($checklistitems[$key]);
-//				}
-//			}
 		}
 
 		$ci = [];
 		foreach($checklistitems as $key => $clidata) {
-			$ci[$clidata['id']] = $clidata['item'];
+			$ci[$clidata['id']] = $clidata;
 		}
 
-//		echo '<pre>';
-//		var_dump($ci);
-//
-//		echo '<pre>';
-//		var_dump($checklist['preStartData']);
-//
-//		echo '<pre>';
-//		var_dump($checklist['postStartData']);
-//
-//		exit();
+		foreach($checklist['preStartData'] as $ctr => $preStartData) {
+			$preStartItems[] = $ci[$preStartData];
+			$usedItems[] = $ci[$preStartData]['id'];
+		}
 
-//		foreach($checklist['preStartData'] as $ctr => $preStartData) {
-//			$preStartItems[] = $ci[$preStartData];
-//		}
-//
-//		foreach($checklist['postStartData'] as $ctr => $postStartData) {
-//			$postStartItems[] = $ci[$postStartData];
-//		}
-//		exit();
+		foreach($checklist['postStartData'] as $ctr => $postStartData) {
+			$postStartItems[] = $ci[$postStartData];
+			$usedItems[] = $ci[$postStartData]['id'];
+		}
 
-//		array_multisort(array_map(function($element) {
-//			return $element['item'];
-//		}, $checklistitems), SORT_ASC, $checklistitems);
+		foreach($checklistitems as $ctr => $cli) {
+			if(in_array($cli['id'], $usedItems)) {
+				unset($checklistitems[$ctr]);
+			}
+		}
+
+		array_multisort(array_map(function($element) {
+			return $element['item'];
+		}, $checklistitems), SORT_ASC, $checklistitems);
 
         return ['checklistitems' => $checklistitemsOrig, 'checklistitemsremaining' => $checklistitems, 'checklist' => $checklist, 'preStartItems' => $preStartItems, 'postStartItems' => $postStartItems];
     }

@@ -63,8 +63,8 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
 
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/fluidTypes/index'); ?>">App Settings</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/app/checklists'); ?>">Checklists</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/app/checklistItems'); ?>">Checklist Items</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/checklists'); ?>">Checklists <strong>IN DEVELOPMENT</strong></a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/app/checklistItems'); ?>">Checklist Items <strong>IN DEVELOPMENT</strong></a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/components/index'); ?>">Components</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/componentTypes/index'); ?>">Component Types</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/app/manufacturers/index'); ?>">Equipment Manufacturers</a>
