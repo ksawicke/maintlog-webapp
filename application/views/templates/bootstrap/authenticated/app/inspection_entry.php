@@ -1,0 +1,991 @@
+<form class="serviceLog-form parsley-form">
+	<div class="form-section show-next">
+		<label for="date_entered" class="control-label lb-lg">Date Entered</label>
+		<div class="input-group date">
+			<div class="input-group-addon">
+				<i class="fa fa-calendar"></i>
+			</div>
+			<input id="date_entered"
+				   name="date_entered"
+				   type="text"
+				   class="form-control input-lg"
+				   value=""
+				   data-parsley-required="true"
+				   data-parsley-pattern="/(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/"
+				   data-parsley-pattern-message="Date must be in MM/DD/YYYY format"
+				   data-parsley-errors-container=".date_entered_errors">
+		</div>
+		<p class="form-error date_entered_errors"></p>
+	</div>
+
+	<div class="form-section show-prev show-next">
+		<label for="entered_by" class="control-label lb-lg">Entered By</label><img id="loading_entered_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<select id="entered_by"
+				name="entered_by"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Please select who entered the record"
+				data-parsley-errors-container=".entered_by_errors">
+		</select>
+		<p class="form-error entered_by_errors"></p>
+
+		<label for="checked_by" class="control-label lb-lg">Checked By</label><img id="loading_checked_by" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<select id="checked_by"
+				name="checked_by"
+				class="form-control input-lg"
+				multiple
+				data-parsley-required="true"
+				data-parsley-mincheck="1"
+				data-parsley-error-message="Please select at least one person who performed the checkup"
+				data-parsley-errors-container=".checked_by_errors">
+		</select>
+		<p class="form-error checked_by_errors"></p>
+	</div>
+
+	<div class="form-section show-prev show-next">
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+
+				<label for="equipment_type" class="control-label lb-lg">Equipment Type</label>
+				<select id="equipment_type"
+						name="equipment_type"
+						class="form-control input-lg"
+						data-parsley-required="true"
+						data-parsley-error-message="Please select the Equipment Type"
+						data-parsley-errors-container=".equipment_type_errors">
+					<option value="">Select one:</option>
+					<?php foreach($equipmenttypes as $equipmenttype) { ?>
+						<option value="<?php echo $equipmenttype->id; ?>"><?php echo $equipmenttype->equipment_type; ?></option>
+					<?php } ?>
+				</select>
+
+				<label for="equipmentmodel_id" class="control-label lb-lg">Equipment Model</label><img id="loading_equipmentmodel_id" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+				<select id="equipmentmodel_id"
+						name="equipmentmodel_id"
+						class="form-control input-lg"
+						data-parsley-required="true"
+						data-parsley-error-message="Please select the Equipment Model"
+						data-parsley-errors-container=".equipmentmodel_id_errors"
+						disabled>
+				</select>
+
+				<label for="unit_number" class="control-label lb-lg">Unit Number</label><img id="loading_unit_number" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+				<select id="unit_number"
+						name="unit_number"
+						class="form-control input-lg"
+						data-parsley-required="true"
+						data-parsley-error-message="Please select the Unit Number"
+						data-parsley-errors-container=".unit_number_errors"
+						disabled>
+				</select>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="form-section show-prev show-next">
+		<label for="subflow" class="control-label lb-lg">Entry Selection</label>
+		<select
+			id="subflow"
+			name="subflow"
+			class="form-control input-lg"
+			data-parsley-required="true"
+			data-parsley-error-message="Please select the entry type"
+			data-parsley-errors-container=".subflow_errors">
+			<option value="">Select one:</option>
+			<option value="sus">SMR Update</option>
+			<option value="flu">Fluid Entry</option>
+			<option value="pss">PM Service</option>
+			<option value="ccs">Component Change</option>
+		</select>
+		<p class="form-error subflow_errors"></p>
+	</div>
+
+	<!-- SMR UPDATE SUBFLOW -->
+	<div class="form-section subflow sus show-prev show-review">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="sus_previous_smr" class="control-label lb-lg">Previous SMR</label>
+				<input
+					id="sus_previous_smr"
+					name="sus_previous_smr"
+					type="text"
+					class="form-control input-lg"
+					disabled>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="sus_current_smr" class="control-label lb-lg">Current SMR</label>
+				<input
+					id="sus_current_smr"
+					name="sus_current_smr"
+					type="text"
+					class="form-control input-lg"
+					value=""
+					data-parsley-type="number"
+					data-parsley-required="true"
+					data-parsley-gt="0"
+					data-parsley-lt="9999999"
+					data-parsley-required-message="Please enter the current SMR"
+					data-parsley-gt-message="Please enter a quantity greater than 0"
+					data-parsley-lt-message="Please enter a quantity less than 9,999,999"
+					data-parsley-errors-container=".sus_current_smr_errors">
+				<p class="form-error sus_current_smr_errors"></p>
+			</div>
+		</div>
+	</div>
+	<!-- /SMR UPDATE SUBFLOW -->
+
+	<!-- FLUID ENTRY SUBFLOW -->
+	<div class="form-section subflow flu show-prev show-next">
+
+		<?php for($fluidEntryCounter = 1; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+			<div class="row fluidEntry<?php echo $fluidEntryCounter; ?>">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<label for="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">Fluid Type</label>
+					<select
+						id="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
+						name="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
+						class="form-control input-lg"
+						<?php if($fluidEntryCounter==1) { ?>data-parsley-required="true"<?php } ?>
+						<?php if($fluidEntryCounter==1) { ?>data-parsley-error-message="Please select the fluid type"<?php } ?>
+						<?php if($fluidEntryCounter==1) { ?>data-parsley-errors-container=".flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors"<?php } ?>>
+						<option value="">Select one:</option>
+						<?php foreach($fluidtypes as $fluidtype) { ?>
+							<option value="<?php echo $fluidtype->id; ?>"><?php echo $fluidtype->fluid_type; ?></option>
+						<?php } ?>
+					</select>
+					<p class="form-error flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors"></p>
+				</div>
+			</div>
+
+			<div class="row fluidEntry<?php echo $fluidEntryCounter; ?>">
+				<div class="col-lg-1 col-md-1 col-sm-1">
+					&nbsp;
+				</div>
+
+				<div class="col-lg-2 col-md-2 col-sm-2">
+					<label for="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">Quantity</label>
+					<input
+						id="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
+						name="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
+						type="text"
+						class="form-control input-lg"
+						<?php if($fluidEntryCounter==1) { ?>data-parsley-type="number"
+						data-parsley-required="true"
+						data-parsley-gt="0"
+						data-parsley-lt="10000"
+						data-parsley-required-message="Please choose the quantity of fuel used"
+						data-parsley-gt-message="Please enter a quantity greater than 0"
+						data-parsley-lt-message="Please enter a quantity less than 10000.0"<?php } ?>
+						data-parsley-errors-container=".flu_quantity<?php echo "_" . $fluidEntryCounter; ?>_errors">
+					<?php echo '<p class="form-error flu_quantity' . $fluidEntryCounter . '_errors"></p>'; ?>
+				</div>
+
+				<div class="col-lg-9 col-md-9 col-sm-9">
+					<label for="flu_units<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">&nbsp;</label>
+					<select
+						id="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
+						name="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
+						class="form-control input-lg"
+						<?php if($fluidEntryCounter==1) { ?>data-parsley-required="true"
+						data-parsley-error-message="Please choose the units of fuel used"<?php } ?>
+						data-parsley-errors-container=".flu_units<?php echo "_" . $fluidEntryCounter; ?>_errors">
+						<option value="" selected>Select one:</option>
+						<option value="gal">Gallons (gal)</option>
+						<option value="L">Liters (L)</option>
+					</select>
+					<?php echo '<p class="form-error flu_units_' . $fluidEntryCounter . '_errors"></p>'; ?>
+				</div>
+			</div>
+
+		<?php } ?>
+
+		<?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
+			<button class="btn btn-success showFluidEntry<?php echo ($fluidEntryCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-fluid-entry="<?php echo $fluidEntryCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Fluid</button>
+		<?php } ?>
+
+	</div>
+
+	<div class="form-section subflow flu show-prev show-review">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="flu_previous_smr" class="control-label lb-lg">Previous SMR</label>
+				<input
+					id="flu_previous_smr"
+					name="flu_previous_smr"
+					type="text"
+					class="form-control input-lg"
+					disabled>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="flu_units" class="control-label lb-lg"></label>
+				<input
+					id="flu_units"
+					name="flu_units"
+					type="text"
+					class="form-control input-lg"
+					value=""
+					data-parsley-type="number"
+					data-parsley-required="true"
+					data-parsley-gt="0"
+					data-parsley-lt="9999999"
+					data-parsley-required-message="Please enter the current SMR or Miles"
+					data-parsley-gt-message="Please enter a quantity greater than 0"
+					data-parsley-lt-message="Please enter a quantity less than 9,999,999"
+					data-parsley-errors-container=".flu_units_errors">
+				<p class="form-error flu_units_errors"></p>
+			</div>
+		</div>
+	</div>
+	<!-- /FLUID ENTRY SUBFLOW -->
+
+	<!-- PM SERVICE SUBFLOW -->
+	<div class="form-section subflow pss show-prev show-next">
+		<label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
+		<select id="pss_pm_type"
+				name="pss_pm_type"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Please select the PM type"
+				data-parsley-errors-container=".pss_pm_type_errors">
+			<option value="">Select one:</option>
+			<option value="smr_based">SMR based</option>
+			<option value="mileage_based">Mileage based</option>
+			<option value="time_based">Time based</option>
+		</select>
+		<p class="form-error pss_pm_type_errors"></p>
+	</div>
+
+	<div class="form-section subflow pss show-prev show-next">
+		<label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<select id="pss_smr_based_pm_level"
+				name="pss_smr_based_pm_level"
+				class="form-control input-lg pss_smr_based">
+		</select>
+		<p class="form-error pss_smr_based_pm_level_errors"></p>
+
+		<label for="pss_smr_based_previous_smr" class="control-label lb-lg">Previous SMR</label>
+		<input
+			id="pss_smr_based_previous_smr"
+			name="pss_smr_based_previous_smr"
+			type="text"
+			class="form-control input-lg"
+			disabled>
+
+		<label for="pss_smr_based_current_smr" class="control-label lb-lg pss_smr_based">Current SMR</label>
+		<input
+			id="pss_smr_based_current_smr"
+			name="pss_smr_based_current_smr"
+			type="text"
+			class="form-control input-lg pss_smr_based"
+			value="">
+		<p class="form-error pss_smr_based_current_smr_errors"></p>
+
+		<label for="pss_smr_based_notes1" class="control-label lb-lg pss_smr_based_notes1">Notes</label>
+		<textarea type="text"
+				  id="pss_smr_based_notes1"
+				  name="pss_smr_based_notes1"
+				  class="form-control input-lg pss_smr_based_notes1"
+				  value=""></textarea>
+
+		<label for="pss_smr_based_notes2" class="control-label lb-lg pss_smr_based_notes2 hide_me">Notes</label>
+		<textarea type="text"
+				  id="pss_smr_based_notes2"
+				  name="pss_smr_based_notes2"
+				  class="form-control input-lg pss_smr_based pss_smr_based_notes2 hide_me"
+				  value=""></textarea>
+
+		<label for="pss_smr_based_notes3" class="control-label lb-lg pss_smr_based_notes3 hide_me">Notes</label>
+		<textarea type="text"
+				  id="pss_smr_based_notes3"
+				  name="pss_smr_based_notes3"
+				  class="form-control input-lg pss_smr_based pss_smr_based_notes3 hide_me"
+				  value=""></textarea>
+
+		<button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+
+		<button class="btn btn-success showPssSmrBasedNote hideButton" type="button" data-show-smr-based-note="3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+	</div>
+
+	<div class="form-section subflow pss show-prev show-next">
+		SERVICE REMINDER<br /><br />
+		<label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
+		<select id="pss_reminder_pm_type"
+				name="pss_reminder_pm_type"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Please select the PM Type"
+				data-parsley-errors-container=".pss_reminder_pm_type_errors">
+			<option value="">Select one:</option>
+			<option value="smr_based">SMR Based</option>
+			<option value="mileage_based">Mileage Based</option>
+			<option value="time_based">Time Based</option>
+		</select>
+		<p class="form-error pss_reminder_pm_type_errors"></p>
+
+		<label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<select id="pss_reminder_pm_level"
+				name="pss_reminder_pm_level"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Please select the PM Level"
+				data-parsley-errors-container=".pss_reminder_pm_type_errors">
+			<option value="">Select one:</option>
+		</select>
+		<p class="form-error pss_reminder_pm_type_errors"></p>
+
+		<label for="pss_due_units" class="control-label lb-lg">Due</label>
+		<input type="text" class="form-control input-lg" id="pss_due_units" name="pss_due_units" value="">
+	</div>
+
+	<div class="form-section subflow pss show-prev show-next">
+		<label for="pss_notes" class="control-label lb-lg">Notes</label>
+		<textarea type="text"
+				  class="form-control input-lg"
+				  id="pss_notes"
+				  name="pss_notes"
+				  value=""
+				  data-parsley-required="true"
+				  data-parsley-error-message="Please enter some notes"
+				  data-parsley-errors-container=".pss_notes_errors"></textarea>
+		<p class="form-error pss_notes_errors"></p>
+	</div>
+
+	<div class="form-section subflow pss show-prev show-review">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+				<select id="pss_reminder_recipients"
+						name="pss_reminder_recipients"
+						class="form-control input-lg"
+						multiple
+						readonly>
+				</select>
+				<p class="form-error pss_reminder_recipients_errors"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+				<select id="pss_responsible_reminder_recipients"
+						name="pss_responsible_reminder_recipients"
+						class="form-control input-lg"
+						multiple
+						readonly>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+				<select id="pss_additional_reminder_recipients"
+						name="pss_additional_reminder_recipients"
+						class="form-control input-lg"
+						multiple>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<label for="pss_reminder_quantity" class="control-label lb-lg">ALERT WINDOW BEFORE DUE</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<input type="text"
+					   id="pss_reminder_quantity"
+					   name="pss_reminder_quantity"
+					   class="form-control input-lg"
+					   data-parsley-required="true"
+					   data-parsley-error-message="Please enter a quantity"
+					   data-parsley-errors-container=".pss_reminder_quantity_errors">
+				<p class="form-error pss_reminder_quantity_errors"></p>
+			</div>
+
+			<div class="col-lg-9 col-md-9 col-sm-9">
+				<select id="pss_reminder_units"
+						name="pss_reminder_units"
+						class="form-control input-lg"
+						data-parsley-required="true"
+						data-parsley-error-message="Please select one"
+						data-parsley-errors-container=".pss_reminder_units_errors">
+					<option value="" selected>Select one:</option>
+					<option value="smr">SMR</option>
+					<option value="miles">Miles</option>
+					<option value="days">Days</option>
+				</select>
+				<p class="form-error pss_reminder_units_errors"></p>
+			</div>
+		</div>
+	</div>
+	<!-- /PM SERVICE SUBFLOW -->
+
+	<!-- COMPONENT CHANGE SUBFLOW -->
+	<div class="form-section subflow ccs show-prev show-next">
+		<label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<select id="ccs_component_type"
+				name="ccs_component_type"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Please select a Component Type"
+				data-parsley-errors-container=".ccs_component_type_errors">
+		</select>
+		<p class="form-error ccs_component_type_errors"></p>
+	</div>
+
+	<div class="form-section subflow ccs show-prev show-next">
+		<label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<select id="ccs_component"
+				name="ccs_component"
+				class="form-control input-lg"
+				data-parsley-required="true"
+				data-parsley-error-message="Please select a Component"
+				data-parsley-errors-container=".ccs_component_errors">
+		</select>
+		<p class="form-error ccs_component_errors"></p>
+
+		<label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
+		<input
+			id="ccs_component_data"
+			name="ccs_component_data"
+			type="text"
+			class="form-control input-lg"
+			value=""
+			data-parsley-required="true"
+			data-parsley-error-message="Please enter the Component Data for the Component selected"
+			data-parsley-errors-container=".ccs_component_data_errors">
+		<p class="form-error ccs_component_data_errors"></p>
+	</div>
+
+	<div class="form-section subflow ccs show-prev show-review">
+		<label for="ccs_notes" class="control-label lb-lg">Notes</label>
+		<textarea type="text"
+				  class="form-control input-lg"
+				  id="ccs_notes"
+				  name="ccs_notes"
+				  value=""
+				  data-parsley-required="true"
+				  data-parsley-error-message="Please enter some notes"
+				  data-parsley-errors-container=".ccs_notes_errors"></textarea>
+		<p class="form-error ccs_notes_errors"></p>
+	</div>
+	<!-- /COMPONENT CHANGE SUBFLOW -->
+
+	<div id="reviewScreen"></div>
+	<span class="clearfix"></span>
+
+	<div class="form-navigation">
+		<button id="goBackButton" type="button" class="prev btn btn-lg btn-primary">&laquo; Prev</button>
+		<button id="goForwardButton" type="button" class="next btn btn-lg btn-primary">Next &raquo;</button>
+		<button id="reviewButton" type="button" class="next btn btn-lg btn-primary">Review &raquo;</button>
+		<button id="submitButton" type="button" class="next btn btn-lg btn-primary">Submit</button>
+	</div>
+
+	<span class="clearfix"></span>
+
+</form>
+
+<style type="text/css">
+	#editing_service_log,
+	#goBackButton,
+	#reviewButton,
+	#submitButton,
+	#reviewScreen {
+		display: none;
+	}
+	.form-section {
+		display: none;
+	}
+	.form-section.current {
+		display: inherit;
+	}
+	.btn-info, .btn-default, .btn {
+		margin-top: 10px;
+	}
+	.form-error {
+		padding-top:5px;
+		font-weight: bold;
+		color: red;
+	}
+	.hide_me,
+	.hideButton {
+		display: none;
+	}
+</style>
+
+<script type="text/javascript">
+	$(function () {
+		var $sections = $('.form-section'),
+			subflowSelected = false,
+			currentSubflow = '',
+			subflowIndex = 0,
+			initialPassCompleted = false,
+			atTheEnd = false,
+			atReview = false;
+
+		/** Handle pop up content **/
+		var windowWidth = $(window).width(),
+			dialogWidth = windowWidth * 0.4,
+			windowHeight = $(window).height(),
+			dialogHeight = windowHeight * 0.4;
+
+		var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="cancelSubmitLogEntryForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitLogEntryForm" type="button">Yes</button></div>';
+		var confirmSubmitJBox = new jBox('Modal', {
+			closeButton: 'title',
+			responsiveWidth: true,
+			responsiveHeight: true,
+			minWidth: dialogWidth,
+			minHeight: dialogHeight,
+			attach: '#submitButton',
+			title: 'Confirm',
+			content: confirmationMessage,
+			zIndex: 15000,
+			preventDefault: true,
+			preloadAudio: false
+		});
+
+		function resetVars() {
+			var subflowSelected = false,
+				currentSubflow = '',
+				subflowIndex = 0,
+				atTheEnd = false,
+				atReview = false;
+		}
+
+		function goBackAfterReview() {
+			$("#reviewScreen").hide();
+			$('.form-section').hide();
+			$('.form-navigation .next').show();
+
+			atTheEnd = false;
+			atReview = false;
+			initialPassCompleted = true;
+
+			currentIndex = curIndex();
+			prevIndex = currentIndex - 1;
+
+			$sections
+				.removeClass('current')
+				.eq(prevIndex)
+				.addClass('current');
+			$('.form-section').eq(prevIndex).show();
+		}
+
+		function navigateTo(index) {
+			var thisSection = $("div").find("[data-section-index='" + (index) + "']"),
+				thisIndex = thisSection.attr('data-section-index');
+
+			var lastSection = $("div").find("[data-section-index='" + (index - 1) + "']");
+			var goToIndex = lastSection.attr('data-section-index');
+
+			$('.form-section').removeClass('current');
+			$("div").find("[data-section-index='" + index + "']").addClass('current').show();
+
+			if(initialPassCompleted && index===3) {
+				setCurrentSubflow();
+			}
+
+			if(thisSection.hasClass("show-prev")) {
+				$('#goBackButton').show();
+			} else {
+				$('#goBackButton').hide();
+			}
+
+			if(thisSection.hasClass("show-next")) {
+				$('#goForwardButton').show();
+			} else {
+				$('#goForwardButton').hide();
+			}
+
+			if(thisSection.hasClass("show-review")) {
+				$('#reviewButton').show();
+			} else {
+				$('#reviewButton').hide();
+			}
+
+			// On click the first "Next" button, let's load the user data into the
+			// #entered_by and #serviced_by fields. For the #entered_by
+			// field, we will pre-select the logged in user, but still allow the
+			// user to change the value.
+			if(index===1) {
+				populateUserData("<?php echo base_url(); ?>index.php/users/getUsers",
+					$("#entered_by"));
+			}
+		}
+
+		function curIndex() {
+			// Return the current index by looking at which section has the class 'current'
+			return $sections.index($sections.filter('.current'));
+		}
+
+		function printReviewScreen() {
+			var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>';
+
+			var json = getJsonObject(currentSubflow);
+
+			for(var i = 0; i < json.length; i++) {
+				var obj = json[i];
+				var value = obj.value;
+
+				text += '<label>' + obj.label + '</label><ul>';
+
+				if(obj.value.indexOf("|") >= 0) {
+					var splitText = obj.value.split("|");
+					for (var i = 0; i < splitText.length; i++) {
+						text += '<li>' + splitText[i] + '</li>';
+					}
+				} else {
+					text += '<li>' + value + '</li>';
+				}
+
+				text += '</ul>';
+			}
+
+			$("#reviewScreen").html(text);
+			$("#goBackButton").show();
+			$("#submitButton").show();
+		}
+
+		function populateUserData(serviceUrl, field) {
+			$("#loading_entered_by").show();
+			$("#loading_serviced_by").show();
+
+			var jqxhr = $.ajax({
+				url: serviceUrl,
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify({}), // no need to send data, just get it
+				contentType: "application/json"
+			}).done(function (object) {
+				// Clear dropdowns first.
+				$('#entered_by').empty();
+				$('#entered_by').append('<option value="">Select one:</option>');
+
+				populateEnteredByDropdownWithData(object);
+				$("#loading_entered_by").hide();
+
+				populateCheckedByDropdownWithData(object);
+				$("#loading_checked_by").hide();
+			});
+		}
+
+		function populateEnteredByDropdownWithData(object) {
+			// var service_log_object = getServiceLogData();
+
+			// Populate dropdown via ajax.
+			$.each(object.data, function(id, userData) {
+				var id = userData.id,
+					value = userData.last_name + ", " + userData.first_name,
+					current = userData.current,
+					active = userData.active;
+
+				if(active==="1") {
+					$('#entered_by').append('<option value="' + id + '"' + (current==='1' ? ' selected' : '') + '>' + value + '</option>');
+				}
+				// if(active==="1" && !empty(service_log_object)) {
+				// 	$('#entered_by').append('<option value="' + id + '"' + (id==service_log_object.entered_by ? ' selected' : '') + '>' + value + '</option>');
+				// } else if(active==="1" && empty(service_log_object)) {
+				// 	$('#entered_by').append('<option value="' + id + '"' + (current==='1' ? ' selected' : '') + '>' + value + '</option>');
+				// }
+			});
+		}
+
+		function populateCheckedByDropdownWithData(object) {
+			// var service_log_object = getServiceLogData();
+
+			// Populate multiselect using loaded object.
+			$.each(object.data, function(id, userData) {
+				var id = userData.id,
+					display = userData.last_name + ", " + userData.first_name,
+					email_address = userData.email_address,
+					current = userData.current,
+					active = userData.active;
+
+				if(active==="1") {
+					$("#checked_by").append('<option value="' + id + '">' + display + '</option>');
+				}
+
+				// if(active==="1" && !empty(service_log_object)) {
+				// 	var selectMe = 0;
+				// 	$.each(service_log_object.serviced_by, function(servicedbyId, servicedbyData) {
+				// 		if(selectMe===0 && servicedbyData.user_id==id) {
+				// 			selectMe = 1;
+				// 		}
+				// 	});
+                //
+				// 	$("#serviced_by").append('<option value="' + id + '"' + (selectMe==1 ? ' selected' : '') + '>' + display + '</option>');
+				// } else if(active==="1" && empty(service_log_object)) {
+				// 	$("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
+				// }
+			});
+		}
+
+		function populateEquipmentModelDropdownWithData(serviceUrl, field) {
+			// var service_log_object = getServiceLogData();
+
+			$("#loading_equipmentmodel_id").show();
+
+			var jqxhr = $.ajax({
+				url: serviceUrl,
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify({"id": $("#equipment_type").val()}),
+				contentType: "application/json"
+			}).done(function(object) {
+				// Clear dropdowns first.
+				$('#unit_number').empty();
+				$('#equipmentmodel_id').empty();
+				$('#equipmentmodel_id').append('<option value="">Select one:</option>');
+
+				// Populate dropdown via ajax.
+				$.each(object.data, function(id, unitData) {
+					var id = unitData.equipmentmodel_id,
+						value = unitData.manufacturer_name + " " + unitData.model_number;
+
+					$('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
+					// if(!empty(service_log_object)) {
+					// 	$('#equipmentmodel_id').append('<option value="' + id + '"' + (service_log_object.equipmentmodel_id==id ? ' selected' : '') + '>' + value + '</option>');
+					// } else {
+					// 	$('#equipmentmodel_id').append('<option value="' + id + '">' + value + '</option>');
+					// }
+				});
+				$('#equipmentmodel_id').attr('disabled', false);
+
+				$("#loading_equipmentmodel_id").hide();
+			});
+		}
+
+		function populateUnitNumberDropdownWithData(serviceUrl, field) {
+			// var service_log_object = getServiceLogData();
+			var equipmentmodel_id = $("#equipmentmodel_id").val();
+			// var equipmentmodel_id = (!empty(service_log_object) ? service_log_object.equipmentmodel_id : $("#equipmentmodel_id").val());
+
+			$("#loading_unit_number").show();
+
+			var jqxhr = $.ajax({
+				url: serviceUrl,
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify({"id": equipmentmodel_id}),
+				contentType: "application/json"
+			}).done(function(object) {
+				// Clear dropdown first.
+				$('#unit_number').empty();
+				$('#unit_number').append('<option value="">Select one:</option>');
+
+				// Populate dropdown via ajax.
+				$.each(object.data, function(id, unitData) {
+					var id = unitData.id,
+						value = unitData.unit_number,
+						track_type = unitData.track_type,
+						person_responsible = unitData.person_responsible,
+						fluids_tracked = unitData.fluids_tracked,
+						active = unitData.active;
+
+					if(active===1) {
+						$('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
+					}
+					// if(active===1 && !empty(service_log_object)) {
+					// 	$('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '"' + (id==service_log_object.equipmentunit_id ? ' selected' : '') + '>' + value + '</option>');
+					// } else if(active===1 && empty(service_log_object)) {
+					// 	$('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
+					// }
+				});
+
+				// if(!empty(service_log_object)) {
+				// 	if(service_log_object.subflow=="sus") {
+				// 		$("#sus_current_smr").val(service_log_object.smr);
+				// 	}
+                //
+				// 	if(service_log_object.subflow=="flu") {
+				// 		populateFluUnits();
+				// 		$("#flu_units").val(service_log_object.fluidentry_smr_detail.smr);
+				// 	}
+				// }
+
+				$("#unit_number").attr('disabled', false);
+
+				$("#loading_unit_number").hide();
+			});
+		}
+
+		function goBack() {
+			var thisSection = $('.form-section.current'),
+				thisIndex = thisSection.attr('data-section-index');
+
+			// If we are on the review screen and click "Back"
+			// then we need to check which index to send the user back to
+			if("undefined"===typeof(thisIndex)) {
+				var goToIndex = 3 + parseInt($('.subflow.' + currentSubflow).length);
+				navigateTo(goToIndex);
+				return;
+			}
+
+			var lastSection = $("div").find("[data-section-index='" + (thisIndex - 1) + "']");
+			var goToIndex = lastSection.attr('data-section-index');
+
+			if(thisIndex < lastSection && empty(currentSubflow)) {
+				var goToIndex = thisSection.prev('.form-section').attr('data-section-index');
+			} else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)) {
+				var goToIndex = thisSection.prev('.form-section.' + currentSubflow).attr('data-section-index');
+			} else if(thisIndex < lastSection && !empty(currentSubflow) && thisSection.prev('.form-section').hasClass(currentSubflow)===false) {
+				var goToIndex = thisIndex - 1;
+			}
+
+			navigateTo(goToIndex);
+		}
+
+		function showReview() {
+			$('.form-section').hide();
+			$("#reviewButton").hide();
+			$("#goForwardButton").hide();
+			$(".subflow").hide();
+			$("#submitButton").show();
+
+			printReviewScreen();
+
+			$("#reviewScreen").show();
+		}
+
+		function getRequestVariable(name) {
+			var id = 0;
+			if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search)) {
+				id = Number(decodeURIComponent(name[1]));
+			}
+
+			return (isInteger(id) ? id : 0);
+		}
+
+		function isInteger(x) {
+			return (typeof x === 'number') && (x % 1 === 0);
+		}
+
+		function initChecklistEntryData(checklistentry_id) {
+			if(checklistentry_id===0) {
+				// clearServiceLogData();
+
+				var today = moment().format('MM/DD/YYYY');
+
+				$("#date_entered").val(today);
+				return;
+			}
+		}
+
+		// Previous button is easy, just go back
+		$(document).on("click", ".prev", function () {
+			$("#reviewScreen").hide();
+			$("#submitButton").hide();
+			goBack();
+		});
+
+		// Next button goes forward if current block validates
+		$('.form-navigation .next').click(function () {
+			$('.serviceLog-form').parsley().whenValidate({
+				group: 'block-' + curIndex()
+			}).always(function () {
+				//
+			}).done(function () {
+				var thisSection = $('.form-section.current'),
+					thisIndex = thisSection.attr('data-section-index');
+
+				var goToIndex = parseInt(thisIndex) + 1;
+				var startAtIndex = 4;
+
+				$sections.each(function (index, section) {
+					// clear section index
+					if(index>=4) {
+						$(section).attr("data-section-index", "");
+					}
+
+					if(index>=4 && $(section).hasClass(currentSubflow)) {
+						$(section).attr("data-section-index", startAtIndex);
+						startAtIndex++;
+					}
+				});
+
+				if(thisSection.hasClass("show-prev")) {
+					$('#goBackButton').show();
+				} else {
+					$('#goBackButton').hide();
+				}
+
+				if(thisSection.hasClass("show-next")) {
+					$('#goForwardButton').show();
+				} else {
+					$('#goForwardButton').hide();
+				}
+
+				navigateTo(goToIndex);
+			});
+		});
+
+		// Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
+		$sections.each(function (index, section) {
+			$(section).find(':input').attr('data-parsley-group', 'block-' + index);
+			$(section).attr("data-section-index", index);
+		});
+		navigateTo(0); // Start at the beginning
+
+		$('#date_entered').datepicker({
+			autoclose: true,
+			dateFormat: 'mm/dd/yyyy'
+		});
+
+		$("#equipment_type").on('change', function() {
+			$("#equipmentmodel_id").prop('disabled', false);
+			populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
+				$("#equipmentmodel_id"));
+		});
+
+		$("#equipmentmodel_id").on('change', function() {
+			$("#unit_number").prop('disabled', false);
+			populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
+				$("#unit_number"));
+		});
+
+		$(document).ready(function() {
+			var checklistentry_id = getRequestVariable('id');
+			initChecklistEntryData(checklistentry_id);
+		});
+
+	});
+</script>
+<script>
+
+	function empty(data) {
+		if(typeof(data) === 'number' || typeof(data) === 'boolean')
+		{
+			return false;
+		}
+		if(typeof(data) === 'undefined' || data === null)
+		{
+			return true;
+		}
+		if(typeof(data.length) !== 'undefined')
+		{
+			return data.length === 0;
+		}
+		var count = 0;
+		for(var i in data)
+		{
+			if(data.hasOwnProperty(i))
+			{
+				count ++;
+			}
+		}
+		return count === 0;
+	}
+
+</script>

@@ -64,6 +64,30 @@ class App extends MY_Controller {
                 
         $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }
+
+	/**
+	 * Enter a inspection entry
+	 */
+	public function inspection_entry()
+	{
+		$data = [
+			'applicationName' => 'Komatsu NA Maintenance Log',
+			'title' => 'Komatsu NA Maintenance Log',
+			'assetDirectory' => $this->appDir . '/assets/',
+			'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/'
+		];
+
+		$this->load->library('template');
+		$this->load->model('Equipmenttype_model');
+
+		$data['equipmenttypes'] = $this->Equipmenttype_model->findAll();
+
+		$data['flashdata'] = $this->session->flashdata();
+
+		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/inspection_entry', $data, true);
+
+		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+	}
     
     /**
      * View users
