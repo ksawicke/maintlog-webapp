@@ -119,404 +119,74 @@
 	</div>
 
 	<div class="form-section show-prev show-next">
-		<label for="subflow" class="control-label lb-lg">Entry Selection</label>
-		<select
-			id="subflow"
-			name="subflow"
-			class="form-control input-lg"
-			data-parsley-required="true"
-			data-parsley-error-message="Please select the entry type"
-			data-parsley-errors-container=".subflow_errors">
-			<option value="">Select one:</option>
-			<option value="sus">SMR Update</option>
-			<option value="flu">Fluid Entry</option>
-			<option value="pss">PM Service</option>
-			<option value="ccs">Component Change</option>
-		</select>
-		<p class="form-error subflow_errors"></p>
-	</div>
+		<label for="left_rear_tire" class="control-label lb-lg">Left Rear Tire</label>
+		<div>
 
-	<!-- SMR UPDATE SUBFLOW -->
-	<div class="form-section subflow sus show-prev show-review">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="sus_previous_smr" class="control-label lb-lg">Previous SMR</label>
-				<input
-					id="sus_previous_smr"
-					name="sus_previous_smr"
-					type="text"
-					class="form-control input-lg"
-					disabled>
+			<div class="inspection-button button_good left_rear_tire item-notmarked text-center pa4 white" data-item="left_rear_tire" data-inspection-status="good">
+				<svg aria-hidden="true" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg"
+					 viewBox="0 0 512 512" class="svg-inline--fa fa-check fa-w-16 fa-5x">
+					<path fill="currentColor"
+						  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+						  class=""></path>
+				</svg>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="sus_current_smr" class="control-label lb-lg">Current SMR</label>
-				<input
-					id="sus_current_smr"
-					name="sus_current_smr"
-					type="text"
-					class="form-control input-lg"
-					value=""
-					data-parsley-type="number"
-					data-parsley-required="true"
-					data-parsley-gt="0"
-					data-parsley-lt="9999999"
-					data-parsley-required-message="Please enter the current SMR"
-					data-parsley-gt-message="Please enter a quantity greater than 0"
-					data-parsley-lt-message="Please enter a quantity less than 9,999,999"
-					data-parsley-errors-container=".sus_current_smr_errors">
-				<p class="form-error sus_current_smr_errors"></p>
+			<br />
+
+			<div class="inspection-button button_bad left_rear_tire item-notmarked text-center pa4 white" data-item="left_rear_tire" data-inspection-status="bad">
+				<svg aria-hidden="true" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg"
+					 viewBox="0 0 384 512" class="svg-inline--fa fa-times fa-w-12 fa-5x">
+					<path fill="currentColor"
+						  d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z"
+						  class=""></path>
+				</svg>
 			</div>
+
+			<label for="left_rear_tire_problem_note" class="control-label lb-lg">Notes</label>
+			<textarea type="text"
+					  id="left_rear_tire_problem_note"
+					  name="left_rear_tire_problem_note"
+					  class="form-control input-lg"
+					  value=""></textarea>
 		</div>
 	</div>
-	<!-- /SMR UPDATE SUBFLOW -->
 
-	<!-- FLUID ENTRY SUBFLOW -->
-	<div class="form-section subflow flu show-prev show-next">
+	<div class="form-section show-prev show-next">
+		<label for="right_front_tire" class="control-label lb-lg">Right Front Tire</label>
+		<div>
 
-		<?php for($fluidEntryCounter = 1; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
-			<div class="row fluidEntry<?php echo $fluidEntryCounter; ?>">
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<label for="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">Fluid Type</label>
-					<select
-						id="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
-						name="flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>"
-						class="form-control input-lg"
-						<?php if($fluidEntryCounter==1) { ?>data-parsley-required="true"<?php } ?>
-						<?php if($fluidEntryCounter==1) { ?>data-parsley-error-message="Please select the fluid type"<?php } ?>
-						<?php if($fluidEntryCounter==1) { ?>data-parsley-errors-container=".flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors"<?php } ?>>
-						<option value="">Select one:</option>
-						<?php foreach($fluidtypes as $fluidtype) { ?>
-							<option value="<?php echo $fluidtype->id; ?>"><?php echo $fluidtype->fluid_type; ?></option>
-						<?php } ?>
-					</select>
-					<p class="form-error flu_fluid_type<?php echo "_" . $fluidEntryCounter; ?>_errors"></p>
-				</div>
+			<div class="inspection-button button_good right_front_tire item-notmarked text-center pa4 white" data-item="right_front_tire" data-inspection-status="good">
+				<svg aria-hidden="true" data-prefix="fas" data-icon="check" role="img" xmlns="http://www.w3.org/2000/svg"
+					 viewBox="0 0 512 512" class="svg-inline--fa fa-check fa-w-16 fa-5x">
+					<path fill="currentColor"
+						  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+						  class=""></path>
+				</svg>
 			</div>
 
-			<div class="row fluidEntry<?php echo $fluidEntryCounter; ?>">
-				<div class="col-lg-1 col-md-1 col-sm-1">
-					&nbsp;
-				</div>
+			<br />
 
-				<div class="col-lg-2 col-md-2 col-sm-2">
-					<label for="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">Quantity</label>
-					<input
-						id="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
-						name="flu_quantity<?php echo "_" . $fluidEntryCounter; ?>"
-						type="text"
-						class="form-control input-lg"
-						<?php if($fluidEntryCounter==1) { ?>data-parsley-type="number"
-						data-parsley-required="true"
-						data-parsley-gt="0"
-						data-parsley-lt="10000"
-						data-parsley-required-message="Please choose the quantity of fuel used"
-						data-parsley-gt-message="Please enter a quantity greater than 0"
-						data-parsley-lt-message="Please enter a quantity less than 10000.0"<?php } ?>
-						data-parsley-errors-container=".flu_quantity<?php echo "_" . $fluidEntryCounter; ?>_errors">
-					<?php echo '<p class="form-error flu_quantity' . $fluidEntryCounter . '_errors"></p>'; ?>
-				</div>
-
-				<div class="col-lg-9 col-md-9 col-sm-9">
-					<label for="flu_units<?php echo "_" . $fluidEntryCounter; ?>" class="control-label lb-lg">&nbsp;</label>
-					<select
-						id="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
-						name="flu_units<?php echo "_" . $fluidEntryCounter; ?>"
-						class="form-control input-lg"
-						<?php if($fluidEntryCounter==1) { ?>data-parsley-required="true"
-						data-parsley-error-message="Please choose the units of fuel used"<?php } ?>
-						data-parsley-errors-container=".flu_units<?php echo "_" . $fluidEntryCounter; ?>_errors">
-						<option value="" selected>Select one:</option>
-						<option value="gal">Gallons (gal)</option>
-						<option value="L">Liters (L)</option>
-					</select>
-					<?php echo '<p class="form-error flu_units_' . $fluidEntryCounter . '_errors"></p>'; ?>
-				</div>
+			<div class="inspection-button button_bad right_front_tire item-notmarked text-center pa4 white" data-item="right_front_tire" data-inspection-status="bad">
+				<svg aria-hidden="true" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg"
+					 viewBox="0 0 384 512" class="svg-inline--fa fa-times fa-w-12 fa-5x">
+					<path fill="currentColor"
+						  d="M323.1 441l53.9-53.9c9.4-9.4 9.4-24.5 0-33.9L279.8 256l97.2-97.2c9.4-9.4 9.4-24.5 0-33.9L323.1 71c-9.4-9.4-24.5-9.4-33.9 0L192 168.2 94.8 71c-9.4-9.4-24.5-9.4-33.9 0L7 124.9c-9.4 9.4-9.4 24.5 0 33.9l97.2 97.2L7 353.2c-9.4 9.4-9.4 24.5 0 33.9L60.9 441c9.4 9.4 24.5 9.4 33.9 0l97.2-97.2 97.2 97.2c9.3 9.3 24.5 9.3 33.9 0z"
+						  class=""></path>
+				</svg>
 			</div>
 
-		<?php } ?>
-
-		<?php for($fluidEntryCounter = 2; $fluidEntryCounter <= $maxFluidEntries; $fluidEntryCounter++) { ?>
-			<button class="btn btn-success showFluidEntry<?php echo ($fluidEntryCounter===2 ? '' : ' hideButton'); ?>" type="button" data-show-fluid-entry="<?php echo $fluidEntryCounter; ?>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Fluid</button>
-		<?php } ?>
-
-	</div>
-
-	<div class="form-section subflow flu show-prev show-review">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="flu_previous_smr" class="control-label lb-lg">Previous SMR</label>
-				<input
-					id="flu_previous_smr"
-					name="flu_previous_smr"
-					type="text"
-					class="form-control input-lg"
-					disabled>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="flu_units" class="control-label lb-lg"></label>
-				<input
-					id="flu_units"
-					name="flu_units"
-					type="text"
-					class="form-control input-lg"
-					value=""
-					data-parsley-type="number"
-					data-parsley-required="true"
-					data-parsley-gt="0"
-					data-parsley-lt="9999999"
-					data-parsley-required-message="Please enter the current SMR or Miles"
-					data-parsley-gt-message="Please enter a quantity greater than 0"
-					data-parsley-lt-message="Please enter a quantity less than 9,999,999"
-					data-parsley-errors-container=".flu_units_errors">
-				<p class="form-error flu_units_errors"></p>
-			</div>
+			<label for="right_front_tire_problem_note" class="control-label lb-lg">Notes</label>
+			<textarea type="text"
+					  id="right_front_tire_problem_note"
+					  name="right_front_tire_problem_note"
+					  class="form-control input-lg"
+					  value=""></textarea>
 		</div>
 	</div>
-	<!-- /FLUID ENTRY SUBFLOW -->
 
-	<!-- PM SERVICE SUBFLOW -->
-	<div class="form-section subflow pss show-prev show-next">
-		<label for="pss_pm_type" class="control-label lb-lg">PM Type</label>
-		<select id="pss_pm_type"
-				name="pss_pm_type"
-				class="form-control input-lg"
-				data-parsley-required="true"
-				data-parsley-error-message="Please select the PM type"
-				data-parsley-errors-container=".pss_pm_type_errors">
-			<option value="">Select one:</option>
-			<option value="smr_based">SMR based</option>
-			<option value="mileage_based">Mileage based</option>
-			<option value="time_based">Time based</option>
-		</select>
-		<p class="form-error pss_pm_type_errors"></p>
+	<div id="reviewScreen">
+		Review....
 	</div>
-
-	<div class="form-section subflow pss show-prev show-next">
-		<label for="pss_smr_based_pm_level" class="control-label lb-lg pss_smr_based">PM Level</label><img id="loading_pss_smr_based_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-		<select id="pss_smr_based_pm_level"
-				name="pss_smr_based_pm_level"
-				class="form-control input-lg pss_smr_based">
-		</select>
-		<p class="form-error pss_smr_based_pm_level_errors"></p>
-
-		<label for="pss_smr_based_previous_smr" class="control-label lb-lg">Previous SMR</label>
-		<input
-			id="pss_smr_based_previous_smr"
-			name="pss_smr_based_previous_smr"
-			type="text"
-			class="form-control input-lg"
-			disabled>
-
-		<label for="pss_smr_based_current_smr" class="control-label lb-lg pss_smr_based">Current SMR</label>
-		<input
-			id="pss_smr_based_current_smr"
-			name="pss_smr_based_current_smr"
-			type="text"
-			class="form-control input-lg pss_smr_based"
-			value="">
-		<p class="form-error pss_smr_based_current_smr_errors"></p>
-
-		<label for="pss_smr_based_notes1" class="control-label lb-lg pss_smr_based_notes1">Notes</label>
-		<textarea type="text"
-				  id="pss_smr_based_notes1"
-				  name="pss_smr_based_notes1"
-				  class="form-control input-lg pss_smr_based_notes1"
-				  value=""></textarea>
-
-		<label for="pss_smr_based_notes2" class="control-label lb-lg pss_smr_based_notes2 hide_me">Notes</label>
-		<textarea type="text"
-				  id="pss_smr_based_notes2"
-				  name="pss_smr_based_notes2"
-				  class="form-control input-lg pss_smr_based pss_smr_based_notes2 hide_me"
-				  value=""></textarea>
-
-		<label for="pss_smr_based_notes3" class="control-label lb-lg pss_smr_based_notes3 hide_me">Notes</label>
-		<textarea type="text"
-				  id="pss_smr_based_notes3"
-				  name="pss_smr_based_notes3"
-				  class="form-control input-lg pss_smr_based pss_smr_based_notes3 hide_me"
-				  value=""></textarea>
-
-		<button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
-
-		<button class="btn btn-success showPssSmrBasedNote hideButton" type="button" data-show-smr-based-note="3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
-	</div>
-
-	<div class="form-section subflow pss show-prev show-next">
-		SERVICE REMINDER<br /><br />
-		<label for="pss_reminder_pm_type" class="control-label lb-lg">PM Type</label>
-		<select id="pss_reminder_pm_type"
-				name="pss_reminder_pm_type"
-				class="form-control input-lg"
-				data-parsley-required="true"
-				data-parsley-error-message="Please select the PM Type"
-				data-parsley-errors-container=".pss_reminder_pm_type_errors">
-			<option value="">Select one:</option>
-			<option value="smr_based">SMR Based</option>
-			<option value="mileage_based">Mileage Based</option>
-			<option value="time_based">Time Based</option>
-		</select>
-		<p class="form-error pss_reminder_pm_type_errors"></p>
-
-		<label for="pss_reminder_pm_level" class="control-label lb-lg">PM Level</label><img id="loading_pss_reminder_pm_level" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-		<select id="pss_reminder_pm_level"
-				name="pss_reminder_pm_level"
-				class="form-control input-lg"
-				data-parsley-required="true"
-				data-parsley-error-message="Please select the PM Level"
-				data-parsley-errors-container=".pss_reminder_pm_type_errors">
-			<option value="">Select one:</option>
-		</select>
-		<p class="form-error pss_reminder_pm_type_errors"></p>
-
-		<label for="pss_due_units" class="control-label lb-lg">Due</label>
-		<input type="text" class="form-control input-lg" id="pss_due_units" name="pss_due_units" value="">
-	</div>
-
-	<div class="form-section subflow pss show-prev show-next">
-		<label for="pss_notes" class="control-label lb-lg">Notes</label>
-		<textarea type="text"
-				  class="form-control input-lg"
-				  id="pss_notes"
-				  name="pss_notes"
-				  value=""
-				  data-parsley-required="true"
-				  data-parsley-error-message="Please enter some notes"
-				  data-parsley-errors-container=".pss_notes_errors"></textarea>
-		<p class="form-error pss_notes_errors"></p>
-	</div>
-
-	<div class="form-section subflow pss show-prev show-review">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="pss_reminder_recipients" class="control-label lb-lg">REMINDER RECIPIENTS</label><img id="loading_pss_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-				<select id="pss_reminder_recipients"
-						name="pss_reminder_recipients"
-						class="form-control input-lg"
-						multiple
-						readonly>
-				</select>
-				<p class="form-error pss_reminder_recipients_errors"></p>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="pss_responsible_reminder_recipients" class="control-label lb-lg">PERSON RESPONSIBLE REMINDER RECIPIENTS</label><img id="loading_pss_responsible_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-				<select id="pss_responsible_reminder_recipients"
-						name="pss_responsible_reminder_recipients"
-						class="form-control input-lg"
-						multiple
-						readonly>
-				</select>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="pss_additional_reminder_recipients" class="control-label lb-lg">ADDITIONAL REMINDER RECIPIENTS</label><img id="loading_pss_additional_reminder_recipients" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-				<select id="pss_additional_reminder_recipients"
-						name="pss_additional_reminder_recipients"
-						class="form-control input-lg"
-						multiple>
-				</select>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12">
-				<label for="pss_reminder_quantity" class="control-label lb-lg">ALERT WINDOW BEFORE DUE</label>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-3">
-				<input type="text"
-					   id="pss_reminder_quantity"
-					   name="pss_reminder_quantity"
-					   class="form-control input-lg"
-					   data-parsley-required="true"
-					   data-parsley-error-message="Please enter a quantity"
-					   data-parsley-errors-container=".pss_reminder_quantity_errors">
-				<p class="form-error pss_reminder_quantity_errors"></p>
-			</div>
-
-			<div class="col-lg-9 col-md-9 col-sm-9">
-				<select id="pss_reminder_units"
-						name="pss_reminder_units"
-						class="form-control input-lg"
-						data-parsley-required="true"
-						data-parsley-error-message="Please select one"
-						data-parsley-errors-container=".pss_reminder_units_errors">
-					<option value="" selected>Select one:</option>
-					<option value="smr">SMR</option>
-					<option value="miles">Miles</option>
-					<option value="days">Days</option>
-				</select>
-				<p class="form-error pss_reminder_units_errors"></p>
-			</div>
-		</div>
-	</div>
-	<!-- /PM SERVICE SUBFLOW -->
-
-	<!-- COMPONENT CHANGE SUBFLOW -->
-	<div class="form-section subflow ccs show-prev show-next">
-		<label for="ccs_component_type" class="control-label lb-lg">Component Type</label><img id="loading_ccs_component_type" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-		<select id="ccs_component_type"
-				name="ccs_component_type"
-				class="form-control input-lg"
-				data-parsley-required="true"
-				data-parsley-error-message="Please select a Component Type"
-				data-parsley-errors-container=".ccs_component_type_errors">
-		</select>
-		<p class="form-error ccs_component_type_errors"></p>
-	</div>
-
-	<div class="form-section subflow ccs show-prev show-next">
-		<label for="ccs_component" class="control-label lb-lg">Component</label><img id="loading_ccs_component" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-		<select id="ccs_component"
-				name="ccs_component"
-				class="form-control input-lg"
-				data-parsley-required="true"
-				data-parsley-error-message="Please select a Component"
-				data-parsley-errors-container=".ccs_component_errors">
-		</select>
-		<p class="form-error ccs_component_errors"></p>
-
-		<label for="ccs_component_data" class="control-label lb-lg">Component Data</label><img id="loading_ccs_component_data" src="<?php echo base_url(); ?>assets/templates/komatsuna/img/ajax_loading.gif" class="loading">
-		<input
-			id="ccs_component_data"
-			name="ccs_component_data"
-			type="text"
-			class="form-control input-lg"
-			value=""
-			data-parsley-required="true"
-			data-parsley-error-message="Please enter the Component Data for the Component selected"
-			data-parsley-errors-container=".ccs_component_data_errors">
-		<p class="form-error ccs_component_data_errors"></p>
-	</div>
-
-	<div class="form-section subflow ccs show-prev show-review">
-		<label for="ccs_notes" class="control-label lb-lg">Notes</label>
-		<textarea type="text"
-				  class="form-control input-lg"
-				  id="ccs_notes"
-				  name="ccs_notes"
-				  value=""
-				  data-parsley-required="true"
-				  data-parsley-error-message="Please enter some notes"
-				  data-parsley-errors-container=".ccs_notes_errors"></textarea>
-		<p class="form-error ccs_notes_errors"></p>
-	</div>
-	<!-- /COMPONENT CHANGE SUBFLOW -->
-
-	<div id="reviewScreen"></div>
 	<span class="clearfix"></span>
 
 	<div class="form-navigation">
@@ -926,7 +596,8 @@
 		$(document).on("click", ".inspection-button", function () {
 			var item = $(this).data('item'),
 				thisItemClass = '.' + $(this).data('item'),
-				status = $(this).data('inspection-status');
+				status = $(this).data('inspection-status'),
+				problem_note = $(this).data('item') + '_problem_note'; //left_front_tire_problem_note
 
 			console.log(item);
 			console.log(status);
@@ -937,6 +608,13 @@
 				$(thisItemClass).removeClass('item-bad');
 				$(this).addClass('item-good');
 				$(thisItemClass + ".button_bad").addClass('item-notmarked');
+				$('label[for="' + problem_note + '"]').hide();
+				$('#' + problem_note).hide();
+
+				var index = curIndex();
+				setTimeout(function(){
+					navigateTo(index + 1);
+				}, 1000);
 			}
 
 			if($(this).hasClass(item) && status=='bad') {
@@ -945,6 +623,8 @@
 				$(thisItemClass).removeClass('item-bad');
 				$(this).addClass('item-bad');
 				$(thisItemClass + ".button_good").addClass('item-notmarked');
+				$('label[for="' + problem_note + '"]').show();
+				$('#' + problem_note).show();
 			}
 		});
 
@@ -961,17 +641,17 @@
 				var goToIndex = parseInt(thisIndex) + 1;
 				var startAtIndex = 4;
 
-				$sections.each(function (index, section) {
-					// clear section index
-					if(index>=4) {
-						$(section).attr("data-section-index", "");
-					}
-
-					if(index>=4 && $(section).hasClass(currentSubflow)) {
-						$(section).attr("data-section-index", startAtIndex);
-						startAtIndex++;
-					}
-				});
+				// $sections.each(function (index, section) {
+				// 	// clear section index
+				// 	if(index>=4) {
+				// 		$(section).attr("data-section-index", "");
+				// 	}
+                //
+				// 	if(index>=4 && $(section).hasClass(currentSubflow)) {
+				// 		$(section).attr("data-section-index", startAtIndex);
+				// 		startAtIndex++;
+				// 	}
+				// });
 
 				if(thisSection.hasClass("show-prev")) {
 					$('#goBackButton').show();
@@ -1015,6 +695,16 @@
 
 		$(document).ready(function() {
 			var checklistentry_id = getRequestVariable('id');
+
+			$('label[for="left_front_tire_problem_note"]').hide();
+			$('#left_front_tire_problem_note').hide();
+
+			$('label[for="left_rear_tire_problem_note"]').hide();
+			$('#left_rear_tire_problem_note').hide();
+
+			$('label[for="right_front_tire_problem_note"]').hide();
+			$('#right_front_tire_problem_note').hide();
+
 			initChecklistEntryData(checklistentry_id);
 		});
 
