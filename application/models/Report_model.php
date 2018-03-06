@@ -20,9 +20,9 @@ class Report_model extends CI_Model {
      */
     public function findMaintenanceLogReminders($params = []) {
         $customSearch = '';
-        
+
         if(!empty($params) && array_key_exists('data', $params)) {
-            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
+            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
             $customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
             $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
             $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
@@ -48,7 +48,7 @@ class Report_model extends CI_Model {
 		LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = pm.pm_level AND pm.pm_type = 'mileage_based')
                 LEFT OUTER JOIN timechoice time ON (time.id = pm.pm_level AND pm.pm_type = 'time_based')
             WHERE s.new_id = 0" . $customSearch;
-        
+
         $reminders = R::getAll($customSql);
 
         return $reminders;
