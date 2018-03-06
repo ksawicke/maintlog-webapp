@@ -7,7 +7,7 @@ The purpose of this application is to allow engineers to add service log entries
 The application was written in PHP and JavaScript and uses the following:
 
 + CodeIgniter 3.1.5
-+ Bootstrap 3.3.7 (to ensure a responsive layout)
++ Bootstrap 4.0.0 (to ensure a responsive layout)
 + jQuery
 + DataTables
 + jBox
