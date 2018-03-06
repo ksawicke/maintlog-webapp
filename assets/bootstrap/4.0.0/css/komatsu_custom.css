@@ -32,3 +32,38 @@ label {
 	font-weight: bold;
 	color: #dc3545 !important;
 }
+
+.pa4 {
+	padding: 1.5rem;
+}
+
+.white {
+	color: #fff;
+}
+.justify-center {
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.items-center {
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.inspection-button {
+	width: 175px;
+}
+
+.item-notmarked {
+	background-color: #e9ecef;
+}
+
+.item-good {
+	background-color: #28a745;
+}
+
+.item-bad {
+	background-color: #dc3545;
+}
