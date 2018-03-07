@@ -60,14 +60,18 @@ class Checklistitem_model extends CI_Model {
 			$ci[$clidata['id']] = $clidata;
 		}
 
-		foreach($checklist['preStartData'] as $ctr => $preStartData) {
-			$preStartItems[] = $ci[$preStartData];
-			$usedItems[] = $ci[$preStartData]['id'];
+		if(array_key_exists('preStartData', $checklist)) {
+			foreach ($checklist['preStartData'] as $ctr => $preStartData) {
+				$preStartItems[] = $ci[$preStartData];
+				$usedItems[] = $ci[$preStartData]['id'];
+			}
 		}
 
-		foreach($checklist['postStartData'] as $ctr => $postStartData) {
-			$postStartItems[] = $ci[$postStartData];
-			$usedItems[] = $ci[$postStartData]['id'];
+		if(array_key_exists('postStartData', $checklist)) {
+			foreach ($checklist['postStartData'] as $ctr => $postStartData) {
+				$postStartItems[] = $ci[$postStartData];
+				$usedItems[] = $ci[$postStartData]['id'];
+			}
 		}
 
 		foreach($checklistitems as $ctr => $cli) {

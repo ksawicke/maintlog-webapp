@@ -23,7 +23,7 @@
 			responsive: true,
 			"columns": [
 				null,
-				{"width": "80px", "orderable": false}
+				{"width": "100px", "orderable": false}
 			]
 		});
 	});

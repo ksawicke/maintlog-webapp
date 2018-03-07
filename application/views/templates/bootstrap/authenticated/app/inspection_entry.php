@@ -238,7 +238,8 @@
 			subflowIndex = 0,
 			initialPassCompleted = false,
 			atTheEnd = false,
-			atReview = false;
+			atReview = false,
+			currentChecklistItems = {};
 
 		/** Handle pop up content **/
 		var windowWidth = $(window).width(),
@@ -594,29 +595,17 @@
 			}
 		}
 
-		function ajax(options) {
-			return new Promise(function(resolve, reject) {
-				$.ajax(options)
-					.done(function (resolve) {
-						console.log(resolve);
-					})
-					.fail(function (reject) {
-						return;
-					});
-			});
-		}
-
-		function getChecklistItems(equipmenttype_id) {
+		function populateChecklistScreens(equipmenttype_id) {
 			var getChecklistItemUrl = '<?php echo base_url(); ?>index.php/checklistitems/getChecklistItems/' + equipmenttype_id;
 
-			ajax({
+			$.ajax({
 				url: getChecklistItemUrl,
 				type: "POST",
 				dataType: "json",
 				data: JSON.stringify({}),
 				contentType: "application/json"
-			}).then(function(object) {
-				// return object.data;
+			}).done(function(object) {
+				console.log(object.data.preStartItems);
 			});
 		}
 
@@ -722,9 +711,7 @@
 			populateEquipmentModelDropdownWithData("<?php echo base_url(); ?>index.php/equipmentmodel/getEquipmentByType",
 				$("#equipmentmodel_id"));
 
-			var checklistItemData = getChecklistItems(equipmenttype_id);
-
-			// console.log(checklistItemData);
+			populateChecklistScreens(equipmenttype_id);
 		});
 
 		$("#equipmentmodel_id").on('change', function() {
