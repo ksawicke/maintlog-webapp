@@ -306,3 +306,9 @@ table {
 	width: 75% !important;
 	cursor: move !important;
 }
+
+.svg-inline--fa {
+	color: #b7babe !important;
+	margin-right: 7px;
+	margin-top: 3px;
+}

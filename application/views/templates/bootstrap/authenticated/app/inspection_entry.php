@@ -3,7 +3,7 @@
 		<label for="date_entered" class="control-label lb-lg">Date Entered</label>
 		<div class="input-group date">
 			<div class="input-group-addon">
-				<i class="fa fa-calendar"></i>
+				<i class="far fa-calendar-alt fa-2x"></i>
 			</div>
 			<input id="date_entered"
 				   name="date_entered"
