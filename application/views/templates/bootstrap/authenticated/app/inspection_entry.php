@@ -85,6 +85,8 @@
 
 	</div>
 
+	<h3 id="inspection-section"></h3>
+
 	<div class="form-section show-prev show-next">
 		<label for="left_front_tire" class="control-label lb-lg">Left Front Tire</label>
 		<div>
@@ -325,6 +327,12 @@
 			if(index===1) {
 				populateUserData("<?php echo base_url(); ?>index.php/users/getUsers",
 					$("#entered_by"));
+			}
+
+			if(index>=3) {
+				$("#inspection-section").html("Pre-Start");
+				$('#goBackButton').hide();
+				$('#goForwardButton').hide();
 			}
 		}
 
@@ -625,6 +633,7 @@
 				$(thisItemClass + ".button_good").addClass('item-notmarked');
 				$('label[for="' + problem_note + '"]').show();
 				$('#' + problem_note).show();
+				$('#goForwardButton').show();
 			}
 		});
 
@@ -639,7 +648,7 @@
 					thisIndex = thisSection.attr('data-section-index');
 
 				var goToIndex = parseInt(thisIndex) + 1;
-				var startAtIndex = 4;
+				// var startAtIndex = 4;
 
 				// $sections.each(function (index, section) {
 				// 	// clear section index
