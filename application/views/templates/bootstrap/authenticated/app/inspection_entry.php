@@ -87,6 +87,7 @@
 
 	<h3 id="inspection-section"></h3>
 
+	<?php /******************
 	<div class="form-section show-prev show-next">
 		<label for="left_front_tire" class="control-label lb-lg">Left Front Tire</label>
 		<div>
@@ -185,6 +186,7 @@
 					  value=""></textarea>
 		</div>
 	</div>
+ * ******************************/ ?>
 
 	<div id="reviewScreen">
 		Review....
@@ -293,15 +295,17 @@
 			var thisSection = $("div").find("[data-section-index='" + (index) + "']"),
 				thisIndex = thisSection.attr('data-section-index');
 
+			console.log(thisSection);
+
 			var lastSection = $("div").find("[data-section-index='" + (index - 1) + "']");
 			var goToIndex = lastSection.attr('data-section-index');
 
 			$('.form-section').removeClass('current');
 			$("div").find("[data-section-index='" + index + "']").addClass('current').show();
 
-			if(initialPassCompleted && index===3) {
-				setCurrentSubflow();
-			}
+			// if(initialPassCompleted && index===3) {
+			// 	setCurrentSubflow();
+			// }
 
 			if(thisSection.hasClass("show-prev")) {
 				$('#goBackButton').show();
@@ -329,6 +333,8 @@
 				populateUserData("<?php echo base_url(); ?>index.php/users/getUsers",
 					$("#entered_by"));
 			}
+
+			console.log("INDEX: " + index);
 
 			if(index>=3) {
 				$("#inspection-section").html("Pre-Start");
@@ -605,7 +611,30 @@
 				data: JSON.stringify({}),
 				contentType: "application/json"
 			}).done(function(object) {
-				console.log(object.data.preStartItems);
+				populateHTML(object.data.preStartItems);
+
+				$sections = $('.form-section');
+
+				$sections.each(function (index, section) {
+					$(section).find(':input').attr('data-parsley-group', 'block-' + index);
+					$(section).attr("data-section-index", index);
+				});
+			});
+		}
+
+		function populateHTML(preStartItems) {
+			var getHTML = '<?php echo base_url(); ?>index.php/inspection/getInspectionHTML/';
+
+			$.ajax({
+				url: getHTML,
+				type: "POST",
+				dataType: "json",
+				data: JSON.stringify(preStartItems),
+				contentType: "application/json"
+			}).done(function(object) {
+				// console.log(object.data.html);
+				// console.log(data);
+				$( object.data ).insertAfter( "#inspection-section" )
 			});
 		}
 
@@ -635,6 +664,19 @@
 				$('#' + problem_note).hide();
 
 				var index = curIndex();
+
+				console.log("CLICKED GOOD. INDEX: " + index);
+
+				if(index==-1) {
+					index = 4;
+					console.log("THIS UN");
+					console.log($(document).find("current"));
+					// $sections
+					// 	.removeClass('current')
+					// 	.eq(index)
+					// 	.addClass('current');
+				}
+
 				setTimeout(function(){
 					navigateTo(index + 1);
 				}, 1000);
@@ -663,6 +705,9 @@
 					thisIndex = thisSection.attr('data-section-index');
 
 				var goToIndex = parseInt(thisIndex) + 1;
+
+				console.log("Go To Index: " + goToIndex);
+
 				// var startAtIndex = 4;
 
 				// $sections.each(function (index, section) {
@@ -723,14 +768,14 @@
 		$(document).ready(function() {
 			var checklistentry_id = getRequestVariable('id');
 
-			$('label[for="left_front_tire_problem_note"]').hide();
-			$('#left_front_tire_problem_note').hide();
-
-			$('label[for="left_rear_tire_problem_note"]').hide();
-			$('#left_rear_tire_problem_note').hide();
-
-			$('label[for="right_front_tire_problem_note"]').hide();
-			$('#right_front_tire_problem_note').hide();
+			// $('label[for="left_front_tire_problem_note"]').hide();
+			// $('#left_front_tire_problem_note').hide();
+            //
+			// $('label[for="left_rear_tire_problem_note"]').hide();
+			// $('#left_rear_tire_problem_note').hide();
+            //
+			// $('label[for="right_front_tire_problem_note"]').hide();
+			// $('#right_front_tire_problem_note').hide();
 
 			initChecklistEntryData(checklistentry_id);
 		});

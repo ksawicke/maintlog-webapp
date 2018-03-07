@@ -1,21 +1,12 @@
 <?php
-$data = [
-	'preStart' => [
-		0 => ['id' => 3, 'item' => 'Suspension'],
-		1 => ['id' => 15, 'item' => 'Tires'],
-		2 => ['id' => 8, 'item' => 'Horn/Alarm/Lights'],
-		3 => ['id' => 16, 'item' => 'Leak Evidence'],
-		4 => ['id' => 17, 'item' => 'Seat Belt']
-	]
-];
 
-foreach($data['preStart'] as $key => $preStartData) {
+$ctr = 3;
+foreach($array['preStart'] as $key => $preStartData) {
 	$adjustedName = str_replace('/', '_', $preStartData['item']);
 	$adjustedName = str_replace(' ', '_', $adjustedName);
 	$adjustedName = strtolower($adjustedName);
 ?>
-
-<div class="form-section show-prev show-next">
+<div class="form-section show-prev show-next" data-section-index="<?php echo $ctr; ?>">
 	<label for="<?php echo $adjustedName; ?>" class="control-label lb-lg"><?php echo $preStartData['item']; ?></label>
 	<div>
 
@@ -39,13 +30,16 @@ foreach($data['preStart'] as $key => $preStartData) {
 			</svg>
 		</div>
 
-		<label for="<?php echo $adjustedName; ?>_problem_note" class="control-label lb-lg">Notes</label>
+		<label for="<?php echo $adjustedName; ?>_problem_note" class="control-label lb-lg hidden" style="display:none;">Notes</label>
 		<textarea type="text"
 				  id="<?php echo $adjustedName; ?>_problem_note"
 				  name="<?php echo $adjustedName; ?>_problem_note"
 				  class="form-control input-lg"
+				  style="display:none;"
 				  value=""></textarea>
 	</div>
 </div>
 
-<?php } ?>
+<?php
+	$ctr++;
+} ?>
