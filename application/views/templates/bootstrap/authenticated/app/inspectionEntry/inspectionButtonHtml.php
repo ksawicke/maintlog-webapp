@@ -32,10 +32,10 @@ foreach($inspectionItems as $key => $inspectionItem) {
 				   id="<?php echo $inspectionItem['itemFieldName']; ?>"
 				   name="<?php echo $inspectionItem['itemFieldName']; ?>">
 
-			<label for="<?php echo $inspectionItem['itemNameAdjusted']; ?>_problem_note" class="control-label lb-lg hidden" style="display:none;">Notes</label>
+			<label for="<?php echo $inspectionItem['itemFieldName']; ?>[note]" class="control-label lb-lg hidden" style="display:none;">Notes</label>
 			<textarea type="text"
 					  id="<?php echo $inspectionItem['itemFieldName']; ?>[note]"
-					  name="<?php echo $inspectionItem['itemNameAdjusted']; ?>[note]"
+					  name="<?php echo $inspectionItem['itemFieldName']; ?>[note]"
 					  class="form-control input-lg"
 					  style="display:none;"></textarea>
 		</div>

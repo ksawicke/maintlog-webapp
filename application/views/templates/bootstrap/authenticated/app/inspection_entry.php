@@ -334,7 +334,7 @@
 					$("#entered_by"));
 			}
 
-			console.log("INDEX: " + index);
+			// console.log("INDEX: " + index);
 
 			if(index>=3) {
 				$("#inspection-section").html("Pre-Start");
@@ -685,7 +685,8 @@
 				// console.log("BARK");
 				// console.log(sectionPopulateField);
 
-				$("input[name*='" + sectionPopulateField + "']").val('good');
+				$("input[name='" + sectionPopulateField + "']").val('good');
+
 				// $('#' + sectionPopulateField).val('good');
 
 				// $('label[for="' + problem_note + '"]').hide();
@@ -705,8 +706,12 @@
 				$(this).addClass('item-bad');
 				$(thisItemClass + ".button_good").addClass('item-notmarked');
 
-				// Populate
-				$("input[name*='" + sectionPopulateField + "']").val('bad');
+				// Populate field with status and show note
+				$("input[name='" + sectionPopulateField + "']").val('bad');
+				$("label[for='" + sectionPopulateField + "[note]").show();
+				$("textarea[name='" + sectionPopulateField + "[note]'").show();
+
+				// console.log("textarea[name='" + sectionPopulateField + "[note]'");
 
 				// $('label[for="' + problem_note + '"]').show();
 				// $('#' + problem_note).show();
@@ -730,20 +735,24 @@
                 //
 				// console.log("TEST: " + $(this).closest('.button-bad').attr('data-inspection-item'));
 
-				console.log("@@@@@");
-				console.log(thisIndex);
+				// console.log("@@@@@");
+				// console.log(thisIndex);
 
 				if(thisIndex>=3) {
-					var inspectionItem = $("div").find("[data-section-index='" + parseInt(thisIndex) + "']"),
-						sectionName = inspectionItem.attr('data-section-name'),
-						sectionItem = inspectionItem.attr('data-section-item'),
-						sectionPopulateField = inspectionItem.attr('data-section-populate-field');
+					// var inspectionItem = $("div").find("[data-section-index='" + parseInt(thisIndex) + "']"),
+					// 	sectionName = inspectionItem.attr('data-section-name'),
+					// 	sectionItem = inspectionItem.attr('data-section-item'),
+					// 	sectionPopulateField = inspectionItem.attr('data-section-populate-field');
 
-					console.log("...");
-					console.log(parseInt(thisIndex));
-					console.log(inspectionItem);
-					console.log(sectionName);
-					console.log(sectionItem);
+					// console.log("...");
+					// console.log(parseInt(thisIndex));
+					// console.log(inspectionItem);
+					// console.log(sectionName);
+					// console.log(sectionItem);
+					// console.log(sectionPopulateField);
+                    //
+					// console.log("THIS BAD NOTE SAYS:");
+					// console.log($("textarea[name='" + sectionPopulateField + "[note]'").val());
 				}
 
 				// var startAtIndex = 4;
