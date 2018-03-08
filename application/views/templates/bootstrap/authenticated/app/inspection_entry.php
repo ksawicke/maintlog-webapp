@@ -300,7 +300,7 @@
 			var lastSection = $("div").find("[data-section-index='" + (index - 1) + "']");
 			var goToIndex = lastSection.attr('data-section-index');
 
-			$('.form-section').removeClass('current');
+			$('.form-section').removeClass('current');$("div").find("[data-section-index='" + (index) + "']")
 			$("div").find("[data-section-index='" + index + "']").addClass('current').show();
 
 			// if(initialPassCompleted && index===3) {
@@ -338,8 +338,8 @@
 
 			if(index>=3) {
 				$("#inspection-section").html("Pre-Start");
-				$('#goBackButton').hide();
-				$('#goForwardButton').hide();
+				// $('#goBackButton').hide();
+				// $('#goForwardButton').hide();
 			}
 		}
 
@@ -611,7 +611,8 @@
 				data: JSON.stringify({}),
 				contentType: "application/json"
 			}).done(function(object) {
-				populateHTML(object.data.preStartItems);
+				inspectionData = new Object({preStart: object.data.preStartItems, postStart: object.data.postStartItems});
+				populateHTML(inspectionData);
 
 				$sections = $('.form-section');
 
@@ -649,10 +650,27 @@
 			var item = $(this).data('item'),
 				thisItemClass = '.' + $(this).data('item'),
 				status = $(this).data('inspection-status'),
-				problem_note = $(this).data('item') + '_problem_note'; //left_front_tire_problem_note
+				thisSection = $('.form-section.current'),
+				thisIndex = parseInt(thisSection.attr('data-section-index')),
+				inspectionItem = $("div").find("[data-section-index='" + parseInt(thisIndex) + "']"),
+				index = curIndex();
 
-			console.log(item);
-			console.log(status);
+			var sectionName = inspectionItem.attr('data-section-name'),
+				sectionItem = inspectionItem.attr('data-section-item'),
+				sectionPopulateField = inspectionItem.attr('data-section-populate-field');
+
+			/**
+			 * Adjust index to begin the inspection item entry
+			 */
+			if(index==-1) {
+				index = 4;
+			}
+
+			// console.log("...");
+			// console.log(parseInt(thisIndex));
+			// console.log(inspectionItem);
+			// console.log(sectionName);
+			// console.log(sectionItem);
 
 			if($(this).hasClass(item) && status=='good') {
 				$(thisItemClass).removeClass('item-notmarked');
@@ -660,26 +678,24 @@
 				$(thisItemClass).removeClass('item-bad');
 				$(this).addClass('item-good');
 				$(thisItemClass + ".button_bad").addClass('item-notmarked');
-				$('label[for="' + problem_note + '"]').hide();
-				$('#' + problem_note).hide();
 
-				var index = curIndex();
+				// Populate
+				// sectionPopulateField.val('good');
 
-				console.log("CLICKED GOOD. INDEX: " + index);
+				// console.log("BARK");
+				// console.log(sectionPopulateField);
 
-				if(index==-1) {
-					index = 4;
-					console.log("THIS UN");
-					console.log($(document).find("current"));
-					// $sections
-					// 	.removeClass('current')
-					// 	.eq(index)
-					// 	.addClass('current');
-				}
+				$("input[name*='" + sectionPopulateField + "']").val('good');
+				// $('#' + sectionPopulateField).val('good');
 
-				setTimeout(function(){
-					navigateTo(index + 1);
-				}, 1000);
+				// $('label[for="' + problem_note + '"]').hide();
+				// $('#' + problem_note).hide();
+
+				// var index = curIndex();
+                //
+				// console.log("CLICKED GOOD. INDEX: " + index);
+
+
 			}
 
 			if($(this).hasClass(item) && status=='bad') {
@@ -688,9 +704,13 @@
 				$(thisItemClass).removeClass('item-bad');
 				$(this).addClass('item-bad');
 				$(thisItemClass + ".button_good").addClass('item-notmarked');
-				$('label[for="' + problem_note + '"]').show();
-				$('#' + problem_note).show();
-				$('#goForwardButton').show();
+
+				// Populate
+				$("input[name*='" + sectionPopulateField + "']").val('bad');
+
+				// $('label[for="' + problem_note + '"]').show();
+				// $('#' + problem_note).show();
+				// $('#goForwardButton').show();
 			}
 		});
 
@@ -702,11 +722,29 @@
 				//
 			}).done(function () {
 				var thisSection = $('.form-section.current'),
-					thisIndex = thisSection.attr('data-section-index');
+					thisIndex = parseInt(thisSection.attr('data-section-index'));
 
-				var goToIndex = parseInt(thisIndex) + 1;
+				var goToIndex = thisIndex + 1;
 
-				console.log("Go To Index: " + goToIndex);
+				// console.log("Go To Index: " + goToIndex);
+                //
+				// console.log("TEST: " + $(this).closest('.button-bad').attr('data-inspection-item'));
+
+				console.log("@@@@@");
+				console.log(thisIndex);
+
+				if(thisIndex>=3) {
+					var inspectionItem = $("div").find("[data-section-index='" + parseInt(thisIndex) + "']"),
+						sectionName = inspectionItem.attr('data-section-name'),
+						sectionItem = inspectionItem.attr('data-section-item'),
+						sectionPopulateField = inspectionItem.attr('data-section-populate-field');
+
+					console.log("...");
+					console.log(parseInt(thisIndex));
+					console.log(inspectionItem);
+					console.log(sectionName);
+					console.log(sectionItem);
+				}
 
 				// var startAtIndex = 4;
 

@@ -21,14 +21,42 @@ class Inspection extends MY_Controller {
 		$this->load->library('session');
 	}
 
+	/**
+	 * Returns a block of HTML to be used in the current Inspection Entry form.
+	 * It is based on the selected Equipment Type.
+	 */
 	public function getInspectionHTML() {
+		$data = [];
 		$post = json_decode(file_get_contents('php://input'), true);
 
-		$data['array']['preStart'] = $post;
+		$this->load->library('stringconversion');
 
-//		var_dump($data);exit();
+		$ctr = 0;
+		foreach($post['preStart'] as $key => $preStartData) {
+			$preStartItemNameAdjusted = $this->stringconversion->removeSpecialCharacters($preStartData['item']);
 
-		$html = $this->load->view('templates/bootstrap/authenticated/app/inspectionEntry/html', $data, true);
+			$data['inspectionItems'][$ctr]['sectionName'] = 'pre-start';
+			$data['inspectionItems'][$ctr]['id'] = $preStartData['id'];
+			$data['inspectionItems'][$ctr]['item'] = $preStartData['item'];
+			$data['inspectionItems'][$ctr]['itemNameAdjusted'] = $preStartItemNameAdjusted;
+			$data['inspectionItems'][$ctr]['itemFieldName'] = 'pre-start[' . $preStartItemNameAdjusted . ']';
+
+			$ctr++;
+		}
+
+		foreach($post['postStart'] as $key => $postStartData) {
+			$postStartItemNameAdjusted = $this->stringconversion->removeSpecialCharacters($postStartData['item']);
+
+			$data['inspectionItems'][$ctr]['sectionName'] = 'post-start';
+			$data['inspectionItems'][$ctr]['id'] = $postStartData['id'];
+			$data['inspectionItems'][$ctr]['item'] = $postStartData['item'];
+			$data['inspectionItems'][$ctr]['itemNameAdjusted'] = $postStartItemNameAdjusted;
+			$data['inspectionItems'][$ctr]['itemFieldName'] = 'post-start[' . $postStartItemNameAdjusted . ']';
+
+			$ctr++;
+		}
+
+		$html = $this->load->view('templates/bootstrap/authenticated/app/inspectionEntry/inspectionButtonHtml', $data, true);
 
 		http_response_code(200);
 		echo json_encode(['success' => true, 'data' => $html]);
