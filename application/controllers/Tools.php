@@ -8,7 +8,7 @@
 *
 * @package  Maintenance Log Application
 * @author   Kevin Sawicke <kevin@rinconmountaintech.com>
-* @version  $Revision: Tag v2.3.1 $
+* @version  $Revision: tag v2.3.2 $
 * @access   public
 * @see https://codeigniter.com/user_guide/general/cli.html?highlight=cron
 */
