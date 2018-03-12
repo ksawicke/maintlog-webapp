@@ -118,8 +118,11 @@
 
 	</main>
 
-	<footer class="container">
-<!--		<p>&copy; Komatsu NA --><?php //echo date("Y"); ?><!--</p>-->
+	<footer class="footer">
+		<div class="container-fluid">
+			<span>Copyright &copy; <?php echo date("Y"); ?> Komatsu NA.</span>
+			Application version: <strong><?php echo APPLICATION_VERSION; ?></strong>
+		</div>
 	</footer>
 
 </body>
