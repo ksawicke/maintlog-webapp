@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('index.php/app/addEquipmentType'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Equipment Type</button></a><br /><br />
+<a href="<?php echo base_url('index.php/app/addEquipmentType'); ?>"><button type="button" class="btn btn-success"><i class="fas fa-plus-square" style="color:#fff !important;"></i>&nbsp;&nbsp;Add Equipment Type</button></a><br /><br />
 
 <table id="equipmentTypeList" class="table table-bordered table-striped">
     <thead>

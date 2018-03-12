@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('index.php/app/addSmrChoice'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add SMR Choice</button></a><br /><br />
+<a href="<?php echo base_url('index.php/app/addSmrChoice'); ?>"><button type="button" class="btn btn-success"><i class="fas fa-plus-square" style="color:#fff !important;"></i>&nbsp;&nbsp;Add SMR Choice</button></a><br /><br />
 
 <table id="smrChoiceList" class="table table-bordered table-striped">
     <thead>

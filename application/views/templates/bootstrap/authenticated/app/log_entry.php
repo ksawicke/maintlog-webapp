@@ -497,10 +497,10 @@ $maxNotes = 5;
     <span class="clearfix"></span>
     
     <div class="form-navigation">
-        <button id="goBackButton" type="button" class="prev btn btn-lg btn-primary">&laquo; Prev</button>
-        <button id="goForwardButton" type="button" class="next btn btn-lg btn-primary">Next &raquo;</button>
-        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary">Review &raquo;</button>
-        <button id="submitButton" type="button" class="next btn btn-lg btn-primary">Submit</button>
+        <button id="goBackButton" type="button" class="prev btn btn-lg btn-primary"><i class="fas fa-arrow-alt-circle-left fa-lg" style="color:#fff !important;padding-right:10px;"></i> Prev</button>
+        <button id="goForwardButton" type="button" class="next btn btn-lg btn-primary">Next <i class="fas fa-arrow-alt-circle-right fa-lg" style="color:#fff !important;padding-left:10px;"></i></button>
+        <button id="reviewButton" type="button" class="next btn btn-lg btn-primary">Review <i class="fas fa-arrow-alt-circle-right fa-lg" style="color:#fff !important;padding-left:10px;"></i></button>
+        <button id="submitButton" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Submit</button>
     </div>
     
     <span class="clearfix"></span>
