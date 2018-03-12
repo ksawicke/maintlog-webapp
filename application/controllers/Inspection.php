@@ -26,7 +26,7 @@ class Inspection extends MY_Controller {
 	 * It is based on the selected Equipment Type.
 	 */
 	public function getInspectionHTML() {
-		$data = ['inspectionItems' = []];
+		$data = ['inspectionItems' => []];
 		$post = json_decode(file_get_contents('php://input'), true);
 
 		$this->load->library('stringconversion');
