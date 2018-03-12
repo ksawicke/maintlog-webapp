@@ -189,7 +189,9 @@
  * ******************************/ ?>
 
 	<div id="reviewScreen">
-		Review....
+
+		<button id="testSaveButton" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Test Save Data</button>
+
 	</div>
 	<span class="clearfix"></span>
 
@@ -639,6 +641,17 @@
 			});
 		}
 
+		function clearInspectionData() {
+			localStorage.setItem("inspection_entry_data_obj", "{}");
+		}
+
+		function getInspectionData() {
+			inspection_entry_data_obj = localStorage.getItem("log_entry_data_obj");
+			inspection_entry_data = JSON.parse(inspection_entry_data_obj);
+
+			return inspection_entry_data;
+		}
+
 		// Previous button is easy, just go back
 		$(document).on("click", ".prev", function () {
 			$("#reviewScreen").hide();
@@ -810,6 +823,21 @@
 			$("#unit_number").prop('disabled', false);
 			populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
 				$("#unit_number"));
+		});
+
+		$(document).on("click", "#reviewButton", function () {
+			showReview();
+		});
+
+		$(document).on("click", "#testSaveButton", function () {
+			localStorage.setItem("1", "2");
+			localStorage.setItem("2", "2");
+			localStorage.setItem("3", "2");
+			localStorage.setItem("4", "2");
+			localStorage.setItem("5", "2");
+			localStorage.setItem("6", "2");
+			localStorage.setItem("7", "2");
+			localStorage.setItem("8", "2");
 		});
 
 		$(document).ready(function() {

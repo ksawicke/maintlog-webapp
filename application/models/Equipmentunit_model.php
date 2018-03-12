@@ -68,7 +68,8 @@ FROM equipmentunit
                     SELECT '" . $equipment_unit_id . "' unit_number, MAX(smr.smr) smr from smrupdate smr
                         LEFT JOIN servicelog s ON s.id = smr.servicelog_id
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues";
+                        WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues
+                GROUP BY unit_number";
         
         $values = R::getAll($sql);
         
