@@ -13,7 +13,7 @@
 
 <br /><br />
 
-<table id="pmserviceRemindersReport" class="table table-bordered table-striped">
+<table id="pmserviceRemindersReport" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>Manufacturer Name</th>

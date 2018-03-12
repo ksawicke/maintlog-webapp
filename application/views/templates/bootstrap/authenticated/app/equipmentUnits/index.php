@@ -1,6 +1,6 @@
 <a href="<?php echo base_url('index.php/app/addEquipmentUnit'); ?>"><button type="button" class="btn btn-success"><i class="fas fa-plus-square" style="color:#fff !important;"></i>&nbsp;&nbsp;Add Equipment Unit</button></a><br /><br />
 
-<table id="equipmentUnitList" class="table table-bordered table-striped">
+<table id="equipmentUnitList" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>Manufacturer & Model</th>

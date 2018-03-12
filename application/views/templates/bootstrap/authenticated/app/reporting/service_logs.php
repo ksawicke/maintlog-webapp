@@ -13,7 +13,7 @@
 
 <br /><br />
 
-<table id="serviceLogsReport" class="table table-bordered table-striped">
+<table id="serviceLogsReport" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>Date Entered</th>

@@ -1,4 +1,4 @@
-<table id="pmTypeChoiceList" class="table table-bordered table-striped">
+<table id="pmTypeChoiceList" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>PM Type</th>

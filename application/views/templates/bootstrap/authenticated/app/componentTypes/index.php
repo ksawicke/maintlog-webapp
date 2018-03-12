@@ -1,6 +1,6 @@
 <a href="<?php echo base_url('index.php/app/addComponentType'); ?>"><button type="button" class="btn btn-success"><i class="fas fa-plus-square" style="color:#fff !important;"></i>&nbsp;&nbsp;Add Component Type</button></a><br /><br />
 
-<table id="componentTypeList" class="table table-bordered table-striped">
+<table id="componentTypeList" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>Component Type</th>

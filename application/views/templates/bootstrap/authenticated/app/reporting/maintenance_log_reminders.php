@@ -13,7 +13,7 @@
 
 <br /><br />
 
-<table id="maintenanceLogRemindersReport" class="table table-bordered table-striped">
+<table id="maintenanceLogRemindersReport" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>Last Entry Date</th>

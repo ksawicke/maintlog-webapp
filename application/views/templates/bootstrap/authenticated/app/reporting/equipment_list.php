@@ -13,7 +13,7 @@
 
 <br /><br />
 
-<table id="equipmentList" class="table table-bordered table-striped">
+<table id="equipmentList" class="table table-bordered table-striped" width="100%">
     <thead>
         <tr>
             <th>Manufacturer Name</th>
