@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 *
 * @package  Maintenance Log Application
 * @author   Kevin Sawicke <kevin@rinconmountaintech.com>
-* @version  $Revision: tag v2.3.2 $
+* @version  $Revision: tag 2.3.3 $
 * @access   public
 */
 class App extends MY_Controller {
