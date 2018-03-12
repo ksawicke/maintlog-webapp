@@ -15,7 +15,7 @@
             <td><?php echo $e['manufacturer_name']; ?></td>
             <td><?php echo $e['model_number']; ?></td>
             <td><?php echo $e['equipment_type']; ?></td>
-            <td><a href="<?php echo base_url('index.php/app/addEquipmentmodel/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a>&nbsp;<a href="<?php echo base_url('index.php/equipmentmodel/delete/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a></td>
+            <td><a href="<?php echo base_url('index.php/app/addEquipmentmodel/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="far fa-edit" style="color:#fff !important;"></i></button></a>&nbsp;<a href="<?php echo base_url('index.php/equipmentmodel/delete/' . $e['id']); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fas fa-trash" style="color:#fff !important;"></i></button></a></td>
         </tr>
         <?php } ?>
     </tbody>
@@ -29,7 +29,7 @@
             null,
             null,
             null,
-            {"width": "80px", "orderable": false}
+            {"width": "100px", "orderable": false}
         ]
     });
   });

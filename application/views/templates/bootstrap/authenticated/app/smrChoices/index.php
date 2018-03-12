@@ -11,7 +11,7 @@
         <?php foreach($smrchoices as $smrchoice) { ?>
         <tr>
             <td><?php echo $smrchoice->smr_choice; ?></td>
-            <td><a href="<?php echo base_url('index.php/app/addSmrChoice/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></button></a>&nbsp;<a href="<?php echo base_url('index.php/smrchoices/delete/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a></td>
+            <td><a href="<?php echo base_url('index.php/app/addSmrChoice/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit"><i class="far fa-edit" style="color:#fff !important;"></i></button></a>&nbsp;<a href="<?php echo base_url('index.php/smrchoices/delete/' . $smrchoice->id); ?>"><button type="button" class="btn btn-sm btn-primary" title="Delete"><i class="fas fa-trash" style="color:#fff !important;"></i></button></a></td>
         </tr>
         <?php } ?>
     </tbody>
@@ -22,7 +22,7 @@
     $('#smrChoiceList').DataTable({
         "columns": [
             null,
-            {"width": "80px", "orderable": false}
+            {"width": "100px", "orderable": false}
         ]
     });
 //    $('#example2').DataTable({
