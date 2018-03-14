@@ -177,12 +177,16 @@ class Reporting extends MY_Controller {
      */
     protected function getServiceLogDetailData($id = 0) {
         $this->load->model('Report_model');
+		$this->load->model('Equipmentunit_model');
         
         $data['service_log'] = $this->Report_model->findServiceLogs($id);
-        
+		$equipmentunit_id = $data['service_log']['equipmentunit_id'];
+
+		$data['service_log']['last_smr'] = $this->Equipmentunit_model->findLastSMR($equipmentunit_id);
+
         return $data;
     }
-    
+
     /**
      * Get PM Service Reminders data
      * @return array

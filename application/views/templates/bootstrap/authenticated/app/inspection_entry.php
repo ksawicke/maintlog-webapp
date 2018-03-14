@@ -190,9 +190,10 @@
 
 	<div id="reviewScreen">
 
-		<button id="testSaveButton" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Test Save Data</button>
+		Review....
 
 	</div>
+
 	<span class="clearfix"></span>
 
 	<div class="form-navigation">
@@ -205,6 +206,16 @@
 	<span class="clearfix"></span>
 
 </form>
+
+<div style="padding-top:250px;"></div>
+
+<button id="testClearButton" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Test CLEAR Data</button>
+
+<button id="testSaveButton" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Test Save Data</button>
+
+<button id="testSaveButton2" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Test Save Data 2</button>
+
+<button id="testSaveButton3" type="button" class="next btn btn-lg btn-primary"><i class="fas fa-check-circle fa-lg" style="color:#fff !important;padding-right:10px;"></i>Test Save Data 3</button>
 
 <style type="text/css">
 	#editing_service_log,
@@ -830,14 +841,48 @@
 		});
 
 		$(document).on("click", "#testSaveButton", function () {
-			localStorage.setItem("1", "2");
-			localStorage.setItem("2", "2");
-			localStorage.setItem("3", "2");
-			localStorage.setItem("4", "2");
-			localStorage.setItem("5", "2");
-			localStorage.setItem("6", "2");
-			localStorage.setItem("7", "2");
-			localStorage.setItem("8", "2");
+			localStorage.setItem("1", "one");
+			localStorage.setItem("2", "two");
+			localStorage.setItem("3", "three");
+			localStorage.setItem("4", "four");
+			localStorage.setItem("5", "five");
+			localStorage.setItem("6", "six");
+			localStorage.setItem("7", "seven");
+			localStorage.setItem("8", "eight");
+
+			console.log(localStorage);
+		});
+
+		$(document).on("click", "#testSaveButton2", function () {
+			localStorage.setItem("11", "one");
+			localStorage.setItem("21", "two");
+			localStorage.setItem("31", "three");
+			localStorage.setItem("41", "four");
+			localStorage.setItem("51", "five");
+			localStorage.setItem("61", "six");
+			localStorage.setItem("71", "seven");
+			localStorage.setItem("81", "eight");
+
+			console.log(localStorage);
+		});
+
+		$(document).on("click", "#testSaveButton3", function () {
+			localStorage.setItem("12", "one");
+			localStorage.setItem("22", "two");
+			localStorage.setItem("32", "three");
+			localStorage.setItem("42", "four");
+			localStorage.setItem("52", "five");
+			localStorage.setItem("62", "six");
+			localStorage.setItem("72", "seven");
+			localStorage.setItem("82", "eight");
+
+			console.log(localStorage);
+		});
+
+		$(document).on("click", "#testClearButton", function () {
+			localStorage.clear();
+
+			console.log(localStorage);
 		});
 
 		$(document).ready(function() {

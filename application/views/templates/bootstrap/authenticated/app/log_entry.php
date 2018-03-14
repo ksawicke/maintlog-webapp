@@ -810,16 +810,38 @@ $maxNotes = 5;
                         track_type = unitData.track_type,
                         person_responsible = unitData.person_responsible,
                         fluids_tracked = unitData.fluids_tracked,
-                        active = unitData.active;
+                        active = unitData.active,
+						previous_smr_label = '',
+						current_smr_label = '';
+
+                    switch(track_type) {
+						case 'smr':
+							previous_smr_label = 'Previous SMR';
+							current_smr_label = 'Current SMR';
+							break;
+
+						case 'miles':
+							previous_smr_label = 'Previous Miles';
+							current_smr_label = 'Current Miles';
+							break;
+
+						case 'time':
+							previous_smr_label = 'Previous Time';
+							current_smr_label = 'Current Time';
+							break;
+					}
                         
                     if(active===1 && !empty(service_log_object)) {                        
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-person-responsible="' +person_responsible + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '"' + (id==service_log_object.equipmentunit_id ? ' selected' : '') + '>' + value + '</option>');
                     } else if(active===1 && empty(service_log_object)) {
                         $('#unit_number').append('<option value="' + id + '" data-track-type="' + track_type + '" data-fluids-tracked="' + fluids_tracked + '" data-person-responsible="' +person_responsible + '">' + value + '</option>');
                     }
+
+					$("label[for = pss_smr_based_previous_smr]").text(previous_smr_label);
+					$("label[for = pss_smr_based_current_smr]").text(current_smr_label);
                 });
-                
-                if(!empty(service_log_object)) {
+
+				if(!empty(service_log_object)) {
                     if(service_log_object.subflow=="sus") {
                         $("#sus_current_smr").val(service_log_object.smr);
                     }
@@ -1581,6 +1603,10 @@ $maxNotes = 5;
             $("#unit_number").prop('disabled', false);
             populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
+
+            // TACO
+            // label and field #pss_smr_based_previous_smr
+			//
         });
                 
         $(document).ready(function() {
