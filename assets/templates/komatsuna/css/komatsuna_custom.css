@@ -285,6 +285,7 @@ table {
 	/*padding: 5px;*/
 	font-size: 1.2em;
 	/*width: 100%;*/
+	overflow-y: auto;
 }
 
 #preStartSortableItemList li:hover, #availableItemSortableItemList li:hover, #postStartSortableItemList li:hover {
@@ -303,6 +304,8 @@ table {
 
 .ui-sortable-helper  { /* Item being dragged */
 	background-color: #b7ff71 !important;
+	color: orange !important;
+	font-weight: bold !important;
 	width: 75% !important;
 	cursor: move !important;
 }

@@ -150,7 +150,7 @@
 				var checklist_json = JSON.stringify({preStartData: preStartData, postStartData: postStartData});
 
 				updateChecklistJson($(this), checklist_json);
-			}
+			},
 		}).disableSelection();
 
 		window.Parsley.addValidator('checklistitemspopulated', function (value, requirement) {

@@ -42,6 +42,7 @@ class Checklist_model extends CI_Model {
 		$now = date('Y-m-d h:i:s');
 
 		$checklist = ($post['checklist_id']==0 ? R::dispense('checklist') : R::load('checklist', $post['checklist_id']));
+		
 		$checklist->equipmenttype_id = $post['equipmenttype_id'];
 		$checklist->checklist_json = $post['checklist_json'];
 
@@ -52,7 +53,7 @@ class Checklist_model extends CI_Model {
 			$checklist->modified = $now;
 			$checklist->modified_by = $_SESSION['user_id'];
 		}
-
+		
 		R::store($checklist);
 	}
 
