@@ -85,7 +85,7 @@
 
 	</div>
 
-	<h3 id="inspection-section"></h3>
+	<div id="inspection-item-html"></div>
 
 	<?php /******************
 	<div class="form-section show-prev show-next">
@@ -345,14 +345,6 @@
 			if(index===1) {
 				populateUserData("<?php echo base_url(); ?>index.php/users/getUsers",
 					$("#entered_by"));
-			}
-
-			// console.log("INDEX: " + index);
-
-			if(index>=3) {
-				$("#inspection-section").html("Pre-Start");
-				// $('#goBackButton').hide();
-				// $('#goForwardButton').hide();
 			}
 		}
 
@@ -648,7 +640,7 @@
 			}).done(function(object) {
 				// console.log(object.data.html);
 				// console.log(data);
-				$( object.data ).insertAfter( "#inspection-section" )
+				$("#inspection-item-html").html(object.data);
 			});
 		}
 

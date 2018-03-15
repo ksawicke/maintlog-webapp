@@ -2,9 +2,20 @@
 
 $ctr = 3;
 foreach($inspectionItems as $key => $inspectionItem) {
+	$sectionLabel = '';
+
+	if($inspectionItem['sectionName']=='pre-start') {
+		$sectionLabel = 'Pre-Start Inspection Items';
+	}
+
+	if($inspectionItem['sectionName']=='post-start') {
+		$sectionLabel = 'Post-Start Inspection Items';
+	}
 	?>
 
 	<div class="form-section show-prev show-<?php echo (($ctr==(2+count($inspectionItems)))? 'review' : 'next'); ?>" data-section-index="<?php echo $ctr; ?>" data-section-name="<?php echo $inspectionItem['sectionName']; ?>" data-section-item="<?php echo $inspectionItem['itemNameAdjusted']; ?>" data-section-populate-field="<?php echo $inspectionItem['itemFieldName']; ?>">
+		<h3><?php echo $sectionLabel; ?></h3>
+
 		<label for="<?php echo $inspectionItem['itemNameAdjusted']; ?>" class="control-label lb-lg"><?php echo $inspectionItem['item']; ?></label>
 		<div>
 
