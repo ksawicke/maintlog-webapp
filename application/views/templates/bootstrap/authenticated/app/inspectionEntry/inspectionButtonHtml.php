@@ -1,6 +1,7 @@
 <?php
 
 $ctr = 3;
+
 foreach($inspectionItems as $key => $inspectionItem) {
 	$sectionLabel = '';
 

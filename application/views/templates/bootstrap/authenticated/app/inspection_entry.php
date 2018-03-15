@@ -262,7 +262,7 @@
 			windowHeight = $(window).height(),
 			dialogHeight = windowHeight * 0.4;
 
-		var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this log?<br /><br /><button id="cancelSubmitLogEntryForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitLogEntryForm" type="button">Yes</button></div>';
+		var confirmationMessage = '<div class="jBoxContentBodyText">Are you sure you want to submit this inspection?<br /><br /><button id="cancelSubmitInspectionForm" type="button">No</button>&nbsp;&nbsp;&nbsp;<button id="submitInspectionForm" type="button">Yes</button></div>';
 		var confirmSubmitJBox = new jBox('Modal', {
 			closeButton: 'title',
 			responsiveWidth: true,
@@ -356,25 +356,25 @@
 		function printReviewScreen() {
 			var text = '<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Please review your entries before submitting.</div>';
 
-			var json = getJsonObject(currentSubflow);
-
-			for(var i = 0; i < json.length; i++) {
-				var obj = json[i];
-				var value = obj.value;
-
-				text += '<label>' + obj.label + '</label><ul>';
-
-				if(obj.value.indexOf("|") >= 0) {
-					var splitText = obj.value.split("|");
-					for (var i = 0; i < splitText.length; i++) {
-						text += '<li>' + splitText[i] + '</li>';
-					}
-				} else {
-					text += '<li>' + value + '</li>';
-				}
-
-				text += '</ul>';
-			}
+			// var json = getJsonObject(currentSubflow);
+            //
+			// for(var i = 0; i < json.length; i++) {
+			// 	var obj = json[i];
+			// 	var value = obj.value;
+            //
+			// 	text += '<label>' + obj.label + '</label><ul>';
+            //
+			// 	if(obj.value.indexOf("|") >= 0) {
+			// 		var splitText = obj.value.split("|");
+			// 		for (var i = 0; i < splitText.length; i++) {
+			// 			text += '<li>' + splitText[i] + '</li>';
+			// 		}
+			// 	} else {
+			// 		text += '<li>' + value + '</li>';
+			// 	}
+            //
+			// 	text += '</ul>';
+			// }
 
 			$("#reviewScreen").html(text);
 			$("#goBackButton").show();
@@ -703,6 +703,9 @@
 
 				$("input[name='" + sectionPopulateField + "']").val('good');
 
+
+				setValue(sectionPopulateField, 'good');
+
 				// $('#' + sectionPopulateField).val('good');
 
 				// $('label[for="' + problem_note + '"]').hide();
@@ -727,11 +730,7 @@
 				$("label[for='" + sectionPopulateField + "[note]").show();
 				$("textarea[name='" + sectionPopulateField + "[note]'").show();
 
-				// console.log("textarea[name='" + sectionPopulateField + "[note]'");
-
-				// $('label[for="' + problem_note + '"]').show();
-				// $('#' + problem_note).show();
-				// $('#goForwardButton').show();
+				setValue(sectionPopulateField, 'bad');
 			}
 		});
 
@@ -828,6 +827,14 @@
 				$("#unit_number"));
 		});
 
+		function setValue(item, value) {
+			localStorage.setItem(item, value);
+		}
+
+		function saveInspection() {
+			console.log(localStorage);
+		}
+
 		$(document).on("click", "#reviewButton", function () {
 			showReview();
 		});
@@ -877,7 +884,13 @@
 			console.log(localStorage);
 		});
 
+		$(document).on("click", "#submitInspectionForm", function () {
+			saveInspection();
+		});
+
 		$(document).ready(function() {
+			localStorage.clear();
+
 			var checklistentry_id = getRequestVariable('id');
 
 			// $('label[for="left_front_tire_problem_note"]').hide();
