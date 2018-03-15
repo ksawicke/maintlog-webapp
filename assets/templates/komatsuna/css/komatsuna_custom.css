@@ -265,7 +265,7 @@ table {
 }
 
 .ui-draggable, .ui-droppable {
-	background-position: top;
+	/*background-position: top;*/
 }
 
 #preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList {
@@ -303,8 +303,8 @@ table {
 }
 
 .ui-sortable-helper  { /* Item being dragged */
-	background-color: #b7ff71 !important;
-	color: orange !important;
+	background-color: #ffc107 !important;
+	color: #000 !important;
 	font-weight: bold !important;
 	width: 75% !important;
 	cursor: move !important;

@@ -115,7 +115,7 @@
 			console.log("AVAILABLE LIST");
 			console.log(data);
 			$.each( data.checklistitemsremaining, function( key, value ) {
-				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + value.id + '">' + value.item + '</li>');
+				$("#availableItemSortableItemList").append('<li class="ui-state-highlight" id="' + value.id + '"><i class="fas fa-arrows-alt" style="color:#555 !important;"></i>&nbsp;&nbsp;' + value.item + '</li>');
 			});
 		}
 
@@ -151,7 +151,20 @@
 
 				updateChecklistJson($(this), checklist_json);
 			},
+			start: function (ev, ui) {
+				let scrollTop = $(window).scrollTop();
+				if (scrollTop > 0) {
+					ui.helper.css('margin-top', scrollTop);
+				}
+			},
+			stop: function (ev, ui) {
+				ui.item.css('margin-top', 0);
+			}
 		}).disableSelection();
+
+		$("#preStartSortableItemList, #availableItemSortableItemList, #postStartSortableItemList").draggable({
+			appendTo: 'body'
+		});
 
 		window.Parsley.addValidator('checklistitemspopulated', function (value, requirement) {
 			var response = false;
