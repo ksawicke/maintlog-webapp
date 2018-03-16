@@ -30,7 +30,7 @@ class Inspection extends MY_Controller {
 		$post = json_decode(file_get_contents('php://input'), true);
 
 		$this->load->library('stringconversion');
-
+		
 		$ctr = 0;
 		foreach($post['preStart'] as $key => $preStartData) {
 			$preStartItemNameAdjusted = $this->stringconversion->removeSpecialCharacters($preStartData['item']);
@@ -39,7 +39,8 @@ class Inspection extends MY_Controller {
 			$data['inspectionItems'][$ctr]['id'] = $preStartData['id'];
 			$data['inspectionItems'][$ctr]['item'] = $preStartData['item'];
 			$data['inspectionItems'][$ctr]['itemNameAdjusted'] = $preStartItemNameAdjusted;
-			$data['inspectionItems'][$ctr]['itemFieldName'] = 'pre-start[' . $preStartItemNameAdjusted . ']';
+//			$data['inspectionItems'][$ctr]['itemFieldName'] = 'pre-start[' . $preStartItemNameAdjusted . ']';
+			$data['inspectionItems'][$ctr]['itemFieldName'] = 'inspection-value[' . $preStartData['id'] . ']';
 
 			$ctr++;
 		}
@@ -51,7 +52,8 @@ class Inspection extends MY_Controller {
 			$data['inspectionItems'][$ctr]['id'] = $postStartData['id'];
 			$data['inspectionItems'][$ctr]['item'] = $postStartData['item'];
 			$data['inspectionItems'][$ctr]['itemNameAdjusted'] = $postStartItemNameAdjusted;
-			$data['inspectionItems'][$ctr]['itemFieldName'] = 'post-start[' . $postStartItemNameAdjusted . ']';
+//			$data['inspectionItems'][$ctr]['itemFieldName'] = 'post-start[' . $postStartItemNameAdjusted . ']';
+			$data['inspectionItems'][$ctr]['itemFieldName'] = 'inspection-value[' . $preStartData['id'] . ']';
 
 			$ctr++;
 		}

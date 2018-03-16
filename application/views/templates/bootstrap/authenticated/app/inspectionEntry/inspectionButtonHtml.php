@@ -14,7 +14,7 @@ foreach($inspectionItems as $key => $inspectionItem) {
 	}
 	?>
 
-	<div class="form-section show-prev show-<?php echo (($ctr==(2+count($inspectionItems)))? 'review' : 'next'); ?>" data-section-index="<?php echo $ctr; ?>" data-section-name="<?php echo $inspectionItem['sectionName']; ?>" data-section-item="<?php echo $inspectionItem['itemNameAdjusted']; ?>" data-section-populate-field="<?php echo $inspectionItem['itemFieldName']; ?>">
+	<div class="form-section show-prev show-<?php echo (($ctr==(2+count($inspectionItems)))? 'review' : 'next'); ?>" data-section-index="<?php echo $ctr; ?>" data-section-id="<?php echo $inspectionItem['id']; ?>" data-section-name="<?php echo $inspectionItem['sectionName']; ?>" data-section-item="<?php echo $inspectionItem['itemNameAdjusted']; ?>" data-section-populate-field="inspection-item[<?php echo $inspectionItem['id']; ?>]">
 		<h3><?php echo $sectionLabel; ?></h3>
 
 		<label for="<?php echo $inspectionItem['itemNameAdjusted']; ?>" class="control-label lb-lg"><?php echo $inspectionItem['item']; ?></label>
@@ -41,13 +41,13 @@ foreach($inspectionItems as $key => $inspectionItem) {
 			</div>
 
 			<input type="hidden"
-				   id="<?php echo $inspectionItem['itemFieldName']; ?>"
-				   name="<?php echo $inspectionItem['itemFieldName']; ?>">
+				   id="inspection-item[<?php echo $inspectionItem['id']; ?>]"
+				   name="inspection-item[<?php echo $inspectionItem['id']; ?>]">
 
-			<label for="<?php echo $inspectionItem['itemFieldName']; ?>[note]" class="control-label lb-lg hidden" style="display:none;">Notes</label>
+			<label for="inspection-item[<?php echo $inspectionItem['id']; ?>][note]" class="control-label lb-lg hidden" style="display:none;">Notes</label>
 			<textarea type="text"
-					  id="<?php echo $inspectionItem['itemFieldName']; ?>[note]"
-					  name="<?php echo $inspectionItem['itemFieldName']; ?>[note]"
+					  id="inspection-item[<?php echo $inspectionItem['id']; ?>][note]"
+					  name="inspection-item[<?php echo $inspectionItem['id']; ?>][note]"
 					  class="form-control input-lg"
 					  style="display:none;"></textarea>
 		</div>

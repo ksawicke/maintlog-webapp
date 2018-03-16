@@ -673,6 +673,7 @@
 
 			var sectionName = inspectionItem.attr('data-section-name'),
 				sectionItem = inspectionItem.attr('data-section-item'),
+				sectionId = inspectionItem.attr('data-section-id'),
 				sectionPopulateField = inspectionItem.attr('data-section-populate-field');
 
 			/**
@@ -701,8 +702,8 @@
 				// console.log("BARK");
 				// console.log(sectionPopulateField);
 
+				// $("input[name='" + sectionPopulateField + "']").val('good');
 				$("input[name='" + sectionPopulateField + "']").val('good');
-
 
 				setValue(sectionPopulateField, 'good');
 
@@ -878,6 +879,15 @@
 			console.log(localStorage);
 		});
 
+		function addBadNotes() {
+			$.each(localStorage, function(key, value) {
+				if(key.startsWith('inspection-item') && value=='bad') {
+					var notesFieldName = key + '[note]';
+					localStorage.setItem(notesFieldName, $('textarea[name="' + notesFieldName + '"]').val());
+				}
+			});
+		}
+
 		$(document).on("click", "#testClearButton", function () {
 			localStorage.clear();
 
@@ -885,6 +895,7 @@
 		});
 
 		$(document).on("click", "#submitInspectionForm", function () {
+			addBadNotes();
 			saveInspection();
 		});
 
