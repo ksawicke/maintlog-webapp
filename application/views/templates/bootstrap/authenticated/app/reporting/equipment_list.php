@@ -19,6 +19,7 @@
             <th>Manufacturer Name</th>
             <th>Model Name</th>
             <th>Unit Number</th>
+			<th>Equipment Type</th>
         </tr>
     </thead>
     <tfoot>
@@ -26,6 +27,7 @@
             <th>Manufacturer Name</th>
             <th>Model Name</th>
             <th>Unit Number</th>
+			<th>Equipment Type</th>
         </tr>
     </tfoot>
     <tbody>
@@ -34,6 +36,7 @@
                 <td><?php echo $equipment['manufacturer_name']; ?></td>
                 <td><?php echo $equipment['model_number']; ?></td>
                 <td><?php echo $equipment['unit_number']; ?></td>
+				<td><?php echo $equipment['equipment_type']; ?></td>
             </tr>
         <?php } ?>
     </tbody>
@@ -49,7 +52,7 @@
                 href = $("#downloadEquipmentList").attr("href"),
                 selects = $('#equipmentList tfoot tr select');
             
-            fields = ['manufacturer_name', 'model_number', 'unit_number'];
+            fields = ['manufacturer_name', 'model_number', 'unit_number', 'equipment_type'];
             
             $.map(fields, function(fieldName, i) {
                 var key = fieldName;
@@ -95,7 +98,8 @@
             "columns": [
                 null,
                 null,
-                null
+                null,
+				null
             ]
         });
     });

@@ -278,7 +278,8 @@ class Reporting extends MY_Controller {
         $cellData = [
             'A1' => 'Manufacturer Name',
             'B1' => 'Model Name',
-            'C1' => 'Unit Number'
+            'C1' => 'Unit Number',
+			'D1' => 'Equpment Type'
         ];
         
         $row = 2;
@@ -286,7 +287,8 @@ class Reporting extends MY_Controller {
             $cellData['A'.$row] = $e['manufacturer_name'];
             $cellData['B'.$row] = $e['model_number'];
             $cellData['C'.$row] = $e['unit_number'];
-            
+            $cellData['D'.$row] = $e['equipment_type'];
+
             $row++;
         }
         
@@ -460,6 +462,18 @@ class Reporting extends MY_Controller {
         foreach($data['cellData'] as $cell => $cellData) {
             $spreadsheet->setActiveSheetIndex(0)->setCellValue($cell, $cellData);
         }
+
+        // Make first row bold
+		$from = "A1";
+		$to = "AZ1";
+		$spreadsheet->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold( true );
+
+		// Auto-size columns
+		$sheet = $spreadsheet->getActiveSheet();
+
+		for ($i = 'A'; $i != $spreadsheet->getActiveSheet()->getHighestColumn(); $i++) {
+			$sheet->getColumnDimension($i)->setAutoSize(TRUE);
+		}
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle($data['spreadsheetProperties']['sheetTitle']);

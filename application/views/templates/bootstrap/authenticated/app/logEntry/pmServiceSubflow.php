@@ -60,9 +60,9 @@
 			  class="form-control input-lg pss_smr_based pss_smr_based_notes3 hide_me"
 			  value=""></textarea>
 
-	<button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+	<button class="btn btn-success showPssSmrBasedNote" type="button" data-show-smr-based-note="2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><i class="fas fa-plus-square" style="color:#fff !important;"></i> Add Note</button>
 
-	<button class="btn btn-success showPssSmrBasedNote hideButton" type="button" data-show-smr-based-note="3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Note</button>
+	<button class="btn btn-success showPssSmrBasedNote hideButton" type="button" data-show-smr-based-note="3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><i class="fas fa-plus-square" style="color:#fff !important;"></i> Add Note</button>
 </div>
 
 <div class="form-section subflow pss show-prev show-next">

@@ -559,6 +559,7 @@ class Report_model extends CI_Model {
 			$customSearch[] = (!empty($params['data']['manufacturer_name']) ? " man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
 			$customSearch[] = (!empty($params['data']['model_number']) ? " em.model_number = '" . $params['data']['model_number'] . "'" : "");
 			$customSearch[] = (!empty($params['data']['unit_number']) ? " eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+			$customSearch[] = (!empty($params['data']['equipment_type']) ? " et.equipment_type = '" . $params['data']['equipment_type'] . "'" : "");
 		}
 
 		foreach($customSearch as $ctr => $search) {
@@ -570,10 +571,11 @@ class Report_model extends CI_Model {
 		$customSearchString = join(' AND ', array_filter(array_merge(array(join(' AND ', array_slice($customSearch, 0, -1))), array_slice($customSearch, -1)), 'strlen'));
 
 		$customSql = "SELECT
-            man.manufacturer_name, em.model_number, eu.unit_number
+            man.manufacturer_name, em.model_number, eu.unit_number, et.equipment_type
             FROM equipmentunit eu
             LEFT JOIN equipmentmodel em on em.id = eu.equipmentmodel_id
-	    LEFT JOIN manufacturer man on man.id = em.manufacturer_id " . (!empty($customSearchString) ? " WHERE " . $customSearchString : "") . "
+	    	LEFT JOIN manufacturer man on man.id = em.manufacturer_id
+	    	LEFT JOIN equipmenttype et on et.id = em.equipmenttype_id " . (!empty($customSearchString) ? " WHERE " . $customSearchString : "") . "
             ORDER BY manufacturer_name, model_number, unit_number";
 
         $equipment_list = R::getAll($customSql);
