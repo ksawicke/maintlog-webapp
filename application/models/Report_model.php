@@ -176,18 +176,20 @@ class Report_model extends CI_Model {
     
     private function appendFluidsAdministered($service_logs = [], $fluidType = '') {
         $fluidType = '';
+        $results = [];
         foreach($service_logs as $ctr => $service_log) {
-            $sql = (!empty($fluidType) ? "SELECT * FROM (" : "") . "SELECT '" . $service_log['id'] . "' servicelog_id, GROUP_CONCAT(temp.ftentries SEPARATOR ', ') typeoffluid
-                    FROM (
-                        SELECT ft.fluid_type ftentries
-                        FROM fluidentry fe
-                        LEFT JOIN fluidtype ft ON ft.id = fe.type
-                        WHERE fe.servicelog_id = " . $service_log['id'] . " ) temp" .
-                   (!empty($fluidType) ? ") temp2 WHERE typeoffluid LIKE '%" . $fluidType . "%'" : "");
+			$fluidArray = [];
+
+            $sql = "SELECT fe.servicelog_id, ft.fluid_type, fe.quantity, fe.units FROM fluidentry fe LEFT JOIN fluidtype ft ON ft.id = fe.type WHERE fe.servicelog_id = " . $service_log['id'] . (!empty($fluidType) ? " WHERE fluid_type LIKE '%" . $fluidType . "%'" : "");
             
             $results = R::getAll($sql);
             
-            $service_logs[$ctr]['typeoffluid'] = (!empty($results) ? $results[0]['typeoffluid'] : '');
+            $service_logs[$ctr]['fluids_administered'] = $results;
+			foreach($service_logs[$ctr]['fluids_administered'] as $factr => $fluidData) {
+				$fluidArray[] = $fluidData['quantity'] . ' ' . $fluidData['units'] . ' ' . $fluidData['fluid_type'];
+			}
+
+			$service_logs[$ctr]['fluid_string'] = implode(', ', $fluidArray);
         }
         
         return $service_logs;

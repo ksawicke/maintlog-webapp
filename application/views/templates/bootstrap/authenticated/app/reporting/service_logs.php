@@ -47,7 +47,7 @@
         </tr>
     </tfoot>
     <tbody>
-        <?php foreach ($service_logs as $ctr => $log) { ?>
+        <?php foreach ($service_logs as $slctr => $log) { ?>
             <tr>
                 <td><?php echo date('m/d/Y', strtotime($log['date_entered'])); ?></td>
                 <td><?php echo $log['enteredby_last_name'] . ", " . $log['enteredby_first_name']; ?></td>
@@ -59,7 +59,11 @@
                 <td><?php echo $log['component_type']; ?></td>
                 <td><?php echo $log['component']; ?></td>
                 <td><?php echo $log['component_data']; ?></td>
-                <td><?php echo $log['typeoffluid']; ?></td>
+                <td><?php
+					if(array_key_exists('fluids_administered', $log)) {
+						echo $log['fluid_string'];
+					}
+					?></td>
                 <td>
                     <a href="<?php echo base_url('index.php/reporting/output/screen/service_log_detail/') . $log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="View Detail"><i class="fas fa-eye" style="color:#fff !important;"></i></button></a>
                     

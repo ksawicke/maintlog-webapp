@@ -135,6 +135,7 @@ class Reporting extends MY_Controller {
             $val = $fluid_type_tmp['fluid_type'];
             $fluid_types[$val] = $val;
         }
+        
         $data['fluid_types'] = json_encode($fluid_types);
         
         return $data;
