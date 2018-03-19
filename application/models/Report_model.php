@@ -122,7 +122,7 @@ class Report_model extends CI_Model {
         }
         
         foreach($service_logs as $ctr => $sl) {
-            if (!empty($fluidType) && strpos($sl['typeoffluid'], $fluidType) !== false) {
+            if (!empty($fluidType) && strpos($sl['fluid_string'], $fluidType) !== false) {
                 // Do nothing
             } elseif(!empty($fluidType)) {
                 unset($service_logs[$ctr]);

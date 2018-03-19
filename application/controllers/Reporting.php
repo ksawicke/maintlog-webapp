@@ -378,7 +378,7 @@ class Reporting extends MY_Controller {
             
             switch($data['service_logs'][$ctr]['entry_type']) {
                 case 'Fluid Entry':
-                    $cellData['G' . $row] = $d['typeoffluid'];
+                    $cellData['G' . $row] = $d['fluid_string'];
                     break;
                 
                 case 'Component Change':
