@@ -59,8 +59,16 @@ class App extends MY_Controller {
         $data['fluidtypes'] = $this->Fluidtype_model->findAll();
         
         $data['flashdata'] = $this->session->flashdata();
-        
-        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/log_entry', $data, true);
+
+		$data['maxFluidEntries'] = 10;
+		$data['maxNotes'] = 5;
+
+        //TACO
+		$data['smrUpdateSubflow'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/smrUpdateSubflow', $data, true);
+		$data['fluidEntrySubflow'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/fluidEntrySubflow', $data, true);
+		$data['pmServiceSubflow'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/pmServiceSubflow', $data, true);
+		$data['componentChangeSubflow'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/componentChangeSubflow', $data, true);
+        $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/logEntry', $data, true);
                 
         $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
     }

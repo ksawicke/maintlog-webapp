@@ -58,6 +58,7 @@ class Servicelog_model extends CI_Model {
                 $fluidentrysmrupdate->servicelog_id = $servicelog_id;
                 $fluidentrysmrupdate->previous_smr = $post['flu_previous_smr'];
                 $fluidentrysmrupdate->smr = $post['flu_current_smr'];
+                $fluidentrysmrupdate->note = $post['flu_notes'];
                 R::store($fluidentrysmrupdate);
                 break;
             
