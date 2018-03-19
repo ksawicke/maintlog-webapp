@@ -343,24 +343,29 @@ class Reporting extends MY_Controller {
             'C1' => 'Manufacturer Name',
             'D1' => 'Model Name',
             'E1' => 'Unit Number',
-            'F1' => 'Entry Type'
+            'F1' => 'Entry Type',
+			'G1' => 'SMR / Miles / Time',
+			'H1' => 'Type / Amount of Fluid',
+			'I1' => 'Component Type',
+			'J1' => 'Component',
+			'K1' => 'Component Data'
         ];
         
         sort($data['service_logs']);
         
         switch($data['service_logs'][0]['entry_type']) {
             case 'Fluid Entry':
-                $cellData['G1'] = 'Type of Fluid';
+                $cellData['H1'] = 'Type / Amount of Fluid';
                 break;
             
             case 'Component Change':
-                $cellData['G1'] = 'Component Type';
-                $cellData['H1'] = 'Component';
-                $cellData['I1'] = 'Component Data';
+                $cellData['I1'] = 'Component Type';
+                $cellData['J1'] = 'Component';
+                $cellData['K1'] = 'Component Data';
                 break;
             
             case 'SMR Update':
-                $cellData['G1'] = 'SMR';
+                $cellData['G1'] = 'SMR / Miles / Time';
                 break;
         }
         
@@ -378,13 +383,13 @@ class Reporting extends MY_Controller {
             
             switch($data['service_logs'][$ctr]['entry_type']) {
                 case 'Fluid Entry':
-                    $cellData['G' . $row] = $d['fluid_string'];
+                    $cellData['H' . $row] = $d['fluid_string'];
                     break;
                 
                 case 'Component Change':
-                    $cellData['G' . $row] = $d['component_type'];
-                    $cellData['H' . $row] = $d['component'];
-                    $cellData['I' . $row] = $d['component_data'];
+                    $cellData['I' . $row] = $d['component_type'];
+                    $cellData['J' . $row] = $d['component'];
+                    $cellData['K' . $row] = $d['component_data'];
                     break;
                 
                 case 'SMR Update':
