@@ -1,8 +1,5 @@
 <h3>Service Logs Report</h3>
 
-<input id="date_entered_starting" name="date_entered_starting" value="01/01/2018">
-<input id="date_entered_ending" name="date_entered_ending" value="02/28/2018">
-
 <a id="downloadReportServiceLogs"
     href="<?php echo base_url('index.php/reporting/output/spreadsheet/service_logs'); ?>"
     class="buttonLink nounderline">
@@ -206,7 +203,6 @@
 		}
 
 		function adjustDTColumnsByEntryType(entryType) {
-        	console.log(entryType);
 			switch (entryType) {
 				case 'SMR Update':
 					dataTable.column(7).visible(true); // SMR
@@ -249,9 +245,6 @@
             initComplete: function () {
 				var dateEnteredStarting = $("#date_entered_starting").val();
 				var dateEnteredEnding = $("#date_entered_ending").val();
-
-				console.log(dateEnteredStarting);
-				console.log(dateEnteredEnding);
 
 				// var iStartDateCol = 6;
 				// var iEndDateCol = 7;
@@ -316,14 +309,19 @@
                                 select.append('<option value="' + key + '">' + value + '</option>');
                             });
                         } );
-                    } else if(column.index() == 0) {
+                    } else if(column.index() == 0 || column.index() == 12) {
                     	select.hide();
+
+                    	var dateRangeFields = '<input id="date_entered_starting" name="date_entered_starting" value="01/01/2018" size="8">\n' +
+							'<input id="date_entered_ending" name="date_entered_ending" value="02/28/2018" size="8">';
+
+                    	$("#serviceLogsReport > tfoot > tr > th:nth-child(1)").html(dateRangeFields);
 					}
                 });
             },
             "order": [],
             "columns": [
-                null,
+				{"width": "45px"},
                 null,
                 null,
                 null,
