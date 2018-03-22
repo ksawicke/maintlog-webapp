@@ -310,18 +310,70 @@
                             });
                         } );
                     } else if(column.index() == 0 || column.index() == 12) {
-                    	select.hide();
+						select.hide();
+					}
 
-                    	var dateRangeFields = '<div class="input-group date">' +
+					// if(column.index() == 0) {
+                    	// $("#date_entered_starting").on('change', function() {
+					// 		column
+					// 			.search(val ? '^.*01/03/2018.*$' : '', true, false)
+					// 			.draw();
+					// 		console.log("CHANGE START DATE " + $(this).val());
+					// 	});
+                    //
+                    	// $("#date_entered_ending").on('change', function() {
+					// 		column
+					// 			.search(val ? '^.*' + val + '.*$' : '', true, false)
+					// 			.draw();
+					// 		console.log("CHANGE END DATE " + $(this).val());
+					// 	});
+					// }
+
+					if(column.index() == 0) {
+						var dateRangeFieldStarting = '<div class="input-group date">' +
 							'<div class="input-group-addon">' +
 							'<i class="far fa-calendar-alt fa-2x"></i></div>' +
-							'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8"></div>' +
-							'<div class="input-group date">' +
+							'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8"></div>';
+
+						var dateRangeFieldEnding = '<div class="input-group date">' +
 							'<div class="input-group-addon">' +
 							'<i class="far fa-calendar-alt fa-2x"></i></div>' +
 							'<div><input id="date_entered_ending" name="date_entered_ending" value="<?php echo $dateEnteredEnding; ?>" size="8"></div>';
 
-                    	$("#serviceLogsReport > tfoot > tr > th:nth-child(1)").html(dateRangeFields);
+						var input1 = $(dateRangeFieldStarting)
+							.appendTo($(column.footer()))
+							.on('change', function () {
+								var val = $("#date_entered_starting").val();
+
+								column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+
+								console.log(val);
+							});
+
+						var input2 = $(dateRangeFieldEnding)
+							.appendTo($(column.footer()))
+							.on('change', function () {
+								var val = $("#date_entered_ending").val();
+
+								column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+
+								console.log(val);
+							});
+
+						//var dateRangeFields = '<div class="input-group date">' +
+						//	'<div class="input-group-addon">' +
+						//	'<i class="far fa-calendar-alt fa-2x"></i></div>' +
+						//	'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php //echo $dateEnteredStarting; ?>//" size="8"></div>' +
+						//	'<div class="input-group date">' +
+						//	'<div class="input-group-addon">' +
+						//	'<i class="far fa-calendar-alt fa-2x"></i></div>' +
+						//	'<div><input id="date_entered_ending" name="date_entered_ending" value="<?php //echo $dateEnteredEnding; ?>//" size="8"></div>';
+
+						// $("#serviceLogsReport > tfoot > tr > th:nth-child(1)").html(dateRangeFields);
 					}
                 });
             },
