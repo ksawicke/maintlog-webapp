@@ -22,13 +22,7 @@ class Report_model extends CI_Model {
         $customSearch = '';
 
         if(!empty($params) && array_key_exists('data', $params)) {
-            $customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
-            $customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
-            $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
-            $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
-            $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
-            $customSearch .= (!empty($params['data']['notes']) ? " AND pm.notes = '" . $params['data']['notes'] . "'" : "");
-            $customSearch .= (!empty($params['data']['due_units']) ? " AND pm.due_units = '" . $params['data']['due_units'] . "'" : "");
+			$customSearch = $this->appendFindMaintenanceLogReminderQueries($params, $customSearch);
         }
         
         $customSql = "SELECT
@@ -63,72 +57,12 @@ class Report_model extends CI_Model {
     public function findServiceLogs($servicelog_id = 0, $params = []) {
         $customSearch = '';
         $fluidType = '';
-		if(!empty($params) && array_key_exists('data', $params)) {
-			$name = explode(", ", $params['data']['entered_by']);
 
-			$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
-            $customSearch .= (!empty($params['data']['entered_by']) ? " AND u.last_name = '" . $name[0] . "' AND u.first_name = '" . $name[1] . "'" : "");
-            $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
-            $customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
-            $customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
-            
-            if(!empty($params['data']['entry_type'])) {
-                switch($params['data']['entry_type']) {
-                    case 'Fluid Entry':
-                        $customSearch .= " AND fe.servicelog_id IS NOT NULL AND su.smr IS NULL";
-                        $fluidType = $params['data']['fluid_type'];
-                        break;
-                    
-                    case 'Component Change':
-                        $customSearch .= " AND cc.servicelog_id IS NOT NULL";
-                        $customSearch .= (!empty($params['data']['component_type']) ? " AND ct.component_type = '" . $params['data']['component_type'] . "'" : "");
-                        $customSearch .= (!empty($params['data']['component']) ? " AND c.component = '" . $params['data']['component'] . "'" : "");
-                        $customSearch .= (!empty($params['data']['component_data']) ? " AND cc.component_data = '" . $params['data']['component_data'] . "'" : "");
-                        break;
-                    
-                    case 'PM Service':
-                        $customSearch .= " AND pm.servicelog_id IS NOT NULL";
-                        break;
-                    
-                    case 'SMR Update':
-                        $customSearch .= " AND su.servicelog_id IS NOT NULL";
-                        break;
-                }
-            }
-            
-            $customSearch .= (!empty($params['data']['smr']) ? " AND su.smr = '" . $params['data']['smr'] . "'" : "");
-        }
-        
-        $append_query = " WHERE (su.servicelog_id <> 'UNKNOWN'
-                          OR pm.servicelog_id <> 'UNKNOWN'
-                          OR fe.servicelog_id <> 'UNKNOWN'
-                          OR cc.servicelog_id <> 'UNKNOWN')
-                          AND s.new_id = 0" . $customSearch . " 
-                          ORDER BY s.id DESC";
+		list($params, $customSearch, $fluidType) = $this->buildServiceLogCustomSearch($params, $customSearch);
 
-        if ($servicelog_id <> 0) {
-            $append_query = " WHERE s.id = '" . $servicelog_id . "'";
-        }
+		$append_query = $this->appendServiceLogCustomSearch($servicelog_id, $customSearch);
 
-        $service_logs = $this->getAllServiceLogs($append_query);
-
-        if ($servicelog_id <> 0) {
-            $service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs, $params);
-            $service_logs = $this->appendServiceLogReplacements($servicelog_id, $service_logs);
-        }
-        
-        if ($servicelog_id == 0) {
-            $service_logs = $this->appendFluidsAdministered($service_logs, $fluidType);
-        }
-        
-        foreach($service_logs as $ctr => $sl) {
-            if (!empty($fluidType) && strpos($sl['fluid_string'], $fluidType) !== false) {
-                // Do nothing
-            } elseif(!empty($fluidType)) {
-                unset($service_logs[$ctr]);
-            }
-        }
-        sort($service_logs);
+		$service_logs = $this->appendServiceLogChildrenAndSort($servicelog_id, $params, $append_query, $fluidType);
         
         return ($servicelog_id <> 0 ? $service_logs[0] : $service_logs);
     }
@@ -173,6 +107,34 @@ class Report_model extends CI_Model {
         }
         return $results;
     }
+
+    private function appendServicedBy($service_logs = [], $params = []) {
+		$appendQuery = "";
+		$servicedBy = [];
+
+		if(!empty($params['data']['serviced_by'])) {
+			$servicedBy = explode(" ", $params['data']['serviced_by']);
+			$appendQuery = " AND u.last_name = '" . $servicedBy[1] . "' AND u.first_name = '" . $servicedBy[0] . "'";
+		}
+		
+    	foreach($service_logs as $ctr => $service_log) {
+			$sql = "SELECT slsb.user_id, u.first_name servicedby_first_name, u.last_name servicedby_last_name FROM servicelogservicedby slsb
+					LEFT JOIN user u ON u.id = slsb.user_id
+					WHERE slsb.servicelog_id = " . $service_log['id'] . $appendQuery;
+
+			$results = R::getAll($sql);
+
+			if(empty($results)) {
+				unset($service_logs[$ctr]);
+			} else {
+				$service_logs[$ctr]['serviced_by'] = $results;
+			}
+		}
+
+		sort($service_logs);
+		
+		return $service_logs;
+	}
     
     private function appendFluidsAdministered($service_logs = [], $fluidType = '') {
         $fluidType = '';
@@ -584,5 +546,149 @@ class Report_model extends CI_Model {
         
         return $equipment_list;
     }
+
+	/**
+	 * @param $params
+	 * @param $customSearch
+	 * @return array
+	 */
+	protected function appendFindServiceLogQueries($params, $customSearch)
+	{
+		$enteredByName = explode(", ", $params['data']['entered_by']);
+		$servicedByName = explode(" ", $params['data']['serviced_by']);
+		
+		$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date_create_from_format('Y-m-d', $params['data']['date_entered']) . "'" : "");
+		$customSearch .= (!empty($params['data']['entered_by']) ? " AND u.last_name = '" . $enteredByName[0] . "' AND u.first_name = '" . $enteredByName[1] . "'" : "");
+		$customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+		$customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
+		$customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+
+		return array($params, $customSearch);
+	}
+
+	/**
+	 * @param $params
+	 * @param $customSearch
+	 * @return string
+	 */
+	protected function appendFindMaintenanceLogReminderQueries($params, $customSearch)
+	{
+		$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
+		$customSearch .= (!empty($params['data']['current_smr']) ? " AND pm.current_smr = '" . $params['data']['current_smr'] . "'" : "");
+		$customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+		$customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
+		$customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+		$customSearch .= (!empty($params['data']['notes']) ? " AND pm.notes = '" . $params['data']['notes'] . "'" : "");
+		$customSearch .= (!empty($params['data']['due_units']) ? " AND pm.due_units = '" . $params['data']['due_units'] . "'" : "");
+
+		return $customSearch;
+	}
+
+	/**
+	 * @param $params
+	 * @param $customSearch
+	 * @return array
+	 */
+	protected function appendServiceLogComponentChangeQuery($params, $customSearch)
+	{
+		$customSearch .= " AND cc.servicelog_id IS NOT NULL";
+		$customSearch .= (!empty($params['data']['component_type']) ? " AND ct.component_type = '" . $params['data']['component_type'] . "'" : "");
+		$customSearch .= (!empty($params['data']['component']) ? " AND c.component = '" . $params['data']['component'] . "'" : "");
+		$customSearch .= (!empty($params['data']['component_data']) ? " AND cc.component_data = '" . $params['data']['component_data'] . "'" : "");
+		return array($customSearch, $params);
+	}
+
+	/**
+	 * @param $servicelog_id
+	 * @param $customSearch
+	 * @return string
+	 */
+	protected function appendServiceLogCustomSearch($servicelog_id, $customSearch)
+	{
+		$append_query = " WHERE (su.servicelog_id <> 'UNKNOWN'
+                          OR pm.servicelog_id <> 'UNKNOWN'
+                          OR fe.servicelog_id <> 'UNKNOWN'
+                          OR cc.servicelog_id <> 'UNKNOWN')
+                          AND s.new_id = 0" . $customSearch . " 
+                          ORDER BY s.id DESC";
+
+		if ($servicelog_id <> 0) {
+			$append_query = " WHERE s.id = '" . $servicelog_id . "'";
+		}
+		return $append_query;
+	}
+
+	/**
+	 * @param $servicelog_id
+	 * @param $params
+	 * @param $append_query
+	 * @param $fluidType
+	 * @return array|type
+	 */
+	protected function appendServiceLogChildrenAndSort($servicelog_id, $params, $append_query, $fluidType)
+	{
+		$service_logs = $this->getAllServiceLogs($append_query);
+
+		$service_logs = $this->appendServicedBy($service_logs, $params);
+
+		if ($servicelog_id <> 0) {
+			$service_logs = $this->appendServiceLogChildren($servicelog_id, $service_logs, $params);
+			$service_logs = $this->appendServiceLogReplacements($servicelog_id, $service_logs);
+		}
+
+		if ($servicelog_id == 0) {
+			$service_logs = $this->appendFluidsAdministered($service_logs, $fluidType);
+		}
+
+		foreach ($service_logs as $ctr => $sl) {
+			if (!empty($fluidType) && strpos($sl['fluid_string'], $fluidType) !== false) {
+				// Do nothing
+			} elseif (!empty($fluidType)) {
+				unset($service_logs[$ctr]);
+			}
+		}
+		sort($service_logs);
+
+		return $service_logs;
+	}
+
+	/**
+	 * @param $params
+	 * @param $customSearch
+	 * @return array
+	 */
+	protected function buildServiceLogCustomSearch($params, $customSearch)
+	{
+		$fluidType = "";
+
+		if (!empty($params) && array_key_exists('data', $params)) {
+			list($params, $customSearch) = $this->appendFindServiceLogQueries($params, $customSearch);
+
+			if (!empty($params['data']['entry_type'])) {
+				switch ($params['data']['entry_type']) {
+					case 'Fluid Entry':
+						$customSearch .= " AND fe.servicelog_id IS NOT NULL AND su.smr IS NULL";
+						$fluidType = $params['data']['fluid_type'];
+						break;
+
+					case 'Component Change':
+						list($customSearch, $params) = $this->appendServiceLogComponentChangeQuery($params, $customSearch);
+						break;
+
+					case 'PM Service':
+						$customSearch .= " AND pm.servicelog_id IS NOT NULL";
+						break;
+
+					case 'SMR Update':
+						$customSearch .= " AND su.servicelog_id IS NOT NULL";
+						break;
+				}
+			}
+
+			$customSearch .= (!empty($params['data']['smr']) ? " AND su.smr = '" . $params['data']['smr'] . "'" : "");
+		}
+
+		return array($params, $customSearch, $fluidType);
+	}
 
 }

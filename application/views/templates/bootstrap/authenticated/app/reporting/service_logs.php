@@ -18,6 +18,7 @@
         <tr>
             <th>Date Entered</th>
             <th>Entered By</th>
+			<th>Serviced By</th>
             <th>Manufacturer Name</th>
             <th>Model Name</th>
             <th>Unit Number</th>
@@ -34,6 +35,7 @@
         <tr>
             <th>Date Entered</th>
             <th>Entered By</th>
+			<th>Serviced By</th>
             <th>Manufacturer Name</th>
             <th>Model Name</th>
             <th>Unit Number</th>
@@ -51,7 +53,15 @@
             <tr>
                 <td><?php echo date('m/d/Y', strtotime($log['date_entered'])); ?></td>
                 <td><?php echo $log['enteredby_last_name'] . ", " . $log['enteredby_first_name']; ?></td>
-                <td><?php echo $log['manufacturer_name']; ?></td>
+				<td><?php
+					$servicedByStringArray = [];
+					foreach($log['serviced_by'] as $sbctr => $servicedBy) {
+						$servicedByStringArray[] = $servicedBy['servicedby_first_name'] . " " . $servicedBy['servicedby_last_name'];
+					}
+
+					echo implode(", ", $servicedByStringArray);
+					?></td>
+				<td><?php echo $log['manufacturer_name']; ?></td>
                 <td><?php echo $log['model_number']; ?></td>
                 <td><?php echo $log['unit_number']; ?></td>
                 <td><?php echo $log['entry_type']; ?></td>
@@ -114,20 +124,20 @@
             
             switch(selects[5].value) {
                 case 'Component Change':
-                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data'];
+                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data'];
                     break;
 
                 case 'Fluid Entry':
-                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'fluid_type'];
+                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'fluid_type'];
                     break;
 
                 case 'SMR Update':
-                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'smr'];
+                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'smr'];
                     break;
                     
                 case 'PM Service':
                 default:
-                    fields = ['date_entered', 'entered_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type'];
+                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type'];
                     break;
             }
             
@@ -212,7 +222,7 @@
                                             dataTable.column(7).visible(false);
                                             dataTable.column(8).visible(false);
                                             dataTable.column(9).visible(false);
-                                            dataTable.column(9).visible(false);
+                                            dataTable.column(10).visible(false);
                                             break;
                                             
                                         case 'Component Change':
@@ -269,6 +279,7 @@
                 null,
                 null,
                 null,
+				null,
                 {"orderable": false}
             ]
         });
