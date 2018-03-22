@@ -54,9 +54,9 @@ class Reporting extends MY_Controller
 	 */
 	protected function outputScreenReport($report_type = '', $data = [])
 	{
-		$data['dateEnteredStarting'] = (array_key_exists('date_entered_starting', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_starting']) ? $_REQUEST['data']['date_entered_starting'] : '');
+		$data['dateEnteredStarting'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_starting', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_starting']) ? $_REQUEST['data']['date_entered_starting'] : '');
 
-		$data['dateEnteredEnding'] = (array_key_exists('date_entered_ending', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_ending']) ? $_REQUEST['data']['date_entered_ending'] : '');
+		$data['dateEnteredEnding'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_ending', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_ending']) ? $_REQUEST['data']['date_entered_ending'] : '');
 
 		$data['report_type'] = $report_type;
 		

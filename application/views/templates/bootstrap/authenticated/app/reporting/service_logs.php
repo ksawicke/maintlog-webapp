@@ -312,8 +312,14 @@
                     } else if(column.index() == 0 || column.index() == 12) {
                     	select.hide();
 
-                    	var dateRangeFields = '<input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8">\n' +
-							'<input id="date_entered_ending" name="date_entered_ending" value="<?php echo $dateEnteredEnding; ?>" size="8">';
+                    	var dateRangeFields = '<div class="input-group date">' +
+							'<div class="input-group-addon">' +
+							'<i class="far fa-calendar-alt fa-2x"></i></div>' +
+							'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8"></div>' +
+							'<div class="input-group date">' +
+							'<div class="input-group-addon">' +
+							'<i class="far fa-calendar-alt fa-2x"></i></div>' +
+							'<div><input id="date_entered_ending" name="date_entered_ending" value="<?php echo $dateEnteredEnding; ?>" size="8"></div>';
 
                     	$("#serviceLogsReport > tfoot > tr > th:nth-child(1)").html(dateRangeFields);
 					}
@@ -321,7 +327,7 @@
             },
             "order": [],
             "columns": [
-				{"width": "45px"},
+				{"width": "150px"},
                 null,
                 null,
                 null,
@@ -347,5 +353,15 @@
 
 		adjustDTColumnsByEntryType(entryType);
 		selectDTEntryType(entryType);
+
+		$('#date_entered_starting').datepicker({
+			autoclose: true,
+			dateFormat: 'mm/dd/yyyy'
+		});
+
+		$('#date_entered_ending').datepicker({
+			autoclose: true,
+			dateFormat: 'mm/dd/yyyy'
+		});
     });
 </script>
