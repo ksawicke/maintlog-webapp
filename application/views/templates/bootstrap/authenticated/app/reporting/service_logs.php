@@ -312,8 +312,8 @@
                     } else if(column.index() == 0 || column.index() == 12) {
                     	select.hide();
 
-                    	var dateRangeFields = '<input id="date_entered_starting" name="date_entered_starting" value="01/01/2018" size="8">\n' +
-							'<input id="date_entered_ending" name="date_entered_ending" value="02/28/2018" size="8">';
+                    	var dateRangeFields = '<input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8">\n' +
+							'<input id="date_entered_ending" name="date_entered_ending" value="<?php echo $dateEnteredEnding; ?>" size="8">';
 
                     	$("#serviceLogsReport > tfoot > tr > th:nth-child(1)").html(dateRangeFields);
 					}
