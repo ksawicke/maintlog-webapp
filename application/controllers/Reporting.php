@@ -357,56 +357,70 @@ class Reporting extends MY_Controller
 		$cellData = [
 			'A1' => 'Date Entered',
 			'B1' => 'Entered By',
-			'C1' => 'Manufacturer Name',
-			'D1' => 'Model Name',
-			'E1' => 'Unit Number',
-			'F1' => 'Entry Type',
-			'G1' => 'SMR / Miles / Time',
-			'H1' => 'Type / Amount of Fluid',
-			'I1' => 'Component Type',
-			'J1' => 'Component',
-			'K1' => 'Component Data'
+			'C1' => 'Serviced By',
+			'D1' => 'Manufacturer Name',
+			'E1' => 'Model Name',
+			'F1' => 'Unit Number',
+			'G1' => 'Entry Type',
+			'H1' => 'SMR / Miles / Time',
+			'I1' => 'Type / Amount of Fluid',
+			'J1' => 'Component Type',
+			'K1' => 'Component',
+			'L1' => 'Component Data'
 		];
 
 		sort($data['service_logs']);
 
 		switch ($data['service_logs'][0]['entry_type']) {
 			case 'Fluid Entry':
-				$cellData['H1'] = 'Type / Amount of Fluid';
+				$cellData['I1'] = 'Type / Amount of Fluid';
 				break;
 
 			case 'Component Change':
-				$cellData['I1'] = 'Component Type';
-				$cellData['J1'] = 'Component';
-				$cellData['K1'] = 'Component Data';
+				$cellData['J1'] = 'Component Type';
+				$cellData['K1'] = 'Component';
+				$cellData['L1'] = 'Component Data';
 				break;
 
 			case 'SMR Update':
-				$cellData['G1'] = 'SMR / Miles / Time';
+				$cellData['H1'] = 'SMR / Miles / Time';
 				break;
 		}
 
 		$row = 2;
-
+		
 		foreach ($data['service_logs'] as $ctr => $d) {
 			$date = new DateTime($d['date_entered']);
 
+			$servicedByArray = [];
+			$servicedByString = "";
+
+			if(!empty($d['serviced_by'])) {
+				foreach ($d['serviced_by'] as $sbctr => $servicedBy) {
+					$servicedByArray[] = $servicedBy['servicedby_last_name'] . ", " . $servicedBy['servicedby_first_name'];
+				}
+			}
+
+			$servicedByString = implode(" & ", $servicedByArray);
+
 			$cellData['A' . $row] = $date->format('m/d/Y');
-			$cellData['B' . $row] = $d['enteredby_first_name'] . " " . $d['enteredby_last_name'];
-			$cellData['C' . $row] = $d['manufacturer_name'];
-			$cellData['D' . $row] = $d['model_number'];
-			$cellData['E' . $row] = $d['unit_number'];
-			$cellData['F' . $row] = $d['entry_type'];
+			$cellData['B' . $row] = $d['enteredby_last_name'] . ", " . $d['enteredby_first_name'];
+			$cellData['C' . $row] = $servicedByString;
+			$cellData['D' . $row] = $d['manufacturer_name'];
+			$cellData['E' . $row] = $d['model_number'];
+			$cellData['F' . $row] = $d['unit_number'];
+			$cellData['G' . $row] = $d['entry_type'];
+			$cellData['H' . $row] = $d['smr'];
 
 			switch ($data['service_logs'][$ctr]['entry_type']) {
 				case 'Fluid Entry':
-					$cellData['H' . $row] = $d['fluid_string'];
+					$cellData['I' . $row] = $d['fluid_string'];
 					break;
 
 				case 'Component Change':
-					$cellData['I' . $row] = $d['component_type'];
-					$cellData['J' . $row] = $d['component'];
-					$cellData['K' . $row] = $d['component_data'];
+					$cellData['J' . $row] = $d['component_type'];
+					$cellData['K' . $row] = $d['component'];
+					$cellData['L' . $row] = $d['component_data'];
 					break;
 
 				case 'SMR Update':

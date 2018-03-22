@@ -56,7 +56,7 @@
 				<td><?php
 					$servicedByStringArray = [];
 					foreach($log['serviced_by'] as $sbctr => $servicedBy) {
-						$servicedByStringArray[] = $servicedBy['servicedby_first_name'] . " " . $servicedBy['servicedby_last_name'];
+						$servicedByStringArray[] = $servicedBy['servicedby_last_name'] . ", " . $servicedBy['servicedby_first_name'];
 					}
 
 					echo implode(", ", $servicedByStringArray);
@@ -218,11 +218,11 @@
                                 if(column.index()==5) {
                                     switch(val) {
                                         case 'SMR Update':
-                                            dataTable.column(6).visible(true);
-                                            dataTable.column(7).visible(false);
+                                            dataTable.column(7).visible(true);
                                             dataTable.column(8).visible(false);
                                             dataTable.column(9).visible(false);
                                             dataTable.column(10).visible(false);
+                                            dataTable.column(11).visible(false);
                                             break;
                                             
                                         case 'Component Change':
@@ -242,11 +242,11 @@
                                             break;
                                             
                                         default:
-                                            dataTable.column(6).visible(false);
                                             dataTable.column(7).visible(false);
                                             dataTable.column(8).visible(false);
                                             dataTable.column(9).visible(false);
                                             dataTable.column(10).visible(false);
+                                            dataTable.column(11).visible(false);
                                             break;
                                     }
                                 }
@@ -284,10 +284,10 @@
             ]
         });
         
-        dataTable.column(6).visible(false);
         dataTable.column(7).visible(false);
         dataTable.column(8).visible(false);
         dataTable.column(9).visible(false);
         dataTable.column(10).visible(false);
+        dataTable.column(11).visible(false);
     });
 </script>

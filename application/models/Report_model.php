@@ -113,8 +113,8 @@ class Report_model extends CI_Model {
 		$servicedBy = [];
 
 		if(!empty($params['data']['serviced_by'])) {
-			$servicedBy = explode(" ", $params['data']['serviced_by']);
-			$appendQuery = " AND u.last_name = '" . $servicedBy[1] . "' AND u.first_name = '" . $servicedBy[0] . "'";
+			$servicedBy = explode(", ", $params['data']['serviced_by']);
+			$appendQuery = " AND u.last_name = '" . $servicedBy[0] . "' AND u.first_name = '" . $servicedBy[1] . "'";
 		}
 		
     	foreach($service_logs as $ctr => $service_log) {
