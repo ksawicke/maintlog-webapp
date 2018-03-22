@@ -579,6 +579,7 @@ class Reporting extends MY_Controller
 		} elseif ($method == 'spreadsheet') {
 			$datatmp = [];
 			$this->initSpreadsheetReport();
+
 			$data = $this->getReportData($report_type, $datatmp, $id);
 
 			$data = $this->getSpreadsheetReportData($report_type, $data, $id);
