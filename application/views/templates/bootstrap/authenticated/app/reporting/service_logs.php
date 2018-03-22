@@ -1,5 +1,8 @@
 <h3>Service Logs Report</h3>
 
+<input id="date_entered_starting" name="date_entered_starting" value="01/01/2018">
+<input id="date_entered_ending" name="date_entered_ending" value="02/28/2018">
+
 <a id="downloadReportServiceLogs"
     href="<?php echo base_url('index.php/reporting/output/spreadsheet/service_logs'); ?>"
     class="buttonLink nounderline">
@@ -23,7 +26,7 @@
             <th>Model Name</th>
             <th>Unit Number</th>
             <th>Entry Type</th>
-            <th>SMR</th>
+            <th>SMR / Miles / Time</th>
             <th>Component Type</th>
             <th>Component</th>
             <th>Component Data</th>
@@ -40,7 +43,7 @@
             <th>Model Name</th>
             <th>Unit Number</th>
             <th>Entry Type</th>
-            <th>SMR</th>
+            <th>SMR / Miles / Time</th>
             <th>Component Type</th>
             <th>Component</th>
             <th>Component Data</th>
@@ -152,7 +155,14 @@
         function loadSpreadsheet(href) {
             window.open(href, '_blank');
         }
-        
+
+        function getURLParam(paramName) {
+			var urlString = window.location.href;
+			var url = new URL(urlString);
+
+			return url.searchParams.get(paramName);
+		}
+
         function deleteServiceLog(servicelogid) {
             var jqxhr = $.ajax({
                 url: '<?php echo base_url(); ?>index.php/servicelog/deleteServiceLog',
@@ -189,12 +199,87 @@
         function escapeRegExp(string) {
             return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
         }
+
+        function selectDTEntryType(entryType) {
+			$("#serviceLogsReport > tfoot > tr > th:nth-child(7) > select").val(entryType);
+
+		}
+
+		function adjustDTColumnsByEntryType(entryType) {
+        	console.log(entryType);
+			switch (entryType) {
+				case 'SMR Update':
+					dataTable.column(7).visible(true); // SMR
+					dataTable.column(8).visible(false); // Component Type
+					dataTable.column(9).visible(false); // Component
+					dataTable.column(10).visible(false); // Component Data
+					dataTable.column(11).visible(false); // Type of Fluid
+					break;
+
+				case 'Component Change':
+					dataTable.column(7).visible(false); // SMR
+					dataTable.column(8).visible(true); // Component Type
+					dataTable.column(9).visible(true); // Component
+					dataTable.column(10).visible(true); // Component Data
+					dataTable.column(11).visible(false); // Type of Fluid
+					break;
+
+				case 'Fluid Entry':
+					dataTable.column(7).visible(false); // SMR
+					dataTable.column(8).visible(false); // Component Type
+					dataTable.column(9).visible(false); // Component
+					dataTable.column(10).visible(false); // Component Data
+					dataTable.column(11).visible(true); // Type of Fluid
+					break;
+
+				default:
+					dataTable.column(7).visible(false); // SMR
+					dataTable.column(8).visible(false); // Component Type
+					dataTable.column(9).visible(false); // Component
+					dataTable.column(10).visible(false); // Component Data
+					dataTable.column(11).visible(false); // Type of Fluid
+					break;
+			}
+		}
         
         var dataTable = $('#serviceLogsReport').DataTable({
             /* Disable initial sort */
             "aaSorting": [],
             responsive: true,
             initComplete: function () {
+				var dateEnteredStarting = $("#date_entered_starting").val();
+				var dateEnteredEnding = $("#date_entered_ending").val();
+
+				console.log(dateEnteredStarting);
+				console.log(dateEnteredEnding);
+
+				// var iStartDateCol = 6;
+				// var iEndDateCol = 7;
+				//
+				// iFini=iFini.substring(6,10) + iFini.substring(3,5)+ iFini.substring(0,2);
+				// iFfin=iFfin.substring(6,10) + iFfin.substring(3,5)+ iFfin.substring(0,2);
+				//
+				// var datofini=aData[iStartDateCol].substring(6,10) + aData[iStartDateCol].substring(3,5)+ aData[iStartDateCol].substring(0,2);
+				// var datoffin=aData[iEndDateCol].substring(6,10) + aData[iEndDateCol].substring(3,5)+ aData[iEndDateCol].substring(0,2);
+				//
+				// if ( iFini === "" && iFfin === "" )
+				// {
+				// 	return true;
+				// }
+				// else if ( iFini <= datofini && iFfin === "")
+				// {
+				// 	return true;
+				// }
+				// else if ( iFfin >= datoffin && iFini === "")
+				// {
+				// 	return true;
+				// }
+				// else if (iFini <= datofini && iFfin >= datoffin)
+				// {
+				// 	return true;
+				// }
+				// return false;
+
                 this.api().columns().every(function () {
                     var column = this;
                     var select = $('<select><option value=""></option></select>')
@@ -204,7 +289,7 @@
                                         $(this).val()
                                         );
 
-                                if(column.index() != 10) {
+                                if(column.index() != 11) {
                                     column
                                             .search(val ? '^' + val + '$' : '', true, false)
                                             .draw();
@@ -214,56 +299,26 @@
                                         .search(val ? '^.*' + val + '.*$' : '', true, false)
                                         .draw();
                                 }
-                                
-                                if(column.index()==5) {
-                                    switch(val) {
-                                        case 'SMR Update':
-                                            dataTable.column(7).visible(true);
-                                            dataTable.column(8).visible(false);
-                                            dataTable.column(9).visible(false);
-                                            dataTable.column(10).visible(false);
-                                            dataTable.column(11).visible(false);
-                                            break;
-                                            
-                                        case 'Component Change':
-                                            dataTable.column(6).visible(false);
-                                            dataTable.column(7).visible(true);
-                                            dataTable.column(8).visible(true);
-                                            dataTable.column(9).visible(true);
-                                            dataTable.column(10).visible(false);
-                                            break;
 
-                                        case 'Fluid Entry':
-                                            dataTable.column(6).visible(false);
-                                            dataTable.column(7).visible(false);
-                                            dataTable.column(8).visible(false);
-                                            dataTable.column(9).visible(false);
-                                            dataTable.column(10).visible(true);
-                                            break;
-                                            
-                                        default:
-                                            dataTable.column(7).visible(false);
-                                            dataTable.column(8).visible(false);
-                                            dataTable.column(9).visible(false);
-                                            dataTable.column(10).visible(false);
-                                            dataTable.column(11).visible(false);
-                                            break;
-                                    }
+								if(column.index()==6) {
+									adjustDTColumnsByEntryType(val);
                                 }
                             });
 
-                    if(column.index() != 10) {
+                    if(column.index() > 0 && column.index() <= 10) {
                         column.data().unique().sort().each(function (d, j) {
                             select.append('<option value="' + d + '">' + d + '</option>');
                         });
-                    } else {
+                    } else if(column.index() == 11) {
                         /* Populate dropdown for Fluid Entry filter */
                         column.each(function (d, j) {
                             $.each(fluidTypes, function(key, value) {
                                 select.append('<option value="' + key + '">' + value + '</option>');
                             });
                         } );
-                    }
+                    } else if(column.index() == 0) {
+                    	select.hide();
+					}
                 });
             },
             "order": [],
@@ -283,11 +338,16 @@
                 {"orderable": false}
             ]
         });
-        
-        dataTable.column(7).visible(false);
-        dataTable.column(8).visible(false);
-        dataTable.column(9).visible(false);
-        dataTable.column(10).visible(false);
-        dataTable.column(11).visible(false);
+
+        dataTable.column(7).visible(false); // SMR
+        dataTable.column(8).visible(false); // Component Type
+        dataTable.column(9).visible(false); // Component
+        dataTable.column(10).visible(false); // Component Data
+        dataTable.column(11).visible(false); // Type of Fluid
+
+		var entryType = getURLParam("data[entry_type]");
+
+		adjustDTColumnsByEntryType(entryType);
+		selectDTEntryType(entryType);
     });
 </script>
