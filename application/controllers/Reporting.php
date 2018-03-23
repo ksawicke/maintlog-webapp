@@ -244,6 +244,24 @@ class Reporting extends MY_Controller
 		return $data;
 	}
 
+	protected function getFuelUsedData()
+	{
+		$this->load->model('Report_model');
+
+		$data['fuel_used'] = $this->Report_model->getFuelUsed($_REQUEST);
+
+		return $data;
+	}
+
+	protected function getSMRUsedData()
+	{
+		$this->load->model('Report_model');
+
+		$data['fuel_used'] = $this->Report_model->getSMRUsed($_REQUEST);
+
+		return $data;
+	}
+
 	/**
 	 * Get spreadsheet report data
 	 *
@@ -283,6 +301,14 @@ class Reporting extends MY_Controller
 			case 'equipment_list':
 				$spreadsheetReportData['cellData'] = $this->getEquipmentListCellData($data);
 				break;
+
+			case 'fuel_used':
+				$spreadsheetReportData['cellData'] = $this->getFuelUsedCellData($data);
+				break;
+
+			case 'smr_used':
+				$spreadsheetReportData['cellData'] = $this->getSMRUsedCellData($data);
+				break;
 		}
 
 		return $spreadsheetReportData;
@@ -314,6 +340,16 @@ class Reporting extends MY_Controller
 		}
 
 		return $cellData;
+	}
+
+	protected function getFuelUsedCellData($data)
+	{
+		return [];
+	}
+
+	protected function getSMRUsedCellData($data)
+	{
+		return [];
 	}
 
 	/**
@@ -562,6 +598,13 @@ class Reporting extends MY_Controller
 			case 'equipment_list':
 				$data = $this->getEquipmentListData();
 				break;
+
+			case 'fuel_used':
+				$data = $this->getFuelUsedData();
+				break;
+
+			case 'smr_used':
+				$data = $this->getSMRUsedData();
 		}
 
 		$data = array_merge($data, $datatmp);

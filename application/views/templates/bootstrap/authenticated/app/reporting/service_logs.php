@@ -124,27 +124,34 @@
             
             switch(selects[5].value) {
                 case 'Component Change':
-                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data'];
+                    fields = ['entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'component_type', 'component', 'component_data'];
                     break;
 
                 case 'Fluid Entry':
-                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'fluid_type'];
+                    fields = ['entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'fluid_type'];
                     break;
 
                 case 'SMR Update':
-                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'smr'];
+                    fields = ['entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type', 'smr'];
                     break;
                     
                 case 'PM Service':
                 default:
-                    fields = ['date_entered', 'entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type'];
+                    fields = ['entered_by', 'serviced_by', 'manufacturer_name', 'model_number', 'unit_number', 'entry_type'];
                     break;
             }
             
             $.map(fields, function(fieldName, i) {
                 var key = fieldName;
-                dataParams.data[key] = selects[i].value;
+                if(fieldName=="date_entered_starting" || fieldName=="date_entered_ending") {
+					dataParams.data[key] = $("#" + fieldName).val();
+				} else {
+					dataParams.data[key] = selects[i].value;
+				}
             });
+
+            dataParams.data['date_entered_starting'] = $("#date_entered_starting").val();
+			dataParams.data['date_entered_ending'] = $("#date_entered_ending").val();
             
             loadSpreadsheet(href + "?" + $.param(dataParams));
         });

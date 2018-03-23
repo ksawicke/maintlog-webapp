@@ -547,6 +547,22 @@ class Report_model extends CI_Model {
         return $equipment_list;
     }
 
+    public function getFuelUsed($params = [])
+	{
+		$customSearch = [];
+		$customSearchString = "";
+
+		return [];
+	}
+
+	public function getSMRUsed($params = [])
+	{
+		$customSearch = [];
+		$customSearchString = "";
+
+		return [];
+	}
+
 	/**
 	 * @param $params
 	 * @param $customSearch
@@ -557,7 +573,9 @@ class Report_model extends CI_Model {
 		$enteredByName = explode(", ", $params['data']['entered_by']);
 		$servicedByName = explode(" ", $params['data']['serviced_by']);
 
-		$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
+		$customSearch .= (!empty($params['data']['date_entered_starting']) ? " AND s.date_entered >= '" . date('Y-m-d', strtotime($params['data']['date_entered_starting'])) . "'" : "");
+
+		$customSearch .= (!empty($params['data']['date_entered_ending']) ? " AND s.date_entered <= '" . date('Y-m-d', strtotime($params['data']['date_entered_ending'])) . "'" : "");
 
 		$customSearch .= (!empty($params['data']['date_entered_starting']) ? " AND s.date_entered >= '" . date('Y-m-d', strtotime($params['data']['date_entered_starting'])) . "'" : "");
 		$customSearch .= (!empty($params['data']['date_entered_ending']) ? " AND s.date_entered <= '" . date('Y-m-d', strtotime($params['data']['date_entered_ending'])) . "'" : "");
@@ -566,8 +584,6 @@ class Report_model extends CI_Model {
 		$customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
 		$customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
 		$customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
-
-//		die($customSearch);
 
 		return array($params, $customSearch);
 	}
