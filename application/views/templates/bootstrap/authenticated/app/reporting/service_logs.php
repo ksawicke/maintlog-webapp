@@ -241,10 +241,14 @@
         var dataTable = $('#serviceLogsReport').DataTable({
             /* Disable initial sort */
             "aaSorting": [],
+			// "columnDefs" : [{
+			// 	"targets": [1],
+			// 	"visible": false,
+			// }],
             responsive: true,
             initComplete: function () {
-				var dateEnteredStarting = $("#date_entered_starting").val();
-				var dateEnteredEnding = $("#date_entered_ending").val();
+				// var dateEnteredStarting = $("#date_entered_starting").val();
+				// var dateEnteredEnding = $("#date_entered_ending").val();
 
 				// var iStartDateCol = 6;
 				// var iEndDateCol = 7;
@@ -268,7 +272,7 @@
 				// 	return true;
 				// }
 				// else if (iFini <= datofini && iFfin >= datoffin)
-				// {
+				//
 				// 	return true;
 				// }
 				// return false;
@@ -343,25 +347,65 @@
 						var input1 = $(dateRangeFieldStarting)
 							.appendTo($(column.footer()))
 							.on('change', function () {
-								var val = $("#date_entered_starting").val();
 
-								column
-									.search(val ? '^' + val + '$' : '', true, false)
-									.draw();
+								// var tableEnteredOn = $.fn.dataTable.util.escapeRegex(
+								// 	$(this).val()
+								// );
+								var dateEnteredStarting = $("#date_entered_starting").val();
+								var dateEnteredEnding = $("#date_entered_ending").val();
+								// var tableEnteredOn = data[0];
 
-								console.log(val);
+								// console.log("###");
+								column.data().each(function (thisDateEntered, j) {
+									// thisDateEntered
+
+									console.log("~-~-~-");
+									console.log(moment(thisDateEntered, 'MM/DD/YY'));
+									console.log(moment(dateEnteredStarting, 'MM/DD/YY'));
+									console.log(moment(dateEnteredEnding, 'MM/DD/YY'));
+
+									console.log(moment(dateEnteredStarting).isSameOrAfter(thisDateEntered));
+									console.log(moment(dateEnteredEnding).isSameOrBefore(thisDateEntered));
+
+									// if(moment(thisDateEntered, 'MM/DD/YY').isSameOrAfter(dateEnteredStarting, 'MM/DD/YY')) {
+									// 	column.draw();
+									// }
+								});
+								// console.log(column.data());
+								// console.log(dateEnteredStarting);
+								// console.log(dateEnteredEnding);
+
+						// 		var val = $("#date_entered_starting").val();
+                        //
+						// 		var val2 = $.fn.dataTable.util.escapeRegex(
+						// 			$("#date_entered_starting").val()
+						// 		);
+                        //
+						// 		console.log("val: " + val);
+						// 		console.log("val2: " + val2);
+                        //
+						// 		var isBefore =
+                        //
+						// 		// moment('2010-10-20').isSameOrBefore('2010-10-21');
+						// 		// moment('2010-10-20').isSameOrAfter('2010-10-21');
+                        //
+						// 		column
+						// 			.search(val ? '^' + val + '$' : '', true, false)
+						// 			.draw();
+                        //
+						// 		console.log(val);
 							});
-
+                        //
 						var input2 = $(dateRangeFieldEnding)
 							.appendTo($(column.footer()))
 							.on('change', function () {
-								var val = $("#date_entered_ending").val();
-
-								column
-									.search(val ? '^' + val + '$' : '', true, false)
-									.draw();
-
-								console.log(val);
+						// 		var val = $("#date_entered_ending").val();
+                        //
+						// 		column
+						// 			.search(val ? '^' + val + '$' : '', true, false)
+						// 			.draw();
+                        //
+						// 		console.log(val);
 							});
 
 						//var dateRangeFields = '<div class="input-group date">' +
@@ -416,4 +460,71 @@
 			dateFormat: 'mm/dd/yyyy'
 		});
     });
+
+	// $.fn.dataTable.ext.search.push(
+	// 	function( settings, data, dataIndex ) {
+	// 		var dateEnteredStarting = $("#date_entered_starting").val();
+	// 		var dateEnteredEnding = $("#date_entered_ending").val();
+	// 		var tableEnteredOn = data[0];
+    //
+	// 		// dateEnteredStarting = (dateEnteredStarting == '') ? -1 : moment(dateEnteredStarting, 'MM/DD/YY');
+	// 		// dateEnteredEnding = (dateEnteredEnding == '') ? -1 : moment(dateEnteredEnding, 'MM/DD/YY');
+    //
+    //
+	// 		console.log("@");
+	// 		console.log(tableEnteredOn);
+	// 		console.log(dateEnteredStarting);
+	// 		console.log(dateEnteredEnding);
+    //
+	// 		// var tableEndDate = (data[5] == '--') ? 1 : data[5];
+    //
+	// 		// console.log("-------------");
+	// 		// console.log("data[0]: " + data[0]);
+	// 		// console.log("dateEnteredStarting: " + dateEnteredStarting);
+	// 		// moment('2010-10-20').isSameOrBefore('2010-10-21')
+	// 		// moment("12-25-1995", "MM-DD-YYYY");
+    //
+	// 		// console.log(moment('01/03/18', 'MM/DD/YY').isSameOrBefore('2018-02-01'));
+    //
+	// 		// console.log(dateEnteredStarting);
+	// 		// console.log(moment(dateEnteredStarting, 'MM/DD/YY').valueOf());
+	// 		// console.log(dateEnteredEnding);
+	// 		// console.log(moment(dateEnteredEnding, 'MM/DD/YY').valueOf());
+	// 		// console.log(tableEnteredOn);
+    //
+	// 		//Show all rows if start and end date is not selected
+	// 		if($("#date_entered_starting").empty() && $("#date_entered_ending").empty()) {
+	// 			return true;
+	// 		}
+    //
+	// 		if(tableEnteredOn.isSameOrAfter(dateEnteredStarting)) {
+	// 			if($("#date_entered_ending").empty()) {
+	// 				console.log("A");
+	// 				return true;
+	// 			}
+    //
+	// 			if(tableEnteredOn.isSameOrBefore(dateEnteredEnding)) {
+	// 				console.log("B");
+	// 				return true;
+	// 			}
+    //
+	// 			console.log("C");
+	// 			return false;
+	// 		}
+	// 		console.log("D");
+	// 		return false;
+    //
+	// 		// if(tableEnteredOn >= dateEnteredStarting) {
+	// 		// 	if(dateEnteredEnding == -1) {
+	// 		// 		return true;
+	// 		// 	}
+	// 		//
+	// 		// 	if(tableEnteredOn != 1 && tableEnteredOn <= dateEnteredEnding){
+	// 		// 		return true;
+	// 		// 	}
+	// 		// 	return false;
+	// 		// }
+	// 		// return false;
+	// 	}
+	// );
 </script>
