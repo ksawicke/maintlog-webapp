@@ -241,10 +241,10 @@
         var dataTable = $('#serviceLogsReport').DataTable({
             /* Disable initial sort */
             "aaSorting": [],
-			// "columnDefs" : [{
-			// 	"targets": [1],
-			// 	"visible": false,
-			// }],
+			"columnDefs" : [{
+				"targets": [1],
+				"visible": false,
+			}],
             responsive: true,
             initComplete: function () {
 				// var dateEnteredStarting = $("#date_entered_starting").val();
@@ -351,21 +351,23 @@
 								// var tableEnteredOn = $.fn.dataTable.util.escapeRegex(
 								// 	$(this).val()
 								// );
-								var dateEnteredStarting = $("#date_entered_starting").val();
-								var dateEnteredEnding = $("#date_entered_ending").val();
+								// var dateEnteredStarting = $("#date_entered_starting").val();
+								// var dateEnteredEnding = $("#date_entered_ending").val();
 								// var tableEnteredOn = data[0];
 
 								// console.log("###");
 								column.data().each(function (thisDateEntered, j) {
 									// thisDateEntered
 
-									console.log("~-~-~-");
-									console.log(moment(thisDateEntered, 'MM/DD/YY'));
-									console.log(moment(dateEnteredStarting, 'MM/DD/YY'));
-									console.log(moment(dateEnteredEnding, 'MM/DD/YY'));
+									// console.log("~-~-~-");
+									// console.log(moment(thisDateEntered, 'MM/DD/YY'));
+									// console.log(moment(dateEnteredStarting, 'MM/DD/YY'));
+									// console.log(moment(dateEnteredEnding, 'MM/DD/YY'));
+                                    //
+									// console.log(moment(dateEnteredStarting).isSameOrAfter(thisDateEntered));
+									// console.log(moment(dateEnteredEnding).isSameOrBefore(thisDateEntered));
 
-									console.log(moment(dateEnteredStarting).isSameOrAfter(thisDateEntered));
-									console.log(moment(dateEnteredEnding).isSameOrBefore(thisDateEntered));
+
 
 									// if(moment(thisDateEntered, 'MM/DD/YY').isSameOrAfter(dateEnteredStarting, 'MM/DD/YY')) {
 									// 	column.draw();
@@ -459,10 +461,73 @@
 			autoclose: true,
 			dateFormat: 'mm/dd/yyyy'
 		});
+
+		$("#date_entered_starting, #date_entered_ending").change(function() {
+			console.log("STARTING OR ENDING CHANGED");
+			dataTable.draw();
+		});
     });
 
-	// $.fn.dataTable.ext.search.push(
-	// 	function( settings, data, dataIndex ) {
+	$.fn.dataTable.ext.search.push(
+		function( settings, data, dataIndex ) {
+
+			var enteredOn = moment(data[0], 'MM/DD/YY');
+			var dateEnteredStarting = moment($("#date_entered_starting").val(), 'MM/DD/YY');
+			var dateEnteredEnding = moment($("#date_entered_ending").val(), 'MM/DD/YY');
+
+			//Show all rows if start and end date is not selected
+			if($("#date_entered_starting").val()=="" && $("#date_entered_ending").val()=="") {
+				return true;
+			}
+
+			if(enteredOn.isSameOrAfter(dateEnteredStarting)) {
+				if($("#date_entered_ending").val()=="") {
+					console.log("A");
+					return true;
+				}
+
+				if(enteredOn.isSameOrBefore(dateEnteredEnding)) {
+					console.log("B");
+					return true;
+				}
+
+				console.log("C");
+				return false;
+			}
+			console.log("D");
+			return false;
+
+			// console.log(data);
+			// console.log(moment(dateEnteredStarting, 'MM/DD/YY'));
+			// console.log(moment(dateEnteredEnding, 'MM/DD/YY'));
+
+			// column.data().each(function (thisDateEntered, j) {
+				// thisDateEntered
+
+				// console.log("~-~-~-");
+				// console.log(moment(thisDateEntered, 'MM/DD/YY'));
+				// console.log(moment(dateEnteredStarting, 'MM/DD/YY'));
+				// console.log(moment(dateEnteredEnding, 'MM/DD/YY'));
+				//
+				// console.log(moment(dateEnteredStarting).isSameOrAfter(thisDateEntered));
+				// console.log(moment(dateEnteredEnding).isSameOrBefore(thisDateEntered));
+
+
+
+				// if(moment(thisDateEntered, 'MM/DD/YY').isSameOrAfter(dateEnteredStarting, 'MM/DD/YY')) {
+				// 	column.draw();
+				// }
+			// });
+
+
+
+
+
+
+
+
+
+
 	// 		var dateEnteredStarting = $("#date_entered_starting").val();
 	// 		var dateEnteredEnding = $("#date_entered_ending").val();
 	// 		var tableEnteredOn = data[0];
@@ -524,7 +589,7 @@
 	// 		// 	}
 	// 		// 	return false;
 	// 		// }
-	// 		// return false;
-	// 	}
-	// );
+	// 		return false;
+		}
+	);
 </script>
