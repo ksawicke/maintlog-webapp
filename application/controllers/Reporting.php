@@ -56,7 +56,7 @@ class Reporting extends MY_Controller
 	{
 		$data['dateEnteredStarting'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_starting', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_starting']) ? $_REQUEST['data']['date_entered_starting'] : '');
 
-		$data['dateEnteredEnding'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_ending', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_ending']) ? $_REQUEST['data']['date_entered_ending'] : '');
+		$data['dateEnteredEnding'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_ending', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_ending']) ? $_REQUEST['data']['date_entered_ending'] : date("m/d/Y"));
 
 		$data['report_type'] = $report_type;
 		
@@ -248,7 +248,7 @@ class Reporting extends MY_Controller
 	{
 		$this->load->model('Report_model');
 
-		$data['fuel_used'] = $this->Report_model->getFuelUsed($_REQUEST);
+		$data['fuelUsed'] = $this->Report_model->getFuelUsed($_REQUEST);
 
 		return $data;
 	}
@@ -257,7 +257,7 @@ class Reporting extends MY_Controller
 	{
 		$this->load->model('Report_model');
 
-		$data['fuel_used'] = $this->Report_model->getSMRUsed($_REQUEST);
+		$data['smrUsed'] = $this->Report_model->getSMRUsed($_REQUEST);
 
 		return $data;
 	}

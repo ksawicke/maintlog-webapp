@@ -552,7 +552,26 @@ class Report_model extends CI_Model {
 		$customSearch = [];
 		$customSearchString = "";
 
-		return [];
+		/**
+		 * fe.servicelog_id, ft.fluid_type, fe.quantity, fe.units, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number
+		 */
+
+		$sql = 'SELECT s.date_entered, ft.fluid_type, fe.quantity
+FROM fluidentry fe
+LEFT JOIN servicelog s ON fe.servicelog_id = s.id
+LEFT JOIN fluidtype ft ON ft.id = fe.type
+
+LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+
+WHERE s.new_id = 0
+ORDER BY fe.id DESC';
+
+		$fluidsUsed = R::getAll($sql);
+
+		return $fluidsUsed;
 	}
 
 	public function getSMRUsed($params = [])
