@@ -39,7 +39,7 @@ class Users extends MY_Controller {
             }
             
             http_response_code(200);
-            echo json_encode(['success' => true, 'data' => $usermodel]);
+            echo json_encode(['success' => true, 'data' => $usermodel], JSON_NUMERIC_CHECK);
         }
         
         exit();

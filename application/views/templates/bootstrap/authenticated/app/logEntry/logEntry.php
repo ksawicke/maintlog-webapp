@@ -307,22 +307,26 @@
                 url: serviceUrl,
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify({}), // no need to send data, just get it
+                data: JSON.stringify({'currentRole': '<?php echo $_SESSION['role']; ?>'}), // no need to send data, just get it
                 contentType: "application/json"
             }).done(function(object) {
                 // Clear dropdowns first.
                 $('#entered_by').empty();
                 $('#entered_by').append('<option value="">Select one:</option>');
-                
-                populateEnteredByDropdownWithData(object);
-                $("#loading_entered_by").hide();
+
+                <?php if($_SESSION['role']!='admin') { ?>
+					populateEnteredByDropdownWithData(object, true); // only current user
+                <?php } else { ?>
+          	        populateEnteredByDropdownWithData(object, false);
+                <?php } ?>
+				$("#loading_entered_by").hide();
                 
                 populateServicedByDropdownWithData(object);
                 $("#loading_serviced_by").hide();
             });
         }
         
-        function populateEnteredByDropdownWithData(object) {
+        function populateEnteredByDropdownWithData(object, useOnlyCurrentUser) {
             var service_log_object = getServiceLogData();
             
             // Populate dropdown via ajax.
@@ -332,10 +336,14 @@
                     current = userData.current,
                     active = userData.active;
 
-                if(active==="1" && !empty(service_log_object)) {
-                    $('#entered_by').append('<option value="' + id + '"' + (id==service_log_object.entered_by ? ' selected' : '') + '>' + value + '</option>');
-                } else if(active==="1" && empty(service_log_object)) {
-                    $('#entered_by').append('<option value="' + id + '"' + (current==='1' ? ' selected' : '') + '>' + value + '</option>');
+                // console.log(useOnlyCurrentUser);
+
+                if(active==1 && !empty(service_log_object)) {
+					$('#entered_by').append('<option value="' + id + '"' + (id == service_log_object.entered_by ? ' selected' : '') + '>' + value + '</option>');
+                } else if(active==1 && empty(service_log_object)) {
+					if((useOnlyCurrentUser==true && current==1) || (useOnlyCurrentUser==false)) {
+						$('#entered_by').append('<option value="' + id + '"' + (current==1 ? ' selected' : '') + '>' + value + '</option>');
+					}
                 }
             });
         }
@@ -351,7 +359,7 @@
                     current = userData.current,
                     active = userData.active;
 
-                if(active==="1" && !empty(service_log_object)) {
+                if(active==1 && !empty(service_log_object)) {
                     var selectMe = 0;
                     $.each(service_log_object.serviced_by, function(servicedbyId, servicedbyData) {
                         if(selectMe===0 && servicedbyData.user_id==id) {
@@ -360,7 +368,7 @@
                     });
                     
                     $("#serviced_by").append('<option value="' + id + '"' + (selectMe==1 ? ' selected' : '') + '>' + display + '</option>');
-                } else if(active==="1" && empty(service_log_object)) {
+                } else if(active==1 && empty(service_log_object)) {
                     $("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
                 }
             });
@@ -1235,10 +1243,6 @@
             $("#unit_number").prop('disabled', false);
             populateUnitNumberDropdownWithData("<?php echo base_url(); ?>index.php/equipmentunits/getUnitByModelId",
                 $("#unit_number"));
-
-            // TACO
-            // label and field #pss_smr_based_previous_smr
-			//
         });
                 
         $(document).ready(function() {
