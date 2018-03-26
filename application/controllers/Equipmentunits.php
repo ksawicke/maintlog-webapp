@@ -57,7 +57,7 @@ class Equipmentunits extends MY_Controller {
         
         exit();
     }
-    
+
     public function save() {
         $this->Equipmentunit_model->store($this->input->post());
         

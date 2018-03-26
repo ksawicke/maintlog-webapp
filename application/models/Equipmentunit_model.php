@@ -70,87 +70,10 @@ FROM equipmentunit
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
                         WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues
                 GROUP BY unit_number";
-        
+
         $values = R::getAll($sql);
         
         return $values[0]['last_smr'];
-        
-//        echo '<pre>';
-//        var_dump($values);
-//        exit();
-        
-        /*
-         * Get Max SMR from fluidentrysmrupdate table
-         * 
-         * SELECT '18' unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
-            LEFT JOIN servicelog s ON s.id = fes.servicelog_id
-            LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-         *  WHERE s.unit_number = 18
-         *
-         * Get Max SMR from pmservice table
-         *  
-         * SELECT '18' unit_number, MAX(pms.current_smr) smr from pmservice pms
-            LEFT JOIN servicelog s ON s.id = pms.servicelog_id
-            LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-            WHERE s.unit_number = 18
-         * 
-         * Get Max SMR from smrupdate table
-         * 
-         * SELECT '18' unit_number, MAX(smr.smr) smr from smrupdate smr
-            LEFT JOIN servicelog s ON s.id = smr.servicelog_id
-            LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-            WHERE s.unit_number = 18
-         * 
-         * create temporary table allthree as
-            SELECT id, price FROM T1 WHERE price = (SELECT MAX(price) FROM T1)
-            UNION ALL
-            SELECT id, price FROM T2 WHERE price = (SELECT MAX(price) FROM T2)
-            UNION ALL
-            SELECT id, price FROM T3 WHERE price = (SELECT MAX(price) FROM T3);
-
-            select id from allthree where price=(select max(price) from allthree);
-         * 
-         * CREATE TEMPORARY TABLE smrvalues as
-         *    SELECT '18' unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
-                 LEFT JOIN servicelog s ON s.id = fes.servicelog_id
-                 LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                 WHERE s.unit_number = 18
-           UNION ALL
-              SELECT '18' unit_number, MAX(pms.current_smr) smr from pmservice pms
-                 LEFT JOIN servicelog s ON s.id = pms.servicelog_id
-                 LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                 WHERE s.unit_number = 18
-           UNION ALL
-              SELECT '18' unit_number, MAX(smr.smr) smr from smrupdate smr
-                 LEFT JOIN servicelog s ON s.id = smr.servicelog_id
-                 LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                 WHERE s.unit_number = 18;
-           SELECT unit_number, last_smr FROM smrvalues WHERE last_smr=(SELECT MAX(smr) FROM smrvalues);
-         * 
-         * 
-         * 
-         * 
-         * CREATE TEMPORARY TABLE smrvalues as
-    SELECT '18' unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
-        LEFT JOIN servicelog s ON s.id = fes.servicelog_id
-        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-        WHERE s.unit_number = 18
-UNION ALL
-    SELECT '18' unit_number, MAX(pms.current_smr) smr from pmservice pms
-        LEFT JOIN servicelog s ON s.id = pms.servicelog_id
-        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-        WHERE s.unit_number = 18
-UNION ALL
-    SELECT '18' unit_number, MAX(smr.smr) smr from smrupdate smr
-        LEFT JOIN servicelog s ON s.id = smr.servicelog_id
-        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-        WHERE s.unit_number = 18;
-
-SELECT unit_number, last_smr FROM smrvalues WHERE last_smr=(SELECT MAX(smr) FROM smrvalues);
-         * 
-         * 
-         * 
-         */
     }
     
     /**

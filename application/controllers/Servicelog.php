@@ -36,7 +36,6 @@ class Servicelog extends MY_Controller {
         }
         
         echo json_encode($equipment);
-//        echo json_encode(['equipment' => $equipment]);
         exit();
     }
     

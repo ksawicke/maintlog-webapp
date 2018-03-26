@@ -1303,6 +1303,7 @@
         
         switch(currentSubflow) {
             case 'sus':
+				json.sus_previous_smr = $("#sus_previous_smr").val();
                 json.sus_current_smr = $("#sus_current_smr").val();
                 break;
                 
