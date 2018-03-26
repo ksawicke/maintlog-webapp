@@ -298,12 +298,12 @@
 					if(column.index() == 0) {
 						var dateRangeFieldStarting = '<div class="input-group date">' +
 							'<div class="input-group-addon">' +
-							'<i class="far fa-calendar-alt fa-2x"></i></div>' +
-							'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8"></div>';
+							'<i class="far fa-calendar-alt"></i></div>' +
+							'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8"> to </div>';
 
 						var dateRangeFieldEnding = '<div class="input-group date">' +
 							'<div class="input-group-addon">' +
-							'<i class="far fa-calendar-alt fa-2x"></i></div>' +
+							'<i class="far fa-calendar-alt"></i></div>' +
 							'<div><input id="date_entered_ending" name="date_entered_ending" value="<?php echo $dateEnteredEnding; ?>" size="8"></div>';
 
 						// Creates our custom date range inputs for entered on
