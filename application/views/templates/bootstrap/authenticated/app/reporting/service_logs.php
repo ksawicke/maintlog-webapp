@@ -357,6 +357,8 @@
 		$("#date_entered_starting, #date_entered_ending").change(function() {
 			dataTable.draw(); // Ensures we use our custom function to filter on date range
 		});
+
+		dataTable.draw();
     });
 
 	$.fn.dataTable.ext.search.push(

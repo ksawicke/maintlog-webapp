@@ -549,14 +549,11 @@ class Report_model extends CI_Model {
 
     public function getFuelUsed($params = [])
 	{
-		$customSearch = [];
-		$customSearchString = "";
+		$customSearch = '';
 
-		/**
-		 * fe.servicelog_id, ft.fluid_type, fe.quantity, fe.units, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number
-		 */
+		$append_query = $this->appendFuelUsedQueries($params, $customSearch);
 
-		$sql = 'SELECT s.date_entered, ft.fluid_type, fe.quantity
+		$sql = 'SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, ft.fluid_type, fe.quantity
 FROM fluidentry fe
 LEFT JOIN servicelog s ON fe.servicelog_id = s.id
 LEFT JOIN fluidtype ft ON ft.id = fe.type
@@ -566,8 +563,32 @@ LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
 LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
 
-WHERE s.new_id = 0
-ORDER BY fe.id DESC';
+WHERE s.new_id = 0 ' . $append_query . '
+ORDER BY s.date_entered DESC, s.id DESC';
+
+		$fluidsUsed = R::getAll($sql);
+
+		return $fluidsUsed;
+	}
+
+	public function getFuelUsedTotals($params = [])
+	{
+		$customSearch = '';
+
+		$append_query = $this->appendFuelUsedQueries($params, $customSearch);
+
+		$sql = 'SELECT ft.fluid_type, SUM(fe.quantity) total_quantity_used
+		FROM fluidentry fe
+		LEFT JOIN servicelog s ON fe.servicelog_id = s.id
+		LEFT JOIN fluidtype ft ON ft.id = fe.type
+
+		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+
+		WHERE s.new_id = 0 ' . $append_query . ' 
+		GROUP BY ft.fluid_type';
 
 		$fluidsUsed = R::getAll($sql);
 
@@ -592,10 +613,7 @@ ORDER BY fe.id DESC';
 		$enteredByName = explode(", ", $params['data']['entered_by']);
 		$servicedByName = explode(" ", $params['data']['serviced_by']);
 
-		$customSearch .= (!empty($params['data']['date_entered_starting']) ? " AND s.date_entered >= '" . date('Y-m-d', strtotime($params['data']['date_entered_starting'])) . "'" : "");
-
-		$customSearch .= (!empty($params['data']['date_entered_ending']) ? " AND s.date_entered <= '" . date('Y-m-d', strtotime($params['data']['date_entered_ending'])) . "'" : "");
-
+		$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
 		$customSearch .= (!empty($params['data']['date_entered_starting']) ? " AND s.date_entered >= '" . date('Y-m-d', strtotime($params['data']['date_entered_starting'])) . "'" : "");
 		$customSearch .= (!empty($params['data']['date_entered_ending']) ? " AND s.date_entered <= '" . date('Y-m-d', strtotime($params['data']['date_entered_ending'])) . "'" : "");
 
@@ -605,6 +623,21 @@ ORDER BY fe.id DESC';
 		$customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
 
 		return array($params, $customSearch);
+	}
+
+	protected function appendFuelUsedQueries($params, $customSearch)
+	{
+		$customSearch .= (!empty($params['data']['date_entered']) ? " AND s.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
+		$customSearch .= (!empty($params['data']['date_entered_starting']) ? " AND s.date_entered >= '" . date('Y-m-d', strtotime($params['data']['date_entered_starting'])) . "'" : "");
+		$customSearch .= (!empty($params['data']['date_entered_ending']) ? " AND s.date_entered <= '" . date('Y-m-d', strtotime($params['data']['date_entered_ending'])) . "'" : "");
+
+		$customSearch .= (!empty($params['data']['fluid_type']) ? " AND ft.fluid_type = '" . $params['data']['fluid_type'] . "'" : "");
+		$customSearch .= (!empty($params['data']['equipment_type']) ? " AND equipmenttype.equipment_type = '" . $params['data']['equipment_type'] . "'" : "");
+		$customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND manufacturer.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+		$customSearch .= (!empty($params['data']['model_number']) ? " AND equipmentmodel.model_number = '" . $params['data']['model_number'] . "'" : "");
+		$customSearch .= (!empty($params['data']['unit_number']) ? " AND equipmentunit.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+
+		return $customSearch;
 	}
 
 	/**

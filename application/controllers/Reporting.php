@@ -56,7 +56,7 @@ class Reporting extends MY_Controller
 	{
 		$data['dateEnteredStarting'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_starting', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_starting']) ? $_REQUEST['data']['date_entered_starting'] : '');
 
-		$data['dateEnteredEnding'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_ending', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_ending']) ? $_REQUEST['data']['date_entered_ending'] : date("m/d/Y"));
+		$data['dateEnteredEnding'] = (array_key_exists('data', $_REQUEST) && array_key_exists('date_entered_ending', $_REQUEST['data']) && !empty($_REQUEST['data']['date_entered_ending']) ? $_REQUEST['data']['date_entered_ending'] : '');
 
 		$data['report_type'] = $report_type;
 		
@@ -249,6 +249,7 @@ class Reporting extends MY_Controller
 		$this->load->model('Report_model');
 
 		$data['fuelUsed'] = $this->Report_model->getFuelUsed($_REQUEST);
+		$data['fuelUsedTotals'] = $this->Report_model->getFuelUsedTotals($_REQUEST);
 
 		return $data;
 	}
@@ -344,7 +345,44 @@ class Reporting extends MY_Controller
 
 	protected function getFuelUsedCellData($data)
 	{
-		return [];
+		$cellData = [
+			'A1' => 'Date Entered',
+			'B1' => 'Fluid Type',
+			'C1' => 'Amount Used (gal)',
+			'D1' => 'Equipment Type',
+			'E1' => 'Manufacturer Name',
+			'F1' => 'Model Number',
+			'G1' => 'Unit Number'
+		];
+
+		$row = 2;
+		foreach ($data['fuelUsed'] as $ctr => $d) {
+			$date = new DateTime($d['date_entered']);
+
+			$cellData['A' . $row] = $date->format('m/d/Y');
+			$cellData['B' . $row] = $d['fluid_type'];
+			$cellData['C' . $row] = $d['quantity'];
+			$cellData['D' . $row] = $d['equipment_type'];
+			$cellData['E' . $row] = $d['manufacturer_name'];
+			$cellData['F' . $row] = $d['model_number'];
+			$cellData['G' . $row] = $d['unit_number'];
+
+			$row++;
+		}
+
+		$row++;
+
+		$cellData['A' . $row] = 'TOTALS:';
+
+		foreach($data['fuelUsedTotals'] as $ctr => $d) {
+
+			$cellData['B' . $row] = $d['fluid_type'];
+			$cellData['C' . $row] = $d['total_quantity_used'];
+
+			$row++;
+		}
+
+		return $cellData;
 	}
 
 	protected function getSMRUsedCellData($data)
@@ -548,6 +586,9 @@ class Reporting extends MY_Controller
 		$to = "AZ1";
 		$spreadsheet->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold(true);
 
+		// Search for text 'TOTALS:' (below the spreadsheet) and make it BOLD
+		$this->makeSpreadsheetTotalsHeaderBold($spreadsheet);
+
 		// Auto-size columns
 		$sheet = $spreadsheet->getActiveSheet();
 
@@ -647,6 +688,31 @@ class Reporting extends MY_Controller
 			case 'ajax':
 				$this->outputAjaxReport($data);
 				break;
+		}
+	}
+
+	/**
+	 * @param $spreadsheet
+	 */
+	protected function makeSpreadsheetTotalsHeaderBold($spreadsheet)
+	{
+		$foundInCells = [];
+		$searchValue = 'TOTALS:';
+
+		foreach ($spreadsheet->getWorksheetIterator() as $worksheet) {
+			$ws = $worksheet->getTitle();
+			foreach ($worksheet->getRowIterator() as $row) {
+				$cellIterator = $row->getCellIterator();
+				foreach ($cellIterator as $cell) {
+					if ($cell->getValue() == $searchValue) {
+						$foundInCells[] = $cell->getCoordinate();
+
+						$from = $cell->getCoordinate();
+						$to = $cell->getCoordinate();
+						$spreadsheet->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold(true);
+					}
+				}
+			}
 		}
 	}
 }

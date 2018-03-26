@@ -19,30 +19,49 @@
 			<th>Date Entered</th>
 			<th>Fluid Type</th>
 			<th>Amount Used (gal)</th>
+			<th>Equipment Type</th>
+			<th>Manufacturer Name</th>
+			<th>Model Number</th>
+			<th>Unit Number</th>
 		</tr>
 	</thead>
+	<tfoot>
+		<tr>
+			<th>Date Entered</th>
+			<th>Fluid Type</th>
+			<th>Amount Used</th>
+			<th>Equipment Type</th>
+			<th>Manufacturer Name</th>
+			<th>Model Number</th>
+			<th>Unit Number</th>
+		</tr>
+	</tfoot>
 	<tbody>
 	<?php foreach ($fuelUsed as $fuctr => $fuelData) { ?>
 		<tr>
 			<td><?php echo date('m/d/Y', strtotime($fuelData['date_entered'])); ?></td>
 			<td><?php echo $fuelData['fluid_type']; ?></td>
 			<td><?php echo $fuelData['quantity']; ?></td>
+			<td><?php echo $fuelData['equipment_type']; ?></td>
+			<td><?php echo $fuelData['manufacturer_name']; ?></td>
+			<td><?php echo $fuelData['model_number']; ?></td>
+			<td><?php echo $fuelData['unit_number']; ?></td>
 		</tr>
 	<?php } ?>
 	</tbody>
-	<tfoot>
-		<tr>
-			<th>Date Entered</th>
-			<th>Fluid Type</th>
-			<th>Amount Used</th>
-		</tr>
-	</tfoot>
 </table>
 
 <script>
 	$(document).ready(function () {
 		$("#downloadReportFuelUsed").on('click', function(e) {
 			e.preventDefault();
+
+			var fields = [],
+				dataParams = {data: {}},
+				href = $("#downloadReportFuelUsed").attr("href"),
+				selects = $('#fuelUsedReport tfoot tr select');
+
+			fields = ['1', 'fluid_type', '2', 'equipment_type', 'manufacturer_name', 'model_number', 'unit_number'];
 
 			$.map(fields, function(fieldName, i) {
 				var key = fieldName;
@@ -77,7 +96,6 @@
 		var dataTable = $('#fuelUsedReport').DataTable({
 			/* Disable initial sort */
 			"aaSorting": [],
-			"columnDefs" : [],
 			responsive: true,
 			initComplete: function () {
 
@@ -91,14 +109,14 @@
 								$(this).val()
 							);
 
-							if(column.index() == 1) {
+							if(!!~$.inArray(column.index(), [1, 3, 4, 5, 6])) {
 								column
 									.search(val ? '^' + val + '$' : '', true, false)
 									.draw();
 							}
 						});
 
-					if(column.index() == 1) {
+					if(!!~$.inArray(column.index(), [1, 3, 4, 5, 6])) {
 						column.data().unique().sort().each(function (d, j) {
 							select.append('<option value="' + d + '">' + d + '</option>');
 						});
@@ -131,9 +149,21 @@
 			"columns": [
 				{"width": "150px"},
 				null,
+				null,
+				null,
+				null,
+				null,
 				null
 			]
 		});
+
+		function selectDTEntryType(entryType) {
+			$("#fuelUsedReport > tfoot > tr > th:nth-child(4) > select").val(entryType);
+		}
+
+		var entryType = getURLParam("data[entry_type]");
+
+		selectDTEntryType(entryType);
 
 		$('#date_entered_starting').datepicker({
 			autoclose: true,
@@ -148,6 +178,8 @@
 		$("#date_entered_starting, #date_entered_ending").change(function() {
 			dataTable.draw(); // Ensures we use our custom function to filter on date range
 		});
+
+		dataTable.draw();
 	});
 
 	$.fn.dataTable.ext.search.push(
