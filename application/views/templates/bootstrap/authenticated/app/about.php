@@ -5,6 +5,12 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.5.2
+		<ul>
+			<li>Service Report dump to Excel: corrected which cell the SMR value appears</li>
+		</ul>
+	</li>
+
 	<li>2.5.1
 		<ul>
 			<li>Added the about section</li>

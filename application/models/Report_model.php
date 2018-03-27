@@ -601,15 +601,56 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		$customSearchString = "";
 
 		/**
-		SELECT s.date_entered, s.unit_number, smr.smr, smr.previous_smr
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, smr.previous_smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, s.unit_number
 		FROM smrupdate smr
 		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
+
+		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+
 		ORDER BY s.unit_number ASC, smr.previous_smr ASC, smr.smr ASC
 		 *
-		SELECT s.date_entered, s.unit_number, fsmr.smr, fsmr.previous_smr
-		FROM fluideentrysmrupdate fsmr
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, fsmr.previous_smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, s.unit_number
+		FROM fluidentrysmrupdate fsmr
 		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
+
+		 LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+
 		ORDER BY s.unit_number ASC, fsmr.previous_smr ASC, fsmr.smr ASC
+
+
+		(
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, smr.previous_smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id
+		FROM smrupdate smr
+		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
+
+		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+		)
+		UNION
+		(
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, fsmr.previous_smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id
+		FROM fluidentrysmrupdate fsmr
+		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
+
+		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+		)
+
+		ORDER BY unit_number ASC, previous_smr ASC, smr ASC
+		 *
+		 *
+		 *
+		 *
 		 *
 		 *
 		 *
