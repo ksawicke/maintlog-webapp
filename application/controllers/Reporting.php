@@ -503,7 +503,7 @@ class Reporting extends MY_Controller
 					break;
 
 				case 'SMR Update':
-					$cellData['G' . $row] = $d['smr'];
+					$cellData['H' . $row] = $d['smr'];
 					break;
 			}
 
