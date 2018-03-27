@@ -935,4 +935,22 @@ class App extends MY_Controller {
                 break;
         }
     }
+
+    public function about()
+	{
+		$data = [
+			'applicationName' => 'Komatsu NA Maintenance Log',
+			'title' => 'Komatsu NA Maintenance Log',
+			'assetDirectory' => $this->appDir . '/assets/',
+			'assetDirectoryCustom' => $this->appDir . '/assets/templates/komatsuna/'
+		];
+
+		$this->load->library('template');
+
+		$data['flashdata'] = $this->session->flashdata();
+
+		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/about', $data, true);
+
+		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+	}
 }
