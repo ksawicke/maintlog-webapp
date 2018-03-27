@@ -600,8 +600,8 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		$customSearch = [];
 		$customSearchString = "";
 
-		/**
-		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, smr.previous_smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, s.unit_number
+		$dbQuery = "(
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id equipmentunit_id
 		FROM smrupdate smr
 		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
 
@@ -609,34 +609,11 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
 		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
-
-		ORDER BY s.unit_number ASC, smr.previous_smr ASC, smr.smr ASC
-		 *
-		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, fsmr.previous_smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, s.unit_number
-		FROM fluidentrysmrupdate fsmr
-		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
-
-		 LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
-		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
-		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
-		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
-
-		ORDER BY s.unit_number ASC, fsmr.previous_smr ASC, fsmr.smr ASC
-
-
-		(
-		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, smr.previous_smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id
-		FROM smrupdate smr
-		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
-
-		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
-		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
-		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
-		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+    	WHERE smr.smr > 0
 		)
 		UNION
 		(
-		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, fsmr.previous_smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id equipmentunit_id
 		FROM fluidentrysmrupdate fsmr
 		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
 
@@ -644,33 +621,10 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
 		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+        WHERE fsmr.smr > 0
 		)
 
-		ORDER BY unit_number ASC, previous_smr ASC, smr ASC
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 *
-		 */
-
-		$dbQuery = 'SELECT equipmentunit.id, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, equipmentunit.track_type, equipmentunit.person_responsible, equipmentunit.fluids_tracked, equipmentunit.active
-					FROM equipmentunit
-					
-					LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
-					LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
-					LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
-					
-					ORDER BY equipmentunit.unit_number ASC';
+        ORDER BY unit_number ASC, smr ASC";
 
 		$units = R::getAll($dbQuery);
 		
