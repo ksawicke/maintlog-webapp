@@ -595,13 +595,50 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		return $fluidsUsed;
 	}
 
+	/**
+	 * @param array $params
+	 * @return array
+	 */
 	public function getSMRUsed($params = [])
 	{
 		$customSearch = [];
 		$customSearchString = "";
 
-		$dbQuery = "(
-		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id equipmentunit_id
+//		$dbQuery = "(
+//		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id equipmentunit_id
+//		FROM smrupdate smr
+//		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
+//
+//		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+//		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+//		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+//		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+//    	WHERE smr.smr > 0
+//		)
+//		UNION
+//		(
+//		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id equipmentunit_id
+//		FROM fluidentrysmrupdate fsmr
+//		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
+//
+//		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
+//		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
+//		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
+//		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
+//        WHERE fsmr.smr > 0
+//		)
+//
+//        ORDER BY unit_number ASC, smr ASC";
+
+		$dbQuery = "SELECT a.*, MIN(smr) min_smr, MAX(smr) max_smr FROM ((
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number,
+		CASE equipmentunit.track_type
+            WHEN 'mileage' THEN 'Mileage'
+            WHEN 'smr' THEN 'SMR'
+            WHEN 'time' THEN 'Time'
+            ELSE ''
+        END AS track_type,
+        smr.smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id equipmentunit_id
 		FROM smrupdate smr
 		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
 
@@ -613,7 +650,14 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		)
 		UNION
 		(
-		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id equipmentunit_id
+		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, 
+		CASE equipmentunit.track_type
+            WHEN 'mileage' THEN 'Mileage'
+            WHEN 'smr' THEN 'SMR'
+            WHEN 'time' THEN 'Time'
+            ELSE ''
+        END AS track_type,
+		fsmr.smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id equipmentunit_id
 		FROM fluidentrysmrupdate fsmr
 		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
 
@@ -622,35 +666,15 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
         WHERE fsmr.smr > 0
-		)
-
-        ORDER BY unit_number ASC, smr ASC";
+		)) a
+		GROUP BY a.equipmentunit_id
+        ORDER BY a.equipmentunit_id ASC";
 
 		$units = R::getAll($dbQuery);
-		
+
 		foreach($units as $ctr => $unitData) {
-			$equipment_unit_id = $unitData['id'];
-
-			$sql = "SELECT unit_number, MAX(smr) last_smr FROM
-                (SELECT '" . $equipment_unit_id . "' unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
-                        LEFT JOIN servicelog s ON s.id = fes.servicelog_id
-                        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . "
-                UNION ALL
-                    SELECT '" . $equipment_unit_id . "' unit_number, MAX(pms.current_smr) smr from pmservice pms
-                        LEFT JOIN servicelog s ON s.id = pms.servicelog_id
-                        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . "
-                UNION ALL
-                    SELECT '" . $equipment_unit_id . "' unit_number, MAX(smr.smr) smr from smrupdate smr
-                        LEFT JOIN servicelog s ON s.id = smr.servicelog_id
-                        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues
-                GROUP BY unit_number";
-
-			$values = R::getAll($sql);
-
-			$units[$ctr]['last_smr'] = $values[0]['last_smr'];
+			$units[$ctr]['min_smr'] = (int)$unitData['min_smr'];
+			$units[$ctr]['max_smr'] = (int)$unitData['max_smr'];
 		}
 
 		return $units;

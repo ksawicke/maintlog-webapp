@@ -646,6 +646,7 @@ class Reporting extends MY_Controller
 
 			case 'smr_used':
 				$data = $this->getSMRUsedData();
+				break;
 		}
 
 		$data = array_merge($data, $datatmp);
