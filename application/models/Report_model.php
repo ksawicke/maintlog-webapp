@@ -668,7 +668,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
         WHERE fsmr.smr > 0
 		)) a
 		GROUP BY a.equipmentunit_id
-        ORDER BY a.equipmentunit_id ASC";
+        ORDER BY a.date_entered DESC";
 
 		$units = R::getAll($dbQuery);
 

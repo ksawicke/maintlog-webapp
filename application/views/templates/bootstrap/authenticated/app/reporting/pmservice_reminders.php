@@ -80,8 +80,6 @@
         }
         
         var dataTable = $('#pmserviceRemindersReport').DataTable({
-            /* Disable initial sort */
-            "aaSorting": [],
             responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {
@@ -106,14 +104,14 @@
                 });
             },
             "columns": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false}
             ]
         });
 

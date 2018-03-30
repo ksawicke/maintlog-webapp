@@ -74,8 +74,6 @@
         }
         
         $('#maintenanceLogRemindersReport').DataTable({
-            /* Disable initial sort */
-            "aaSorting": [],
             responsive: true,
             initComplete: function () {
                 this.api().columns().every(function () {
@@ -98,14 +96,13 @@
                 });
             },
             "columns": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-//            {"width": "80px", "orderable": false}
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false},
+                {"orderable": false}
             ]
         });
     });
