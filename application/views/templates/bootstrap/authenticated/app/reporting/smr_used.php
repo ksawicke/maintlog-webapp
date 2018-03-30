@@ -1,16 +1,5 @@
 <h3>SMR / Miles / Time Used Report</h3>
 
-<div class="alert alert-warning alert-dismissible" id="editing_service_log">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	<h4><i class="icon fa fa-exclamation-triangle"></i> This report is coming soon.</h4>
-</div>
-
-<?php //echo '<pre>';
-//var_dump($smrUsed);
-//echo '</pre>';
-//exit();
-//?>
-
 <a id="downloadReportSMRUsed"
    href="<?php echo base_url('index.php/reporting/output/spreadsheet/smr_used'); ?>"
    class="buttonLink nounderline">
@@ -68,3 +57,163 @@
 	<?php } ?>
 	</tbody>
 </table>
+
+<script>
+	$(document).ready(function () {
+		$("#downloadReportSMRUsed").on('click', function(e) {
+			e.preventDefault();
+
+			var fields = [],
+				dataParams = {data: {}},
+				href = $("#downloadReportFuelUsed").attr("href"),
+				selects = $('#downloadReportSMRUsed tfoot tr select');
+
+			fields = ['1', 'equipment_type', 'manufacturer_name', 'model_number', 'unit_number', 'track_type', 'min_smr', 'max_smr'];
+
+			$.map(fields, function(fieldName, i) {
+				var key = fieldName;
+				if(fieldName=="date_entered_starting" || fieldName=="date_entered_ending") {
+					dataParams.data[key] = $("#" + fieldName).val();
+				} else {
+					dataParams.data[key] = selects[i].value;
+				}
+			});
+
+			dataParams.data['date_entered_starting'] = $("#date_entered_starting").val();
+			dataParams.data['date_entered_ending'] = $("#date_entered_ending").val();
+
+			loadSpreadsheet(href + "?" + $.param(dataParams));
+		});
+
+		function loadSpreadsheet(href) {
+			window.open(href, '_blank');
+		}
+
+		function getURLParam(paramName) {
+			var urlString = window.location.href;
+			var url = new URL(urlString);
+
+			return url.searchParams.get(paramName);
+		}
+
+		function escapeRegExp(string) {
+			return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+		}
+
+		var dataTable = $('#smrUsedReport').DataTable({
+			/* Disable initial sort */
+			"aaSorting": [],
+			responsive: true,
+			initComplete: function () {
+
+				this.api().columns().every(function () {
+					var column = this;
+
+					var select = $('<select><option value=""></option></select>')
+						.appendTo($(column.footer()).empty())
+						.on('change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+
+							if(!!~$.inArray(column.index(), [1, 3, 4, 5, 6])) {
+								column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							}
+						});
+
+					if(!!~$.inArray(column.index(), [1, 3, 4, 5, 6])) {
+						column.data().unique().sort().each(function (d, j) {
+							select.append('<option value="' + d + '">' + d + '</option>');
+						});
+					} else {
+						select.hide();
+					}
+
+					if(column.index() == 0) {
+						var dateRangeFieldStarting = '<div class="input-group date">' +
+							'<div class="input-group-addon">' +
+							'<i class="far fa-calendar-alt"></i></div>' +
+							'<div><input id="date_entered_starting" name="date_entered_starting" value="<?php echo $dateEnteredStarting; ?>" size="8"> to </div>';
+
+						var dateRangeFieldEnding = '<div class="input-group date">' +
+							'<div class="input-group-addon">' +
+							'<i class="far fa-calendar-alt"></i></div>' +
+							'<div><input id="date_entered_ending" name="date_entered_ending" value="<?php echo $dateEnteredEnding; ?>" size="8"></div>';
+
+						// Creates our custom date range inputs for entered on
+						$(dateRangeFieldStarting)
+							.appendTo($(column.footer()));
+
+						$(dateRangeFieldEnding)
+							.appendTo($(column.footer()));
+					}
+
+				});
+			},
+			"order": [],
+			"columns": [
+				{"width": "150px"},
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+			]
+		});
+
+		function selectDTEntryType(entryType) {
+			$("#smrUsedReport > tfoot > tr > th:nth-child(4) > select").val(entryType);
+		}
+
+		var entryType = getURLParam("data[entry_type]");
+
+		selectDTEntryType(entryType);
+
+		$('#date_entered_starting').datepicker({
+			autoclose: true,
+			dateFormat: 'mm/dd/yyyy'
+		});
+
+		$('#date_entered_ending').datepicker({
+			autoclose: true,
+			dateFormat: 'mm/dd/yyyy'
+		});
+
+		$("#date_entered_starting, #date_entered_ending").change(function() {
+			dataTable.draw(); // Ensures we use our custom function to filter on date range
+		});
+
+		dataTable.draw();
+	});
+
+	$.fn.dataTable.ext.search.push(
+		function( settings, data, dataIndex ) {
+
+			var enteredOn = moment(data[0], 'MM/DD/YY');
+			var dateEnteredStarting = moment($("#date_entered_starting").val(), 'MM/DD/YY');
+			var dateEnteredEnding = moment($("#date_entered_ending").val(), 'MM/DD/YY');
+
+			//Show all rows if start and end date is not selected
+			if($("#date_entered_starting").val()=="" && $("#date_entered_ending").val()=="") {
+				return true;
+			}
+
+			if(enteredOn.isSameOrAfter(dateEnteredStarting)) {
+				if($("#date_entered_ending").val()=="") {
+					return true;
+				}
+
+				if(enteredOn.isSameOrBefore(dateEnteredEnding)) {
+					return true;
+				}
+
+				return false;
+			}
+
+			return false;
+		}
+	);
+</script>
