@@ -587,7 +587,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
 
-		WHERE s.new_id = 0 ' . $append_query . ' 
+		WHERE s.new_id = 0 ' . (!empty($append_query) ? ' WHERE ' . $append_query : '') . ' 
 		GROUP BY ft.fluid_type';
 
 		$fluidsUsed = R::getAll($sql);
@@ -601,34 +601,13 @@ ORDER BY s.date_entered DESC, s.id DESC';
 	 */
 	public function getSMRUsed($params = [])
 	{
-		$customSearch = [];
-		$customSearchString = "";
+		$customSearch = '';
 
-//		$dbQuery = "(
-//		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, smr.smr, 'smrupdate' smr_update_type, s.id servicelog_id, smr.id smrupdate_id, equipmentunit.id equipmentunit_id
-//		FROM smrupdate smr
-//		LEFT JOIN servicelog s ON smr.servicelog_id = s.id
-//
-//		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
-//		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
-//		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
-//		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
-//    	WHERE smr.smr > 0
-//		)
-//		UNION
-//		(
-//		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number, fsmr.smr, 'fluidentrysmrupdate' smr_update_type, s.id servicelog_id, fsmr.id smrupdate_id, equipmentunit.id equipmentunit_id
-//		FROM fluidentrysmrupdate fsmr
-//		LEFT JOIN servicelog s ON fsmr.servicelog_id = s.id
-//
-//		LEFT JOIN equipmentunit ON s.unit_number = equipmentunit.id
-//		LEFT JOIN equipmentmodel ON equipmentunit.equipmentmodel_id = equipmentmodel.id
-//		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
-//		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
-//        WHERE fsmr.smr > 0
-//		)
-//
-//        ORDER BY unit_number ASC, smr ASC";
+		$append_query = $this->appendSMRUsedQueries($params, $customSearch);
+
+		if (substr_count($append_query, 'AND') >= 1) {
+            $append_query = substr($append_query, 4);
+        }
 
 		$dbQuery = "SELECT a.*, MIN(smr) min_smr, MAX(smr) max_smr FROM ((
 		SELECT s.date_entered, equipmenttype.equipment_type, manufacturer.manufacturer_name, equipmentmodel.model_number, equipmentunit.unit_number,
@@ -666,7 +645,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
         WHERE fsmr.smr > 0
-		)) a
+		)) a " . (!empty($append_query) ? ' WHERE ' . $append_query : '') . "
 		GROUP BY a.equipmentunit_id
         ORDER BY a.date_entered DESC";
 
@@ -716,6 +695,20 @@ ORDER BY s.date_entered DESC, s.id DESC';
 
 		return $customSearch;
 	}
+
+    protected function appendSMRUsedQueries($params, $customSearch)
+    {
+        $customSearch .= (!empty($params['data']['date_entered']) ? " AND a.date_entered = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
+        $customSearch .= (!empty($params['data']['date_entered_starting']) ? " AND a.date_entered >= '" . date('Y-m-d', strtotime($params['data']['date_entered_starting'])) . "'" : "");
+        $customSearch .= (!empty($params['data']['date_entered_ending']) ? " AND a.date_entered <= '" . date('Y-m-d', strtotime($params['data']['date_entered_ending'])) . "'" : "");
+
+        $customSearch .= (!empty($params['data']['equipment_type']) ? " AND a.equipment_type = '" . $params['data']['equipment_type'] . "'" : "");
+        $customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND a.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+        $customSearch .= (!empty($params['data']['model_number']) ? " AND a.model_number = '" . $params['data']['model_number'] . "'" : "");
+        $customSearch .= (!empty($params['data']['unit_number']) ? " AND a.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+
+        return $customSearch;
+    }
 
 	/**
 	 * @param $params

@@ -153,15 +153,15 @@
             },
             "order": [],
             "columns": [
-                {"orderable": false, "width": "150px"},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false}
+                {"orderable": false, "width": "150px", "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"}
             ]
         });
 

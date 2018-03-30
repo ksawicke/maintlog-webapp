@@ -104,14 +104,14 @@
                 });
             },
             "columns": [
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false},
-                {"orderable": false}
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"},
+                {"orderable": false, "class": "text-center"}
             ]
         });
 

@@ -387,8 +387,38 @@ class Reporting extends MY_Controller
 
 	protected function getSMRUsedCellData($data)
 	{
-		return [];
-	}
+        $cellData = [
+            'A1' => 'Date Entered',
+            'B1' => 'Equipment Type',
+            'C1' => 'Manufacturer Name',
+            'D1' => 'Model Number',
+            'E1' => 'Unit Number',
+            'F1' => 'Track Type',
+            'G1' => 'Beginning SMR/Miles/Time Used',
+            'H1' => 'End SMR/Miles/Time Used',
+            'I1' => 'Total SMR/Miles/Time Used'
+        ];
+
+        $row = 2;
+        foreach ($data['smrUsed'] as $ctr => $s) {
+            $date = new DateTime($s['date_entered']);
+            $total = (($s['max_smr'] > $s['min_smr']) ? ($s['max_smr'] - $s['min_smr']) : '');
+
+            $cellData['A' . $row] = $date->format('m/d/Y');
+            $cellData['B' . $row] = $s['equipment_type'];
+            $cellData['C' . $row] = $s['manufacturer_name'];
+            $cellData['D' . $row] = $s['model_number'];
+            $cellData['E' . $row] = $s['unit_number'];
+            $cellData['F' . $row] = $s['track_type'];
+            $cellData['G' . $row] = $s['min_smr'];
+            $cellData['H' . $row] = $s['max_smr'];
+            $cellData['I' . $row] = $total;
+
+            $row++;
+        }
+
+        return $cellData;
+    }
 
 	/**
 	 * Get Maintenance Log Reminder Cell Data
@@ -581,10 +611,19 @@ class Reporting extends MY_Controller
 			$spreadsheet->setActiveSheetIndex(0)->setCellValue($cell, $cellData);
 		}
 
-		// Make first row bold
-		$from = "A1";
-		$to = "AZ1";
-		$spreadsheet->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold(true);
+		$highestRowAndColumn = $spreadsheet->getActiveSheet()->getHighestRowAndColumn();
+        $highestRow = $highestRowAndColumn['row'];
+        $highestColumn = $highestRowAndColumn['column'];
+
+        // Make first row bold
+		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn."1")->getFont()->setBold(true);
+
+		// Make first row vertical align top
+		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn."1")->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+
+
+		// Make all columns centered
+		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn.$highestRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 		// Search for text 'TOTALS:' (below the spreadsheet) and make it BOLD
 		$this->makeSpreadsheetTotalsHeaderBold($spreadsheet);
@@ -592,7 +631,7 @@ class Reporting extends MY_Controller
 		// Auto-size columns
 		$sheet = $spreadsheet->getActiveSheet();
 
-		for ($i = 'A'; $i != $spreadsheet->getActiveSheet()->getHighestColumn(); $i++) {
+		for ($i = 'A'; $i <= $highestColumn; $i++) {
 			$sheet->getColumnDimension($i)->setAutoSize(TRUE);
 		}
 

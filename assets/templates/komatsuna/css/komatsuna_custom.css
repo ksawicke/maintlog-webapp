@@ -315,3 +315,8 @@ table {
 	margin-right: 7px;
 	margin-top: 3px;
 }
+
+table.dataTable td,
+table.dataTable th {
+    vertical-align: top !important;
+}
