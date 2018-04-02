@@ -523,7 +523,7 @@ class Reporting extends MY_Controller
 
 			switch ($data['service_logs'][$ctr]['entry_type']) {
 				case 'Fluid Entry':
-					$cellData['I' . $row] = $d['fluid_string'];
+					$cellData['I' . $row] = str_replace(", ", "\n", $d['fluid_string']);
 					break;
 
 				case 'Component Change':
@@ -606,6 +606,8 @@ class Reporting extends MY_Controller
 			->setKeywords($data['spreadsheetProperties']['keywords'])
 			->setCategory($data['spreadsheetProperties']['category']);
 
+        PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
+
 		// Add some data
 		foreach ($data['cellData'] as $cell => $cellData) {
 			$spreadsheet->setActiveSheetIndex(0)->setCellValue($cell, $cellData);
@@ -618,9 +620,8 @@ class Reporting extends MY_Controller
         // Make first row bold
 		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn."1")->getFont()->setBold(true);
 
-		// Make first row vertical align top
-		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn."1")->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-
+		// Make all rows vertical align top
+		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn.$highestRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
 
 		// Make all columns centered
 		$spreadsheet->getActiveSheet()->getStyle("A1:".$highestColumn.$highestRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
