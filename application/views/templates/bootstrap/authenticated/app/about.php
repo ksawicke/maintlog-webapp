@@ -10,6 +10,7 @@
 			<li>"Service Logs Report" -> rename to "Log Entry Report"</li>
 			<li>"SMR / Miles / Time Used Report" -> rename to "Mileage Used Report"; also last 3 cols change to "SMR/Miles"</li>
 			<li>Enable Milage Used Report</li>
+			<li>Log Entry Detail - added SMR for Fluid Entry update</li>
 		</ul>
 	</li>
 

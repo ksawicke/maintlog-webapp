@@ -3,7 +3,7 @@
 </a>
 
 <a href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>" class="nounderline">
-    <button type="button" class="btn btn-primary <?php echo ($report_type=='service_logs' || $report_type=='service_log_detail' ? 'active' : ''); ?>">Service Logs</button>
+    <button type="button" class="btn btn-primary <?php echo ($report_type=='service_logs' || $report_type=='service_log_detail' ? 'active' : ''); ?>"Log Entry</button>
 </a>
 
 <a href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>" class="nounderline">

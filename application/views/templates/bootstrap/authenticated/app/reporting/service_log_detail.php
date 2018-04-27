@@ -1,7 +1,7 @@
-<h3>Service Log Detail</h3>
+<h3>Log Entry Detail</h3>
 
 
-<label>Service Log ID</label>
+<label>Log Entry ID</label>
 <ul>
     <li><?php echo $service_log['id']; ?> <?php if($_SESSION['role']==='admin') { ?><a href="<?php echo base_url('index.php/app/log_entry?id=') . $service_log['id']; ?>"><button type="button" class="btn btn-sm btn-primary" title="Edit Service Log">Edit</button></a><?php } ?></li>
 </ul>
@@ -149,6 +149,11 @@
         <li><?php echo $fluid['quantity']; ?> <?php echo $fluid['units']; ?> <?php echo $fluid['fluid_type']; ?></li>
     <?php } ?>
     </ul>
+
+	<label>SMR</label>
+	<ul>
+		<li><?php echo $service_log['fluidentry_smr_detail']['smr']; ?></li>
+	</ul>
     
 <?php } ?>    
     
