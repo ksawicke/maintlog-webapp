@@ -5,6 +5,14 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.6
+		<ul>
+			<li>"Service Logs Report" -> rename to "Log Entry Report"</li>
+			<li>"SMR / Miles / Time Used Report" -> rename to "Mileage Used Report"; also last 3 cols change to "SMR/Miles"</li>
+			<li>Enable Milage Used Report</li>
+		</ul>
+	</li>
+
 	<li>2.5.3
 		<ul>
 			<li>Service Report dump to Excel - corrected which cell the SMR value appears</li>
