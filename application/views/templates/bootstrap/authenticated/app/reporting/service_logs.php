@@ -1,4 +1,4 @@
-<h3>Service Logs Report</h3>
+<h3>Log Entry Report</h3>
 
 <a id="downloadReportServiceLogs"
    href="<?php echo base_url('index.php/reporting/output/spreadsheet/service_logs'); ?>"

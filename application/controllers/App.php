@@ -36,7 +36,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -70,7 +70,7 @@ class App extends MY_Controller {
 		$data['componentChangeSubflow'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/componentChangeSubflow', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/logEntry/logEntry', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
 
 	/**
@@ -94,7 +94,7 @@ class App extends MY_Controller {
 
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/inspection_entry', $data, true);
 
-		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+		$this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
 	}
     
     /**
@@ -118,7 +118,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -150,7 +150,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/users/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -175,7 +175,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -204,7 +204,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/manufacturers/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -229,7 +229,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -294,7 +294,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentUnits/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -319,7 +319,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
 
     /**
@@ -354,7 +354,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentmodel/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -379,7 +379,7 @@ class App extends MY_Controller {
         $data['equipment_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/equipment_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -406,7 +406,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/equipmentTypes/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -431,7 +431,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -458,7 +458,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/fluidTypes/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -483,7 +483,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -510,7 +510,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -535,7 +535,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/components/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -562,7 +562,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/componentTypes/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -587,7 +587,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -614,7 +614,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/smrChoices/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -639,7 +639,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -666,7 +666,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/mileageChoices/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -691,7 +691,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -718,7 +718,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/timeChoices/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -741,7 +741,7 @@ class App extends MY_Controller {
         
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -770,7 +770,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/reminderRecipients/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
 
 	public function checklists() {
@@ -790,7 +790,7 @@ class App extends MY_Controller {
 		$data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/index', $data, true);
 
-		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+		$this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
 	}
 
 	public function addChecklist($checklistId = null) {
@@ -814,7 +814,7 @@ class App extends MY_Controller {
 		$data['flashdata'] = $this->session->flashdata();
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklists/add', $data, true);
 
-		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+		$this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
 	}
     
     public function checklistCategories() {
@@ -834,7 +834,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistCategories/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     public function addChecklistCategory($checklistCategoryId = null) {
@@ -855,7 +855,7 @@ class App extends MY_Controller {
         $data['flashdata'] = $this->session->flashdata();
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistCategories/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     public function checklistItems() {
@@ -875,7 +875,7 @@ class App extends MY_Controller {
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/index', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     public function addChecklistItem($checklistItemId = null) {
@@ -897,7 +897,7 @@ class App extends MY_Controller {
         $data['flashdata'] = $this->session->flashdata();
         $data['body'] = $this->load->view('templates/bootstrap/authenticated/app/checklistItems/add', $data, true);
                 
-        $this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+        $this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
     }
     
     /**
@@ -951,6 +951,6 @@ class App extends MY_Controller {
 
 		$data['body'] = $this->load->view('templates/bootstrap/authenticated/app/about', $data, true);
 
-		$this->template->load('authenticated_default_bootstrap-4.0.0', null, $data);
+		$this->template->load('authenticated_default_bootstrap-4.0.0.php', null, $data);
 	}
 }

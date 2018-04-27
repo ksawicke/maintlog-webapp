@@ -88,11 +88,11 @@
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
 
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/maintenance_log_reminders'); ?>">Maintenance Log Reminders</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>">Service Logs</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>">Log Entry Report</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>">PM Service Reminders</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/equipment_list'); ?>">Equipment List</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/fuel_used'); ?>">Fuel Used</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/smr_used'); ?>">SMR/Miles/Units Used</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/smr_used'); ?>">Mileage Used</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">

@@ -1,4 +1,4 @@
-<h3>SMR / Miles / Time Used Report</h3>
+<h3>Mileage Used Report</h3>
 
 <a id="downloadReportSMRUsed"
    href="<?php echo base_url('index.php/reporting/output/spreadsheet/smr_used'); ?>"
@@ -23,9 +23,9 @@
         <th>Model Number</th>
         <th>Unit Number</th>
         <th>Track Type</th>
-        <th>Beginning SMR/Miles/Time Used</th>
-        <th>End SMR/Miles/Time Used</th>
-        <th>Total SMR/Miles/Time Used</th>
+        <th>Beginning SMR/Miles Used</th>
+        <th>End SMR/Miles Used</th>
+        <th>Total SMR/Miles Used</th>
     </tr>
     </thead>
     <tfoot>
