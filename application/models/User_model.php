@@ -70,13 +70,14 @@ class User_model extends CI_Model {
      */
     public function findByPin($pin) {
         $users = R::findAll('user', ' active = 1 ');
-        
+
         foreach($users as $user) {
+
             if(password_verify($pin, $user->pin)) {
                 return $user;
             }
         }
-        
+
         return null;
     }
     

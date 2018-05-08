@@ -45,14 +45,15 @@ class Api extends REST_Controller
 	 * Check credentials passed from login form.
 	 */
 	public function check_login_post() {
-		$pin = $this->input->post('pin');
+		$userPin = $_REQUEST['user_pin'];
+		$apiKey = $_REQUEST['api_key'];
 
-		$authObject = $this->User_model->getAuthObject($pin);
+		$authObject = $this->User_model->getAuthObject($userPin);
 
-		if($authObject->authenticated) {
+		if($authObject->authenticated && $apiKey==API_KEY) {
 			$userObject = $authObject->user;
 			$userData =  [
-				'user_id' => (int) $userObject->id,
+				'user_id' => $userObject->id,
 				'username' => $userObject->username,
 				'first_name' => $userObject->first_name,
 				'last_name' => $userObject->last_name,
@@ -65,16 +66,14 @@ class Api extends REST_Controller
 				'message' => 'OK',
 				'userData' => $userData
 			], REST_Controller::HTTP_OK);
-			return;
 		} else {
 			$this->response([
 				'status' => FALSE,
 				'message' => 'Invalid credentials'
 			], REST_Controller::HTTP_UNAUTHORIZED);
-			return;
 		}
 
-//		exit();
+		return;
 	}
 
 }
