@@ -52,23 +52,29 @@ class Api extends REST_Controller
 		if($authObject->authenticated) {
 			$userObject = $authObject->user;
 			$userData =  [
-				'user_id' => $userObject->id,
+				'user_id' => (int) $userObject->id,
 				'username' => $userObject->username,
 				'first_name' => $userObject->first_name,
 				'last_name' => $userObject->last_name,
 				'email_address' => $userObject->email_address,
-				'role' => $userObject->role,
-				'logged_in' => TRUE
+				'role' => $userObject->role
 			];
 
-			http_response_code(200);
-			echo json_encode(['status' => true, 'userData' => $userData]);
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'userData' => $userData
+			], REST_Controller::HTTP_OK);
+			return;
 		} else {
-			http_response_code(404);
-			echo json_encode(['status' => false]);
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+			return;
 		}
 
-		exit();
+//		exit();
 	}
 
 }
