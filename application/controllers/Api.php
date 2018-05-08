@@ -53,7 +53,7 @@ class Api extends REST_Controller
 		if($authObject->authenticated && $apiKey==API_KEY) {
 			$userObject = $authObject->user;
 			$userData =  [
-				'user_id' => $userObject->id,
+				'user_id' => (int) $userObject->id,
 				'username' => $userObject->username,
 				'first_name' => $userObject->first_name,
 				'last_name' => $userObject->last_name,
