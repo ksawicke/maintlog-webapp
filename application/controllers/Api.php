@@ -46,15 +46,23 @@ class Api extends REST_Controller
 	 */
 	public function check_login_post() {
 		$pin = $this->input->post('pin');
-//		$pin = '0000';
 
 		$authObject = $this->User_model->getAuthObject($pin);
 
 		if($authObject->authenticated) {
-			$this->createUserSession($authObject->user);
+			$userObject = $authObject->user;
+			$userData =  [
+				'user_id' => $userObject->id,
+				'username' => $userObject->username,
+				'first_name' => $userObject->first_name,
+				'last_name' => $userObject->last_name,
+				'email_address' => $userObject->email_address,
+				'role' => $userObject->role,
+				'logged_in' => TRUE
+			];
 
 			http_response_code(200);
-			echo json_encode(['status' => true, 'authObject' => $authObject]);
+			echo json_encode(['status' => true, 'userData' => $userData]);
 		} else {
 			http_response_code(404);
 			echo json_encode(['status' => false]);

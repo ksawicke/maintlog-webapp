@@ -288,7 +288,18 @@ $config['rest_ip_blacklist'] = '';
 | if you have any of these features enabled
 |
 */
-$config['rest_database_group'] = 'default';
+switch($_SERVER['SERVER_NAME']) {
+	case '10.132.146.48':
+		$active_group = 'production';
+		break;
+
+	case 'test.rinconmountaintech.com':
+	default:
+		$active_group = 'development';
+		break;
+}
+
+$config['rest_database_group'] = $active_group;
 
 /*
 |--------------------------------------------------------------------------
