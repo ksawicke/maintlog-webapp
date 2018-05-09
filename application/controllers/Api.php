@@ -69,11 +69,19 @@ class Api extends REST_Controller
 		} else {
 			$this->response([
 				'status' => FALSE,
-				'message' => 'Invalid credentials'
+				'message' => 'Invalid credentials. Please try again.'
 			], REST_Controller::HTTP_UNAUTHORIZED);
 		}
 
 		return;
 	}
+
+//	public fuction load_checklist_items_get() {
+//		$apiKey = $_REQUEST['api_key'];
+//
+//		if($apiKey==API_KEY) {
+//
+//		}
+//	}
 
 }
