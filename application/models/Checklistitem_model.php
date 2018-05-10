@@ -29,9 +29,9 @@ class Checklistitem_model extends CI_Model {
      * 
      * @return array
      */
-    public function findAll($checklist_equipmenttype_id = '')
+    public function findAll($checklist_equipmenttype_id = '', $checklistitem_id = null)
 	{
-		$checklistitems = R::getAll('SELECT * FROM checklistitem');
+		$checklistitems = (empty($checklistitem_id) ? R::getAll('SELECT * FROM checklistitem') : R::getAll('SELECT * FROM checklistitem WHERE id = ' . $checklistitem_id));
 		$checklistitemsOrig = $checklistitems;
 		$preStartItems = [];
 		$postStartItems = [];

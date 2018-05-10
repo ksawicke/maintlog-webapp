@@ -27,7 +27,6 @@ class Api extends REST_Controller
 
 		$this->load->helper('url');
 		$this->load->library('session');
-		$this->load->model('User_model');
 
 		switch ($_SERVER['SERVER_NAME']) {
 			case '10.132.146.48':
@@ -43,10 +42,14 @@ class Api extends REST_Controller
 
 	/**
 	 * Check credentials passed from login form.
+	 *
+	 * POST /api/authenticate?user_pin=9999&api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
-	public function check_login_post() {
+	public function authenticate_post() {
 		$userPin = $_REQUEST['user_pin'];
 		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('User_model');
 
 		$authObject = $this->User_model->getAuthObject($userPin);
 
@@ -76,12 +79,60 @@ class Api extends REST_Controller
 		return;
 	}
 
-//	public fuction load_checklist_items_get() {
-//		$apiKey = $_REQUEST['api_key'];
-//
-//		if($apiKey==API_KEY) {
-//
-//		}
-//	}
+	/**
+	 *
+	 * GET /api/checklist?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 * GET /api/checklist/2?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function checklist_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Checklist_model');
+
+		if(is_null($id)) {
+			$checklists = $this->Checklist_model->findAll();
+		} else {
+			$result = $this->Checklist_model->apiFindOne($id);
+			$checklists = (!empty($result) ? $result[0] : []);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'checklists' => $checklists
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	public function checklistitem_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Checklistitem_model');
+
+		if(is_null($id)) {
+			$checklistitems = $this->Checklistitem_model->findAll()['checklistitems'];
+		} else {
+			$checklistitems = $this->Checklistitem_model->findAll('', $id)['checklistitems'][0];
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'checklistitems' => $checklistitems
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
 
 }

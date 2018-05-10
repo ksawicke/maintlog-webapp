@@ -24,6 +24,10 @@ class Checklist_model extends CI_Model {
 		return $checklist;
 	}
 
+	public function apiFindOne($checklist_id) {
+		return R::getAll("SELECT c.id, et.equipment_type FROM checklist c LEFT JOIN equipmenttype et ON et.id = c.equipmenttype_id WHERE c.id = " . $checklist_id);
+	}
+
 	/**
 	 * Finds all checklist objects.
 	 *
