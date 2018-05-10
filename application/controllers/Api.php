@@ -80,6 +80,7 @@ class Api extends REST_Controller
 	}
 
 	/**
+	 * Get checklists
 	 *
 	 * GET /api/checklist?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 * GET /api/checklist/2?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
@@ -110,6 +111,12 @@ class Api extends REST_Controller
 		}
 	}
 
+	/**
+	 * Get checklist items
+	 *
+	 * GET /api/checklistitem?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 * GET /api/checklistitem/42?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
 	public function checklistitem_get($id = null) {
 		$apiKey = $_REQUEST['api_key'];
 
