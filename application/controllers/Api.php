@@ -42,7 +42,6 @@ class Api extends REST_Controller
 
 	/**
 	 * Check credentials passed from login form.
-	 *
 	 * POST /api/authenticate?user_pin=9999&api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
 	public function authenticate_post() {
@@ -80,9 +79,10 @@ class Api extends REST_Controller
 	}
 
 	/**
-	 * Get checklists
-	 *
+	 * Get allchecklists
 	 * GET /api/checklist?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single checklist by $id
 	 * GET /api/checklist/2?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
 	public function checklist_get($id = null) {
@@ -101,7 +101,8 @@ class Api extends REST_Controller
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'checklists' => $checklists
+				'checklists' => $checklists,
+				'count' => count($checklists)
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
@@ -112,9 +113,10 @@ class Api extends REST_Controller
 	}
 
 	/**
-	 * Get checklist items
-	 *
+	 * Get all checklist items
 	 * GET /api/checklistitem?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single checklist item by $id
 	 * GET /api/checklistitem/42?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
 	public function checklistitem_get($id = null) {
@@ -132,7 +134,34 @@ class Api extends REST_Controller
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'checklistitems' => $checklistitems
+				'checklistitems' => $checklistitems,
+				'count' => count($checklistitems)
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	public function equipmenttype_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Equipmenttype_model');
+
+		if(is_null($id)) {
+			$equipmenttypes = $this->Equipmenttype_model->findAll();
+		} else {
+			$equipmenttypes = $this->Equipmenttype_model->findOne($id);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'equipmenttypes' => $equipmenttypes,
+				'count' => count($equipmenttypes)
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([

@@ -25,7 +25,7 @@ class Checklist_model extends CI_Model {
 	}
 
 	public function apiFindOne($checklist_id) {
-		return R::getAll("SELECT c.id, et.equipment_type FROM checklist c LEFT JOIN equipmenttype et ON et.id = c.equipmenttype_id WHERE c.id = " . $checklist_id);
+		return R::getAll("SELECT c.id, et.id AS equipmenttype_id, et.equipment_type, c.checklist_json FROM checklist c LEFT JOIN equipmenttype et ON et.id = c.equipmenttype_id WHERE c.id = " . $checklist_id);
 	}
 
 	/**
@@ -34,7 +34,7 @@ class Checklist_model extends CI_Model {
 	 * @return array
 	 */
 	public function findAll() {
-		$result = R::getAll("SELECT c.id, et.equipment_type FROM checklist c LEFT JOIN equipmenttype et ON et.id = c.equipmenttype_id");
+		$result = R::getAll("SELECT c.id, et.id AS equipmenttype_id, et.equipment_type, c.checklist_json FROM checklist c LEFT JOIN equipmenttype et ON et.id = c.equipmenttype_id");
 
 		return $result;
 	}
