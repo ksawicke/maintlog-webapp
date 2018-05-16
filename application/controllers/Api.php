@@ -42,9 +42,9 @@ class Api extends REST_Controller
 
 	/**
 	 * Check credentials passed from login form.
-	 * POST /api/authenticate?user_pin=9999&api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 * GET /api/authenticate?user_pin=9999&api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
-	public function authenticate_post() {
+	public function authenticate_get() {
 		$userPin = $_REQUEST['user_pin'];
 		$apiKey = $_REQUEST['api_key'];
 
