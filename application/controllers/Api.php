@@ -171,4 +171,22 @@ class Api extends REST_Controller
 		}
 	}
 
+	public function upload_inspections_put() {
+		$apiKey = $_REQUEST['api_key'];
+
+//		$this->load->model('Equipmenttype_model');
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
 }
