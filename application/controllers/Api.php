@@ -145,6 +145,13 @@ class Api extends REST_Controller
 		}
 	}
 
+	/**
+	 * Get all equipment type items
+	 * GET /api/equipmenttype?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single checklist item by $id
+	 * GET /api/equipmenttype/11?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
 	public function equipmenttype_get($id = null) {
 		$apiKey = $_REQUEST['api_key'];
 
@@ -171,8 +178,13 @@ class Api extends REST_Controller
 		}
 	}
 
-	public function upload_inspections_put() {
+	/**
+	 * Create inspection ratings
+	 * POST /api/upload_inspections?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function upload_inspections_post() {
 		$apiKey = $_REQUEST['api_key'];
+		$postBody = file_get_contents('php://input');
 
 //		$this->load->model('Equipmenttype_model');
 
@@ -180,6 +192,7 @@ class Api extends REST_Controller
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
+				'post' => json_decode($postBody)
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
