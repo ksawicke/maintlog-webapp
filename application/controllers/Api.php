@@ -180,9 +180,9 @@ class Api extends REST_Controller
 
 	/**
 	 * Create inspection ratings
-	 * POST /api/upload_inspections?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 * POST /api/upload_inspection_ratings?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
-	public function upload_inspections_post() {
+	public function upload_inspection_ratings_post() {
 		$apiKey = $_REQUEST['api_key'];
 		$postBody = file_get_contents('php://input');
 
@@ -194,6 +194,40 @@ class Api extends REST_Controller
 				'message' => 'OK',
 				'post' => json_decode($postBody)
 			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
+	 * Create inspection ratings
+	 * POST /api/upload_inspection_images?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function upload_inspection_images_post() {
+		$apiKey = $_REQUEST['api_key'];
+		$postBody = file_get_contents('php://input');
+		$copied = false;
+		$uploadsDir = '/home/rinconmo/test.rinconmountaintech.com/sites/komatsuna/assets/img/inspections';
+		$tmpName = $_FILES['d']['tmp_name'];
+		$name = basename($_FILES['d']['name']);
+
+		if(move_uploaded_file($tmpName, "$uploadsDir/$name")) {
+			$copied = true;
+		}
+
+		if($apiKey==API_KEY && $copied) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK'
+			], REST_Controller::HTTP_OK);
+		} else if ($apiKey==API_KEY && !$copied) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'Failed to save uploaded image'
+			], REST_Controller::HTTP_EXPECTATION_FAILED);
 		} else {
 			$this->response([
 				'status' => FALSE,
