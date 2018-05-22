@@ -20,7 +20,7 @@ class User_model extends CI_Model {
      */
     public function findOne($user_id) {
         $user = R::findOne('user', ' id = :user_id ', [':user_id' => $user_id]);
-        
+
         return $user;
     }
     
@@ -30,7 +30,7 @@ class User_model extends CI_Model {
      * @return type
      */
     public function findAll() {
-        $user = R::getAll('SELECT user.id, first_name, last_name, email_address, role, active, IF(reminderrecipient.user_id IS NULL, 0, 1) AS logentry_reminderrecipient
+        $user = R::getAll('SELECT user.id, first_name, last_name, email_address, role, user_group, active, IF(reminderrecipient.user_id IS NULL, 0, 1) AS logentry_reminderrecipient
                            FROM user
                            LEFT JOIN reminderrecipient ON reminderrecipient.user_id = user.id
                            ORDER BY last_name ASC, first_name ASC');
@@ -170,6 +170,7 @@ class User_model extends CI_Model {
         $user->last_name = $post['last_name'];
         $user->email_address = $post['email_address'];
         $user->role = $post['role'];
+        $user->user_group = $post['user_group'];
         $user->active = $post['active'];
         if(!empty($post['pin'])) {
             $user->pin = password_hash($post['pin'], PASSWORD_DEFAULT);

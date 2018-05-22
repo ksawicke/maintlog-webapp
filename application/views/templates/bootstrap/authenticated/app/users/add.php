@@ -70,6 +70,19 @@
         </p>
     </div>
 
+	<div class="form-group">
+		<label for="user_group" class="control-label lb-lg">Group</label>
+		<input type="text"
+			   id="user_group"
+			   name="user_group"
+			   class="form-control input-lg"
+			   data-parsley-required="true"
+			   data-parsley-error-message="Group is required"
+			   data-parsley-errors-container=".user_group_errors"
+			   value="<?php echo $user_user_group; ?>">
+		<p class="form-error user_group_errors"></p>
+	</div>
+
     <div class="form-group">
         <label for="active" class="control-label lb-lg">Active</label>
         <select id="active" name="active" class="form-control input-lg">
