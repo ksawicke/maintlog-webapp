@@ -7,7 +7,7 @@
 <ul><strong>Application updates</strong>
 	<li>2.7
 		<ul>
-			<li>API set up to allow Inspections to be submitted from iOS app</li>
+			<li>API set up to allow Inspections to be submitted from iOS app coming soon</li>
 			<li>Changed "Serviced By" to default to logged in user on new Log Entry</li>
 			<li>Added field "Group" when entering a new User</li>
 		</ul>
