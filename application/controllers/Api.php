@@ -208,7 +208,11 @@ class Api extends REST_Controller
 	 */
 	public function upload_inspection_images_post() {
 		$apiKey = $_REQUEST['api_key'];
+		$inspectionId = $_REQUEST['inspectionId'];
+		$photoId = $_REQUEST['photoId'];
+		
 		$postBody = file_get_contents('php://input');
+
 		$copied = false;
 		$uploadsDir = '/home/rinconmo/test.rinconmountaintech.com/sites/komatsuna/assets/img/inspections';
 		$tmpName = $_FILES['d']['tmp_name'];
@@ -222,6 +226,7 @@ class Api extends REST_Controller
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK'
+				'd' => $_REQUEST
 			], REST_Controller::HTTP_OK);
 		} else if ($apiKey==API_KEY && !$copied) {
 			$this->response([
