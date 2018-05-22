@@ -210,7 +210,7 @@ class Api extends REST_Controller
 		$apiKey = $_REQUEST['api_key'];
 		$inspectionId = $_REQUEST['inspectionId'];
 		$photoId = $_REQUEST['photoId'];
-		
+
 		$postBody = file_get_contents('php://input');
 
 		$copied = false;

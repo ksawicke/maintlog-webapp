@@ -369,7 +369,8 @@
                     
                     $("#serviced_by").append('<option value="' + id + '"' + (selectMe==1 ? ' selected' : '') + '>' + display + '</option>');
                 } else if(active==1 && empty(service_log_object)) {
-                    $("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
+					$("#serviced_by").append('<option value="' + id + '"' + (current==1 ? ' selected' : '') + '>' + display + '</option>');
+                    // $("#serviced_by").append('<option value="' + id + '">' + display + '</option>');
                 }
             });
         }
