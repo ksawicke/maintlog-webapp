@@ -30,14 +30,18 @@ class Api extends REST_Controller
 
 		switch ($_SERVER['SERVER_NAME']) {
 			case '10.132.146.48':
+				$this->rootDir = '/var/www/html';
 				$this->appDir = '/maintlog';
 				break;
 
 			case 'test.rinconmountaintech.com':
 			default:
+				$this->rootDir = '/home/rinconmo/test.rinconmountaintech.com';
 				$this->appDir = '/sites/komatsuna';
 				break;
 		}
+
+		$this->uploadsInspectionImagesDir = '/assets/img/inspections';
 	}
 
 	/**
@@ -214,7 +218,8 @@ class Api extends REST_Controller
 		$postBody = file_get_contents('php://input');
 
 		$copied = false;
-		$uploadsDir = '/home/rinconmo/test.rinconmountaintech.com/sites/komatsuna/assets/img/inspections';
+		$uploadsDir = $this->rootDir . $this->appDir . $this->uploadsInspectionImagesDir;
+
 		$tmpName = $_FILES['d']['tmp_name'];
 		$name = basename($_FILES['d']['name']);
 
@@ -225,7 +230,7 @@ class Api extends REST_Controller
 		if($apiKey==API_KEY && $copied) {
 			$this->response([
 				'status' => TRUE,
-				'message' => 'OK'
+				'message' => 'OK',
 				'd' => $_REQUEST
 			], REST_Controller::HTTP_OK);
 		} else if ($apiKey==API_KEY && !$copied) {
