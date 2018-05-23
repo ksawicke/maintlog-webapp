@@ -96,7 +96,7 @@
                 });
             },
             "columns": [
-                {"orderable": false, "class": "text-center"},
+                {"orderable": true, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},

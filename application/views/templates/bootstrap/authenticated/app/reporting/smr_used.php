@@ -153,7 +153,7 @@
             },
             "order": [],
             "columns": [
-                {"orderable": false, "width": "150px", "class": "text-center"},
+                {"orderable": true, "width": "150px", "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},

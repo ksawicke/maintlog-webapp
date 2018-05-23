@@ -5,6 +5,16 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.7.1
+		<ul>
+			<li>Remove "Reporting" link on main screen</li>
+			<li>All reports with date column first, order by date descending order, allow sort</li>
+			<li>Log Entry Report - fix why date is not always showing in descending order
+			</li>
+			<li>Change "Reporting/Fuel Used" to "Fluids Used" and "Fluids Used Report"</li>
+			<li>Log Entry - Fuel: add note at end</li>
+		</ul>
+	</li>
 	<li>2.7
 		<ul>
 			<li>API set up to allow Inspections to be submitted from iOS app coming soon</li>

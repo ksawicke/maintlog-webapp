@@ -31,7 +31,8 @@
 
 <?php } ?>
 
+<?php /*****
 <div class="form-group col-md-12 col-md-12 nopadding">
     <p></p>
     <a href="<?php echo base_url(); ?>index.php/reporting/output/screen/maintenance_log_reminders" class="nounderline"><button class="btn btn-lg btn-primary btn-block" type="submit">Reporting</button></a>
-</div>
+</div> *****/ ?>

@@ -793,6 +793,11 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		}
 		sort($service_logs);
 
+		/** Sorts by date_entered DESC */
+		array_multisort(array_map(function($element) {
+			return $element['date_entered'];
+		}, $service_logs), SORT_DESC, $service_logs);
+
 		return $service_logs;
 	}
 

@@ -91,7 +91,7 @@
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/service_logs'); ?>">Log Entry Report</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/pmservice_reminders'); ?>">PM Service Reminders</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/equipment_list'); ?>">Equipment List</a>
-						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/fuel_used'); ?>">Fuel Used</a>
+						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/fuel_used'); ?>">Fluids Used</a>
 						<a class="dropdown-item" href="<?php echo base_url('index.php/reporting/output/screen/smr_used'); ?>">Mileage Used</a>
 					</div>
 				</li>

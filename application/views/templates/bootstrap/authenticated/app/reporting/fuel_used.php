@@ -1,4 +1,4 @@
-<h3>Fuel Used Report</h3>
+<h3>Fluids Used Report</h3>
 
 <a id="downloadReportFuelUsed"
    href="<?php echo base_url('index.php/reporting/output/spreadsheet/fuel_used'); ?>"
@@ -146,7 +146,7 @@
             },
             "order": [],
             "columns": [
-                {"orderable": false, "width": "150px", "class": "text-center"},
+                {"orderable": true, "width": "150px", "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
