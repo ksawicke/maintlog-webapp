@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.7.2
+		<ul>
+			<li>Correct bug in Log Entry Report</li>
+		</ul>
+	</li>
 	<li>2.7.1
 		<ul>
 			<li>Remove "Reporting" link on main screen</li>
