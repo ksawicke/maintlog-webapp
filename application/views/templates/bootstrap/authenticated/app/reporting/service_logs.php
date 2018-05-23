@@ -326,7 +326,7 @@
             },
             "order": [],
             "columns": [
-                {"orderable": true, "width": "150px", "class": "text-center"},
+                {"orderable": false, "width": "150px", "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
