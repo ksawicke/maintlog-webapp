@@ -182,6 +182,32 @@ class Api extends REST_Controller
 		}
 	}
 
+	public function equipmentunit_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Equipmentunit_model');
+
+		if(is_null($id)) {
+			$equipmentunits = $this->Equipmentunit_model->findAllApi();
+		} else {
+			$equipmentunits = $this->Equipmentunit_model->findApi($id);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'equipmentunits' => $equipmentunits,
+				'count' => count($equipmentunits)
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
 	/**
 	 * Create inspection ratings
 	 * POST /api/upload_inspection_ratings?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
@@ -189,14 +215,17 @@ class Api extends REST_Controller
 	public function upload_inspection_ratings_post() {
 		$apiKey = $_REQUEST['api_key'];
 		$postBody = file_get_contents('php://input');
-
-//		$this->load->model('Equipmenttype_model');
+		$data = json_decode($postBody);
+//		$ratingsData = $data['ratings_data']['ratings'];
 
 		if($apiKey==API_KEY) {
+			$this->load->model('Inspectionrating_model');
+			$this->Inspectionrating_model->importInspectionratings($data->ratings);
+
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'post' => json_decode($postBody)
+				'ratings_data' => $data
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([

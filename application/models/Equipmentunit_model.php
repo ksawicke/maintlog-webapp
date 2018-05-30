@@ -44,6 +44,17 @@ FROM equipmentunit
         
         return $equipmentunit;
     }
+
+    public function findAllApi($id = 0) {
+    	$equipmentunits = R::getAll('SELECT eu.id as equipmentunit_id, eu.unit_number, m.manufacturer_name, model.model_number, et.id AS equipmenttype_id
+		FROM equipmentunit eu
+		LEFT JOIN equipmentmodel model ON model.id = eu.equipmentmodel_id
+		LEFT JOIN manufacturer m ON m.id = model.manufacturer_id
+		LEFT JOIN equipmenttype et ON et.id = model.equipmenttype_id
+		WHERE active = 1' . ($id < 0 ? ' AND id = ' . $id : ''));
+
+    	return $equipmentunits;
+	}
     
     public function findAllByModelId($equipmentmodel_id) {
         $dbQuery = 'SELECT equipmentunit.id, equipmentunit.unit_number, equipmentunit.track_type, equipmentunit.person_responsible, equipmentunit.fluids_tracked, equipmentunit.active FROM equipmentunit WHERE equipmentunit.equipmentmodel_id = ' . $equipmentmodel_id . ' ORDER BY equipmentunit.unit_number ASC';
