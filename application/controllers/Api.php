@@ -216,7 +216,6 @@ class Api extends REST_Controller
 		$apiKey = $_REQUEST['api_key'];
 		$postBody = file_get_contents('php://input');
 		$data = json_decode($postBody);
-//		$ratingsData = $data['ratings_data']['ratings'];
 
 		if($apiKey==API_KEY) {
 			$this->load->model('Inspectionrating_model');
@@ -235,38 +234,79 @@ class Api extends REST_Controller
 		}
 	}
 
+	public function upload_inspection_images2_post() {
+		$this->response([
+			'status' => TRUE,
+			'message' => 'OK'
+		], REST_Controller::HTTP_OK);
+//		$basePath = $this->rootDir . $this->appDir . $this->uploadsInspectionImagesDir;
+//		if(!is_dir($uploadsDir)) {
+//			mkdir($uploadsDir, 0777, true);
+//		}
+//		try {
+//			if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+//				$photoPath = $basePath.'/photo1.png';
+//
+//				if (move_uploaded_file($_FILES['image']['tmp_name'], $photoPath)) {
+//					echo 'moved';
+//				}
+//			}
+//		} catch(Exception $ex){
+//			echo "ERROR:".$ex->GetMessage()."\n";
+//			exit(1);
+//		}
+//		exit();
+	}
+
 	/**
 	 * Create inspection ratings
 	 * POST /api/upload_inspection_images?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
 	public function upload_inspection_images_post() {
 		$apiKey = $_REQUEST['api_key'];
-		$inspectionId = $_REQUEST['inspectionId'];
-		$photoId = $_REQUEST['photoId'];
+//		$inspectionId = $_REQUEST['inspectionId'];
+//		$photoId = $_REQUEST['photoId'];
 
 		$postBody = file_get_contents('php://input');
 
-		$copied = false;
-		$uploadsDir = $this->rootDir . $this->appDir . $this->uploadsInspectionImagesDir;
 
-		$tmpName = $_FILES['d']['tmp_name'];
-		$name = basename($_FILES['d']['name']);
+		try {
+			$copied = false;
+//		$copied = true;
+			$uploadsDir = $this->rootDir . $this->appDir . $this->uploadsInspectionImagesDir;
+
+			$tmpName = $_FILES['image']['tmp_name'];
+			$name = basename($_FILES['image']['name']);
+		} catch (\Exception $ex) {
+			$error = $ex->getMessage();
+		}
 
 		if(move_uploaded_file($tmpName, "$uploadsDir/$name")) {
 			$copied = true;
+			$data = [ 'inspectionId' => $_REQUEST['inspectionId'],
+				'photoId' => $_REQUEST['photoId'],
+				'folder' => $uploadsDir,
+				'name' => $name
+			];
+			$this->load->model('Inspectionimage_model');
+			$this->Inspectionimage_model->importInspectionimages($data);
 		}
 
 		if($apiKey==API_KEY && $copied) {
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'd' => $_REQUEST
+//				'd' => $_REQUEST,
+//				'postBody' => $postBody
 			], REST_Controller::HTTP_OK);
 		} else if ($apiKey==API_KEY && !$copied) {
 			$this->response([
 				'status' => TRUE,
-				'message' => 'Failed to save uploaded image'
-			], REST_Controller::HTTP_EXPECTATION_FAILED);
+				'message' => $error,
+//				'sadfasf' => $_REQUEST,
+//				'dsfsafsdff' => $_FILES,
+//				'body' => $postBody
+			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
 				'status' => FALSE,
