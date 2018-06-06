@@ -45,19 +45,19 @@ class Checklist_model extends CI_Model {
 	public function store($post) {
 		$now = date('Y-m-d h:i:s');
 
-		$checklist = ($post['id']==0 ? R::dispense('checklist') : R::load('checklist', $post['id']));
+		$checklist = ($post['checklist_id']==0 ? R::dispense('checklist') : R::load('checklist', $post['checklist_id']));
 		
 		$checklist->equipmenttype_id = $post['equipmenttype_id'];
 		$checklist->checklist_json = $post['checklist_json'];
 
-		if($post['id']==0) {
+		if($post['checklist_id']==0) {
 			$checklist->created = $now;
 			$checklist->created_by = $_SESSION['user_id'];
 		} else {
 			$checklist->modified = $now;
 			$checklist->modified_by = $_SESSION['user_id'];
 		}
-//
+
 //		echo '<pre>';
 //		var_dump($post);
 //		var_dump($checklist);
