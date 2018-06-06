@@ -46,7 +46,7 @@ FROM equipmentunit
     }
 
     public function findAllApi($id = 0) {
-    	$equipmentunits = R::getAll('SELECT eu.id as equipmentunit_id, eu.unit_number, m.manufacturer_name, model.model_number, et.id AS equipmenttype_id
+    	$equipmentunits = R::getAll('SELECT eu.id as equipmentunit_id, eu.unit_number, m.manufacturer_name, model.model_number, et.id AS equipmenttype_id, eu.track_type, eu.fluids_tracked
 		FROM equipmentunit eu
 		LEFT JOIN equipmentmodel model ON model.id = eu.equipmentmodel_id
 		LEFT JOIN manufacturer m ON m.id = model.manufacturer_id

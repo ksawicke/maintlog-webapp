@@ -190,7 +190,7 @@ class Api extends REST_Controller
 		if(is_null($id)) {
 			$equipmentunits = $this->Equipmentunit_model->findAllApi();
 		} else {
-			$equipmentunits = $this->Equipmentunit_model->findApi($id);
+			$equipmentunits = $this->Equipmentunit_model->findAllApi($id);
 		}
 
 		if($apiKey==API_KEY) {
@@ -261,52 +261,79 @@ class Api extends REST_Controller
 	/**
 	 * Create inspection ratings
 	 * POST /api/upload_inspection_images?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * @see https://stackoverflow.com/questions/5483851/manually-parse-raw-multipart-form-data-data-with-php
 	 */
 	public function upload_inspection_images_post() {
 		$apiKey = $_REQUEST['api_key'];
-//		$inspectionId = $_REQUEST['inspectionId'];
-//		$photoId = $_REQUEST['photoId'];
+		$message = "";
 
 		$postBody = file_get_contents('php://input');
 
+		// Match the boundary name by taking the first line with content
+//		preg_match('/^(?<boundary>.+)$/m', $postBody, $matches);
+//
+//		// Explode the response using the previously match boundary
+//		$parts = explode($matches['boundary'], $postBody);
+//
+//		// Create empty array to store our parsed values
+//		$form_data = array();
+//
+//		foreach ($parts as $part)
+//		{
+//			// Now we need to parse the multi-part content. First match the 'name=' parameter,
+//			// then skip the double new-lines, match the body and ignore the terminating new-line.
+//			// Using 's' flag enables .'s to match new lines.
+//			$matched = preg_match('/name="?(?<key>\w+).*?\n\n(?<value>.*?)\n$/s', $part, $matches);
+//
+//			// Did we get a match? Place it in our form values array
+//			if ($matched)
+//			{
+//				$form_data[$matches['key']] = $matches['value'];
+//			}
+//		}
+//
+//		$uploadsDir = $this->rootDir . $this->appDir . $this->uploadsInspectionImagesDir;
+//
+////		Decode to image
+////		$image = base64_decode($form_data['PICHA']);
+//		if(file_put_contents("$uploadsDir/" . rand(10,5948) . ".png", $form_data['PICHA'])) {
+//			$copied = true;
+//		}
 
-		try {
-			$copied = false;
-//		$copied = true;
-			$uploadsDir = $this->rootDir . $this->appDir . $this->uploadsInspectionImagesDir;
+		$filepath = $this->rootDir . $this->appDir .
+			$this->uploadsInspectionImagesDir . "/" .
+			$_POST['inspectionId'];
 
-			$tmpName = $_FILES['image']['tmp_name'];
-			$name = basename($_FILES['image']['name']);
-		} catch (\Exception $ex) {
-			$error = $ex->getMessage();
+		if (!file_exists($filepath)) {
+			mkdir($filepath, 0777, true);
 		}
 
-		if(move_uploaded_file($tmpName, "$uploadsDir/$name")) {
+		$filename = $filepath . "/" .
+			$_FILES['upload']['name'];
+
+		if (!is_uploaded_file($_FILES['upload']['tmp_name']) or
+			!copy($_FILES['upload']['tmp_name'], $filename)) {
+			$message = "Could not save file as $filename!";
+		} else {
 			$copied = true;
-			$data = [ 'inspectionId' => $_REQUEST['inspectionId'],
-				'photoId' => $_REQUEST['photoId'],
-				'folder' => $uploadsDir,
-				'name' => $name
-			];
-			$this->load->model('Inspectionimage_model');
-			$this->Inspectionimage_model->importInspectionimages($data);
+			$message = "Uploaded image successfully!";
 		}
 
 		if($apiKey==API_KEY && $copied) {
+			$this->load->model('Inspectionimage_model');
+			$this->Inspectionimage_model->importInspectionimage($_POST);
+
 			$this->response([
 				'status' => TRUE,
-				'message' => 'OK',
-//				'd' => $_REQUEST,
-//				'postBody' => $postBody
+				'message' => $message
 			], REST_Controller::HTTP_OK);
 		} else if ($apiKey==API_KEY && !$copied) {
 			$this->response([
-				'status' => TRUE,
-				'message' => $error,
-//				'sadfasf' => $_REQUEST,
-//				'dsfsafsdff' => $_FILES,
-//				'body' => $postBody
-			], REST_Controller::HTTP_OK);
+				'status' => FALSE,
+				'message' => $message,
+				'data' => [ 'files' => $_FILES, 'post' => $_POST ]
+			], REST_Controller::HTTP_EXPECTATION_FAILED);
 		} else {
 			$this->response([
 				'status' => FALSE,

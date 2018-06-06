@@ -14,17 +14,13 @@ class Inspectionimage_model extends CI_Model
 		date_default_timezone_set('America/Phoenix');
 	}
 
-	public function importInspectionimages($imagesData) {
+	public function importInspectionimage($imagesData) {
+		$inspectionImage = R::dispense('inspectionimage');
+		$inspectionImage->uuid = $imagesData['inspectionId'];
+		$inspectionImage->photoId = $imagesData['photoId'];
+		$inspectionImage->type = $imagesData['type'];
 
-		foreach($imagesData as $ctr => $data) {
-			$inspectionImage = R::dispense('inspectionimage');
-			$inspectionImage->inspectionId = $data['inspectionId'];
-			$inspectionImage->photoId = $data['checklistItemId'];
-			$inspectionImage->folder = $data['folder'];
-			$inspectionImage->name = $data['name'];
-
-			R::store($inspectionImage);
-		}
+		R::store($inspectionImage);
 	}
 
 }
