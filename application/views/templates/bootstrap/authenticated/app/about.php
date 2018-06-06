@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.8.3
+		<ul>
+			<li>Update Checklist save</li>
+		</ul>
+	</li>
 	<li>2.8.2
 		<ul>
 			<li>Update Checklist query</li>
