@@ -587,7 +587,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		LEFT JOIN manufacturer ON equipmentmodel.manufacturer_id = manufacturer.id
 		LEFT JOIN equipmenttype ON equipmentmodel.equipmenttype_id = equipmenttype.id
 
-		WHERE s.new_id = 0 ' . (!empty($append_query) ? ' WHERE ' . $append_query : '') . ' 
+		WHERE s.new_id = 0 ' . (!empty($append_query) ? ' ' . $append_query : '') . ' 
 		GROUP BY ft.fluid_type';
 
 		$fluidsUsed = R::getAll($sql);

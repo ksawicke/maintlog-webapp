@@ -23,6 +23,13 @@ class Fluidtype_model extends CI_Model {
         
         return $fluidtype;
     }
+
+	public function findAllApi($id = 0) {
+		$fluidtypes = R::getAll('SELECT id, TRIM(fluid_type) fluid_type
+		FROM fluidtype' . ($id > 0 ? ' WHERE id = ' . $id : '') . ' ORDER BY fluid_type ASC');
+
+		return $fluidtypes;
+	}
     
     /**
      * Finds all fluid type objects.

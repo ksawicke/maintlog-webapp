@@ -209,6 +209,72 @@ class Api extends REST_Controller
 	}
 
 	/**
+	 * Get all fluid type items
+	 * GET /api/fluidtype?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single fluid type by $id
+	 * GET /api/fluidtype/11?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function fluidtype_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Fluidtype_model');
+
+		if(is_null($id)) {
+			$fluidtypes = $this->Fluidtype_model->findAllApi();
+		} else {
+			$fluidtypes = $this->Fluidtype_model->findAllApi($id);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'fluidtypes' => $fluidtypes,
+				'count' => count($fluidtypes)
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
+	 * Get all user items
+	 * GET /api/user?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single fluid type by $id
+	 * GET /api/user/11?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function user_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('User_model');
+
+		if(is_null($id)) {
+			$users = $this->User_model->findAllApi();
+		} else {
+			$users = $this->User_model->findAllApi($id);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'users' => $users,
+				'count' => count($users)
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
 	 * Create inspection ratings
 	 * POST /api/upload_inspection_ratings?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */

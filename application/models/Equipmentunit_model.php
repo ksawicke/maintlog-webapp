@@ -46,12 +46,12 @@ FROM equipmentunit
     }
 
     public function findAllApi($id = 0) {
-    	$equipmentunits = R::getAll('SELECT eu.id as equipmentunit_id, eu.unit_number, m.manufacturer_name, model.model_number, et.id AS equipmenttype_id, eu.track_type, eu.fluids_tracked
+    	$equipmentunits = R::getAll('SELECT eu.id as equipmentunit_id, TRIM(eu.unit_number) unit_number, TRIM(m.manufacturer_name) manufacturer_name, TRIM(model.model_number) model_number, et.id AS equipmenttype_id, TRIM(eu.track_type) track_type, TRIM(eu.fluids_tracked) fluids_tracked
 		FROM equipmentunit eu
 		LEFT JOIN equipmentmodel model ON model.id = eu.equipmentmodel_id
 		LEFT JOIN manufacturer m ON m.id = model.manufacturer_id
 		LEFT JOIN equipmenttype et ON et.id = model.equipmenttype_id
-		WHERE active = 1' . ($id < 0 ? ' AND id = ' . $id : ''));
+		WHERE active = 1' . ($id > 0 ? ' AND id = ' . $id : ''));
 
     	return $equipmentunits;
 	}

@@ -23,7 +23,14 @@ class User_model extends CI_Model {
 
         return $user;
     }
-    
+
+	public function findAllApi($id = 0) {
+		$fluidtypes = R::getAll('SELECT id, TRIM(first_name) first_name, TRIM(last_name) last_name, TRIM(email_address) email_address, role
+		FROM user WHERE active = 1' . ($id > 0 ? ' AND id = ' . $id : '') . ' ORDER BY last_name ASC, first_name ASC');
+
+		return $fluidtypes;
+	}
+
     /**
      * Finds all user objects.
      * 

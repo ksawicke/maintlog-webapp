@@ -5,6 +5,16 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.8.1
+		<ul>
+			<li>Correct bug in Fuel Used Report</li>
+		</ul>
+	</li>
+	<li>2.8
+		<ul>
+			<li>Updates to API to work with iOS application</li>
+		</ul>
+	</li>
 	<li>2.7.2
 		<ul>
 			<li>Correct bug in Log Entry Report</li>
