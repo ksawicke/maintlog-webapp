@@ -14,6 +14,18 @@ class Inspectionrating_model extends CI_Model
 		date_default_timezone_set('America/Phoenix');
 	}
 
+	/**
+	 * Finds a count of Inspection Rating by Inspection Id
+	 *
+	 * @param type $count
+	 * @return count
+	 */
+	public function findCountByInspectionId($inspectionId) {
+		$count = R::count('inspectionrating', ' uuid = :inspectionId ', [':inspectionId' => $inspectionId]);
+
+		return $count;
+	}
+
 	public function importInspectionratings($ratingsData) {
 
 		foreach($ratingsData as $ctr => $data) {

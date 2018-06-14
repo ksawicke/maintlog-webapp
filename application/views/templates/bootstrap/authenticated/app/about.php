@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>2.8.4
+		<ul>
+			<li>Update API endpoint for Inspection Ratings to check if Inspection ID does not exist before uploading.</li>
+		</ul>
+	</li>
 	<li>2.8.3
 		<ul>
 			<li>Update Checklist save</li>

@@ -285,12 +285,16 @@ class Api extends REST_Controller
 
 		if($apiKey==API_KEY) {
 			$this->load->model('Inspectionrating_model');
-			$this->Inspectionrating_model->importInspectionratings($data->ratings);
+			$found = $this->Inspectionrating_model->findCountByInspectionId($data->inspectionId);
+
+			if($found==0) {
+				$this->Inspectionrating_model->importInspectionratings($data->ratings);
+			}
 
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'ratings_data' => $data
+				'found' => $found
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
@@ -406,6 +410,27 @@ class Api extends REST_Controller
 				'message' => 'Invalid credentials. Please try again.'
 			], REST_Controller::HTTP_UNAUTHORIZED);
 		}
+	}
+
+	/**
+	 * Remove slashes from strings, arrays and objects
+	 *
+	 * @param    mixed   input data
+	 * @return   mixed   cleaned input data
+	 */
+	private function stripslashesFull($input)
+	{
+		if (is_array($input)) {
+			$input = array_map('stripslashesFull', $input);
+		} elseif (is_object($input)) {
+			$vars = get_object_vars($input);
+			foreach ($vars as $k=>$v) {
+				$input->{$k} = stripslashesFull($v);
+			}
+		} else {
+			$input = stripslashes($input);
+		}
+		return $input;
 	}
 
 }
