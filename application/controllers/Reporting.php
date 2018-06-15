@@ -263,6 +263,15 @@ class Reporting extends MY_Controller
 		return $data;
 	}
 
+	protected function getInspectionEntryData()
+	{
+		$this->load->model('Report_model');
+
+		$data['inspectionEntry'] = $this->Report_model->getInspectionEntries($_REQUEST);
+
+		return $data;
+	}
+
 	/**
 	 * Get spreadsheet report data
 	 *
@@ -310,6 +319,9 @@ class Reporting extends MY_Controller
 			case 'smr_used':
 				$spreadsheetReportData['cellData'] = $this->getSMRUsedCellData($data);
 				break;
+
+			case 'inspection_entry':
+				$spreadsheetReportData['cellData'] = $this->getInspectionEntryCellData($data);
 		}
 
 		return $spreadsheetReportData;
@@ -383,6 +395,11 @@ class Reporting extends MY_Controller
 		}
 
 		return $cellData;
+	}
+
+	protected function getInspectionEntryCellData($data)
+	{
+		return [];
 	}
 
 	protected function getSMRUsedCellData($data)
@@ -686,6 +703,10 @@ class Reporting extends MY_Controller
 
 			case 'smr_used':
 				$data = $this->getSMRUsedData();
+				break;
+
+			case 'inspection_entry':
+				$data = $this->getInspectionEntryData();
 				break;
 		}
 

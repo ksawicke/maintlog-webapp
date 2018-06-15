@@ -840,4 +840,53 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		return array($params, $customSearch, $fluidType);
 	}
 
+	/**
+	 * Gets Component Change Detail
+	 *
+	 * @param type $servicelog_id
+	 * @return type
+	 */
+	public function getInspectionEntries($params = []) {
+		// application/assets/img/inspections/inspectionId/inspectionId_1.png
+
+		$inspectionEntries = R::getAll(
+			"SELECT
+					i.id, i.uuid AS inspection_uuid,
+					eu.unit_number,
+					eu.unit_number,
+					man.manufacturer_name,
+					em.model_number,
+					et.equipment_type,
+					eu.track_type,
+					i.created,
+					u.first_name AS created_by_first_name, 
+					u.last_name AS created_by_last_name
+				FROM inspection i
+				LEFT JOIN user u ON i.created_by = u.id
+				LEFT JOIN equipmentunit eu ON i.equipmentunit_id = eu.id
+				LEFT JOIN equipmentmodel em ON eu.equipmentmodel_id = em.id
+				LEFT JOIN manufacturer man ON em.manufacturer_id = man.id
+				LEFT JOIN equipmenttype et ON em.equipmenttype_id = et.id"
+		);
+
+//		$inspectionRatings = R::getAll(
+//			"SELECT
+//					ir.id, ir.checklistitem_id, ir.rating, ir.note
+//				FROM inspectionrating
+//				WHERE ir.id = '" . $inspectionId . "'"
+//		);
+
+		return $inspectionEntries;
+
+//		$detail = R::getAll(
+//			"SELECT
+//                cc.component_data, c.component, ct.component_type, cc.notes
+//            FROM componentchange cc
+//            LEFT JOIN componenttype ct ON ct.id = cc.component_type
+//            LEFT JOIN component c ON c.id = cc.component
+//            WHERE cc.servicelog_id = '" . $servicelog_id . "'");
+//
+//		return $detail[0];
+	}
+
 }
