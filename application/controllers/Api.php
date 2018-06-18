@@ -285,16 +285,12 @@ class Api extends REST_Controller
 
 		if($apiKey==API_KEY) {
 			$this->load->model('Inspectionrating_model');
-			$found = $this->Inspectionrating_model->findCountByInspectionId($data->inspectionId);
-
-			if($found==0) {
-				$this->Inspectionrating_model->importInspectionratings($data->ratings);
-			}
+			$this->Inspectionrating_model->importInspectionratings($data->ratings);
 
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'found' => $found
+				'data' => $data
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([

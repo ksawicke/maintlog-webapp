@@ -15,10 +15,13 @@ class Inspectionimage_model extends CI_Model
 	}
 
 	public function importInspectionimage($imagesData) {
+		$now = date('Y-m-d h:i:s');
+
 		$inspectionImage = R::dispense('inspectionimage');
 		$inspectionImage->uuid = $imagesData['inspectionId'];
 		$inspectionImage->photoId = $imagesData['photoId'];
 		$inspectionImage->type = $imagesData['type'];
+		$inspectionImage->created = $now;
 
 		R::store($inspectionImage);
 	}

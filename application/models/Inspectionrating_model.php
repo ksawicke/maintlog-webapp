@@ -26,32 +26,34 @@ class Inspectionrating_model extends CI_Model
 		return $count;
 	}
 
-	public function importInspectionratings($ratingsData) {
+	public function importInspectionratings($data) {
+		foreach($data as $ctr => $rating) {
+			$now = date('Y-m-d h:i:s');
 
-		foreach($ratingsData as $ctr => $data) {
-			$this->createInspectionRecord($data);
+			$this->createInspectionRecord($rating);
 
 			$inspectionRating = R::dispense('inspectionrating');
-			$inspectionRating->uuid = $data->inspectionId;
-			$inspectionRating->checklistitem_id = $data->checklistItemId;
-			$inspectionRating->rating = $data->rating;
-			$inspectionRating->note = $data->note;
+			$inspectionRating->uuid = $rating->inspectionId;
+			$inspectionRating->checklistitem_id = $rating->checklistItemId;
+			$inspectionRating->rating = $rating->rating;
+			$inspectionRating->note = $rating->note;
+			$inspectionRating->created = $now;
 
 			R::store($inspectionRating);
 		}
 	}
 
-	public function createInspectionRecord($data) {
-		$numOfInspectionsFoundWithUUID = R::count( 'inspection', ' uuid = ? ', [ $data->inspectionId ] );
+	public function createInspectionRecord($rating) {
+		$numOfInspectionsFoundWithUUID = R::count( 'inspection', ' uuid = ? ', [ $rating->inspectionId ] );
 
 		if($numOfInspectionsFoundWithUUID == 0) {
 			$now = date('Y-m-d h:i:s');
 
 			$inspection = R::dispense('inspection');
-			$inspection->uuid = $data->inspectionId;
-			$inspection->equipmentunit_id = $data->equipmentUnitId;
+			$inspection->uuid = $rating->inspectionId;
+			$inspection->equipmentunit_id = $rating->equipmentUnitId;
 			$inspection->created = $now;
-			$inspection->created_by = $data->userId;
+			$inspection->created_by = $rating->userId;
 
 			R::store($inspection);
 		}
