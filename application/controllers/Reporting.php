@@ -263,11 +263,11 @@ class Reporting extends MY_Controller
 		return $data;
 	}
 
-	protected function getInspectionEntryData()
+	protected function getInspectionEntryData($uuid = null)
 	{
 		$this->load->model('Report_model');
 
-		$data['inspectionEntry'] = $this->Report_model->getInspectionEntries($_REQUEST);
+		$data['inspectionEntry'] = $this->Report_model->getInspectionEntries($uuid);
 
 		return $data;
 	}
@@ -707,6 +707,10 @@ class Reporting extends MY_Controller
 
 			case 'inspection_entry':
 				$data = $this->getInspectionEntryData();
+				break;
+
+			case 'inspection_entry_detail':
+				$data = $this->getInspectionEntryData($id);
 				break;
 		}
 

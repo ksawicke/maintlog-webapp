@@ -846,9 +846,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 	 * @param type $servicelog_id
 	 * @return type
 	 */
-	public function getInspectionEntries($params = []) {
-		// application/assets/img/inspections/inspectionId/inspectionId_1.png
-
+	public function getInspectionEntries($uuid = null) {
 		$inspectionEntries = R::getAll(
 			"SELECT
 					i.id, i.uuid AS inspection_uuid,
@@ -868,7 +866,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 				LEFT JOIN manufacturer man ON em.manufacturer_id = man.id
 				LEFT JOIN equipmenttype et ON em.equipmenttype_id = et.id
 				
-				WHERE i.uuid IS NOT NULL"
+				WHERE i.uuid " . (!is_null($uuid) ? " = \"" . $uuid . "\"" : " IS NOT NULL")
 		);
 
 		foreach($inspectionEntries as $ctr => $entry) {
@@ -893,93 +891,8 @@ ORDER BY s.date_entered DESC, s.id DESC';
 					 WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
 			);
 		}
-		
-		// Images
-		// SELECT uuid, photo_id FROM `inspectionimage`
 
-		// Ratings
-		// SELECT checklistitem_id, rating, note FROM inspectionrating
-
-		// LEFT JOIN (SELECT uuid, GROUP_CONCAT(DISTINCT(photo_id)) AS photoIds FROM `inspectionimage` imageloop WHERE imageloop.uuid = inspection_uuid) image
-		//					ON image.uuid = i.uuid
-
-		/**
-		 * SELECT * FROM (
-		SELECT
-		i.id, i.uuid AS inspection_uuid,
-		eu.unit_number,
-		man.manufacturer_name,
-		em.model_number,
-		et.equipment_type,
-		eu.track_type,
-		i.created,
-		u.first_name AS created_by_first_name,
-		u.last_name AS created_by_last_name
-		FROM inspection i
-		LEFT JOIN user u ON i.created_by = u.id
-		LEFT JOIN equipmentunit eu ON i.equipmentunit_id = eu.id
-		LEFT JOIN equipmentmodel em ON eu.equipmentmodel_id = em.id
-		LEFT JOIN manufacturer man ON em.manufacturer_id = man.id
-		LEFT JOIN equipmenttype et ON em.equipmenttype_id = et.id
-		WHERE i.uuid IS NOT NULL
-		) inspectiondata
-		LEFT JOIN
-
-		(SELECT uuid, GROUP_CONCAT(DISTINCT(photo_id)) AS photoIds
-		FROM `inspectionimage`) imagedata
-
-		ON inspectiondata.inspection_uuid = imagedata.uuid
-		 */
-
-		/**
-		 * [14]=>
-		array(10) {
-		["id"]=>
-		string(2) "15"
-		["inspection_uuid"]=>
-		string(36) "CC8B6539-C6C1-48A6-BDA6-9ACF1CDF5C94"
-		["unit_number"]=>
-		string(7) "UR88839"
-		["manufacturer_name"]=>
-		string(4) "Ford"
-		["model_number"]=>
-		string(22) "1994 Boom Truck - F800"
-		["equipment_type"]=>
-		string(13) "Light Vehicle"
-		["track_type"]=>
-		string(5) "miles"
-		["created"]=>
-		string(19) "2018-06-07 03:17:47"
-		["created_by_first_name"]=>
-		string(5) "Kevin"
-		["created_by_last_name"]=>
-		string(7) "Sawicke"
-		}
-		 */
-
-//		foreach($inspectionEntries as $ctr => $inspectionEntry) {
-//		$inspectionEntries = R::getAll(
-//				"SELECT
-//					ir.id, cli.item, ir.rating, ir.note
-//				FROM inspectionrating ir
-//				LEFT JOIN checklistitem cli ON ir.checklistitem_id = cli.id
-//				WHERE ir.uuid = 'CC8B6539-C6C1-48A6-BDA6-9ACF1CDF5C94'"
-//			);
-
-//			$inspectionEntries[0]['rating'] = $inspectionRating;
-//		}
-
-		return $inspectionEntries;
-
-//		$detail = R::getAll(
-//			"SELECT
-//                cc.component_data, c.component, ct.component_type, cc.notes
-//            FROM componentchange cc
-//            LEFT JOIN componenttype ct ON ct.id = cc.component_type
-//            LEFT JOIN component c ON c.id = cc.component
-//            WHERE cc.servicelog_id = '" . $servicelog_id . "'");
-//
-//		return $detail[0];
+		return (!is_null($uuid) ? $inspectionEntries[0] : $inspectionEntries);
 	}
 
 }

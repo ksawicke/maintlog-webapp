@@ -40,6 +40,7 @@
 	</tr>
 	</tfoot>
 	<tbody>
+	<?php /** // application/assets/img/inspections/inspectionId/inspectionId_1.png */ ?>
 	<?php foreach ($inspectionEntry as $ctr => $inspection) { ?>
 		<tr>
 			<td><?php echo $inspection['unit_number']; ?></td>
@@ -114,9 +115,17 @@
 								.draw();
 						});
 
-					column.data().unique().sort().each(function (d, j) {
-						select.append('<option value="' + d + '">' + d + '</option>')
-					});
+					if (column.index() >= 0 && column.index() <= 3) {
+						column.data().unique().sort().each(function (d, j) {
+							select.append('<option value="' + d + '">' + d + '</option>');
+						});
+					} else {
+						select.hide();
+					}
+
+					// column.data().unique().sort().each(function (d, j) {
+					// 	select.append('<option value="' + d + '">' + d + '</option>')
+					// });
 				});
 			},
 			"order": [],
