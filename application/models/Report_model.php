@@ -873,11 +873,24 @@ ORDER BY s.date_entered DESC, s.id DESC';
 
 		foreach($inspectionEntries as $ctr => $entry) {
 			$inspectionEntries[$ctr]['ratings'] = R::getAll(
-				"SELECT checklistitem_id, rating, note FROM inspectionrating WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
+				"SELECT cli.id checklistitem_id, cli.item,
+					 ir.rating, ir.note
+					 FROM inspectionrating ir
+					 LEFT JOIN checklistitem cli ON ir.checklistitem_id = cli.id
+					 WHERE ir.uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
 			);
 
+			$inspectionEntries[$ctr]['ratingCount'] = R::getAll(
+				"SELECT count(if(ir.rating = 0, ir.rating, NULL)) count_bad,
+                            count(if(ir.rating = 1, ir.rating, NULL)) count_good
+					 FROM inspectionrating ir
+					 WHERE ir.uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\"");
+
 			$inspectionEntries[$ctr]['images'] = R::getAll(
-				"SELECT DISTINCT(photo_id) FROM `inspectionimage` WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
+				"SELECT DISTINCT(ii.photo_id), ii.checklistitem_id, cli.item
+					 FROM `inspectionimage` ii
+					 LEFT JOIN checklistitem cli ON ii.checklistitem_id = cli.id
+					 WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
 			);
 		}
 		

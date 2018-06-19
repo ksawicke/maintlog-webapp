@@ -19,7 +19,8 @@ class Inspectionimage_model extends CI_Model
 
 		$inspectionImage = R::dispense('inspectionimage');
 		$inspectionImage->uuid = $imagesData['inspectionId'];
-		$inspectionImage->photoId = $imagesData['photoId'];
+		$inspectionImage->checklistitem_id = $imagesData['checklistItemId'];
+		$inspectionImage->photo_id = $imagesData['photoId'];
 		$inspectionImage->type = $imagesData['type'];
 		$inspectionImage->created = $now;
 
