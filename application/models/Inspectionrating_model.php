@@ -59,20 +59,50 @@ class Inspectionrating_model extends CI_Model
 		}
 	}
 
+	/**
+	 * @param
+	 * $data{["equipmentUnitId": "4", "smr": "55555", "userId": "1", "inspectionId": "E5FC3133-7EB1-4F3E-AD26-C758F298C9CC"], ["equipmentUnitId": "30", "smr": "66666", "userId": "1", "inspectionId": "7BCB5881-1855-4D81-8CE3-5D152C4056A1"], ["equipmentUnitId": "6", "smr": "44444", "userId": "1", "inspectionId": "E4952D60-6CEA-4CE8-A26F-97ECC81DF966"], ["equipmentUnitId": "6", "smr": "33333", "userId": "1", "inspectionId": "AA0B77CE-3774-449C-B0D4-1F282AAF1E4F"]}
+	 */
 	public function doSMRUpdate($data) {
-		$smr = 0;
-		$inspectionId = "";
-
 		foreach($data as $ctr => $smrupdate) {
-			$smr = $data[$ctr]['smr'];
-			$inspectionId = $data[$ctr]['inspectionId'];
-		}
+			$now = date('Y-m-d h:i:s');
 
-		$smrupdate = R::dispense('smrupdate');
-		$smrupdate->uuid = $inspectionId;
-		$smrupdate->previous_smr = "";
-		$smrupdate->smr = $smr;
-		R::store($smrupdate);
+			$inspectionSmrUpdate = R::dispense('inspectionsmrupdate');
+			$inspectionSmrUpdate->uuid = $smrupdate->inspectionId;
+			$inspectionSmrUpdate->smr = $smrupdate->smr;
+			$inspectionSmrUpdate->previous_smr = $this->findLastSMR($smrupdate->equipmentUnitId);
+
+			R::store($inspectionSmrUpdate);
+		}
+	}
+
+	// TODO: See also Equipmentunit_model.php
+	public function findLastSMR($equipment_unit_id) {
+		$sql = "SELECT unit_number, MAX(smr) last_smr FROM
+                (SELECT '" . $equipment_unit_id . "' unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
+                        LEFT JOIN servicelog s ON s.id = fes.servicelog_id
+                        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
+                        WHERE s.unit_number = " . $equipment_unit_id . "
+                UNION ALL
+					SELECT '" . $equipment_unit_id . "' unit_number, MAX(is.smr) smr from inspectionsmrupdate is
+							LEFT JOIN inspection i ON i.uuid = is.uuid
+							LEFT JOIN equipmentunit eu ON eu.id = i.equipmentunit_id
+							WHERE eu.unit_number = " . $equipment_unit_id . "
+                UNION ALL
+                    SELECT '" . $equipment_unit_id . "' unit_number, MAX(pms.current_smr) smr from pmservice pms
+                        LEFT JOIN servicelog s ON s.id = pms.servicelog_id
+                        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
+                        WHERE s.unit_number = " . $equipment_unit_id . "
+                UNION ALL
+                    SELECT '" . $equipment_unit_id . "' unit_number, MAX(smr.smr) smr from smrupdate smr
+                        LEFT JOIN servicelog s ON s.id = smr.servicelog_id
+                        LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
+                        WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues
+                GROUP BY unit_number";
+
+		$values = R::getAll($sql);
+
+		return $values[0]['last_smr'];
 	}
 
 }

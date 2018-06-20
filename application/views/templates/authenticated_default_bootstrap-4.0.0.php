@@ -48,6 +48,12 @@
 
 <body>
 
+	<?php if(APPLICATION_ENVIRONMENT=='DEVELOPMENT') { ?>
+	<nav class="navbar navbar-expand-md navbar-development" style="background-color: darkred !important;color: #ffffff !important;">
+		Development environment
+	</nav>
+	<?php } ?>
+
 	<nav class="navbar navbar-expand-md navbar-dark">
 		<a class="navbar-brand" href="<?php echo base_url('index.php/app/index'); ?>"><img src="<?php echo $assetDirectory; ?>img/komatsu-logo.png" style="height:25px;"></a>
 		<span class="application-name">Maintenance Log</span>

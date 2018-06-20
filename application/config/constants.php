@@ -86,3 +86,14 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('APPLICATION_VERSION', '3.0.0');
 define('API_KEY', '2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf');
+
+switch($_SERVER['SERVER_NAME']) {
+	case '10.132.146.48':
+		define('APPLICATION_ENVIRONMENT', 'PRODUCTION');
+		break;
+
+	case 'test.rinconmountaintech.com':
+	default:
+	define('APPLICATION_ENVIRONMENT', 'DEVELOPMENT');
+		break;
+}

@@ -4,6 +4,20 @@
 .navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link, .nav-link:hover {
 	color: #000099 !important;
 }
+
+navbar-development {
+	background-color: darkred !important;
+}
+.navbar-development .navbar-nav .nav-link, .navbar-development .navbar-nav .active>.nav-link, .navbar-development .navbar-nav .nav-link.active, .navbar-development .navbar-nav .nav-link.show, .navbar-development .navbar-nav .show>.nav-link, .nav-link:hover {
+	color: #ffffff !important;
+}
+
+.navbar-development .navbar-toggler {
+	color: rgba(0, 0, 153,.5) !important;
+	border-color: rgba(0, 0, 153,.1) !important;
+	background-color: darkred !important;
+}
+
 .application-name {
 	margin-right:25px;
 	color: #000099;

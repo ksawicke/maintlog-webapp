@@ -151,7 +151,7 @@
 	});
 </script>
 
-
+<?php /***
 <pre>
 	<?php var_dump($inspectionEntry); ?>
-</pre>
+</pre> ***/ ?>
