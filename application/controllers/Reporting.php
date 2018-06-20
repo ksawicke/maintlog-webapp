@@ -267,7 +267,7 @@ class Reporting extends MY_Controller
 	{
 		$this->load->model('Report_model');
 
-		$data['inspectionEntry'] = $this->Report_model->getInspectionEntries($uuid);
+		$data['inspectionEntry'] = $this->Report_model->getInspectionEntries($uuid, $_REQUEST);
 
 		return $data;
 	}
@@ -399,7 +399,55 @@ class Reporting extends MY_Controller
 
 	protected function getInspectionEntryCellData($data)
 	{
-		return [];
+		$cellData = [
+			'A1' => 'Date Entered',
+			'B1' => 'Unit Number',
+			'C1' => 'Manufacturer Name',
+			'D1' => 'Model Number',
+			'E1' => 'Equipment Type',
+			'F1' => 'Good Items',
+			'G1' => 'Bad Items',
+			'H1' => 'Images Taken'
+		];
+
+		$row = 2;
+		foreach ($data['inspectionEntry'] as $ctr => $s) {
+			$date = new DateTime($s['created']);
+			$startAt = 8;
+
+			$cellData['A' . $row] = $date->format('m/d/Y');
+			$cellData['B' . $row] = $s['unit_number'];
+			$cellData['C' . $row] = $s['manufacturer_name'];
+			$cellData['D' . $row] = $s['model_number'];
+			$cellData['E' . $row] = $s['equipment_type'];
+			$cellData['F' . $row] = $s['ratingCount'][0]['count_good'];
+			$cellData['G' . $row] = $s['ratingCount'][0]['count_bad'];
+
+			foreach($s['ratings'] as $rctr => $rating) {
+				$col = $this->getNameFromNumber($rctr + $startAt);
+				$colRating = $this->getNameFromNumber($rctr + $startAt + 1);
+
+				$cellData[$col . $row] = $rating['item'];
+				$cellData[$colRating . $row] = ($rating['rating']==1 ? 'GOOD' : 'BAD');
+
+				$startAt++;
+			}
+
+			$row++;
+		}
+
+		return $cellData;
+	}
+
+	protected function getNameFromNumber($num) {
+		$numeric = $num % 26;
+		$letter = chr(65 + $numeric);
+		$num2 = intval($num / 26);
+		if ($num2 > 0) {
+			return $this->getNameFromNumber($num2 - 1) . $letter;
+		} else {
+			return $letter;
+		}
 	}
 
 	protected function getSMRUsedCellData($data)

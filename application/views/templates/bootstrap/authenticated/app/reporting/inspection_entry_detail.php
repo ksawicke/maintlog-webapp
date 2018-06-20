@@ -1,6 +1,16 @@
 <h3>Inspection Entry Detail</h3>
 
 
+<label>Inspection UUID</label>
+<ul>
+	<li><?php echo $inspectionEntry['inspection_uuid']; ?></li>
+</ul>
+
+<label>Date Entered</label>
+<ul>
+	<li><?php echo date('m/d/Y', strtotime($inspectionEntry['created'])); ?></li>
+</ul>
+
 <label>Unit Number</label>
 <ul>
 	<li><?php echo $inspectionEntry['unit_number']; ?></li>
@@ -53,8 +63,20 @@
 		<tr>
 			<td align="center"><?php echo $rating['item']; ?></td>
 			<td align="center"><img src="<?php echo $assetDirectory; ?>img/icons8-<?php echo (($rating['rating']==1) ? "ok" : "cancel"); ?>@2x.png" width="25"></td>
-			<td align="center"></td>
-			<td align="center"></td>
+			<td align="center"><?php echo $rating['note']; ?></td>
+			<td align="center">
+
+				<?php if(array_key_exists('images', $rating)) {
+					foreach($rating['images'] as $rictr => $image) { ?>
+						<a href="<?php echo $assetDirectory . "/" . $image; ?>" target="_new">
+							<img src="<?php echo $assetDirectory . "/" . $image; ?>" width="350">
+						</a>
+					<?php
+					}
+				}
+				?>
+
+			</td>
 		</tr>
 	<?php } ?>
 
@@ -66,12 +88,3 @@
 		<th align="center">Image</th>
 	</tfoot>
 </table>
-
-<label>Images Taken</label>
-<ul>
-	<li>
-
-		<?php echo (count($inspectionEntry['images']>0) ? "YES" : "NO"); ?>
-
-	</li>
-</ul>

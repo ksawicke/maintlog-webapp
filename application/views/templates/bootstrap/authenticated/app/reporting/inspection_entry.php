@@ -17,6 +17,7 @@
 <table id="inspectionEntry" class="table table-bordered table-striped" width="100%">
 	<thead>
 	<tr>
+		<th>Date Entered</th>
 		<th>Unit Number</th>
 		<th>Manufacturer Name</th>
 		<th>Model Number</th>
@@ -29,6 +30,7 @@
 	</thead>
 	<tfoot>
 	<tr>
+		<th>Date Entered</th>
 		<th>Unit Number</th>
 		<th>Manufacturer Name</th>
 		<th>Model Number</th>
@@ -40,9 +42,10 @@
 	</tr>
 	</tfoot>
 	<tbody>
-	<?php /** // application/assets/img/inspections/inspectionId/inspectionId_1.png */ ?>
+
 	<?php foreach ($inspectionEntry as $ctr => $inspection) { ?>
 		<tr>
+			<td><?php echo date('m/d/Y', strtotime($inspection['created'])); ?></td>
 			<td><?php echo $inspection['unit_number']; ?></td>
 			<td><?php echo $inspection['manufacturer_name']; ?></td>
 			<td><?php echo $inspection['model_number']; ?></td>
@@ -54,7 +57,7 @@
 				<img src="<?php echo $assetDirectory; ?>img/icons8-cancel@2x.png" width=25"> <?php echo $inspection['ratingCount'][0]['count_bad']; ?>
 			</td>
 			<td>
-				<?php echo (count($inspection['images']>0) ? "YES" : "NO"); ?>
+				<?php echo $inspection['imageCount']; ?>
 			</td>
 			<td>
 
@@ -78,14 +81,18 @@
 			var fields = [],
 				dataParams = {data: {}},
 				href = $("#downloadInspectionEntry").attr("href"),
-				selects = $('#downloadInspectionEntry tfoot tr select');
+				selects = $('#inspectionEntry tfoot tr select');
 
-			fields = ['unit_number', 'manufacturer_name', 'model_number', 'equipment_type'];
+			console.log(href);
+
+			fields = ['created', 'unit_number', 'manufacturer_name', 'model_number', 'equipment_type'];
 
 			$.map(fields, function (fieldName, i) {
 				var key = fieldName;
 				dataParams.data[key] = selects[i].value;
 			});
+
+			console.log(dataParams);
 
 			loadSpreadsheet(href + "?" + $.param(dataParams));
 		});
@@ -115,7 +122,7 @@
 								.draw();
 						});
 
-					if (column.index() >= 0 && column.index() <= 3) {
+					if (column.index() >= 0 && column.index() <= 4) {
 						column.data().unique().sort().each(function (d, j) {
 							select.append('<option value="' + d + '">' + d + '</option>');
 						});
@@ -137,13 +144,13 @@
 				{"orderable": false, "class": "text-center"},
 				{"orderable": false, "class": "text-center"},
 				{"orderable": false, "class": "text-center"},
+				{"orderable": false, "class": "text-center"},
 				{"orderable": false, "class": "text-center"}
 			]
 		});
 	});
 </script>
 
-Inspection Entry ....
 
 <pre>
 	<?php var_dump($inspectionEntry); ?>

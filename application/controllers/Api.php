@@ -300,6 +300,28 @@ class Api extends REST_Controller
 		}
 	}
 
+	public function upload_inspection_smrupdates_post() {
+		$apiKey = $_REQUEST['api_key'];
+		$postBody = file_get_contents('php://input');
+		$data = json_decode($postBody);
+
+		if($apiKey==API_KEY) {
+			$this->load->model('Inspectionrating_model');
+			$this->Inspectionrating_model->doSMRUpdate($data->smrupdates);
+
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'data' => $data
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
 	public function upload_inspection_images2_post() {
 		$this->response([
 			'status' => TRUE,

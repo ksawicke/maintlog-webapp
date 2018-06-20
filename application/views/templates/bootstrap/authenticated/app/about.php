@@ -5,6 +5,12 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.0
+		<ul>
+			<li>Update API to handle SMR updates as related to inspections</li>
+			<li>Add new reporting for Inspection Entry</li>
+			<li>Add new view to see a single Inspection Entry</li>
+		</ul>
 	<li>2.8.4
 		<ul>
 			<li>Update API endpoint for Inspection Ratings to check if Inspection ID does not exist before uploading.</li>

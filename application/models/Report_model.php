@@ -846,11 +846,12 @@ ORDER BY s.date_entered DESC, s.id DESC';
 	 * @param type $servicelog_id
 	 * @return type
 	 */
-	public function getInspectionEntries($uuid = null) {
+	public function getInspectionEntries($uuid = null, $params = []) {
+		$customSearch = $this->appendInspectionEntryCustomSearch($params);
+
 		$inspectionEntries = R::getAll(
 			"SELECT
 					i.id, i.uuid AS inspection_uuid,
-					eu.unit_number,
 					eu.unit_number,
 					man.manufacturer_name,
 					em.model_number,
@@ -866,7 +867,8 @@ ORDER BY s.date_entered DESC, s.id DESC';
 				LEFT JOIN manufacturer man ON em.manufacturer_id = man.id
 				LEFT JOIN equipmenttype et ON em.equipmenttype_id = et.id
 				
-				WHERE i.uuid " . (!is_null($uuid) ? " = \"" . $uuid . "\"" : " IS NOT NULL")
+				WHERE i.uuid " . (!is_null($uuid) ? " = \"" . $uuid . "\"" : " IS NOT NULL") . $customSearch . "
+				ORDER BY i.id DESC"
 		);
 
 		foreach($inspectionEntries as $ctr => $entry) {
@@ -884,15 +886,48 @@ ORDER BY s.date_entered DESC, s.id DESC';
 					 FROM inspectionrating ir
 					 WHERE ir.uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\"");
 
-			$inspectionEntries[$ctr]['images'] = R::getAll(
-				"SELECT DISTINCT(ii.photo_id), ii.checklistitem_id, cli.item
+			foreach($inspectionEntries[$ctr]['ratings'] as $rc => $rating) {
+				$images = R::getAll(
+					"SELECT DISTINCT(ii.photo_id), ii.checklistitem_id, ii.type file_extension, cli.item
 					 FROM `inspectionimage` ii
 					 LEFT JOIN checklistitem cli ON ii.checklistitem_id = cli.id
-					 WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
-			);
+					 WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\"
+					 AND checklistitem_id = " . $rating['checklistitem_id']
+				);
+
+				if(count($images)>0) {
+					foreach($images as $ictr => $imageInfo) {
+						$inspectionEntries[$ctr]['ratings'][$rc]['images'][] = "img/inspections/" . $inspectionEntries[$ctr]['inspection_uuid'] . "/" . $inspectionEntries[$ctr]['inspection_uuid'] . "_" . $rating['checklistitem_id'] . "_" . ($ictr + 1) . "." . $imageInfo['file_extension'];
+					}
+				}
+
+				if(array_key_exists('imageCount', $inspectionEntries[$ctr])) {
+					$inspectionEntries[$ctr]['imageCount'] += count($images);
+				} else {
+					$inspectionEntries[$ctr]['imageCount'] = 0;
+				}
+			}
 		}
 
 		return (!is_null($uuid) ? $inspectionEntries[0] : $inspectionEntries);
+	}
+
+	/**
+	 * @param $params
+	 * @return string
+	 */
+	public function appendInspectionEntryCustomSearch($params)
+	{
+		$customSearch = "";
+
+		if (!empty($params)) {
+			$customSearch .= (!empty($params['data']['date_entered']) ? " AND i.created = '" . date('Y-m-d', strtotime($params['data']['date_entered'])) . "'" : "");
+			$customSearch .= (!empty($params['data']['unit_number']) ? " AND eu.unit_number = '" . $params['data']['unit_number'] . "'" : "");
+			$customSearch .= (!empty($params['data']['manufacturer_name']) ? " AND man.manufacturer_name = '" . $params['data']['manufacturer_name'] . "'" : "");
+			$customSearch .= (!empty($params['data']['model_number']) ? " AND em.model_number = '" . $params['data']['model_number'] . "'" : "");
+			$customSearch .= (!empty($params['data']['equipment_type']) ? " AND et.equipment_type = '" . $params['data']['equipment_type'] . "'" : "");
+		}
+		return $customSearch;
 	}
 
 }

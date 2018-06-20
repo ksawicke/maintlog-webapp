@@ -59,4 +59,20 @@ class Inspectionrating_model extends CI_Model
 		}
 	}
 
+	public function doSMRUpdate($data) {
+		$smr = 0;
+		$inspectionId = "";
+
+		foreach($data as $ctr => $smrupdate) {
+			$smr = $data[$ctr]['smr'];
+			$inspectionId = $data[$ctr]['inspectionId'];
+		}
+
+		$smrupdate = R::dispense('smrupdate');
+		$smrupdate->uuid = $inspectionId;
+		$smrupdate->previous_smr = "";
+		$smrupdate->smr = $smr;
+		R::store($smrupdate);
+	}
+
 }
