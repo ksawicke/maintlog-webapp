@@ -399,39 +399,70 @@ class Reporting extends MY_Controller
 
 	protected function getInspectionEntryCellData($data)
 	{
+//		echo '<pre>';
+//		var_dump($data);
+//		exit();
+
+		$this->load->model('Equipmentunit_model');
+
 		$cellData = [
 			'A1' => 'Date Entered',
-			'B1' => 'Unit Number',
-			'C1' => 'Manufacturer Name',
-			'D1' => 'Model Number',
-			'E1' => 'Equipment Type',
-			'F1' => 'Good Items',
-			'G1' => 'Bad Items',
-			'H1' => 'Images Taken'
+			'B1' => 'Time of Inspection',
+			'C1' => 'Inspected By',
+			'D1' => 'Unit Number',
+			'E1' => 'Manufacturer Name',
+			'F1' => 'Model Number',
+			'G1' => 'Equipment Type',
+			'H1' => 'SMR/Mileage',
+			'I1' => 'Good Items',
+			'J1' => 'Bad Items',
+			'K1' => 'Images Taken'
 		];
+
+		/**
+		 * Output additional column names with each
+		 * checklist item in alphabetical order.
+		 */
+		$num = 11;
+		foreach($data['inspectionEntry'][0]['checklist_items'] as $clc => $cli) {
+			$col = $this->getNameFromNumber($num);
+			$cellData[$col . '1'] = $cli['item'];
+			$num++;
+		}
 
 		$row = 2;
 		foreach ($data['inspectionEntry'] as $ctr => $s) {
+			$smr_mileage = $this->Equipmentunit_model->findLastSMR($s['unit_number']);
+
 			$date = new DateTime($s['created']);
-			$startAt = 8;
+			$startAt = 11;
 
 			$cellData['A' . $row] = $date->format('m/d/Y');
-			$cellData['B' . $row] = $s['unit_number'];
-			$cellData['C' . $row] = $s['manufacturer_name'];
-			$cellData['D' . $row] = $s['model_number'];
-			$cellData['E' . $row] = $s['equipment_type'];
-			$cellData['F' . $row] = $s['ratingCount'][0]['count_good'];
-			$cellData['G' . $row] = $s['ratingCount'][0]['count_bad'];
+			$cellData['B' . $row] = $date->format('h:i A');
+			$cellData['C' . $row] = $s['created_by_first_name'] . " " . $s['created_by_last_name'];
+			$cellData['D' . $row] = $s['unit_number'];
+			$cellData['E' . $row] = $s['manufacturer_name'];
+			$cellData['F' . $row] = $s['model_number'];
+			$cellData['G' . $row] = $s['equipment_type'];
+			$cellData['H' . $row] = $smr_mileage;
+			$cellData['I' . $row] = $s['ratingCount'][0]['count_good'];
+			$cellData['J' . $row] = $s['ratingCount'][0]['count_bad'];
+			$cellData['K' . $row] = $s['imageCount'];
 
-			foreach($s['ratings'] as $rctr => $rating) {
-				$col = $this->getNameFromNumber($rctr + $startAt);
-				$colRating = $this->getNameFromNumber($rctr + $startAt + 1);
+			$num = 11;
+			foreach($data['inspectionEntry'][0]['checklist_items'] as $clc => $cli) {
+				$col = $this->getNameFromNumber($num);
 
-				$cellData[$col . $row] = $rating['item'];
-				$cellData[$colRating . $row] = ($rating['rating']==1 ? 'GOOD' : 'BAD');
+				foreach($s['ratings'] as $rctr => $rating) {
+					if ($rating['item'] == $cli['item']) {
+						$cellData[$col . $row] = ($rating['rating'] == 1 ? 'GOOD' : 'BAD');
+					}
+				}
 
-				$startAt++;
+				$num++;
 			}
+
+
 
 			$row++;
 		}

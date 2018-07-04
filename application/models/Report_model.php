@@ -856,6 +856,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 					man.manufacturer_name,
 					em.model_number,
 					et.equipment_type,
+					et.id equipmenttype_id,
 					eu.track_type,
 					i.created,
 					u.first_name AS created_by_first_name,
@@ -871,7 +872,15 @@ ORDER BY s.date_entered DESC, s.id DESC';
 				ORDER BY i.id DESC"
 		);
 
+		$checklist_items = R::getAll(
+			"SELECT id, item
+					 FROM checklistitem 
+					 ORDER BY item ASC"
+		);
+
 		foreach($inspectionEntries as $ctr => $entry) {
+			$equipmenttype_id = $entry['equipmenttype_id'];
+
 			$inspectionEntries[$ctr]['ratings'] = R::getAll(
 				"SELECT cli.id checklistitem_id, cli.item,
 					 ir.rating, ir.note
@@ -879,6 +888,8 @@ ORDER BY s.date_entered DESC, s.id DESC';
 					 LEFT JOIN checklistitem cli ON ir.checklistitem_id = cli.id
 					 WHERE ir.uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\""
 			);
+
+			$inspectionEntries[$ctr]['checklist_items'] = $checklist_items;
 
 			$inspectionEntries[$ctr]['ratingCount'] = R::getAll(
 				"SELECT count(if(ir.rating = 0, ir.rating, NULL)) count_bad,

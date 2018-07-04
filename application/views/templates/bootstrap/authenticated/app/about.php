@@ -5,6 +5,12 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.1
+		<ul>
+			<li>Adjusted the Inspection Entry Excel download report to add additional columns</li>
+			<li>Adjusted the Inspection Entry Excel download report to show all checklist items then mark appropriate GOOD/BAD entries that were checked off during inspection</li>
+		</ul>
+	</li>
 	<li>3.0.0
 		<ul>
 			<li>Update API to handle SMR updates as related to inspections</li>

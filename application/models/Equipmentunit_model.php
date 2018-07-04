@@ -64,29 +64,32 @@ FROM equipmentunit
         return $equipmentunit;
     }
 
-	// TODO: See also Inspectinrating_model.php
+	// TODO: See also Inspectionrating_model.php
     public function findLastSMR($equipment_unit_id) {
 		$sql = "SELECT unit_number, MAX(smr) last_smr FROM
-                (SELECT '" . $equipment_unit_id . "' unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
+                (SELECT \"" . $equipment_unit_id . "\" unit_number, MAX(fes.smr) smr from fluidentrysmrupdate fes
                         LEFT JOIN servicelog s ON s.id = fes.servicelog_id
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . "
-                UNION ALL
-					SELECT '" . $equipment_unit_id . "' unit_number, MAX(is.smr) smr from inspectionsmrupdate is
-							LEFT JOIN inspection i ON i.uuid = is.uuid
-							LEFT JOIN equipmentunit eu ON eu.id = i.equipmentunit_id
-							WHERE eu.unit_number = " . $equipment_unit_id . "
+                        WHERE s.unit_number = \"" . $equipment_unit_id . "\"
+                
                 UNION ALL
                     SELECT '" . $equipment_unit_id . "' unit_number, MAX(pms.current_smr) smr from pmservice pms
                         LEFT JOIN servicelog s ON s.id = pms.servicelog_id
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . "
+                        WHERE s.unit_number = \"" . $equipment_unit_id . "\"
                 UNION ALL
                     SELECT '" . $equipment_unit_id . "' unit_number, MAX(smr.smr) smr from smrupdate smr
                         LEFT JOIN servicelog s ON s.id = smr.servicelog_id
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
-                        WHERE s.unit_number = " . $equipment_unit_id . ") AS smrvalues
+                        WHERE s.unit_number = \"" . $equipment_unit_id . "\") AS smrvalues
                 GROUP BY unit_number";
+
+		/*UNION ALL
+					SELECT '" . $equipment_unit_id . "' unit_number, MAX(is.smr) smr from inspectionsmrupdate isu
+							LEFT JOIN inspection i ON i.uuid = isu.uuid
+							LEFT JOIN equipmentunit eu ON eu.id = i.equipmentunit_id
+							WHERE eu.unit_number = \"" . $equipment_unit_id . "\"*/
+
 
 		$values = R::getAll($sql);
         
