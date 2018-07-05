@@ -18,10 +18,13 @@
 	<thead>
 	<tr>
 		<th>Date Entered</th>
+		<th>Time of Inspection</th>
+		<th>Inspected By</th>
 		<th>Unit Number</th>
 		<th>Manufacturer Name</th>
 		<th>Model Number</th>
 		<th>Equipment Type</th>
+		<th>SMR / Mileage</th>
 		<th>Good Items</th>
 		<th>Bad Items</th>
 		<th>Images Taken</th>
@@ -31,10 +34,13 @@
 	<tfoot>
 	<tr>
 		<th>Date Entered</th>
+		<th>Time of Inspection</th>
+		<th>Inspected By</th>
 		<th>Unit Number</th>
 		<th>Manufacturer Name</th>
 		<th>Model Number</th>
 		<th>Equipment Type</th>
+		<th>SMR / Mileage</th>
 		<th>Good Items</th>
 		<th>Bad Items</th>
 		<th>Images Taken</th>
@@ -46,10 +52,13 @@
 	<?php foreach ($inspectionEntry as $ctr => $inspection) { ?>
 		<tr>
 			<td><?php echo date('m/d/Y', strtotime($inspection['created'])); ?></td>
+			<td><?php echo date('h:i A', strtotime($inspection['created'])); ?></td>
+			<td></td>
 			<td><?php echo $inspection['unit_number']; ?></td>
 			<td><?php echo $inspection['manufacturer_name']; ?></td>
 			<td><?php echo $inspection['model_number']; ?></td>
 			<td><?php echo $inspection['equipment_type']; ?></td>
+			<td></td>
 			<td>
 				<img src="<?php echo $assetDirectory; ?>img/icons8-ok@2x.png" width="25"> <?php echo $inspection['ratingCount'][0]['count_good']; ?>
 			</td>
@@ -122,7 +131,8 @@
 								.draw();
 						});
 
-					if (column.index() >= 0 && column.index() <= 4) {
+					if (column.index() >= 0 && column.index() <= 6 && column.index() != 1 &&
+					    column.index() != 2) {
 						column.data().unique().sort().each(function (d, j) {
 							select.append('<option value="' + d + '">' + d + '</option>');
 						});
@@ -137,6 +147,9 @@
 			},
 			"order": [],
 			"columns": [
+				{"orderable": false, "class": "text-center"},
+				{"orderable": false, "class": "text-center"},
+				{"orderable": false, "class": "text-center"},
 				{"orderable": false, "class": "text-center"},
 				{"orderable": false, "class": "text-center"},
 				{"orderable": false, "class": "text-center"},
