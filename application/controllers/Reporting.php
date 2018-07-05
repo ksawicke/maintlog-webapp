@@ -266,8 +266,17 @@ class Reporting extends MY_Controller
 	protected function getInspectionEntryData($uuid = null)
 	{
 		$this->load->model('Report_model');
+		$this->load->model('Equipmentunit_model');
 
 		$data['inspectionEntry'] = $this->Report_model->getInspectionEntries($uuid, $_REQUEST);
+
+		if($uuid==null) {
+			foreach ($data['inspectionEntry'] as $ctr => $inspection) {
+				$data['inspectionEntry'][$ctr]['last_smr'] = $this->Equipmentunit_model->findLastSMR($data['inspectionEntry'][$ctr]['equipmentunit_id']);
+			}
+		} else {
+			$data['inspectionEntry']['last_smr'] = $this->Equipmentunit_model->findLastSMR($data['inspectionEntry']['equipmentunit_id']);
+		}
 
 		return $data;
 	}
@@ -399,10 +408,6 @@ class Reporting extends MY_Controller
 
 	protected function getInspectionEntryCellData($data)
 	{
-//		echo '<pre>';
-//		var_dump($data);
-//		exit();
-
 		$this->load->model('Equipmentunit_model');
 
 		$cellData = [
@@ -432,8 +437,6 @@ class Reporting extends MY_Controller
 
 		$row = 2;
 		foreach ($data['inspectionEntry'] as $ctr => $s) {
-			$smr_mileage = $this->Equipmentunit_model->findLastSMR($s['unit_number']);
-
 			$date = new DateTime($s['created']);
 			$startAt = 11;
 
@@ -444,7 +447,7 @@ class Reporting extends MY_Controller
 			$cellData['E' . $row] = $s['manufacturer_name'];
 			$cellData['F' . $row] = $s['model_number'];
 			$cellData['G' . $row] = $s['equipment_type'];
-			$cellData['H' . $row] = $smr_mileage;
+			$cellData['H' . $row] = $s['last_smr'];
 			$cellData['I' . $row] = $s['ratingCount'][0]['count_good'];
 			$cellData['J' . $row] = $s['ratingCount'][0]['count_bad'];
 			$cellData['K' . $row] = $s['imageCount'];

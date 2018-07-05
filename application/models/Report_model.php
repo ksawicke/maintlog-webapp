@@ -853,6 +853,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 			"SELECT
 					i.id, i.uuid AS inspection_uuid,
 					eu.unit_number,
+					eu.id equipmentunit_id,
 					man.manufacturer_name,
 					em.model_number,
 					et.equipment_type,

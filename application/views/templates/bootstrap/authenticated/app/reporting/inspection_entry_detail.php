@@ -1,3 +1,29 @@
+<?php
+$inspectionCollection = [];
+
+$collectionCounter = 0;
+foreach($inspectionEntry['checklist_items'] as $clc => $cli) {
+	$inspectionCollection[$collectionCounter]['item'] = $cli['item'];
+
+	foreach($inspectionEntry['ratings'] as $ic => $rating) {
+		if($rating['item']==$cli['item']) {
+			$inspectionCollection[$collectionCounter]['rating_image'] = '<img src="' . $assetDirectory . 'img/icons8-' . (($rating['rating']==1) ? "ok" : "cancel") . '@2x.png" width="25">';
+
+			$inspectionCollection[$collectionCounter]['note'] = $rating['note'];
+
+			if(array_key_exists('images', $rating)) {
+				foreach ($rating['images'] as $rictr => $image) {
+					$inspectionCollection[$collectionCounter]['inspection_images'][] =
+						'<a href="' . $assetDirectory . '/' . $image . '" target="_new" ><img src="' . $assetDirectory . '/' . $image . '" width="350"></a>';
+				}
+			}
+		}
+	}
+
+	$collectionCounter++;
+}
+?>
+
 <h3>Inspection Entry Detail</h3>
 
 
@@ -9,6 +35,16 @@
 <label>Date Entered</label>
 <ul>
 	<li><?php echo date('m/d/Y', strtotime($inspectionEntry['created'])); ?></li>
+</ul>
+
+<label>Time of Inspection</label>
+<ul>
+	<li><?php echo date('h:i A', strtotime($inspectionEntry['created'])); ?></li>
+</ul>
+
+<label>Inspected By</label>
+<ul>
+	<li><?php echo $inspectionEntry['created_by_last_name'] . ", " . $inspectionEntry['created_by_first_name']; ?></li>
 </ul>
 
 <label>Unit Number</label>
@@ -29,6 +65,11 @@
 <label>Equipment Type</label>
 <ul>
 	<li><?php echo $inspectionEntry['equipment_type']; ?></li>
+</ul>
+
+<label>SMR/Mileage</label>
+<ul>
+	<li><?php echo $inspectionEntry['last_smr']; ?></li>
 </ul>
 
 <label>Good Items</label>
@@ -59,22 +100,42 @@
 	</thead>
 	<tbody>
 
-	<?php foreach($inspectionEntry['ratings'] as $ic => $rating) { ?>
+	<?php foreach($inspectionCollection as $clc => $cli) { ?>
 		<tr>
-			<td align="center"><?php echo $rating['item']; ?></td>
-			<td align="center"><img src="<?php echo $assetDirectory; ?>img/icons8-<?php echo (($rating['rating']==1) ? "ok" : "cancel"); ?>@2x.png" width="25"></td>
-			<td align="center"><?php echo $rating['note']; ?></td>
 			<td align="center">
 
-				<?php if(array_key_exists('images', $rating)) {
-					foreach($rating['images'] as $rictr => $image) { ?>
-						<a href="<?php echo $assetDirectory . "/" . $image; ?>" target="_new">
-							<img src="<?php echo $assetDirectory . "/" . $image; ?>" width="350">
-						</a>
-					<?php
-					}
-				}
-				?>
+				<?php echo $cli['item']; ?>
+
+			</td>
+			<td align="center">
+
+				<?php if(array_key_exists('rating_image', $cli)) { ?>
+
+					<?php echo $cli['rating_image']; ?>
+
+				<?php } ?>
+
+			</td>
+			<td align="center">
+
+				<?php if(array_key_exists('note', $cli)) { ?>
+
+					<?php echo $cli['note']; ?>
+
+				<?php } ?>
+
+			</td>
+			<td align="center">
+
+				<?php if(array_key_exists('inspection_images', $cli)) { ?>
+
+					<?php foreach($cli['inspection_images'] as $ii => $image) { ?>
+
+						<?php echo $image; ?>
+
+					<?php } ?>
+
+				<?php } ?>
 
 			</td>
 		</tr>

@@ -53,12 +53,12 @@
 		<tr>
 			<td><?php echo date('m/d/Y', strtotime($inspection['created'])); ?></td>
 			<td><?php echo date('h:i A', strtotime($inspection['created'])); ?></td>
-			<td></td>
+			<td><?php echo $inspection['created_by_last_name'] . ", " . $inspection['created_by_first_name']; ?></td>
 			<td><?php echo $inspection['unit_number']; ?></td>
 			<td><?php echo $inspection['manufacturer_name']; ?></td>
 			<td><?php echo $inspection['model_number']; ?></td>
 			<td><?php echo $inspection['equipment_type']; ?></td>
-			<td></td>
+			<td><?php echo $inspection['last_smr']; ?></td>
 			<td>
 				<img src="<?php echo $assetDirectory; ?>img/icons8-ok@2x.png" width="25"> <?php echo $inspection['ratingCount'][0]['count_good']; ?>
 			</td>
@@ -81,6 +81,10 @@
 	<?php } ?>
 	</tbody>
 </table>
+
+<pre>
+<?php var_dump($inspectionEntry); ?>
+</pre>
 
 <script>
 	$(document).ready(function () {
