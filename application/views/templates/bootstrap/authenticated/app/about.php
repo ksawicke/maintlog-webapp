@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.6
+		<ul>
+			<li>Adjust Excel report for Inspection Entries to show note of bad items</li>
+		</ul>
+	</li>
 	<li>3.0.5
 		<ul>
 			<li>Adjusted check of images - remove HTTPS</li>

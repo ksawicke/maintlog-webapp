@@ -458,7 +458,7 @@ class Reporting extends MY_Controller
 
 				foreach($s['ratings'] as $rctr => $rating) {
 					if ($rating['item'] == $cli['item']) {
-						$cellData[$col . $row] = ($rating['rating'] == 1 ? 'GOOD' : 'BAD');
+						$cellData[$col . $row] = ($rating['rating'] == 1 ? 'GOOD' : $rating['note']);
 					}
 				}
 

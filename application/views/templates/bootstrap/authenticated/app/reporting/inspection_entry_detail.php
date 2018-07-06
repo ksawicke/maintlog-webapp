@@ -18,13 +18,13 @@ foreach($inspectionEntry['checklist_items'] as $clc => $cli) {
 					list($width, $height) = getimagesize($image_location);
 					if ($width > $height) {
 						// Landscape
-						$image_url = '<a href="' . base_url('assets/' . $image) . '" target="_new" ><img src="' . $image_location . '" width="350"></a>';
+						$image_url = '<a href="' . base_url('assets/' . $image) . '" target="_new" ><img src="' . base_url('assets/' . $image) . '" height="' . ($height * .1) . '" width="' . ($width * .1) . '" data-width="' . $width . '" data-height="' . $height . '"></a>';
 
 						$inspectionCollection[$collectionCounter]['inspection_images'][] =
 							$image_url;
 					} else {
 						// Portrait or Square
-						$image_url = '<a href="' . base_url('assets/' . $image) . '" target="_new" ><img src="' . $image_location . '" height="350"></a>';
+						$image_url = '<a href="' . base_url('assets/' . $image) . '" target="_new" ><img src="' . base_url('assets/' . $image) . '" height="' . ($height * .1) . '" width="' . ($width * .1) . '" data-height="' . $height . '"></a>';
 
 						$inspectionCollection[$collectionCounter]['inspection_images'][] =
 							$image_url;
