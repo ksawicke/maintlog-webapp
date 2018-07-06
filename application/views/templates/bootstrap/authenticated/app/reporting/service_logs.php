@@ -330,7 +330,7 @@
             },
             "order": [],
             "columns": [
-                {"orderable": false, "width": "150px", "class": "text-center"},
+                {"orderable": false, "width": "120px", "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
                 {"orderable": false, "class": "text-center"},
@@ -351,6 +351,7 @@
         dataTable.column(9).visible(false); // Component
         dataTable.column(10).visible(false); // Component Data
         dataTable.column(11).visible(false); // Type of Fluid
+		dataTable.column(12).visible(true);
 
         var entryType = getURLParam("data[entry_type]");
 

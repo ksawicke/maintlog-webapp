@@ -84,7 +84,7 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-define('APPLICATION_VERSION', '3.0.8');
+define('APPLICATION_VERSION', '3.0.9');
 define('API_KEY', '2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf');
 
 switch($_SERVER['SERVER_NAME']) {
