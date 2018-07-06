@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.7
+		<ul>
+			<li>Adjust Log Entry detail to remove troubleshooting data at bottom</li>
+		</ul>
+	</li>
 	<li>3.0.6
 		<ul>
 			<li>Adjust Excel report for Inspection Entries to show note of bad items</li>

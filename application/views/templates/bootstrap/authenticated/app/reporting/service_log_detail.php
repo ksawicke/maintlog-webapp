@@ -201,7 +201,3 @@
     </ul>
 
 <?php } ?>
-
-<pre>
-	<?php var_dump($service_log); ?>
-</pre>
