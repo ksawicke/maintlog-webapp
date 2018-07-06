@@ -232,6 +232,7 @@
                     dataTable.column(9).visible(false); // Component
                     dataTable.column(10).visible(false); // Component Data
                     dataTable.column(11).visible(false); // Type of Fluid
+					dataTable.column(12).visible(true);
                     break;
 
                 case 'Component Change':
@@ -240,6 +241,7 @@
                     dataTable.column(9).visible(true); // Component
                     dataTable.column(10).visible(true); // Component Data
                     dataTable.column(11).visible(false); // Type of Fluid
+					dataTable.column(12).visible(true);
                     break;
 
                 case 'Fluid Entry':
@@ -248,6 +250,7 @@
                     dataTable.column(9).visible(false); // Component
                     dataTable.column(10).visible(false); // Component Data
                     dataTable.column(11).visible(true); // Type of Fluid
+					dataTable.column(12).visible(true);
                     break;
 
                 default:
@@ -256,6 +259,7 @@
                     dataTable.column(9).visible(false); // Component
                     dataTable.column(10).visible(false); // Component Data
                     dataTable.column(11).visible(false); // Type of Fluid
+					dataTable.column(12).visible(true);
                     break;
             }
         }
