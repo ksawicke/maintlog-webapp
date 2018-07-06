@@ -27,7 +27,7 @@ date_default_timezone_set('America/Phoenix');
 */
 switch($_SERVER['SERVER_NAME']) {
     case '10.132.146.48':
-        $config['base_url'] = 'https://10.132.146.48/maintlog/';
+        $config['base_url'] = 'http://10.132.146.48/maintlog/';
         $config['index_page'] = 'index.php/';
         break;
     

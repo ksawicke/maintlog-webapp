@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.5
+		<ul>
+			<li>Adjusted check of images - remove HTTPS</li>
+		</ul>
+	</li>
 	<li>3.0.4
 		<ul>
 			<li>Adjusted inspection image orientation on Inspection Entry Detail page</li>
