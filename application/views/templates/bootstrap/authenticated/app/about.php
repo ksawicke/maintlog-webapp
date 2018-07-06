@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.4
+		<ul>
+			<li>Adjusted inspection image orientation on Inspection Entry Detail page</li>
+		</ul>
+	</li>
 	<li>3.0.3
 		<ul>
 			<li>Changed the color of pagination links to match theme</li>

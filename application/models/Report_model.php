@@ -909,27 +909,7 @@ ORDER BY s.date_entered DESC, s.id DESC';
 					 FROM inspectionrating ir
 					 WHERE ir.uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\"");
 
-			foreach($inspectionEntries[$ctr]['ratings'] as $rc => $rating) {
-				$images = R::getAll(
-					"SELECT DISTINCT(ii.photo_id), ii.checklistitem_id, ii.type file_extension, cli.item
-					 FROM `inspectionimage` ii
-					 LEFT JOIN checklistitem cli ON ii.checklistitem_id = cli.id
-					 WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\"
-					 AND checklistitem_id = " . $rating['checklistitem_id']
-				);
-
-				if(count($images)>0) {
-					foreach($images as $ictr => $imageInfo) {
-						$inspectionEntries[$ctr]['ratings'][$rc]['images'][] = "img/inspections/" . $inspectionEntries[$ctr]['inspection_uuid'] . "/" . $inspectionEntries[$ctr]['inspection_uuid'] . "_" . $rating['checklistitem_id'] . "_" . ($ictr + 1) . "." . $imageInfo['file_extension'];
-					}
-				}
-
-				if(array_key_exists('imageCount', $inspectionEntries[$ctr])) {
-					$inspectionEntries[$ctr]['imageCount'] += count($images);
-				} else {
-					$inspectionEntries[$ctr]['imageCount'] = 0;
-				}
-			}
+			$inspectionEntries = $this->searchForInspectionImages($inspectionEntries, $ctr);
 		}
 
 		return (!is_null($uuid) ? $inspectionEntries[0] : $inspectionEntries);
@@ -951,6 +931,53 @@ ORDER BY s.date_entered DESC, s.id DESC';
 			$customSearch .= (!empty($params['data']['equipment_type']) ? " AND et.equipment_type = '" . $params['data']['equipment_type'] . "'" : "");
 		}
 		return $customSearch;
+	}
+
+	/**
+	 * @param $inspectionEntries
+	 * @param $ctr
+	 * @return mixed
+	 */
+	public function searchForInspectionImages($inspectionEntries, $ctr)
+	{
+		foreach ($inspectionEntries[$ctr]['ratings'] as $rc => $rating) {
+			$images = R::getAll(
+				"SELECT DISTINCT(ii.photo_id), ii.checklistitem_id, ii.type file_extension, cli.item
+					 FROM `inspectionimage` ii
+					 LEFT JOIN checklistitem cli ON ii.checklistitem_id = cli.id
+					 WHERE uuid = \"" . $inspectionEntries[$ctr]['inspection_uuid'] . "\"
+					 AND checklistitem_id = " . $rating['checklistitem_id']
+			);
+
+			if (count($images) > 0) {
+				$inspectionEntries = $this->appendInspectionImages($inspectionEntries, $ctr, $images, $rating, $rc);
+			}
+
+			if (array_key_exists('imageCount', $inspectionEntries[$ctr])) {
+				$inspectionEntries[$ctr]['imageCount'] += count($images);
+			} else {
+				$inspectionEntries[$ctr]['imageCount'] = 0;
+			}
+		}
+		return $inspectionEntries;
+	}
+
+	/**
+	 * @param $inspectionEntries
+	 * @param $ctr
+	 * @param $images
+	 * @param $rating
+	 * @param $rc
+	 * @return mixed
+	 */
+	public function appendInspectionImages($inspectionEntries, $ctr, $images, $rating, $rc)
+	{
+		foreach ($images as $ictr => $imageInfo) {
+			$image_location = "img/inspections/" . $inspectionEntries[$ctr]['inspection_uuid'] . "/" . $inspectionEntries[$ctr]['inspection_uuid'] . "_" . $rating['checklistitem_id'] . "_" . ($ictr + 1) . "." . $imageInfo['file_extension'];
+
+			$inspectionEntries[$ctr]['ratings'][$rc]['images'][] = $image_location;
+		}
+		return $inspectionEntries;
 	}
 
 }

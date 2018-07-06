@@ -13,8 +13,22 @@ foreach($inspectionEntry['checklist_items'] as $clc => $cli) {
 
 			if(array_key_exists('images', $rating)) {
 				foreach ($rating['images'] as $rictr => $image) {
-					$inspectionCollection[$collectionCounter]['inspection_images'][] =
-						'<a href="' . $assetDirectory . '/' . $image . '" target="_new" ><img src="' . $assetDirectory . '/' . $image . '" width="350"></a>';
+					$image_location = base_url('assets/' . $image);
+
+					list($width, $height) = getimagesize($image_location);
+					if ($width > $height) {
+						// Landscape
+						$image_url = '<a href="' . base_url('assets/' . $image) . '" target="_new" ><img src="' . $image_location . '" width="350"></a>';
+
+						$inspectionCollection[$collectionCounter]['inspection_images'][] =
+							$image_url;
+					} else {
+						// Portrait or Square
+						$image_url = '<a href="' . base_url('assets/' . $image) . '" target="_new" ><img src="' . $image_location . '" height="350"></a>';
+
+						$inspectionCollection[$collectionCounter]['inspection_images'][] =
+							$image_url;
+					}
 				}
 			}
 		}
