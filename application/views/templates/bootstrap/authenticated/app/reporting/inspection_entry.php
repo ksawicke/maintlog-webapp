@@ -82,10 +82,6 @@
 	</tbody>
 </table>
 
-<pre>
-<?php var_dump($inspectionEntry); ?>
-</pre>
-
 <script>
 	$(document).ready(function () {
 		$("#downloadInspectionEntry").on('click', function (e) {

@@ -113,6 +113,12 @@ class Servicelog_model extends CI_Model {
                 $componentchange->component_data = $post['ccs_component_data'];
                 $componentchange->notes = $post['ccs_notes'];
                 R::store($componentchange);
+
+				$componentchangesmrupdate = R::dispense('componentchangesmrupdate');
+				$componentchangesmrupdate->servicelog_id = $servicelog_id;
+				$componentchangesmrupdate->previous_smr = $post['ccs_previous_smr'];
+				$componentchangesmrupdate->smr = $post['ccs_units'];
+				R::store($componentchangesmrupdate);
                 break;
         }
         
@@ -146,6 +152,23 @@ class Servicelog_model extends CI_Model {
             }
         }
     }
+
+    public function importServicelogs($data) {
+		foreach($data as $ctr => $rating) {
+			$now = date('Y-m-d h:i:s');
+
+			$this->createInspectionRecord($rating);
+
+			$inspectionRating = R::dispense('inspectionrating');
+			$inspectionRating->uuid = $rating->inspectionId;
+			$inspectionRating->checklistitem_id = $rating->checklistItemId;
+			$inspectionRating->rating = $rating->rating;
+			$inspectionRating->note = $rating->note;
+			$inspectionRating->created = $now;
+
+			R::store($inspectionRating);
+		}
+	}
     
     /**
      * Deletes a service log and its child records

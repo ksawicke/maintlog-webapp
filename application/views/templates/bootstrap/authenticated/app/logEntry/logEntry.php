@@ -423,6 +423,7 @@
                 $("#sus_previous_smr").val(object.last_smr);
                 $("#flu_previous_smr").val(object.last_smr);
                 $("#pss_smr_based_previous_smr").val(object.last_smr);
+				$("#ccs_previous_smr").val(object.last_smr);
             });
         }
         
@@ -480,6 +481,8 @@
 					$("label[for = pss_smr_based_previous_smr]").text(previous_smr_label);
 					$("label[for = pss_smr_based_current_smr]").text(current_smr_label);
 					$("label[for = flu_previous_smr]").text(previous_smr_label);
+					$("label[for = ccs_previous_smr]").text(previous_smr_label);
+					$("label[for = ccs_units]").text(current_smr_label);
                 });
 
 				if(!empty(service_log_object)) {
@@ -756,7 +759,9 @@
             }
             var serviceUrl = '<?php echo base_url(); ?>index.php/servicelog/save',
                 jsonData = getJsonToSave(currentSubflow, id);
-            
+
+            console.log(JSON.stringify(jsonData));
+
             $.ajax({
                 url: serviceUrl,
                 type: "POST",
@@ -766,7 +771,7 @@
             });
             
             confirmSubmitJBox.close();
-            
+
             window.location.href = window.location.href.split('?')[0]; // Redirects to page to enter a new service log
         }
         
@@ -1383,6 +1388,8 @@
                 json.ccs_component_type = $("#ccs_component_type").val();
                 json.ccs_component = $("#ccs_component").val();
                 json.ccs_component_data = $("#ccs_component_data").val();
+				json.ccs_previous_smr = $("#ccs_previous_smr").val();
+				json.ccs_current_smr = $("#ccs_units").val();
                 json.ccs_notes = $("#ccs_notes").val();
                 break;
         }
@@ -1545,6 +1552,8 @@
                 objectPush(json, "Component Type", "ccs_component_type", true);
                 objectPush(json, "Component", "ccs_component", true);
                 objectPush(json, "Component Data", "ccs_component_data", false);
+				objectPush(json, "Previous SMR", "ccs_previous_smr", false);
+				objectPush(json, "Current SMR", "ccs_units", false);
                 objectPush(json, "Notes", "ccs_notes", false);
                 break;
         }

@@ -34,6 +34,41 @@
 	<p class="form-error ccs_component_data_errors"></p>
 </div>
 
+<div class="form-section subflow ccs show-prev show-next">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label for="ccs_previous_smr" class="control-label lb-lg">Previous SMR</label>
+			<input
+				id="ccs_previous_smr"
+				name="ccs_previous_smr"
+				type="text"
+				class="form-control input-lg"
+				disabled>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label for="ccs_units" class="control-label lb-lg"></label>
+			<input
+				id="ccs_units"
+				name="ccs_units"
+				type="text"
+				class="form-control input-lg"
+				value=""
+				data-parsley-type="number"
+				data-parsley-required="true"
+				data-parsley-gt="0"
+				data-parsley-lt="9999999"
+				data-parsley-required-message="Please enter the current SMR or Miles"
+				data-parsley-gt-message="Please enter a quantity greater than 0"
+				data-parsley-lt-message="Please enter a quantity less than 9,999,999"
+				data-parsley-errors-container=".flu_units_errors">
+			<p class="form-error ccs_units_errors"></p>
+		</div>
+	</div>
+</div>
+
 <div class="form-section subflow ccs show-prev show-review">
 	<label for="ccs_notes" class="control-label lb-lg">Notes</label>
 	<textarea type="text"

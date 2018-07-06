@@ -5,6 +5,17 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.3
+		<ul>
+			<li>Changed the color of pagination links to match theme</li>
+			<li>Log Entry Report - changed the sort to reverse order on Log Entry ID instead of Date; This ensures you see most recent Log Entry at top of report</li>
+		</ul>
+	</li>
+	<li>3.0.2
+		<ul>
+			<li>Updated the Inspection Entry screen view as well as detail view to match data represented in the updated Excel spreadsheet (v 3.0.1)</li>
+		</ul>
+	</li>
 	<li>3.0.1
 		<ul>
 			<li>Adjusted the Inspection Entry Excel download report to add additional columns</li>

@@ -33,6 +33,16 @@ navbar-development {
 	padding: 0.25rem 3.5rem !important;
 }
 
+.page-item.active .page-link {
+	z-index: 1 !important;
+	color: #fff !important;
+	background-color: #0E1371 !important;
+	border-color: #0E1371 !important;
+}
+.page-link {
+	color: #0E1371 !important;
+}
+
 footer {
 	margin-top: 50px;
 }

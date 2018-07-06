@@ -80,8 +80,13 @@
     <ul>
         <li><?php echo $service_log['update_detail']['pm_level']; ?></li>
     </ul>
-    
-    <label>Current SMR</label>
+
+	<label>Previous SMR</label>
+	<ul>
+		<li><?php echo $service_log['update_detail']['previous_smr']; ?></li>
+	</ul>
+
+    <label>SMR</label>
     <ul>
         <li><?php echo $service_log['update_detail']['current_smr']; ?></li>
     </ul>
@@ -150,9 +155,14 @@
     <?php } ?>
     </ul>
 
+	<label>Previous SMR</label>
+	<ul>
+		<li><?php echo (array_key_exists('fluidentry_smr_detail', $service_log) ? $service_log['fluidentry_smr_detail']['previous_smr'] : ''); ?></li>
+	</ul>
+
 	<label>SMR</label>
 	<ul>
-		<li><?php echo $service_log['fluidentry_smr_detail']['smr']; ?></li>
+		<li><?php echo (array_key_exists('fluidentry_smr_detail', $service_log) ? $service_log['fluidentry_smr_detail']['smr'] : ''); ?></li>
 	</ul>
     
 <?php } ?>    
@@ -175,9 +185,23 @@
         <li><?php echo $service_log['update_detail']['component_data']; ?></li>
     </ul>
 
+	<label>Previous SMR</label>
+	<ul>
+		<li><?php echo (array_key_exists('componentchange_smr_detail', $service_log) ? $service_log['componentchange_smr_detail']['previous_smr'] : ''); ?></li>
+	</ul>
+
+	<label>SMR</label>
+	<ul>
+		<li><?php echo (array_key_exists('componentchange_smr_detail', $service_log) ? $service_log['componentchange_smr_detail']['smr'] : ''); ?></li>
+	</ul>
+
     <label>Notes</label>
     <ul>
         <li><?php echo $service_log['update_detail']['notes']; ?></li>
     </ul>
 
 <?php } ?>
+
+<pre>
+	<?php var_dump($service_log); ?>
+</pre>

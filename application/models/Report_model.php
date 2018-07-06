@@ -207,6 +207,7 @@ class Report_model extends CI_Model {
             
             case 'Component Change':
                 $service_logs[0]['update_detail'] = $this->getComponentChangeDetail($servicelog_id);
+                $service_logs[0]['componentchange_smr_detail'] = $this->getComponentChangeSMRUpdateDetail($servicelog_id);
                 break;
         }
         
@@ -288,12 +289,22 @@ class Report_model extends CI_Model {
     public function getFluidEntrySMRUpdateDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
-                fes.smr
+                fes.previous_smr, fes.smr
             FROM fluidentrysmrupdate fes
             WHERE fes.servicelog_id = '" . $servicelog_id . "'");
 
         return (!empty($detail) ? $detail[0] : []);
     }
+
+    public function getComponentChangeSMRUpdateDetail($servicelog_id = 0) {
+		$detail = R::getAll(
+			"SELECT
+                csu.previous_smr, csu.smr
+            FROM componentchangesmrupdate csu
+            WHERE csu.servicelog_id = '" . $servicelog_id . "'");
+
+		return (!empty($detail) ? $detail[0] : []);
+	}
 
     /**
      * Gets Fluid Entry object
@@ -335,7 +346,7 @@ class Report_model extends CI_Model {
                         WHEN 'time_based' THEN time.id
                         ELSE -1
                 END AS pm_id,
-                pm.current_smr, pm.due_units, pm.notes
+                pm.previous_smr, pm.current_smr, pm.due_units, pm.notes
             FROM pmservice pm
             LEFT OUTER JOIN smrchoice smr ON (smr.id = pm.pm_level AND pm.pm_type = 'smr_based')
             LEFT OUTER JOIN mileagechoice mileage ON (mileage.id = pm.pm_level AND pm.pm_type = 'mileage_based')
@@ -793,9 +804,9 @@ ORDER BY s.date_entered DESC, s.id DESC';
 		}
 		sort($service_logs);
 
-		/** Sorts by date_entered DESC */
+		/** Sorts by id DESC */
 		array_multisort(array_map(function($element) {
-			return $element['date_entered'];
+			return $element['id'];
 		}, $service_logs), SORT_DESC, $service_logs);
 
 		return $service_logs;

@@ -8,7 +8,7 @@
 	<title><?php echo $title; ?></title>
 
 	<!-- Bootstrap core CSS -->
-	<link href="<?php echo $assetDirectory; ?>bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo $assetDirectory; ?>bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet">
 	<link href="<?php echo $assetDirectory; ?>bootstrap/4.0.0/css/komatsu_custom.css" rel="stylesheet">
 

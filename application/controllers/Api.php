@@ -275,6 +275,32 @@ class Api extends REST_Controller
 	}
 
 	/**
+	 * Create log entries
+	 * POST /api/upload_log_entries?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function upload_log_entries_post() {
+		$apiKey = $_REQUEST['api_key'];
+		$postBody = file_get_contents('php://input');
+		$data = json_decode($postBody);
+
+		if($apiKey==API_KEY) {
+			$this->load->model('Servicelog_model');
+			$this->Servicelog_model->importServicelogs($data->logentries);
+
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'data' => $data
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
 	 * Create inspection ratings
 	 * POST /api/upload_inspection_ratings?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
@@ -436,7 +462,7 @@ class Api extends REST_Controller
 	 * @param    mixed   input data
 	 * @return   mixed   cleaned input data
 	 */
-	private function stripslashesFull($input)
+	protected function stripslashesFull($input)
 	{
 		if (is_array($input)) {
 			$input = array_map('stripslashesFull', $input);

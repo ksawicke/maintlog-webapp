@@ -84,6 +84,10 @@ FROM equipmentunit
                         WHERE s.unit_number = \"" . $equipment_unit_id . "\") AS smrvalues
                 GROUP BY unit_number";
 
+		/**
+		 * componentchangesmrupdate
+		 */
+
 		/*UNION ALL
 					SELECT '" . $equipment_unit_id . "' unit_number, MAX(is.smr) smr from inspectionsmrupdate isu
 							LEFT JOIN inspection i ON i.uuid = isu.uuid
