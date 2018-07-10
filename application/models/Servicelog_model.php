@@ -117,7 +117,7 @@ class Servicelog_model extends CI_Model {
 				$componentchangesmrupdate = R::dispense('componentchangesmrupdate');
 				$componentchangesmrupdate->servicelog_id = $servicelog_id;
 				$componentchangesmrupdate->previous_smr = $post['ccs_previous_smr'];
-				$componentchangesmrupdate->smr = $post['ccs_units'];
+				$componentchangesmrupdate->smr = $post['ccs_current_smr'];
 				R::store($componentchangesmrupdate);
                 break;
         }

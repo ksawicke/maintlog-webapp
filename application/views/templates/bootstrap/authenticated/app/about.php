@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.0.11
+		<ul>
+			<li>Updated issue where Component Change was not updating SMR correctly</li>
+		</ul>
+	</li>
 	<li>3.0.7
 		<ul>
 			<li>Adjust Log Entry detail to remove troubleshooting data at bottom</li>

@@ -316,7 +316,8 @@ class Api extends REST_Controller
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'data' => $data
+				'data' => $data,
+				'postBody' => $postBody
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
@@ -333,12 +334,13 @@ class Api extends REST_Controller
 
 		if($apiKey==API_KEY) {
 			$this->load->model('Inspectionrating_model');
-			$this->Inspectionrating_model->doSMRUpdate($data->smrupdates);
+			$this->Inspectionrating_model->doSMRUpdate($postBody);
 
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'data' => $data
+				'data' => $data,
+				'postBody' => $postBody
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
