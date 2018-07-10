@@ -5,6 +5,9 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<ul>3.0.13
+		<li>Update query to check previous SMR to include Inspection and Component Change SMR updates</li>
+	</ul>
 	<ul>3.0.12
 		<li>Update API to block import of Log Entries for now; need to double check structure of data first</li>
 	</ul>

@@ -83,6 +83,13 @@ class Inspectionrating_model extends CI_Model
                         LEFT JOIN servicelog s ON s.id = fes.servicelog_id
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
                         WHERE s.unit_number = " . $equipment_unit_id . "
+                        
+                UNION ALL
+                	SELECT '" . $equipment_unit_id . "' unit_number, MAX(ccsu.smr) smr from componentchangesmrupdate ccsu
+                		LEFT JOIN servicelog s ON s.id = ccsu.servicelog_id
+                		LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
+                		WHERE s.unit_number = " . $equipment_unit_id . "        
+                        
                 UNION ALL
 					SELECT '" . $equipment_unit_id . "' unit_number, MAX(isu.smr) smr from inspectionsmrupdate isu
 							LEFT JOIN inspection i ON i.uuid = isu.uuid
