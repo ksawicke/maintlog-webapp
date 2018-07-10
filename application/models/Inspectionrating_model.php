@@ -65,7 +65,7 @@ class Inspectionrating_model extends CI_Model
 	 */
 	public function doSMRUpdate($data) {
 		foreach($data as $ctr => $smrupdate) {
-			$now = date('Y-m-d h:i:s');
+//			$now = date('Y-m-d h:i:s');
 
 			$inspectionSmrUpdate = R::dispense('inspectionsmrupdate');
 			$inspectionSmrUpdate->uuid = $smrupdate->inspectionId;
@@ -84,8 +84,8 @@ class Inspectionrating_model extends CI_Model
                         LEFT JOIN equipmentunit eu ON eu.unit_number = s.unit_number
                         WHERE s.unit_number = " . $equipment_unit_id . "
                 UNION ALL
-					SELECT '" . $equipment_unit_id . "' unit_number, MAX(is.smr) smr from inspectionsmrupdate is
-							LEFT JOIN inspection i ON i.uuid = is.uuid
+					SELECT '" . $equipment_unit_id . "' unit_number, MAX(isu.smr) smr from inspectionsmrupdate isu
+							LEFT JOIN inspection i ON i.uuid = isu.uuid
 							LEFT JOIN equipmentunit eu ON eu.id = i.equipmentunit_id
 							WHERE eu.unit_number = " . $equipment_unit_id . "
                 UNION ALL

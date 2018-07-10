@@ -334,7 +334,7 @@ class Api extends REST_Controller
 
 		if($apiKey==API_KEY) {
 			$this->load->model('Inspectionrating_model');
-			$this->Inspectionrating_model->doSMRUpdate($postBody);
+			$this->Inspectionrating_model->doSMRUpdate($data->smrupdates);
 
 			$this->response([
 				'status' => TRUE,

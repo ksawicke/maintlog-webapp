@@ -5,6 +5,9 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<ul>3.0.12
+		<li>Update API to block import of Log Entries for now; need to double check structure of data first</li>
+	</ul>
 	<li>3.0.11
 		<ul>
 			<li>Updated issue where Component Change was not updating SMR correctly</li>

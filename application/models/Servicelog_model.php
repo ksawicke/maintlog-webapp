@@ -154,19 +154,19 @@ class Servicelog_model extends CI_Model {
     }
 
     public function importServicelogs($data) {
-		foreach($data as $ctr => $rating) {
-			$now = date('Y-m-d h:i:s');
-
-			$this->createInspectionRecord($rating);
-
-			$inspectionRating = R::dispense('inspectionrating');
-			$inspectionRating->uuid = $rating->inspectionId;
-			$inspectionRating->checklistitem_id = $rating->checklistItemId;
-			$inspectionRating->rating = $rating->rating;
-			$inspectionRating->note = $rating->note;
-			$inspectionRating->created = $now;
-
-			R::store($inspectionRating);
+		foreach($data as $ctr => $logentry) {
+//			$now = date('Y-m-d h:i:s');
+//
+//			$this->createInspectionRecord($rating);
+//
+//			$inspectionRating = R::dispense('inspectionrating');
+//			$inspectionRating->uuid = $rating->inspectionId;
+//			$inspectionRating->checklistitem_id = $rating->checklistItemId;
+//			$inspectionRating->rating = $rating->rating;
+//			$inspectionRating->note = $rating->note;
+//			$inspectionRating->created = $now;
+//
+//			R::store($inspectionRating);
 		}
 	}
     
