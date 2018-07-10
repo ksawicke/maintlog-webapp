@@ -155,6 +155,11 @@ class Servicelog_model extends CI_Model {
 
     public function importServicelogs($data) {
 		foreach($data as $ctr => $logentry) {
+
+//			echo '<pre>';
+//			var_dump($logentry);
+//			echo '</pre>';
+
 //			$now = date('Y-m-d h:i:s');
 //
 //			$this->createInspectionRecord($rating);

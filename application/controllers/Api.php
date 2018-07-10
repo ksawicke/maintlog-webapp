@@ -283,14 +283,55 @@ class Api extends REST_Controller
 		$postBody = file_get_contents('php://input');
 		$data = json_decode($postBody);
 
+		/**
+		 * "uuid": uuid,
+		   "equipmentUnitId": equipmentUnitId,
+		   "subflow": subflow,
+		   "jsonData": jsonData
+		 */
+
+//		$servicelog = R::dispense('servicelog');
+//		$servicelog->date_entered = date('Y-m-d', strtotime($post['date_entered']));
+//		$servicelog->entered_by = $post['entered_by'];
+//		$servicelog->unit_number = $post['unit_number'];
+//		$servicelog->created = $now;
+//		$servicelog_id = R::store($servicelog);
+//
+//		$servicedBys = explode("|", $post['serviced_by']);
+//		foreach($servicedBys as $ctr => $serviceByUserId) {
+//			$servicelog_servicedby = R::dispense('servicelogservicedby');
+//			$servicelog_servicedby->servicelog_id = $servicelog_id;
+//			$servicelog_servicedby->user_id = $serviceByUserId;
+//			$servicelog_servicedby_id = R::store($servicelog_servicedby);
+//		}
+//
+//		switch($post['subflow']) {
+//			case 'sus':
+//				$smrupdate = R::dispense('smrupdate');
+//				$smrupdate->servicelog_id = $servicelog_id;
+//				$smrupdate->previous_smr = $post['sus_previous_smr'];
+//				$smrupdate->smr = $post['sus_current_smr'];
+
+
+
+
 		if($apiKey==API_KEY) {
-			$this->load->model('Servicelog_model');
-			$this->Servicelog_model->importServicelogs($data->logentries);
+//			$this->load->model('Servicelog_model');
+//
+//			$array = [];
+//
+//			foreach($data->logentries as $ctr => $logentry) {
+//				$this->Servicelog_model->store((array) $logentry, 0);
+//			}
+
+//			exit();
 
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-				'data' => $data
+				'data' => $data,
+				'postBody' => $postBody,
+//				'array' => $array
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
