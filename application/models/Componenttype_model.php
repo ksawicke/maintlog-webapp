@@ -23,6 +23,19 @@ class Componenttype_model extends CI_Model {
         
         return $componenttype;
     }
+
+	/**
+	 * Finds component type(s) via API.
+	 *
+	 * @param int $id
+	 * @return array
+	 */
+	public function findAllApi($id = 0) {
+		$componenttypes = R::getAll('SELECT id, component_type
+		FROM componenttype ' . ($id > 0 ? ' WHERE id = ' . $id : '') . ' ORDER BY component_type ASC');
+
+		return $componenttypes;
+	}
     
     /**
      * Finds all component type objects.

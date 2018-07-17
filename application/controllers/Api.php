@@ -275,6 +275,72 @@ class Api extends REST_Controller
 	}
 
 	/**
+	 * Get all component types
+	 * GET /api/component_type?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single fluid type by $id
+	 * GET /api/component_type/11?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function componenttype_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Componenttype_model');
+
+		if(is_null($id)) {
+			$componenttypes = $this->Componenttype_model->findAllApi();
+		} else {
+			$componenttypes = $this->Componenttype_model->findAllApi($id);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'componenttypes' => $componenttypes,
+				'count' => count($componenttypes)
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
+	 * Get all components
+	 * GET /api/component?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 *
+	 * Get a single fluid type by $id
+	 * GET /api/component/11?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function component_get($id = null) {
+		$apiKey = $_REQUEST['api_key'];
+
+		$this->load->model('Component_model');
+
+		if(is_null($id)) {
+			$components = $this->Component_model->findAllApi();
+		} else {
+			$components = $this->Component_model->findAllApi($id);
+		}
+
+		if($apiKey==API_KEY) {
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'components' => $components,
+				'count' => count($components)
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
 	 * Create log entries
 	 * POST /api/upload_log_entries?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */

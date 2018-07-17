@@ -23,6 +23,19 @@ class Component_model extends CI_Model {
         
         return $component;
     }
+
+	/**
+	 * Finds component object(s) via API.
+	 *
+	 * @param int $id
+	 * @return array
+	 */
+	public function findAllApi($id = 0) {
+		$components = R::getAll('SELECT id, component
+		FROM component ' . ($id > 0 ? ' WHERE id = ' . $id : '') . ' ORDER BY component ASC');
+
+		return $components;
+	}
     
     /**
      * Finds all component objects.
