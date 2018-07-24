@@ -37,8 +37,8 @@ class Servicelog_model extends CI_Model {
             case 'sus':
                 $smrupdate = R::dispense('smrupdate');
                 $smrupdate->servicelog_id = $servicelog_id;
-                $smrupdate->previous_smr = $post['sus_previous_smr'];
-                $smrupdate->smr = $post['sus_current_smr'];
+                $smrupdate->previous_smr = (int) $post['sus_previous_smr'];
+                $smrupdate->smr = (int) $post['sus_current_smr'];
                 R::store($smrupdate);
                 break;
             
