@@ -16,7 +16,7 @@ class Servicelog_model extends CI_Model {
      * Creates or modifies record
      */
     public function store($post, $prev_service_log) {
-		list($now, $servicelog, $servicelog_id) = $this->createServiceLogRecord($post);
+    	list($now, $servicelog, $servicelog_id) = $this->createServiceLogRecord($post);
         
         $servicedBys = explode("|", $post['serviced_by']);
         foreach($servicedBys as $ctr => $serviceByUserId) {
@@ -29,12 +29,15 @@ class Servicelog_model extends CI_Model {
                 break;
             
             case 'flu':
-                foreach($post['fluid_added'] as $ctr => $fluid_added) {
-                    if(!empty($fluid_added['type'])) {
-						$this->createServiceLogFluidEntryRecord($servicelog_id, $fluid_added);
+            	foreach($post['fluid_added'] as $ctr => $fluid_added) {
+            		$post['fluid_added'][$ctr] = (array) $post['fluid_added'][$ctr];
+//            		echo '<pre>';
+//            		var_dump($post);
+                    if(!empty($post['fluid_added'][$ctr]['type'])) {
+                    	$this->createServiceLogFluidEntryRecord($servicelog_id, (array) $fluid_added);
                     }
                 }
-
+//exit();
 				$this->createServiceLogFluidEntrySMRUpdateRecord($post, $servicelog_id);
                 break;
             

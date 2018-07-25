@@ -349,27 +349,16 @@ class Api extends REST_Controller
 		$postBody = file_get_contents('php://input');
 		$data = json_decode($postBody);
 
-//		echo '<pre>';
-//////		$test = $this->stripslashesFull($postBody);
-//		var_dump($data);
-////////		var_dump(json_decode($postBody));
-//		exit();
-
 		if($apiKey==API_KEY) {
 			$this->load->model('Servicelog_model');
-//
-//			$array = [];
-//
+
 			foreach($data as $ctr => $logentry) {
 				$this->Servicelog_model->store((array) $logentry[0], 0);
 			}
 
-//			exit();
-
 			$this->response([
 				'status' => TRUE,
-				'message' => 'OK',
-//				'array' => $array
+				'message' => 'OK'
 			], REST_Controller::HTTP_OK);
 		} else {
 			$this->response([
