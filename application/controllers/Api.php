@@ -369,8 +369,6 @@ class Api extends REST_Controller
 			$this->response([
 				'status' => TRUE,
 				'message' => 'OK',
-//				'data' => $data,
-//				'postBody' => $postBody,
 //				'array' => $array
 			], REST_Controller::HTTP_OK);
 		} else {
