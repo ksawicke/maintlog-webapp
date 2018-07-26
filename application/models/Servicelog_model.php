@@ -203,7 +203,7 @@ class Servicelog_model extends CI_Model {
 		$fluidentry->servicelog_id = $servicelog_id;
 		$fluidentry->type = $fluid_added['type'];
 		$fluidentry->quantity = $fluid_added['quantity'];
-		$fluidentry->units = $fluid_added['units'];
+		$fluidentry->units = (string) $fluid_added['units'];
 		R::store($fluidentry);
 	}
 
