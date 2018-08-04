@@ -11,11 +11,18 @@ class Servicelog_model extends CI_Model {
         
         date_default_timezone_set('America/Phoenix');
     }
+
+	public function findCountByUUID($uuid) {
+		$count = R::count('servicelog', ' uuid = :uuid ', [':uuid' => $uuid]);
+
+		return $count;
+	}
     
     /**
      * Creates or modifies record
      */
     public function store($post, $prev_service_log) {
+
     	list($now, $servicelog, $servicelog_id) = $this->createServiceLogRecord($post);
         
         $servicedBys = explode("|", $post['serviced_by']);
@@ -31,13 +38,12 @@ class Servicelog_model extends CI_Model {
             case 'flu':
             	foreach($post['fluid_added'] as $ctr => $fluid_added) {
             		$post['fluid_added'][$ctr] = (array) $post['fluid_added'][$ctr];
-//            		echo '<pre>';
-//            		var_dump($post);
-                    if(!empty($post['fluid_added'][$ctr]['type'])) {
+
+                    if(!empty($post['fluid_added'][$ctr]['quantity'])) {
                     	$this->createServiceLogFluidEntryRecord($servicelog_id, (array) $fluid_added);
                     }
                 }
-//exit();
+
 				$this->createServiceLogFluidEntrySMRUpdateRecord($post, $servicelog_id);
                 break;
             
@@ -199,12 +205,14 @@ class Servicelog_model extends CI_Model {
 	 */
 	public function createServiceLogFluidEntryRecord($servicelog_id, $fluid_added)
 	{
-		$fluidentry = R::dispense('fluidentry');
-		$fluidentry->servicelog_id = $servicelog_id;
-		$fluidentry->type = $fluid_added['type'];
-		$fluidentry->quantity = $fluid_added['quantity'];
-		$fluidentry->units = (string) $fluid_added['units'];
-		R::store($fluidentry);
+		if(!empty($fluid_added['quantity']) || !empty($fluid_added['type'])) {
+			$fluidentry = R::dispense('fluidentry');
+			$fluidentry->servicelog_id = $servicelog_id;
+			$fluidentry->type = $fluid_added['type'];
+			$fluidentry->quantity = $fluid_added['quantity'];
+			$fluidentry->units = (string)$fluid_added['units'];
+			R::store($fluidentry);
+		}
 	}
 
 	/**

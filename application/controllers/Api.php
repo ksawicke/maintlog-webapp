@@ -341,6 +341,34 @@ class Api extends REST_Controller
 	}
 
 	/**
+	 * Get last smr by $id
+	 * GET /api/last_smr/11?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
+	 */
+	public function last_smr_get($equipment_unit_id = null) {
+		$apiKey = $_REQUEST['api_key'];
+		$postBody = file_get_contents('php://input');
+		$data = json_decode($postBody);
+
+		if($apiKey==API_KEY && $equipment_unit_id!=null) {
+			$this->load->model('Equipmentunit_model');
+			$this->load->model('Inspectionrating_model');
+
+			$previous_smr = $this->Equipmentunit_model->findLastSMR($equipment_unit_id);
+
+			$this->response([
+				'status' => TRUE,
+				'message' => 'OK',
+				'previous_smr' => $previous_smr
+			], REST_Controller::HTTP_OK);
+		} else {
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Invalid credentials. Please try again.'
+			], REST_Controller::HTTP_UNAUTHORIZED);
+		}
+	}
+
+	/**
 	 * Create log entries
 	 * POST /api/upload_log_entries?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
@@ -351,9 +379,39 @@ class Api extends REST_Controller
 
 		if($apiKey==API_KEY) {
 			$this->load->model('Servicelog_model');
+			$this->load->model('Equipmentunit_model');
 
 			foreach($data as $ctr => $logentry) {
-				$this->Servicelog_model->store((array) $logentry[0], 0);
+				if($this->Servicelog_model->findCountByUUID((string) $logentry[0]->uuid)==0) {
+					$equipment_unit_id = $logentry[0]->unit_number;
+					$previous_smr = $this->Equipmentunit_model->findLastSMR($equipment_unit_id);
+
+					// Ensure we get the last SMR. We have to
+					// assume if the user was using the mobile app,
+					// they did not have network connectivity and
+					// the form did not have the previous SMR to
+					// submit here.
+					switch($logentry[0]->subflow) {
+						case 'sus':
+							$logentry[0]->sus_previous_smr = $previous_smr;
+							break;
+
+						case 'flu':
+							$logentry[0]->flu_previous_smr = $previous_smr;
+							break;
+
+						case 'pss':
+							$logentry[0]->pss_smr_based_previous_smr = $previous_smr;
+							break;
+
+						case 'ccs':
+							$logentry[0]->ccs_previous_smr = $previous_smr;
+							break;
+
+					}
+
+					$this->Servicelog_model->store((array) $logentry[0], 0);
+				}
 			}
 
 			$this->response([
