@@ -273,7 +273,7 @@ class Report_model extends CI_Model {
     public function getSMRUpdateDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
-                smr.smr
+                smr.previous_smr, smr.smr, smr.note
             FROM smrupdate smr
             WHERE smr.servicelog_id = '" . $servicelog_id . "'");
 
@@ -289,7 +289,7 @@ class Report_model extends CI_Model {
     public function getFluidEntrySMRUpdateDetail($servicelog_id = 0) {
         $detail = R::getAll(
             "SELECT
-                fes.previous_smr, fes.smr
+                fes.previous_smr, fes.smr, fes.note
             FROM fluidentrysmrupdate fes
             WHERE fes.servicelog_id = '" . $servicelog_id . "'");
 

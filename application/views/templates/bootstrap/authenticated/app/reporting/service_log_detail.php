@@ -45,10 +45,20 @@
 
 
 <?php if($service_log['entry_type']=='SMR Update') { ?>
-    <label>SMR</label>
+	<label>Previous SMR</label>
+	<ul>
+		<li><?php echo $service_log['update_detail']['previous_smr']; ?></li>
+	</ul>
+
+	<label>SMR</label>
     <ul>
         <li><?php echo $service_log['update_detail']['smr']; ?></li>
     </ul>
+
+	<label>Note</label>
+	<ul>
+		<li><?php echo $service_log['update_detail']['note']; ?></li>
+	</ul>
 <?php } ?>
 
 
@@ -163,6 +173,11 @@
 	<label>SMR</label>
 	<ul>
 		<li><?php echo (array_key_exists('fluidentry_smr_detail', $service_log) ? $service_log['fluidentry_smr_detail']['smr'] : ''); ?></li>
+	</ul>
+
+	<label>Note</label>
+	<ul>
+		<li><?php echo (array_key_exists('fluidentry_smr_detail', $service_log) ? $service_log['fluidentry_smr_detail']['note'] : ''); ?></li>
 	</ul>
     
 <?php } ?>    

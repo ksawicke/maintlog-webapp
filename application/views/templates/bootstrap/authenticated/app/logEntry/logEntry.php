@@ -1311,6 +1311,7 @@
             case 'sus':
 				json.sus_previous_smr = $("#sus_previous_smr").val();
                 json.sus_current_smr = $("#sus_current_smr").val();
+				json.sus_notes = $("#sus_notes").val();
                 break;
                 
             case 'flu':
@@ -1425,6 +1426,7 @@
             case 'sus':
                 objectPush(json, "Previous SMR", "sus_previous_smr", false);
                 objectPush(json, "Current SMR", "sus_current_smr", false);
+                objectPush(json, "Notes", "sus_notes", false);
                 break;
                 
             case 'flu':

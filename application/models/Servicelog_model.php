@@ -251,6 +251,7 @@ class Servicelog_model extends CI_Model {
 		$smrupdate->servicelog_id = $servicelog_id;
 		$smrupdate->previous_smr = (int)$post['sus_previous_smr'];
 		$smrupdate->smr = (int)$post['sus_current_smr'];
+		$smrupdate->note = $post['sus_notes'];
 		R::store($smrupdate);
 	}
 

@@ -1,4 +1,4 @@
-<div class="form-section subflow sus show-prev show-review">
+<div class="form-section subflow sus show-prev show-next">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12">
 			<label for="sus_previous_smr" class="control-label lb-lg">Previous SMR</label>
@@ -29,6 +29,19 @@
 				data-parsley-lt-message="Please enter a quantity less than 9,999,999"
 				data-parsley-errors-container=".sus_current_smr_errors">
 			<p class="form-error sus_current_smr_errors"></p>
+		</div>
+	</div>
+</div>
+
+<div class="form-section subflow sus show-prev show-review">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<label for="sus_notes" class="control-label lb-lg">Notes</label>
+			<textarea type="text"
+					  id="sus_notes"
+					  name="sus_notes"
+					  class="form-control input-lg"
+					  value=""></textarea>
 		</div>
 	</div>
 </div>
