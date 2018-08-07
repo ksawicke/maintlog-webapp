@@ -5,6 +5,14 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<ul>3.2.0
+		<li>Add new API endpoints for Component and Component Type</li>
+		<li>Update API endpoints in general based on testing iOS app</li>
+		<li>Update endpoint test upload Component Change from iOS app</li>
+		<li>Update endpoint test upload Fluid Entry from iOS app</li>
+		<li>Update Service Log Model</li>
+		<li>Shore up saving of Log Entry for SMR Update, Fluid Entry, Component Change; Verify when you add these via the iOS app they appear correctly on the website after upload of data.</li>
+	</ul>
 	<ul>3.0.13
 		<li>Update query to check previous SMR to include Inspection and Component Change SMR updates</li>
 	</ul>
