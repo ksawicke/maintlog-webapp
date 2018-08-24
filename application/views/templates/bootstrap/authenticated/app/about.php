@@ -5,23 +5,36 @@
 <br />
 
 <ul><strong>Application updates</strong>
-	<ul>3.2.1
-		<li>Updated API so that the iOS app can upload PM Service updates</li>
-	</ul>
-	<ul>3.2.0
-		<li>Add new API endpoints for Component and Component Type</li>
-		<li>Update API endpoints in general based on testing iOS app</li>
-		<li>Update endpoint test upload Component Change from iOS app</li>
-		<li>Update endpoint test upload Fluid Entry from iOS app</li>
-		<li>Update Service Log Model</li>
-		<li>Shore up saving of Log Entry for SMR Update, Fluid Entry, Component Change; Verify when you add these via the iOS app they appear correctly on the website after upload of data.</li>
-	</ul>
-	<ul>3.0.13
-		<li>Update query to check previous SMR to include Inspection and Component Change SMR updates</li>
-	</ul>
-	<ul>3.0.12
-		<li>Update API to block import of Log Entries for now; need to double check structure of data first</li>
-	</ul>
+	<li>3.2.2
+		<ul>
+			<li>Updated help about screen</li>
+		</ul>
+	</li>
+	<li>3.2.1
+		<ul>
+			<li>Updated API so that the iOS app can upload PM Service updates</li>
+		</ul>
+	</li>
+	<li>3.2.0
+		<ul>
+			<li>Add new API endpoints for Component and Component Type</li>
+			<li>Update API endpoints in general based on testing iOS app</li>
+			<li>Update endpoint test upload Component Change from iOS app</li>
+			<li>Update endpoint test upload Fluid Entry from iOS app</li>
+			<li>Update Service Log Model</li>
+			<li>Shore up saving of Log Entry for SMR Update, Fluid Entry, Component Change; Verify when you add these via the iOS app they appear correctly on the website after upload of data.</li>
+		</ul>
+	</li>
+	<li>3.0.13
+		<ul>
+			<li>Update query to check previous SMR to include Inspection and Component Change SMR updates</li>
+		</ul>
+	</li>
+	<li>3.0.12
+		<ul>
+			<li>Update API to block import of Log Entries for now; need to double check structure of data first</li>
+		</ul>
+	</li>
 	<li>3.0.11
 		<ul>
 			<li>Updated issue where Component Change was not updating SMR correctly</li>
