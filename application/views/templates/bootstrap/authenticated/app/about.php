@@ -5,6 +5,9 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<ul>3.2.1
+		<li>Updated API so that the iOS app can upload PM Service updates</li>
+	</ul>
 	<ul>3.2.0
 		<li>Add new API endpoints for Component and Component Type</li>
 		<li>Update API endpoints in general based on testing iOS app</li>
