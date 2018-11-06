@@ -763,9 +763,9 @@ class App extends MY_Controller {
         $this->load->model('Reminderrecipient_model');
         
         $data['flashdata'] = $this->session->flashdata();
-        $reminderrecipient = (!is_null($reminderrecipient_id) ? $this->Reminderrecipient_model->findOne($reminderrecipient_id) : []);
+        $reminderrecipient = (!is_null($reminderrecipient_id) ? $this->Reminderrecipient_model->findOne($reminderrecipient_id) : $this->Reminderrecipient_model->findAll());
         $data['reminderrecipient_id'] = (!is_null($reminderrecipient_id) ? $reminderrecipient_id : 0);
-        $data['reminderrecipient_reminder_recipient'] = (!empty($reminderrecipient) ? $reminderrecipient->reminder_recipient : '');
+        $data['reminderrecipient_reminder_recipient'] = (!empty($reminderrecipient) ? $reminderrecipient : []);
         
         $data['navigation_highlight'] = 'addReminderRecipient';
         $data['appsetting_navigation'] = $this->load->view('templates/bootstrap/authenticated/app/appsetting_navigation', $data, true);

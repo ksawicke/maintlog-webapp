@@ -30,7 +30,7 @@ class Reminderrecipient_model extends CI_Model {
      * @return type
      */
     public function findAll() {
-        $reminderrecipient = R::findAll('reminderrecipient', ' ORDER BY reminder_recipient ASC');
+        $reminderrecipient = R::findAll('reminderrecipient', ' ORDER BY user_id ASC');
         
         return $reminderrecipient;
     }

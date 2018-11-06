@@ -696,8 +696,12 @@
             }).done(function(object) {
                 var personResponsibleSelectedUnit = $("#unit_number").find(":selected").attr('data-person-responsible');
                 var personResponsibleArray = personResponsibleSelectedUnit.split("|");
+				for(var i=0; i < personResponsibleArray.length; i++) {
+					personResponsibleArray[i] = parseInt(personResponsibleArray[i], 10);
+				}
                 
                 $('#pss_reminder_recipients').empty();
+				$('#pss_responsible_reminder_recipients').empty();
                 $('#pss_additional_reminder_recipients').empty();
                 
                 $.each(object.data, function(id, userData) {
@@ -706,16 +710,16 @@
                         display = userData.last_name + ", " + userData.first_name + " <" + userData.email_address + ">",
                         active = userData.active,
                         logentry_reminderrecipient = userData.logentry_reminderrecipient;
-                    var isPersonResponsibleForSelectedUnit = $.inArray(id, personResponsibleArray);
+                    var isPersonResponsibleForSelectedUnit = (personResponsibleArray.lastIndexOf(id)===-1 ? 1 : 0);
 
-                    if(logentry_reminderrecipient==="1" && !empty(email_address)) { 
-                        $("#pss_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
+                    if(logentry_reminderrecipient===1 && !empty(email_address)) {
+                        $('#pss_reminder_recipients').append('<option value="' + email_address + '" selected>' + display + '</option>');
                     }
-                    if(isPersonResponsibleForSelectedUnit!==-1 && !empty(email_address)) {
-                        $("#pss_responsible_reminder_recipients").append('<option value="' + email_address + '" selected>' + display + '</option>');
+                    if(isPersonResponsibleForSelectedUnit===0 && !empty(email_address)) {
+                        $('#pss_responsible_reminder_recipients').append('<option value="' + email_address + '" selected>' + display + '</option>');
                     }
                     if(!empty(email_address)) {
-                        $("#pss_additional_reminder_recipients").append('<option value="' + email_address + '">' + display + '</option>');
+                        $('#pss_additional_reminder_recipients').append('<option value="' + email_address + '">' + display + '</option>');
                     }
                 });
                 
@@ -863,7 +867,7 @@
         }
         
         function updateSubflowFieldsToEdit(object) {
-            switch(object.subflow) {
+        	switch(object.subflow) {
                 case 'sus':  // SMR Update
                     updateSMRUpdateSubflowFieldsToEdit(object);
                     break;
@@ -939,8 +943,8 @@
             }
         }
         
-        function updatePMServiceFieldsToEdit(object) {            
-            $("#pss_pm_type").val(object.update_detail.pm_type);
+        function updatePMServiceFieldsToEdit(object) {
+        	$("#pss_pm_type").val(object.update_detail.pm_type);
             initPssSMRBasedPMLevel(object.update_detail.pm_type);
             $("#pss_smr_based_current_smr").val(object.update_detail.current_smr);
             
@@ -962,11 +966,6 @@
             doPssReminderPMTypeStuff();
             $("#pss_due_units").val(object.update_detail.due_units);
             $("#pss_notes").val(object.update_detail.notes);
-
-            populateReminderRecipientsWithData("<?php echo base_url(); ?>index.php/users/getUsers");
-            $.each(object.update_detail.pmservicereminder, function(id, reminder) {
-                $("#pss_additional_reminder_recipients").val(reminder.emails);
-            });
 
             $("#pss_reminder_quantity").val(object.update_detail.pmservicereminder[0].quantity);
             $("#pss_reminder_units").val(object.update_detail.pmservicereminder[0].units);
@@ -1100,6 +1099,11 @@
                 populateComponentDropdownWithData("<?php echo base_url(); ?>index.php/components/getComponents",
                     $("#ccs_component"));
             }
+
+            // var object = {};
+            // object.subflow = $('#subflow :selected').val();
+			//
+            // updateSubflowFieldsToEdit(object);
         });
 
         // Previous button is easy, just go back

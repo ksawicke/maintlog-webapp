@@ -48,7 +48,7 @@
                     current = userData.current,
                     reminderrecipient = userData.logentry_reminderrecipient;
 
-                $('#reminder_recipient').append('<option value="' + id + '"' + (reminderrecipient === '1' ? ' selected' : '' ) + '>' + value + '</option>');
+                $('#reminder_recipient').append('<option value="' + id + '"' + (reminderrecipient === 1 ? ' selected' : '' ) + '>' + value + '</option>');
             });
         }
         

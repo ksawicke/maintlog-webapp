@@ -25,21 +25,30 @@ class Users extends MY_Controller {
     }
     
     public function getUsers() {
+		$this->load->model('Reminderrecipient_model');
+
         $post = json_decode(file_get_contents('php://input'), true);
-        $usermodel = [];
+		$userModel = [];
+		$reminderRecipients = [];
         
-        $usermodel = $this->User_model->findAll();
+        $userModel = $this->User_model->findAll();
+        $reminderRecipientModel = $this->Reminderrecipient_model->findAll();
+
+        foreach($reminderRecipientModel as $id => $reminderRecipient) {
+        	$reminderRecipients[] = $reminderRecipient->user_id;
+		}
         
-        if(empty($usermodel)) {
+        if(empty($userModel)) {
             http_response_code(404);
             echo json_encode(['success' => false]);
         } else {
-            foreach($usermodel as $id => $userData) {
-                $usermodel[$id]['current'] = (($userData['id']===$_SESSION['user_id']) ? "1" : "0");
+            foreach($userModel as $id => $userData) {
+				$userModel[$id]['current'] = (($userData['id']===$_SESSION['user_id']) ? "1" : "0");
+				$userModel[$id]['isReminderRecipient'] = (in_array($userData['id'], $reminderRecipients) ? "1" : "0");
             }
             
             http_response_code(200);
-            echo json_encode(['success' => true, 'data' => $usermodel], JSON_NUMERIC_CHECK);
+            echo json_encode(['success' => true, 'data' => $userModel], JSON_NUMERIC_CHECK);
         }
         
         exit();

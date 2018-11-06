@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+	<li>3.2.3
+		<ul>
+			<li>Updated the PM Service Reminder email screen to handle email recipients better</li>
+		</ul>
+	</li>
 	<li>3.2.2
 		<ul>
 			<li>Updated help about screen</li>

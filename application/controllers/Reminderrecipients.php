@@ -25,7 +25,7 @@ class Reminderrecipients extends MY_Controller {
     }
     
     public function save() {
-        $this->Reminderrecipient_model->store($this->input->post());
+    	$this->Reminderrecipient_model->store($this->input->post());
         
         $this->load->library('session');
         
