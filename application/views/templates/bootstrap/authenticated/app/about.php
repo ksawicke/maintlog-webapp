@@ -5,6 +5,11 @@
 <br />
 
 <ul><strong>Application updates</strong>
+    <li>3.3.0
+        <ul>
+            <li>Adjusted settings to output errors to /application/logs/ folder. Folder path must be writable. Logs should automatically rotate daily. Filename will be in the format: log-YYYY-MM-DD.php</li>
+        </ul>
+    </li>
 	<li>3.2.3
 		<ul>
 			<li>Updated the PM Service Reminder email screen to handle email recipients better</li>

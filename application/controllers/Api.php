@@ -373,52 +373,71 @@ class Api extends REST_Controller
 	 * POST /api/upload_log_entries?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
 	public function upload_log_entries_post() {
-		$apiKey = $_REQUEST['api_key'];
+	    $apiKey = $_REQUEST['api_key'];
 		$postBody = file_get_contents('php://input');
 		$data = json_decode($postBody);
 
+        log_message('info', 'API Upload Log Entry attempted');
+        log_message('info', 'Data submitted: ' . $postBody);
+
 		if($apiKey==API_KEY) {
-			$this->load->model('Servicelog_model');
-			$this->load->model('Equipmentunit_model');
 
-			foreach($data as $ctr => $logentry) {
-				if($this->Servicelog_model->findCountByUUID((string) $logentry[0]->uuid)==0) {
-					$equipment_unit_id = $logentry[0]->unit_number;
-					$previous_smr = $this->Equipmentunit_model->findLastSMR($equipment_unit_id);
+		    try {
 
-					// Ensure we get the last SMR. We have to
-					// assume if the user was using the mobile app,
-					// they did not have network connectivity and
-					// the form did not have the previous SMR to
-					// submit here.
-					switch($logentry[0]->subflow) {
-						case 'sus':
-							$logentry[0]->sus_previous_smr = $previous_smr;
-							break;
+                $this->load->model('Servicelog_model');
+                $this->load->model('Equipmentunit_model');
 
-						case 'flu':
-							$logentry[0]->flu_previous_smr = $previous_smr;
-							break;
+                foreach($data as $ctr => $logentry) {
+                    if($this->Servicelog_model->findCountByUUID((string) $logentry[0]->uuid)==0) {
+                        $equipment_unit_id = $logentry[0]->unit_number;
+                        $previous_smr = $this->Equipmentunit_model->findLastSMR($equipment_unit_id);
 
-						case 'pss':
-							$logentry[0]->pss_smr_based_previous_smr = $previous_smr;
-							break;
+                        // Ensure we get the last SMR. We have to
+                        // assume if the user was using the mobile app,
+                        // they did not have network connectivity and
+                        // the form did not have the previous SMR to
+                        // submit here.
+                        switch($logentry[0]->subflow) {
+                            case 'sus':
+                                $logentry[0]->sus_previous_smr = $previous_smr;
+                                break;
 
-						case 'ccs':
-							$logentry[0]->ccs_previous_smr = $previous_smr;
-							break;
+                            case 'flu':
+                                $logentry[0]->flu_previous_smr = $previous_smr;
+                                break;
 
-					}
+                            case 'pss':
+                                $logentry[0]->pss_smr_based_previous_smr = $previous_smr;
+                                break;
 
-					$this->Servicelog_model->store((array) $logentry[0], 0);
-				}
-			}
+                            case 'ccs':
+                                $logentry[0]->ccs_previous_smr = $previous_smr;
+                                break;
 
-			$this->response([
-				'status' => TRUE,
-				'message' => 'OK'
-			], REST_Controller::HTTP_OK);
+                        }
+
+                        log_message('info', 'Saving Servicelog_model: ' . json_encode((array) $logentry[0]));
+
+                        $this->Servicelog_model->store((array) $logentry[0], 0);
+                    }
+                }
+
+                $this->response([
+                    'status' => TRUE,
+                    'message' => 'OK'
+                ], REST_Controller::HTTP_OK);
+
+            } catch ( \Exception $ex ) {
+
+                $errorMessage = 'API Upload Log Entry failed on line ' . $ex->getLine() . ' in ' . $ex->getFile() . ': ' . $ex->getMessage();
+                log_message('error', $errorMessage);
+
+            }
+
 		} else {
+
+            log_message('error', 'Invalid API credentials passed in');
+
 			$this->response([
 				'status' => FALSE,
 				'message' => 'Invalid credentials. Please try again.'
@@ -431,22 +450,42 @@ class Api extends REST_Controller
 	 * POST /api/upload_inspection_ratings?api_key=2b3vCKJO901LmncHfUREw8bxzsi3293101kLMNDhf HTTP/1.1
 	 */
 	public function upload_inspection_ratings_post() {
-		$apiKey = $_REQUEST['api_key'];
+        $apiKey = $_REQUEST['api_key'];
 		$postBody = file_get_contents('php://input');
 		$data = json_decode($postBody);
 
-		if($apiKey==API_KEY) {
-			$this->load->model('Inspectionrating_model');
-			$this->Inspectionrating_model->importInspectionratings($data->ratings);
+        log_message('info', 'API Upload Inspection Rating data attempted');
+        log_message('info', 'Data submitted: ' . $postBody);
 
-			$this->response([
-				'status' => TRUE,
-				'message' => 'OK',
-				'data' => $data,
-				'test' => $data->ratings,
-				'postBody' => $postBody
-			], REST_Controller::HTTP_OK);
+		if($apiKey==API_KEY) {
+
+		    try {
+
+                $this->load->model('Inspectionrating_model');
+
+                log_message('info', 'Importing Inspectionrating_model: ' . json_encode((array) $data->ratings));
+
+                $this->Inspectionrating_model->importInspectionratings($data->ratings);
+
+                $this->response([
+                    'status' => TRUE,
+                    'message' => 'OK',
+                    'data' => $data,
+                    'test' => $data->ratings,
+                    'postBody' => $postBody
+                ], REST_Controller::HTTP_OK);
+
+            } catch ( \Exception $ex ) {
+
+                $errorMessage = 'API Upload Inspection Rating data failed on line ' . $ex->getLine() . ' in ' . $ex->getFile() . ': ' . $ex->getMessage();
+                log_message('error', $errorMessage);
+
+            }
+
 		} else {
+
+            log_message('error', 'Invalid API credentials passed in');
+
 			$this->response([
 				'status' => FALSE,
 				'message' => 'Invalid credentials. Please try again.'
@@ -455,21 +494,41 @@ class Api extends REST_Controller
 	}
 
 	public function upload_inspection_smrupdates_post() {
-		$apiKey = $_REQUEST['api_key'];
+        $apiKey = $_REQUEST['api_key'];
 		$postBody = file_get_contents('php://input');
 		$data = json_decode($postBody);
 
-		if($apiKey==API_KEY) {
-			$this->load->model('Inspectionrating_model');
-			$this->Inspectionrating_model->doSMRUpdate($data->smrupdates);
+        log_message('info', 'API Upload Inspection SMR Updates data attempted');
+        log_message('info', 'Data submitted: ' . $postBody);
 
-			$this->response([
-				'status' => TRUE,
-				'message' => 'OK',
-				'data' => $data,
-				'postBody' => $postBody
-			], REST_Controller::HTTP_OK);
+		if($apiKey==API_KEY) {
+
+		    try {
+
+                $this->load->model('Inspectionrating_model');
+
+                log_message('info', 'Attempting SMR Update on Inspectionrating_model: ' . json_encode((array) $data->smrupdates));
+
+                $this->Inspectionrating_model->doSMRUpdate($data->smrupdates);
+
+                $this->response([
+                    'status' => TRUE,
+                    'message' => 'OK',
+                    'data' => $data,
+                    'postBody' => $postBody
+                ], REST_Controller::HTTP_OK);
+
+            } catch ( \Exception $ex ) {
+
+                $errorMessage = 'API Upload Inspection SMR Update data failed on line ' . $ex->getLine() . ' in ' . $ex->getFile() . ': ' . $ex->getMessage();
+                log_message('error', $errorMessage);
+
+            }
+
 		} else {
+
+            log_message('error', 'Invalid API credentials passed in');
+
 			$this->response([
 				'status' => FALSE,
 				'message' => 'Invalid credentials. Please try again.'
@@ -544,11 +603,15 @@ class Api extends REST_Controller
 //			$copied = true;
 //		}
 
+        log_message('info', 'API Upload Inspection Image data attempted');
+
 		$filepath = $this->rootDir . $this->appDir .
 			$this->uploadsInspectionImagesDir . "/" .
 			$_POST['inspectionId'];
 
 		if (!file_exists($filepath)) {
+            log_message('info', 'Created filepath: ' . $filepath);
+
 			mkdir($filepath, 0777, true);
 		}
 
@@ -558,30 +621,55 @@ class Api extends REST_Controller
 		if (!is_uploaded_file($_FILES['upload']['tmp_name']) or
 			!copy($_FILES['upload']['tmp_name'], $filename)) {
 			$message = "Could not save file as $filename!";
+
+            log_message('error', $message);
 		} else {
 			$copied = true;
-			$message = "Uploaded image successfully!";
+			$message = "Uploaded image successfully with filename: " . $filename;
+
+            log_message('info', $message);
 		}
 
 		if($apiKey==API_KEY && $copied) {
-			$this->load->model('Inspectionimage_model');
-			$this->Inspectionimage_model->importInspectionimage($_POST);
 
-			$this->response([
-				'status' => TRUE,
-				'message' => $message
-			], REST_Controller::HTTP_OK);
+		    try {
+
+                $this->load->model('Inspectionimage_model');
+
+                log_message('info', 'Attempting import of Inspection Image with Inspectionimage_model: ' . json_encode((array) $_POST));
+
+                $this->Inspectionimage_model->importInspectionimage($_POST);
+
+                $this->response([
+                    'status' => TRUE,
+                    'message' => $message
+                ], REST_Controller::HTTP_OK);
+
+            } catch ( \Exception $ex ) {
+
+                $errorMessage = 'API Upload Inspection Image data failed on line ' . $ex->getLine() . ' in ' . $ex->getFile() . ': ' . $ex->getMessage();
+                log_message('error', $errorMessage);
+
+            }
+
 		} else if ($apiKey==API_KEY && !$copied) {
+
+            log_message('error', 'Inspection Image not copied: ' . json_encode((array) $_FILES));
+
 			$this->response([
 				'status' => FALSE,
 				'message' => $message,
 				'data' => [ 'files' => $_FILES, 'post' => $_POST ]
 			], REST_Controller::HTTP_EXPECTATION_FAILED);
 		} else {
+
+            log_message('error', 'Invalid API credentials passed in');
+
 			$this->response([
 				'status' => FALSE,
 				'message' => 'Invalid credentials. Please try again.'
 			], REST_Controller::HTTP_UNAUTHORIZED);
+
 		}
 	}
 
